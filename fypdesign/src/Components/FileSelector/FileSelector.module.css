@@ -1,0 +1,7 @@
+input::file-selector-button {
+    font-weight: bold;
+    color: dodgerblue;
+    padding: 0.5em;
+    border: 1px solid rgb(138, 25, 231);
+    border-radius: 3px;
+}
