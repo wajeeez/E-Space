@@ -40,7 +40,7 @@
 // });
 
 // module.exports = router;
-const Assignment = require('./../models/assignmentTeacher'); // Import the Assignment model
+const Submission = require('./../models/stdsubmissionFile'); // Import the Assignment model
 const multer = require('multer');
 const { Readable } = require('stream');
 const mongoose = require('mongoose');
@@ -48,11 +48,11 @@ const { GridFSBucket } = require('mongodb');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const fileSchema = require("./../models/assignementFile")
+const stdAssignmentFile = require("./../models/stdassignmentFile")
 
 // Create a MongoMemoryServer instance f
 
-async function UploadAssignment(req, res, next) {
+async function StdAssignmentUpload(req, res, next) {
   try {
     // Check if a file was uploaded
     if (!req.file) {
@@ -60,10 +60,12 @@ async function UploadAssignment(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, subjectName, deadline } = req.body;
+    const { Email ,classId,assignmentFileURL,  deadline } = req.body;
 
 
-    const file = new fileSchema({
+    const file = new stdAssignmentFile({
+      email:Email,
+      classId:classId,
       name: originalname,
       data: buffer,
       contentType: mimetype,
@@ -73,14 +75,14 @@ async function UploadAssignment(req, res, next) {
     const savedFile = await file.save();
 
     // Access the _id field of the saved file
-    const fileURL = savedFile._id;
-    console.log(fileURL)
+    const submissionFileURL = savedFile._id;
+    console.log(submissionFileURL)
 
-    const newAssignment = new Assignment({
+    const newAssignment = new Submission({
+      Email,
       classId,
-      teacherID,
-      subjectName,
-      fileURL,
+      assignmentFileURL,
+      submissionFileURL,
       deadline, // Save the deadline in the Assignment model
     });
 
@@ -94,4 +96,4 @@ async function UploadAssignment(req, res, next) {
   }
 };
 
-module.exports = UploadAssignment;
+module.exports = StdAssignmentUpload;

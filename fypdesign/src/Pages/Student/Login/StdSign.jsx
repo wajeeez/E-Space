@@ -22,7 +22,7 @@ function StdSign() {
   const handleLogin = async () => {
     const data = {
       email: values.email,
-
+      password:values.password
     };
  
 
@@ -47,7 +47,6 @@ function StdSign() {
 
    
     }else{
-     
         setError("Network Error 404");
       
     }
@@ -88,7 +87,7 @@ function StdSign() {
         // error={errors.email && touched.email ? 1 : undefined}
         errormessage={errors.email}
       />
-      {/* <TextInput
+      <TextInput
         type="password"
         name="password"
         value={values.password}
@@ -97,7 +96,7 @@ function StdSign() {
         placeholder="password"
         // error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
-      /> */}
+      />
       <span>
         {error != "" ? <p className={styles.errorMessage}>{error}</p> : ""}
       </span>

@@ -1,44 +1,46 @@
-const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
-
+const express = require("express");
 const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
-
-const cors = require('cors');
-
-app.use(cors());
+const server = require("http").Server(app);
+const { v4: uuidv4 } = require("uuid");
+app.set("view engine", "ejs");
 
 
 
-io.on('connection', (socket) => {
-  console.log('User connected:', socket.id);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: '*'
+  }
+});
+const { ExpressPeerServer } = require("peer");
+const opinions = {
+  debug: true,
+}
 
-  socket.on('join', (room) => {
-    socket.join(room);
-    socket.to(room).emit('userJoined', socket.id);
-  });
+app.use("/peerjs", ExpressPeerServer(server, opinions));
+app.use(express.static(__dirname+"public"));
 
-  socket.on('offer', (data) => {
-    socket.to(data.room).emit('offer', data.offer, socket.id);
-  });
+app.get("/", (req, res) => {
 
-  socket.on('answer', (data) => {
-    socket.to(data.room).emit('answer', data.answer, socket.id);
-  });
+ res.json('WORKING OWOW')
+});
+app.get("/:classId", (req, res) => {
+  res.render("room", { classId: req.params.classId });
+});
+// app.get("/:room", (req, res) => {
+//   res.render("room", { roomId: req.params.room });
+// });
 
-  socket.on('candidate', (data) => {
-    socket.to(data.room).emit('candidate', data.candidate, socket.id);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
-    socket.broadcast.emit('userLeft', socket.id);
+io.on("connection", (socket) => {
+  socket.on("join-room", (classId, userId, userName) => {
+    socket.join(classId);
+    setTimeout(()=>{
+      socket.to(classId).broadcast.emit("user-connected", userId);
+    }, 1000)
+    socket.on("message", (message) => {
+      io.to(classId).emit("createMessage", message, userName);
+    });
+    
   });
 });
 
-const port = 5001;
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+server.listen(process.env.PORT || 5000 );

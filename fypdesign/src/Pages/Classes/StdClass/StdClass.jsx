@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import jwt_decode from "jwt-decode";
 import styles from "./Class.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,39 @@ function StdClass() {
   const [email, setEmail] = useState(null);
   const [classes, setClasses] = useState([]);
   const { _id } = useParams();
+
+  //
+  
+  const [stdEmail, setstdEmail] = useState(null);
+ // const [classes, setClasses] = useState([]);
+  const [StudentName,setStudentName]=useState([]);
+  
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("StdToken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setEmail(decodedToken.email);
+    
+
+      // Fetch classes for the logged-in user from the server
+      axios
+        .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
+        .then((response) => {
+          console.log(response.data.response);
+          setstdEmail(response.data.response.stdEmail)
+          setStudentName(response.data.response.stdName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+
+
+
+
 
   useEffect(() => {
     axios
@@ -42,6 +75,9 @@ function StdClass() {
 
 
 
+
+
+
   
 
   return (
@@ -49,6 +85,9 @@ function StdClass() {
       <center>
         <p className={styles.Intro}>
           Teacher Name : {name} | Class: {classes} | Email :{email}
+        </p>
+        <p className={styles.Intro}>
+          Student Name : {StudentName} | Email :{stdEmail}
         </p>
         <br />
         <br />

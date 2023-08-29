@@ -5,7 +5,6 @@ import styles from "./TSigin.module.css";
 import TextInput from "../../../Components/TextInput/TextInput";
 import loginSchema from "../../../schema/loginschema";
 import { useFormik } from "formik";
-
 import { login } from "../../../api/internal";
 
 import { setUser } from "../../../store/userSlice";
@@ -33,7 +32,7 @@ function TSignin() {
         auth: response.data.teacher.auth,
       };
       localStorage.setItem("authToken", response.data.token);  
-       dispatch(setUser(teacher));
+      dispatch(setUser(teacher));
       navigate("/TDashboard");
     } else if (response.code === "ERR_BAD_REQUEST") {
       // setError(response.response.mes);

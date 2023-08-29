@@ -78,5 +78,37 @@ export const stdLogin =async (data) =>{
     }
 
     return response;
-}
+};
   
+
+
+export const TeacherAssignmentUpload = async(data)=>{
+  let response;
+  try{
+
+    response=await axios.post('http://localhost:5000/teacher/assignments/upload',data)
+      
+  }catch(error){
+    console.log(error)
+    return error;
+  }
+  
+  return response;
+};
+
+
+
+export const StudentSubmissions = async(data)=>{
+  let response;
+  try{
+
+    response=await axios.post('http://localhost:5000/student/assignments/upload',data)
+      
+  }catch(error){
+    console.log(error)
+    return error;
+  }
+  
+  return response;
+}
+

@@ -6,8 +6,17 @@ const errorHandler=require('./middleware/errorhandler')
 const router = require('./routes/routes')
 const cookieParser =require('cookie-parser')
 const {PORT} =require('./config/config')
+const multer = require('multer');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const { GridFSBucket } = require('mongodb');
+const { Readable } = require('stream');
+const Assignment = require('./models/assignmentTeacher');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 
+// const upload = multer({ dest: 'uploads/' });
 
 const corsOptions ={
     credential:true,
@@ -17,73 +26,144 @@ const corsOptions ={
 const app = express();
 
 app.use(cors(corsOptions));
-
 app.use(cookieParser())
-
-
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(upload.single('file'));
 app.use(router)
-
-
-  
-
-
 app.use(express.urlencoded({ extended: true }));
-
 app.use(errorHandler)
 
 
 
-// //LOGIN POST REQUEST
+// const Assignment = require('./models/assignmentTeacher'); // Import the Assignment model
+//. Other server setup ...
 
-// app.post("/teacher/login", async (req, res) => {
-//   //Todo change attributes
+// Route to handle file downloads
+const File = require("./models/assignementFile")
+app.get('/files/:id', async (req, res) => {
+  try {
+    const fileId = req.params.id;
+    const file = await File.findById(fileId);
 
-//   const { email, password } = req.body;
+    if (!file) {
+      return res.status(404).json({ message: 'File not found' });
+    }
 
-//   try {
-//     const check = await collection.findOne({ email: email });
+    res.setHeader('Content-Type', file.contentType);
+    res.send(file.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving file' });
+  }
+});
 
-//     if (check) {
-//       res.json("exist");
-//     } else {
-//       res.json("notexist");
-//     }
-//   } catch (e) {
-//     res.json("notexist");
+
+// app.get('/send-email', (req, res) => {
+//   const to = 'qfaaf@gmail.com'; // Replace with the recipient's email address
+  
+//   sendEmail(to, subject, text);
+
+//   res.send('Email sent!');
+// });
+// app.use(cors())
+
+// const server = require("http").Server(app);
+// const { v4: uuidv4 } = require("uuid");
+// app.set("view engine", "ejs");
+
+
+
+
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: '*'
 //   }
 // });
+// const { ExpressPeerServer } = require("peer");
+// const opinions = {
+//   debug: true,
+// }
 
-// //SIGNUP POST REQUEST
+// app.use("/peerjs", ExpressPeerServer(server, opinions));
+// app.use(express.static("public"));
 
-// app.post("/teacher/signup", async (req, res) => {
-
-//   //Todo change attributes
-
-//   const{name,institute,phone,email,password}=req.body
-
-//   const data={
-//     tname:name,
-//     institute:institute,
-//     phone:phone,
-//     email:email,
-//     password:password,
-//   }
-
-//   try {
-//     const check = await collection.findOne({ email: email });
-
-//     if (check) {
-//       res.json("exist");
-//     } else {
-//       res.json("notexist");
-//       await collection.insertMany([data])
-//     }
-
-//   } catch (e) {
-//     res.json("notexist");
-//   }
-
+// app.get("/", (req, res) => {
+//   res.json({ msg: "Working Alright" })
 // });
 
-app.listen(PORT, () => console.log("Backend is running"));
+
+// // app.get("/:room", (req, res) => {
+// //   res.render("room", { roomId: req.params.room });
+// // });
+
+
+// app.get("/:classId", (req, res) => {
+//   res.render("room", { classId: req.params.classId });
+// });
+
+// io.on("connection", (socket) => {
+//   socket.on("join-room", (classId, userId, userName) => {
+//     socket.join(classId);
+//     setTimeout(()=>{
+//       socket.to(classId).broadcast.emit("user-connected", userId);
+//     }, 3000)
+//     socket.on("message", (message) => {
+//       io.to(classId).emit("createMessage", message, userName);
+//     });
+//   });
+// });
+
+
+app.listen(PORT, () => console.log("Backend is running"+{PORT}));
+
+
+
+
+
+// const express = require("express");
+// const app = express();
+// const server = require("http").Server(app);
+// const { v4: uuidv4 } = require("uuid");
+// app.set("view engine", "ejs");
+
+
+
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: '*'
+//   }
+// });
+// const { ExpressPeerServer } = require("peer");
+// const opinions = {
+//   debug: true,
+// }
+
+// app.use("/peerjs", ExpressPeerServer(server, opinions));
+// app.use(express.static("public"));
+
+// app.get("/", (req, res) => {
+
+//  res.json('WORKING OWOW')
+// });
+// app.get("/:classId", (req, res) => {
+//   res.render("room", { classId: req.params.classId });
+// });
+// // app.get("/:room", (req, res) => {
+// //   res.render("room", { roomId: req.params.room });
+// // });
+
+// io.on("connection", (socket) => {
+//   socket.on("join-room", (classId, userId, userName) => {
+//     socket.join(classId);
+//     setTimeout(()=>{
+//       socket.to(classId).broadcast.emit("user-connected", userId);
+//     }, 1000)
+//     socket.on("message", (message) => {
+//       io.to(classId).emit("createMessage", message, userName);
+//     });
+    
+//   });
+// });
+
+// server.listen(process.env.PORT || 5000 );

@@ -1,5 +1,7 @@
 import "./App.module.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import  MeetCheck from "./Pages/MeetCheck";
+// import myImage from '../public/logo192.png'
 
 import Main from "./Pages/Main/Main";
 import StdSign from "./Pages/Student/Login/StdSign";
@@ -12,13 +14,13 @@ import CreateClass from "./Pages/Classes/Create/CreateClass";
 import Class from './Pages/Classes/Class/Class'
 import StdClass from './Pages/Classes/StdClass/StdClass'
 import Meeting from "./Pages/MeetingApi/Meeting";
-
+import Assignment from "./Pages/Teacher/Assignment/Assignment"
 import StdAssignment from "./Pages/Student/Assignment/stdAssignment";
-
 import StdDashboard from "./Pages/Student/Dashboard/StdDashboard"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Room from "./Pages/MeetingApi/Room";
+// import MeetFront from "./Pages/CustomMeeting/Meeting/MeetFront";
 function PrivateRoute({ component: Component }) {
   const navigate = useNavigate();
   
@@ -101,9 +103,6 @@ function PrivateRoute4({ component: Component }) {
 
 
 
-
-
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -124,7 +123,6 @@ const router = createBrowserRouter([
   element: <PrivateRoute2 component={StdDashboard} />,
 
   },
-
 
   {
     path: "/teacher",
@@ -170,6 +168,10 @@ const router = createBrowserRouter([
   {
     path: "/:classes/meeting/:roomID",
     element: <Room />,
+  },
+  {
+    path: "/teacher/class/Assignments/:_id",
+    element: <Assignment/>,
   }
 ]);
 
@@ -177,7 +179,11 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-  
+      {/* <MeetFront></MeetFront> */}
+     
+      {/* <img src="/logo192.png" alt="Description of the image" />
+    */}
+
     </>
   );
 }
@@ -311,7 +317,7 @@ export default App;
 
 //   return (
 //     <div>
-//       <h2>Video Meeting App</h2>
+//  <h2>Video Meeting App</h2>
 //       <div>
 //         <input
 //           type="text"
