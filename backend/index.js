@@ -14,18 +14,27 @@ const { Readable } = require('stream');
 const Assignment = require('./models/assignmentTeacher');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
+const stdAssignmentFile =require("./models/stdassignmentFile")
 
 // const upload = multer({ dest: 'uploads/' });
 
-const corsOptions ={
-    credential:true,
-    origin:['http://localhost:3000']
-}
+// const corsOptions ={
+//     credential:true,
+//     origin:"*"
+// }
 
 const app = express();
 
+const corsOptions = {
+
+  origin: "*",
+  'Access-Control-Allow-Origin': 'http://localhost:3000',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  credentials: true,
+};
+
 app.use(cors(corsOptions));
+
 app.use(cookieParser())
 app.use(express.json());
 app.use(bodyParser.json());
@@ -40,11 +49,32 @@ app.use(errorHandler)
 //. Other server setup ...
 
 // Route to handle file downloads
-const File = require("./models/assignementFile")
+const File = require("./models/assignementFile");
+const Submission = require("./models/stdsubmissionFile");
+const stdassignmentFile = require("./models/stdassignmentFile");
 app.get('/files/:id', async (req, res) => {
   try {
     const fileId = req.params.id;
     const file = await File.findById(fileId);
+
+    if (!file) {
+      return res.status(404).json({ message: 'File not found' });
+    }
+
+       res.setHeader('Content-Type', file.contentType);
+
+    res.send(file.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving file' });
+  }
+});
+
+
+app.get('/submission/:id', async (req, res) => {
+  try {
+    const fileId = req.params.id;
+    const file = await stdAssignmentFile.findById(fileId);
 
     if (!file) {
       return res.status(404).json({ message: 'File not found' });
@@ -57,7 +87,6 @@ app.get('/files/:id', async (req, res) => {
     res.status(500).json({ message: 'Error retrieving file' });
   }
 });
-
 
 // app.get('/send-email', (req, res) => {
 //   const to = 'qfaaf@gmail.com'; // Replace with the recipient's email address

@@ -13,6 +13,10 @@ const {ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET} = require('../config/config');
 const StudentModel = require("../models/studentModel");
 const Submission = require("../models/stdsubmissionFile");
 const stdAssignmentFile = require("../models/stdassignmentFile")
+
+const passwordPattern =
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~`\-={}[\]:;"'<>,.?/])(?!.*\s).{8,}$/;
+
 const StudentAuth ={
 
 
@@ -21,17 +25,18 @@ const StudentAuth ={
     //
     const StudentLoginSchema = Joi.object({
       email: Joi.string().email().required(),
-      password:Joi.string(),
-    //   password: Joi.string().pattern(passwordPattern).required(),
+    //  password:Joi.string().required(),
+      password: Joi.string().pattern(passwordPattern).required(),
     });
     const { error } = StudentLoginSchema.validate(req.body);
 
     if (error) {
-      const err = {
-        status: 401,
-        message: "Invalid Email ",
-      };
-      return next(err);
+      console.log(error)
+      // const err = {
+      //   status: 401,
+      //   message: "Invalid Email ",
+      // };
+      return next(error);
     }
 
     const { email, password } = req.body;
@@ -42,10 +47,11 @@ const StudentAuth ={
       //Emain and Password Match
   //    response = await classes.find({ students: email });
       response = await StudentModel.findOne({ stdEmail: email,password:password });
+    
       if (!response) {
         const error = {
           status: 401,
-          message: "Invalid Email ID ",
+          message: "Invalid Email ID or Password ",
         };
         return next(error);
       }
@@ -129,20 +135,11 @@ const StudentAuth ={
 
   async getSubmittedAssignment(req,res,next){
 
-    const {fileURL,Email} = req.body;
-    
-    const response = await Submission.findOne({assignmentFileURL:fileURL,Email:Email})
-
-  
-    
-    if(!response){
-      res.status(500).json({ error: 'Error fetching '+response+fileURL+Email });
-    }else{
-      console.log(response.submissionFileURL)
+    const {fileURL} = req.query
 
       //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
 
-      const file = await stdAssignmentFile.findById({_id:response.submissionFileURL});
+      const file = await stdAssignmentFile.findById({_id:fileURL});
 
       if (!file) {
         return res.status(404).json({ message: 'File not found' });
@@ -153,11 +150,35 @@ const StudentAuth ={
 
       //const submitURL = response.data.Submission;
       
-    }
+    
 
 
 
   },
+
+  async getSubmissionFileURL(req, res, next) {
+    const { Email, classId } =  req.query;
+  
+    // Check if Email or classId is null or undefined
+    if (!Email || !classId) {
+      return res.status(400).json({ error: 'Email and classId are required' });
+    }
+  
+    const response = await Submission.find({ Email, classId });
+  
+    if (!response) {
+      return res.status(200).json({ error: 'NO SUBMISSION', response });
+    } else {
+      return res.json({ response });
+    }
+  },
+  
+
+
+
+
+
+
 
   async CheckSubmissionAvailable(req,res,next){
 
@@ -173,6 +194,36 @@ const StudentAuth ={
     }
 
 
-  }
+  },
+
+
+
+  async getAllSubmission(req,res,next){
+
+    const {classId,fileURL} = req.query
+
+      //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
+
+      const file = await Submission.find({assignmentFileURL:fileURL,classId:classId});
+
+      if (!file) {
+        return res.status(404).json({ message: 'File not found' });
+      }
+  
+     
+      res.json(file);
+
+      //const submitURL = response.data.Submission;
+    
+
+  },
+
+
+
+
+
+
+
+
 }
 module.exports = StudentAuth;

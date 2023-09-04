@@ -49,7 +49,7 @@ const TeacherCreateClass = {
       teacherID: Joi.string().required(),
       teacherEmail: Joi.string().email().required(),
       subjectName: Joi.string().required(),
-      students: Joi.array().items(Joi.string()).required(),
+      students: Joi.array().items(Joi.string()).min(1).required(),
     });
 
     const { error } = createclass.validate(req.body);

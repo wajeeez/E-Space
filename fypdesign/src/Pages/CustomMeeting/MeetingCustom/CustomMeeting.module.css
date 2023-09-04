@@ -1,0 +1,16 @@
+/* In your component's CSS or a separate CSS file */
+.fullscreen_iframe_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* Set a background color if needed */
+    z-index: 1000; /* Adjust the z-index as needed */
+  }
+  
+  .fullscreen_iframe {
+    width: 100%;
+    height: 100%;
+  }
+  

@@ -42,12 +42,12 @@ function StdSign() {
 
 
       }else{
-        setError("Email is not Registered by any teacher");
+        setError(response.response.data.message);
       }
 
    
     }else{
-        setError("Network Error 404");
+        setError(response.response.data.message);
       
     }
   };

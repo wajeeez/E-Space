@@ -6,6 +6,7 @@ import styles from './StdDashboard.module.css'
 import { useEffect, useState } from "react";
 function StdDashboard() {
 
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const [email, setEmail] = useState(null);
   const [classes, setClasses] = useState([]);
   const [StudentName,setStudentName]=useState([]);

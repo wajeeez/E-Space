@@ -9,6 +9,10 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  studentEmails:{
+    type:[String],
+
+  },
   subjectName: {
     type: String,
     required: true,
@@ -16,6 +20,9 @@ const assignmentSchema = new mongoose.Schema({
   fileURL: {
     type: String,
     required: true,
+  },
+  submissionURL:{
+    type:[String],
   },
   deadline: {
     type: Date,

@@ -4,14 +4,9 @@ import styles from "./Class.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import io from 'socket.io-client';
-
-
-
-
-
 function Class() {
-
+  
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
 
   const navigate = useNavigate()
   const [name, setName] = useState(null);
@@ -19,10 +14,14 @@ function Class() {
   const [email, setEmail] = useState(null);
   const [classes, setClasses] = useState([]);
   const { _id } = useParams();
+  const handleRedirect = () => {
+    // Redirect to the third-party URL
+    window.location.href = `http://localhost:3030/${_id}`;
+  };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/teacher/class/${_id}`)
+      .get(baseURL+`/teacher/class/${_id}`)
       .then((response) => {
         setStd(response.data.response.students);
         setName(response.data.response.teacherName);
@@ -33,56 +32,31 @@ function Class() {
       });
   }, []);
 
-  
-
-  const handleStartMeeting = () => {
-    const socket = io('http://localhost:5000'); // Replace with your Socket.IO server URL
-
-    // Socket event listeners
-    socket.on('connect', () => {
-      console.log('Connected to Socket.IO server');
-      // You can emit the 'join' event here or perform other actions
-      // based on your application's requirements.
-      // Example:
-      socket.emit('join', 'roomName'); // Replace 'roomName' with the actual room name
-    });
-
-    socket.on('userJoined', (userId) => {
-      console.log('User joined:', userId);
-      // Handle the user joined event
-    });
-
-    // Add more event listeners as needed
-
-    // Clean up socket connection when component unmounts
-    return () => {
-      socket.disconnect();
-    };
-  };
-
-
-
-  const handleRedirect = () => {
-    // Redirect to the third-party URL
-    window.location.href = `http://localhost:3030/${_id}`;
-  };
-
   return (
     <div>
       <center>
         <p className={styles.Intro}>
           Teacher Name : {name} | Class: {classes}
         </p>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        {/* Start Meeting Using API Runing  */}
         <button className={styles.meet}
-          onClick={handleRedirect
-            // navigate(`/${classes}/meeting/${_id}`)
-          }
+          onClick={()=>{
+            navigate(`/${classes}/meeting/${_id}`)
+          }}
         >Start Meeting 1</button>
-        <button className={styles.meet}>Start Meeting 2</button>
+
+        {/* Start Meeting using Custom Code Socket.io */}
+        <button className={styles.meet} 
+        onClick={handleRedirect}
+        // onClick={()=>{
+        // //  navigate(`/custom/${classes}/meeting/${_id}`)
+        
+        // }}
+        >Start Meeting 2 </button>
         <button className={styles.button}
         onClick={()=>{
           navigate(`/teacher/class/Assignments/${_id}`)

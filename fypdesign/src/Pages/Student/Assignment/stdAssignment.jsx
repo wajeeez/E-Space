@@ -8,6 +8,8 @@ import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
 
 const StdAssignment = () => {
+
+  const [getFileURL,setFileURL] = useState(null)
   const currentDate = new Date(); // Get the current date
   const [selectedFile, setSelectedFile] = useState(null);
   const [assignments, setAssignments] = useState([]);
@@ -22,9 +24,42 @@ const StdAssignment = () => {
   const [StudentName,setStudentName] = useState();
   const [Subbtn,setSubbtn] = useState(false);
 
-
+  
    //SubmisionBTn 
-   
+
+//getting submission files 
+const [submissionMapping, setSubmissionMapping] = useState({});
+
+// Function to update the submission mapping
+const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
+  setSubmissionMapping((prevMapping) => ({
+    ...prevMapping,
+    [assignmentFileURL]: submissionFileURL,
+  }));
+};
+
+  
+useEffect(() => {
+  const authToken = localStorage.getItem("StdToken");
+  if (authToken) {
+    const decodedToken = jwt_decode(authToken);
+    setEmail(decodedToken.email);
+  
+
+    // Fetch classes for the logged-in user from the server
+    axios
+      .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
+      .then((response) => {
+        console.log(response.data.response);
+        setStudentName(response.data.response.stdName);
+      
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}, []);
+
  
 
 
@@ -50,26 +85,6 @@ const StdAssignment = () => {
 
 
 
-    useEffect(() => {
-      const authToken = localStorage.getItem("StdToken");
-      if (authToken) {
-        const decodedToken = jwt_decode(authToken);
-        setEmail(decodedToken.email);
-      
-  
-        // Fetch classes for the logged-in user from the server
-        axios
-          .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
-          .then((response) => {
-            console.log(response.data.response);
-            setStudentName(response.data.response.stdName);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    }, []);
-  
 
     //SUbmission
 
@@ -80,20 +95,17 @@ const StdAssignment = () => {
           const decodedToken = jwt_decode(authToken);
           setEmail(decodedToken.email);
   
-          const data = {
-            fileURL: fileURL,
-            Email:decodedToken.email
-          };
-  
+        
+
          
           axios
-            .get(`http://localhost:5000/student/submitted`,data)
+            .get(`http://localhost:5000/student/submitted`,{params:{
+              fileURL: fileURL,
+            }},{ responseType: 'blob' })
             .then((response) => {
               console.log(response);
-              if(response!=null){
-                setSubbtn(true);
+              
              
-              }
            
               const blob = new Blob([response.data], { type: response.headers['content-type'] });
               const blobURL = URL.createObjectURL(blob);
@@ -144,7 +156,7 @@ const StdAssignment = () => {
           //   return accumulator;
           // }, {});
           setAssignments(response.data);
-
+         
 
         }
       })
@@ -162,7 +174,7 @@ const StdAssignment = () => {
 
   console.log(selectedFile)
 
-  const submit_assignment = async (fileURL) => {
+  const submit_assignment = async () => {
 
     setDialogVisible(false)
 
@@ -174,7 +186,7 @@ const StdAssignment = () => {
       formData.append('file', selectedFile);
       formData.append('Email',stdEmail)
       formData.append('classId', _id);
-      formData.append('assignmentFileURL', fileURL)
+      formData.append('assignmentFileURL', getFileURL)
       formData.append('deadline', currentDate); // Append the deadline value
       for (const entry of formData.entries()) {
         console.log(entry[0], entry[1]);
@@ -189,6 +201,10 @@ const StdAssignment = () => {
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
         }
+
+        setTimeout(() => {
+          window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
+        }, 2000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
         console.log("BAD REQUES")
@@ -233,33 +249,7 @@ const StdAssignment = () => {
   };
 
 //Submisision Btn
-  useEffect(() => {
-    // const authToken = localStorage.getItem("StdToken");
-   
-    //   const decodedToken = jwt_decode(authToken);
-    //   setEmail(decodedToken.email);
-    
-    const data={
-      // Email:decodedToken.email,
-      classId:_id,
-      
-    }
-    console.log(data);
-
-    axios
-      .get(`http://localhost:5000/student/isSubmission`,data)
-      .then((response) => {
-          if(response){
-
-            setSubbtn(true)
-          }
-       
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
+ 
 
 
   
@@ -272,7 +262,38 @@ const StdAssignment = () => {
     axios
       .get(`http://localhost:5000/files/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
+       
+       
+       
+       
+       // console.log(response.data.response.name)
+        
 
+        
+
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const blobURL = URL.createObjectURL(blob);
+        console.log(blobURL)
+        console.log(response.name)
+        
+        window.open(blobURL, '_blank');
+        URL.revokeObjectURL(blobURL);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+  const openFile = (fileURL) => {
+
+    console.log(fileURL)
+
+    axios
+      .get(`http://localhost:5000/submission/${fileURL}`, { responseType: 'blob' })
+      .then((response) => {
+
+        
         
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
@@ -285,20 +306,88 @@ const StdAssignment = () => {
   };
 
 
-
-  const getSubmmitedAssignment= async (fileURL) =>{
-
-
-  }
+  
 
 
+  //CHECKING IF ANY ASSIGNMENT WAS UPLOADED BY STUDENT
+  useEffect(() => {
+    const authToken = localStorage.getItem('StdToken');
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      const Email = decodedToken.email;
+      const classId=_id;
+
+      
+      if (Email && classId) { // Check if both userEmail and _id are truthy
+        const data = {
+          classId,
+          Email
+        };
+  
+        axios
+        .get('http://localhost:5000/student/getSubmitedFileURL', {
+          params: {
+            classId,
+            Email,
+          },
+        })
+          .then((response) => {
+            if (response.data && response.data.response) {
+
+              const responses = response.data.response; // Assuming response.data.response is an array
+
+              responses.forEach((assignment) => {
+                const assignmentFileURL = assignment.assignmentFileURL;
+                const submissionFileURL = assignment.submissionFileURL;
+          
+                // Call updateSubmissionMapping for each assignment
+                updateSubmissionMapping(assignmentFileURL, submissionFileURL);
+              });
+
+           
+              // console.log(response.data.response.assignmentFileURL)
+              // const submissionFileURL = response.data.response.submissionFileURL;
+              // console.log(response.data)
+              // updateSubmissionMapping(response.data.response.assignmentFileURL, submissionFileURL);
+              console.log(submissionMapping);
+          
+  
+
+  
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }else{
+        console.log("EMAIL OR CLASSID is not AVAILABLE")
+      }
+    }
+  
+
+
+
+  }, []);
+
+
+  const handleSubmissionClick = (assignmentFileURL) => {
+    // Handle the submission for the specific assignment
+    console.log(`Clicked on assignment: ${assignmentFileURL}`);
+    setFileURL(assignmentFileURL)
+    openDialog()
+
+  };
 
   return (
     <div style={{ backgroundColor: 'transparent' }}>
       <center>
 
-        <h1>Student Assignments</h1>
-        <p className={styles.Intro}>
+    
+    
+
+        <h1 style={{margin:'20px'}}>Student Assignments</h1>
+
+        <p style={{margin:'20px'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
         </p>
         <table>
@@ -314,8 +403,10 @@ const StdAssignment = () => {
           <tbody >
             {assignments.map((assignment, index) =>
 
-
-            (<>
+           
+            ( 
+            <>
+            
               <tr className={styles.tr} key={assignment.fileURL}>
 
                 <td className={styles.td} >{index + 1}</td>
@@ -325,13 +416,15 @@ const StdAssignment = () => {
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}>Assignment File</button>
                 </td>
                 <td className={styles.td}>
-                  {Subbtn && (
-                      
-                  <button   className={styles.assignmentButton}
-                  onClick={getSubmission.bind(null, assignment.fileURL)}>Submission File</button>
-
+                
+                
+                {submissionMapping[assignment.fileURL] ? (
+                    <button  className={styles.assignmentButton} onClick={ openFile.bind(null,assignment.submissionURL)}>
+                      Submission File
+                    </button>
+                  ) : (
+                    'No Submission'
                   )}
-               
                 </td>
 
                 <td className={styles.td}>
@@ -339,7 +432,10 @@ const StdAssignment = () => {
 
 
                   {currentDate <= new Date(assignment.deadline) ? (
-                    <button  className={styles.submissionButton} onClick={openDialog}>Submit</button>
+                    // <button  className={styles.submissionButton} onClick={openDialog}>Submit</button>
+                     <button className={styles.submissionButton} onClick={() => handleSubmissionClick(assignment.fileURL)}>
+                  SUBMIT
+                </button>
                   ) : (
                     <button className={styles.submissionButton}   style={{ backgroundColor: '#fc1100', color: '#000' }}>Deadline Exceeded</button>
                   )}
@@ -357,7 +453,7 @@ const StdAssignment = () => {
                       ref={fileInputRef}
                       onChange={handleFileChange}
                     />
-                    <button onClick={submit_assignment.bind(null, assignment.fileURL)}>Submit</button>
+                    <button onClick={submit_assignment}>Submit</button>
                     <button onClick={closeDialog}>Cancel</button>
                   </div>
                 </div>

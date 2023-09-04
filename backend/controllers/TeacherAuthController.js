@@ -122,7 +122,7 @@ const TeacherAuthController = {
     try {
       //Emain and Password Match
       teacher = await Teacher.findOne({ email: email });
-     console.log(teacher._id)
+     
       if (!teacher) {
         const error = {
           status: 401,

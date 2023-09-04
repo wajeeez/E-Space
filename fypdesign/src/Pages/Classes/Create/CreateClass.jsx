@@ -56,39 +56,49 @@ function CreateClass() {
   },[tid]);
 
   const handleReg = async () => {
+
+
+    if(values.students==null || values.subjectName == null)
+    {
+
+      setError("Please Provide Details")
+    }else{
+      const data = {
+        teacherName: name,
+        teacherID: tid,
+        teacherEmail: email,
+        subjectName: values.subjectName,
+        students: values.students,
+      };
+      const response = await createclass(data);
+     
+     
+      if (response.status === 409) {
+        setError(response.response.data.message);
+      }
+      if (response.status === 201) {
+        const teacher = {
+          _id: response.data.createclassDto._id,
+          email: response.data.createclassDto.teacherEmail,
+          auth: response.data.createclassDto.auth,
+        };
+  
+        // dispatch(setUser(teacher));
+        navigate("/TDashboard");
+      } else if (response.code === "ERR_BAD_REQUEST") {
+        setError(response.response.data.message);
+  
+        if (response.status === 409) {
+          setError(response.response.data.message);
+        }
+      }
+    }
+
     
 
 
 
-    const data = {
-      teacherName: name,
-      teacherID: tid,
-      teacherEmail: email,
-      subjectName: values.subjectName,
-      students: values.students,
-    };
-    const response = await createclass(data);
-   
-   
-    if (response.status === 409) {
-      setError(response.response.data.message);
-    }
-    if (response.status === 201) {
-      const teacher = {
-        _id: response.data.createclassDto._id,
-        email: response.data.createclassDto.teacherEmail,
-        auth: response.data.createclassDto.auth,
-      };
-
-      // dispatch(setUser(teacher));
-      navigate("/TDashboard");
-    } else if (response.code === "ERR_BAD_REQUEST") {
-      setError(response.response.data.message);
-
-      if (response.status === 409) {
-        setError(response.response.data.message);
-      }
-    }
+    
   };
 
   const [error, setError] = useState("");

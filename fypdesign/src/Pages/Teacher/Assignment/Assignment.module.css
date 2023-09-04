@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    margin:0;
+    padding: 0;
+    font-family: Inter;
+  }
+  
+  
+  
+ 
+.assignmentButton {
+    background-color: #007bff; /* Blue color for the background */
+    color: #fff; /* White color for the text */
+    border: none; /* Remove the default button border */
+    padding: 8px 16px; /* Add some padding to the button */
+    border-radius: 4px; /* Add a border radius for a rounded look */
+    cursor: pointer; /* Change the cursor to a hand pointer on hover */
+  }
+  
+  .assignmentButton:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
+    .errorMessage {
+      color: #ea3943;
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }

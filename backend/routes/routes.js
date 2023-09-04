@@ -45,9 +45,11 @@ router.get('/student/assignment/submissionAll/:fileURL', GetAllSubmissions)
 
 
 router.get('/student/submitted',StudentAuth.getSubmittedAssignment)
-
+router.get('/student/getSubmitedFileURL',StudentAuth.getSubmissionFileURL)
 
 router.get('/student/isSubmission',StudentAuth.CheckSubmissionAvailable)
+
+router.get('/student/allSubmissions',StudentAuth.getAllSubmission)
 
 module.exports = router;
 

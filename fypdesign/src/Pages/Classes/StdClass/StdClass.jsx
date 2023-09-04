@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function StdClass() {
-
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const navigate  = useNavigate()
 
   const [name, setName] = useState(null);
@@ -31,7 +31,7 @@ function StdClass() {
 
       // Fetch classes for the logged-in user from the server
       axios
-        .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
+        .get(baseURL+`/student/studentData/${decodedToken.email}`)
         .then((response) => {
           console.log(response.data.response);
           setstdEmail(response.data.response.stdEmail)
@@ -50,7 +50,7 @@ function StdClass() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/student/class/${_id}`)
+      .get(baseURL+`/student/class/${_id}`)
       .then((response) => {
         setStd(response.data.response.students);
         setName(response.data.response.teacherName);

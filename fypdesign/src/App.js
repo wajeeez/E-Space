@@ -2,7 +2,8 @@ import "./App.module.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import  MeetCheck from "./Pages/MeetCheck";
 // import myImage from '../public/logo192.png'
-
+import LandingPage from "./Pages/Final_Design/Landing_Page/LandingPage";
+import Footer from "./Components/Final_Design_Components/LandingPage_Components/Footer";
 import Main from "./Pages/Main/Main";
 import StdSign from "./Pages/Student/Login/StdSign";
 import Std from "./Pages/Student/Std";
@@ -20,6 +21,7 @@ import StdDashboard from "./Pages/Student/Dashboard/StdDashboard"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Room from "./Pages/MeetingApi/Room";
+import CustomMeeting from "./Pages/CustomMeeting/MeetingCustom/CustomMeeting";
 // import MeetFront from "./Pages/CustomMeeting/Meeting/MeetFront";
 function PrivateRoute({ component: Component }) {
   const navigate = useNavigate();
@@ -106,7 +108,7 @@ function PrivateRoute4({ component: Component }) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: <LandingPage />,
   },
 
   {
@@ -170,14 +172,26 @@ const router = createBrowserRouter([
     element: <Room />,
   },
   {
+    path:"/custom/:classes/meeting/:roomID",
+    element:<CustomMeeting/>
+
+  },
+  {
     path: "/teacher/class/Assignments/:_id",
     element: <Assignment/>,
-  }
+  },
+  {
+    path: "/signin/options",
+    element: <Footer/>,
+  },
+  
 ]);
 
 function App() {
   return (
     <>
+
+   
       <RouterProvider router={router} />
       {/* <MeetFront></MeetFront> */}
      

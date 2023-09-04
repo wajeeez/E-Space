@@ -16,7 +16,7 @@ const submissionSchema = new mongoose.Schema({
   },
   submissionFileURL: {
     type: String,
-    required: true,
+    required: true, 
   },
   submissionDate: {
     type: Date,

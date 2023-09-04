@@ -40,6 +40,7 @@
 // });
 
 // module.exports = router;
+const Assignment = require('./../models/assignmentTeacher')
 const Submission = require('./../models/stdsubmissionFile'); // Import the Assignment model
 const multer = require('multer');
 const { Readable } = require('stream');
@@ -78,7 +79,8 @@ async function StdAssignmentUpload(req, res, next) {
     const submissionFileURL = savedFile._id;
     console.log(submissionFileURL)
 
-    const newAssignment = new Submission({
+
+     const newAssignment = new Submission({
       Email,
       classId,
       assignmentFileURL,
@@ -86,7 +88,27 @@ async function StdAssignmentUpload(req, res, next) {
       deadline, // Save the deadline in the Assignment model
     });
 
-    await newAssignment.save();
+   await newAssignment.save();
+
+   if(!newAssignment){
+    return res.status(404).json({message:"FAILED TO SUBMIT"})
+   }
+
+
+
+    const updatedAssignment = await Assignment.findOneAndUpdate(
+      { fileURL: assignmentFileURL, classId: classId },
+      {
+        studentEmails: Email,
+        submissionURL: submissionFileURL ,
+      },
+      { new: true }
+    );
+    if (!updatedAssignment) {
+      return res.status(404).json({ message: 'Assignment not found' });
+    }
+
+   
 
 
     return res.status(201).json({ message: 'Assignment uploaded successfully' });

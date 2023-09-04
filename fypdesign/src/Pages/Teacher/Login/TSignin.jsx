@@ -25,7 +25,12 @@ function TSignin() {
 
     const response = await login(data);
 
+  
+
+
     if (response.status === 200) {
+      
+
       const teacher = {
         _id: response.data.teacher._id,
         email: response.data.teacher.email,
@@ -34,8 +39,12 @@ function TSignin() {
       localStorage.setItem("authToken", response.data.token);  
       dispatch(setUser(teacher));
       navigate("/TDashboard");
-    } else if (response.code === "ERR_BAD_REQUEST") {
-      // setError(response.response.mes);
+    }
+    else if (response.code === "ERR_BAD_REQUEST") {
+      if(response.response.status === 500 ){
+        setError( "ERROR" + response.response.data.message);
+      }
+      
 
       if (response.response.status === 401) {
         setError(response.response.data.message);
