@@ -1,0 +1,140 @@
+/* Sidebar.css */
+.sidebar {
+  background-color: #0A1045;
+  width: 240px;
+  min-width: 40px;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  transition: width 0.5s, min-width 0.5s; /* Adding transition properties */
+
+}
+.sidebar-button-icond {
+  width: 40px; /* Adjust the width of the icon */
+  height: auto; /* Adjust the height of the icon */
+  margin-right: 20px; /* Add spacing between icon and text */
+}
+
+.sidebar-bottom-d{
+  margin-top: 60px;
+}
+
+  .sidebar:hover .sidebar-text {
+    font-size: large;
+  }
+  .sidebar:hover .sidebar-button {
+    font-size: medium;
+  }
+  
+  /* Sidebar Top */
+  .sidebar-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 55px;
+  }
+  
+  .sidebar-icon {
+    /* Style your icon/image here */
+    width: 50px;
+    height: auto;
+    margin-left: 0px;
+    
+  }
+  
+  .sidebar-text {
+    font-weight: bold;
+    font-size: large;
+    margin-left: 10px;
+  }
+  
+  /* Sidebar Middle (buttons) */
+  .sidebar-middle {
+    margin-bottom: 40px; /* Add margin between middle and bottom sections */
+    
+  }
+  
+  .sidebar-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    font-size: medium;
+    color: aliceblue;
+    
+  }
+  
+  .sidebar-button:hover{
+    background-color: white;
+    color: #333;
+    transform: scale(1.05);
+    font-weight: bold;
+  }
+  .sidebar-button:active {
+    background-color: white;
+    color: #333;
+    transform: scale(1.05);
+    font-weight: bold;
+  }
+  
+  
+  
+  /* Style the icon within the button */
+  .sidebar-button-icon {
+    width: 30px; /* Adjust the width of the icon */
+    height: auto; /* Adjust the height of the icon */
+    margin-right: 10px; /* Add spacing between icon and text */
+  }
+  
+  /* Sidebar Bottom (logout and account settings) */
+  .sidebar-bottom .sidebar-button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+
+
+  
+  /* Responsive Sidebar */
+  @media (max-width: 880px) {
+    .sidebar {
+      padding: 10px;
+      width: 50px;
+      min-width: 40px;
+      color: aliceblue;
+      transition: width 0.5s, min-width 0.5s; /* Adding transition properties */ 
+    }
+    .sidebar:hover {
+      width: 170px;
+      min-width: 40px;
+    }
+  
+    .sidebar-middle .sidebar-button,
+    .sidebar-bottom .sidebar-button {
+      margin: 5px 0;
+      
+    }
+
+    .sidebar-text {
+      font-size: 0;
+    }
+
+    .sidebar-button{
+      font-size: 0;
+    }
+    .sidebar-icon{
+      width: 40px;
+      margin-left: 4px;
+    }
+    
+  }
+  
+
+

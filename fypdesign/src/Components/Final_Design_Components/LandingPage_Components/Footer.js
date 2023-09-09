@@ -25,13 +25,13 @@ function Footer() {
               src='..\images\t.png'
               text='Teacher'
               
-              path='/teacher/register'
+              // path='/teacher/register'
             />
             <Titems
               src='..\images\s2.png'
               text='Student'
               
-              path='/std/login'
+              // path='/std/login'
             />
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -13,7 +13,7 @@ function Navbar() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const [navbar,setNavbar] = useState(false);
+  const [navbar, setNavbar] = useState(false);
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -31,7 +31,7 @@ function Navbar() {
 
   const changeBackground = () => {
     console.log(window.scrollY)
-    if(window.scrollY >= 930) {
+    if (window.scrollY >= 930) {
       setNavbar(true);
     } else {
       setNavbar(false);
@@ -39,14 +39,14 @@ function Navbar() {
 
   };
 
-  window.addEventListener('scroll', changeBackground );
+  window.addEventListener('scroll', changeBackground);
 
   return (
     <>
       <nav className={navbar ? 'navbar active' : 'navbar'}>
         <div className='navbar-container'>
           <div className='navbar-logo' onClick={closeMobileMenu}>
-            <img src="../images/logo1.png" alt=''/>
+            <img src="../images/logo1.png" alt='' />
           </div>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -86,11 +86,14 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {button && <Button onClick={()=>{
+          {button &&
+            <div onClick={() => {
 
-              navigate('/signin/options')
+              navigate("/signin/options")
 
-          }} buttonStyle='btn--outline'>Sign In</Button>}
+            }}>
+              <Button  buttonStyle='btn--outline'>Sign In</Button>
+            </div>}
         </div>
       </nav>
     </>

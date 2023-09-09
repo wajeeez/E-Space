@@ -50,6 +50,7 @@ router.get('/student/getSubmitedFileURL',StudentAuth.getSubmissionFileURL)
 router.get('/student/isSubmission',StudentAuth.CheckSubmissionAvailable)
 
 router.get('/student/allSubmissions',StudentAuth.getAllSubmission)
+router.post('/forgetpassword',StudentAuth.forgetpassword)
 
 module.exports = router;
 

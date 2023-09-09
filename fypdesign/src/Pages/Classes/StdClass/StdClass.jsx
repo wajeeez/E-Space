@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function StdClass() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
-  const navigate  = useNavigate()
+  const navigate = useNavigate()
 
   const [name, setName] = useState(null);
   const [std, setStd] = useState([]);
@@ -16,22 +16,22 @@ function StdClass() {
   const { _id } = useParams();
 
   //
-  
+
   const [stdEmail, setstdEmail] = useState(null);
- // const [classes, setClasses] = useState([]);
-  const [StudentName,setStudentName]=useState([]);
-  
+  // const [classes, setClasses] = useState([]);
+  const [StudentName, setStudentName] = useState([]);
+
 
   useEffect(() => {
     const authToken = localStorage.getItem("StdToken");
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
       setEmail(decodedToken.email);
-    
+
 
       // Fetch classes for the logged-in user from the server
       axios
-        .get(baseURL+`/student/studentData/${decodedToken.email}`)
+        .get(baseURL + `/student/studentData/${decodedToken.email}`)
         .then((response) => {
           console.log(response.data.response);
           setstdEmail(response.data.response.stdEmail)
@@ -50,7 +50,7 @@ function StdClass() {
 
   useEffect(() => {
     axios
-      .get(baseURL+`/student/class/${_id}`)
+      .get(baseURL + `/student/class/${_id}`)
       .then((response) => {
         setStd(response.data.response.students);
         setName(response.data.response.teacherName);
@@ -71,6 +71,10 @@ function StdClass() {
 
 
 
+  const handleRedirect = () => {
+    // Redirect to the third-party URL
+    window.location.href = `http://localhost:3030/${_id}`;
+  };
 
 
 
@@ -78,7 +82,7 @@ function StdClass() {
 
 
 
-  
+
 
   return (
     <div>
@@ -93,20 +97,29 @@ function StdClass() {
         <br />
         <br />
         <br />
-        <button className={styles.meet} onClick={()=>{
-           
-           navigate(`/${classes}/meeting/${_id}`)
+
+
+        <button className={styles.meet} onClick={() => {
+
+          navigate(`/${classes}/meeting/${_id}`)
 
         }}>Join Meeting</button>
 
-        <button className={styles.button} onClick={()=>{
+        <button className={styles.meet}
+          onClick={handleRedirect}
+        // onClick={()=>{
+        // //  navigate(`/custom/${classes}/meeting/${_id}`)
 
-              navigate(`/${classes}/assignment/${_id}`)
-        }}>Assignments</button>       
+        // }}
+        >Start Meeting 2 </button>
+        <button className={styles.button} onClick={() => {
+
+          navigate(`/${classes}/assignment/${_id}`)
+        }}>Assignments</button>
         <button className={styles.button}>Quizess</button>
-        
+
         {/* students list  */}
-        
+
       </center>
     </div>
   );

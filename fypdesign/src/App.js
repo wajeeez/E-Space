@@ -10,7 +10,9 @@ import Std from "./Pages/Student/Std";
 import Teacher from "./Pages/Teacher/Teacher/Teacher";
 import TeacherReg from "./Pages/Teacher/Registration/TeacherReg";
 import TSignin from "./Pages/Teacher/Login/TSignin";
-import TDashboard from "./Pages/Teacher/TDashboard/TDashboard";
+import TDashboard from "./Pages/Final_Design/TeacherDashboard/TDashboard";
+import TeacherMain from "./Pages/Final_Design/TeacherMain/TeacherMain";
+// import TDashboard from "./Pages/Teacher/TDashboard/TDashboard";
 import CreateClass from "./Pages/Classes/Create/CreateClass";
 import Class from './Pages/Classes/Class/Class'
 import StdClass from './Pages/Classes/StdClass/StdClass'
@@ -23,6 +25,13 @@ import { useEffect } from "react";
 import Room from "./Pages/MeetingApi/Room";
 import CustomMeeting from "./Pages/CustomMeeting/MeetingCustom/CustomMeeting";
 // import MeetFront from "./Pages/CustomMeeting/Meeting/MeetFront";
+
+import AssignmentList from "./Pages/Teacher/AssigmentList/AssignmentList";
+import Stddb from "./Pages/Final_Design/Stddbclasses/Stddb";
+import Slogin from "./Pages/Final_Design/Slogin/Slogin"
+import Tlogin from "./Pages/Final_Design/Tlogin/Tlogin";
+import Treg from "./Pages/Final_Design/Sreg/Treg";
+import Signin_Options from "./Components/Final_Design_Components/LandingPage_Components/Signin_Options";
 function PrivateRoute({ component: Component }) {
   const navigate = useNavigate();
   
@@ -81,11 +90,14 @@ function PrivateRoute3({ component: Component }) {
   };
 
   return <Component />;
+
+
+
 }
 
 function PrivateRoute4({ component: Component }) {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const isAuthenticated = checkAuthentication();
     
@@ -100,7 +112,12 @@ function PrivateRoute4({ component: Component }) {
     return !!token; 
   };
 
+ 
+ 
+ 
+
   return <Component />;
+
 }
 
 
@@ -117,12 +134,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/std/login",
-    element: <PrivateRoute3 component={StdSign} />,
+   //  element: <PrivateRoute3 component={StdSign} />,
+   
+   element: <PrivateRoute3 component={Slogin} />,
   },
   { 
     
     path: "/std/dashboard",
-  element: <PrivateRoute2 component={StdDashboard} />,
+  element: <PrivateRoute2 component={Stddb} />,
 
   },
 
@@ -134,23 +153,23 @@ const router = createBrowserRouter([
 
   {
     path: "/TDashboard",
-    element: <PrivateRoute component={TDashboard} />,
+    element: <PrivateRoute component={TeacherMain} />,
   },
 
   {
     path: "/teacher/register",
-    element: <TeacherReg />,
+    element: <Treg />,
   },
 
   {
     path: "/teacher/login",
-    element: <PrivateRoute4 component={TSignin} />,
+    element: <PrivateRoute4 component={Tlogin} />,
 
   },
 
   {
     path:`/teacher/class/:_id`,
-    element:<Class/>
+    element:<TDashboard/>
   },
 
   {
@@ -182,7 +201,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signin/options",
-    element: <Footer/>,
+    element: <Signin_Options/>,
   },
   
 ]);

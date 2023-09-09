@@ -27,7 +27,7 @@ function StdDashboard() {
 
       // Fetch classes for the logged-in user from the server
       axios
-        .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
+        .get(baseURL+`/student/studentData/${decodedToken.email}`)
         .then((response) => {
           console.log(response.data.response);
           setStudentName(response.data.response.stdName);
@@ -48,7 +48,7 @@ function StdDashboard() {
 
       // Fetch classes for the logged-in user from the server
       axios
-        .get(`http://localhost:5000/student/classes/${decodedToken.email}`)
+        .get(baseURL+`/student/classes/${decodedToken.email}`)
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);

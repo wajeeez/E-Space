@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+  }
+  
+  /* General styles */
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content-container {
+   
+    display: flex;
+    flex: 1;
+    border-radius: 20px;
+    margin: 0;
+    background-color: transparent; /* Set the background color to transparent */
+  
+  }
+  
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    
+    
+  }
+  
+  
+  .sidebar {
+    background-color: #f1f1f1;
+    padding: 25px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    transition: padding 0.3s, min-width 0.3s; /* Add transitions */
+    
+  }
+  
+  /* Responsive Sidebar */
+  @media (max-width: 768px) {
+    .sidebar {
+      padding: 10px;
+      min-width: 150px;
+    }
+  
+    .sidebar button {
+      margin-bottom: 5px;
+    }
+  }
+  
+  
+  
+  
+  .sidebar button {
+    margin-bottom: 10px;
+  }
+  
+  .navbar {
+    padding: 10px 20px; /* Adjust padding */
+    background-color: #333;
+    color: white;
+    font-size: 18px; /* Adjust font size */
+  }
+  
+  .footer {
+    padding: 10px 20px; /* Adjust padding */
+    background-color: #333;
+    color: white;
+    font-size: 14px; /* Adjust font size */
+  }
