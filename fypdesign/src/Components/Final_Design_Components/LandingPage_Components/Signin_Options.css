@@ -1,12 +1,13 @@
 html, body {
-    height: 100vh;
+    /* height: 100vh; */
     margin: 0;
     padding: 0;
+    background-color: #0A1045;
   }
   
   .signin-container {
     background-color: #0A1045;
-    height: 100vh;
+   
     
 
     flex-direction: column;
@@ -66,8 +67,8 @@ html, body {
   
   .social-media-wrap {
     display: flex;
-
-    width: 95%;
+    background-color: #0A1045;
+    width: 100%;
     max-width: 1000px;
     margin-top: 100px;
     margin-left: 10px;
@@ -89,6 +90,7 @@ html, body {
   /* footer.css */
   
   .footer-logo {
+    justify-content: center;
     display: flex; /* Display items in a row */
     align-items: center; /* Vertically center items */
   }

@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 function Navbar() {
 
   const navigate = useNavigate()
@@ -66,7 +66,7 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            {/* <li className='nav-item'>
+            <li className='nav-item'>
               <Link
                 to='/'
                 className='nav-links'
@@ -74,7 +74,7 @@ function Navbar() {
               >
                 Settings
               </Link>
-            </li> */}
+            </li>
 
             <li>
               <Link
