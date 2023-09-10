@@ -1,8 +1,10 @@
 .td-content {
   flex: 1;
-  background-color: #e2ecfc;
+  
+  background-color: #0951c5;
   /* background-image: url('../components/images/above-clouds-3840x2160-12391.jpg');
   background-size: cover;  */
   overflow: visible; /* Allow content to overflow the container */
-  position: relative;
+  position:relative;
+  padding: 10px;
 }

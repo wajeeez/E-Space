@@ -1,7 +1,14 @@
+/* Solution.css */
+
+.solution-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
 /* td-sidebar.css */
 .td-sidebar {
   background-color: #0A1045;
-  width: 240px;
+  width: 220px;
   min-width: 40px;
   display: flex;
   flex-direction: column;
@@ -138,3 +145,13 @@
   
 
 
+
+  
+  .td-content {
+    width: 70%; /* Adjust the width as needed */
+    padding: 20px;
+    background-color: #b6cef5;
+    border-radius: 10px;
+
+  }
+  
