@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Navbar() {
+
 
   const navigate = useNavigate()
   const [click, setClick] = useState(false);
@@ -33,7 +34,7 @@ function Navbar() {
 
   const changeBackground = () => {
     console.log(window.scrollY)
-    if (window.scrollY >= 650) {
+    if (window.scrollY >= 640) {
       setNavbar(true);
     } else {
       setNavbar(false);
@@ -68,15 +69,16 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            {/* <li className='nav-item'>
+            <li className='nav-item'>
               <Link
-                to='/'
+                to='/signin/options'
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Settings
+                Sign In
               </Link>
-            </li> */}
+            </li>
+        
 
             {/* <li>
               <Link
@@ -88,14 +90,14 @@ function Navbar() {
               </Link>
             </li> */}
           </ul>
-          {button &&
+          {/* {button &&
             <div onClick={() => {
 
               navigate("/signin/options")
 
             }}>
               <Button  buttonStyle='btn--outline'>Sign In</Button>
-            </div>}
+            </div>} */}
         </div>
       </nav>
     </>
