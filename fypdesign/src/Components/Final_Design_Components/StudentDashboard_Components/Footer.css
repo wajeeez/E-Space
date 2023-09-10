@@ -1,0 +1,24 @@
+/* Footer.css */
+.footer {
+    display: flex; /* Use flexbox to arrange elements horizontally */
+    justify-content: center; /* Center elements horizontally */
+    align-items: center; /* Center items vertically */
+    padding: 10px;
+    background-color: #0A1045;
+    height: 20px;
+  }
+  
+  /* Styling for the copyright text */
+  .footer .copyright {
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 10px; /* Add spacing between the texts */
+  }
+  
+  /* Styling for the highlighted text */
+  .footer .highlighted-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  

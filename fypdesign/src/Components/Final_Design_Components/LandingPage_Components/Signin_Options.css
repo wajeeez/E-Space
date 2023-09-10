@@ -1,0 +1,271 @@
+.footer-container {
+    background-color: #0A1045;
+    padding: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .footer-subscription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+  
+    margin-bottom: 0px;
+    padding: 0px;
+    color: #fff;
+  }
+  
+  .footer-subscription > p {
+    font-family: 'Orbitron';
+  }
+  
+  /* .footer-subscription-heading {
+    
+    margin-bottom: 24px;
+    font-size: 60px;
+  } */
+  
+  .footer-subscription-heading {
+    margin-bottom: 24px;
+    font-size: 60px;
+    animation: glowing 2s ease-in-out infinite; /* Apply the glowing animation */
+  }
+  
+  @keyframes glowing {
+    0% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+  }
+  
+  
+  .footer-subscription-text {
+    margin-top: 20px;
+    margin-bottom: 24px;
+    font-size: 20px;
+    margin-left: 15%; 
+    margin-right: 15%;
+  }
+  
+  .social-media-wrap {
+    display: flex;
+    
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto 0 auto;
+  }
+  
+  
+  .website-rights {
+    color: #fff;
+    margin-bottom: 16px;
+    font-size: 24px; /* Adjust the font size if needed */
+    margin-left: auto; /* Add margin to separate from the logo */
+    margin-top: 2%;
+    
+  }
+  
+  
+  
+  /* Footer.css */
+  
+  .footer-logo {
+    display: flex; /* Display items in a row */
+    align-items: center; /* Vertically center items */
+  }
+  
+  .footer-logo img {
+    max-width: 30%;
+    max-height: auto;
+    min-height: auto;
+    min-width: 10%;
+    margin-right: 20px; /* Add some space between the image and text */
+  }
+  
+  /* Footer.css */
+  
+  .tcards {
+    padding: 0px; /* Adjust padding as needed */
+    background-color: transparent; /* Example background color */
+  }
+  
+  .t__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  
+  
+  .t__items {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Individual card styles */
+  
+  .t__item {
+    position: relative;
+    height: 500px;
+    width: 450px;
+    background-color: transparent;
+    border-radius: 20px;
+    margin: 0 20px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transform transition */
+  }
+  
+  
+  .t__item:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    transform: scale(1.05); /* Scale up on hover */
+  }
+  
+  
+  .t__item__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  .t__item__pic-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 90%;
+    overflow: hidden;
+  }
+  
+  .t__item__img {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+  }
+  
+  
+  .t__item__text {
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  
+  @media (max-width: 900px) {
+    .t__container {
+      flex-direction: column;
+      padding: 0px; 
+      
+    }
+  
+    .t__item {
+      height: 100%;
+      width: 300px;
+      margin: 20px 30px 20px;
+    }
+  
+    .t__item__img {
+      height: 300px;
+      margin-bottom: 10px;
+    }
+  
+    .t__item__text {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  
+    .footer-logo img{
+      max-width: 30%;
+      max-height: auto;
+      min-height: auto;
+      min-width: 10%;
+  }
+  
+  .website-rights{
+    margin-top: 2%;
+    font-size: 20px;
+  }
+  .footer-subscription-text {
+    margin-bottom: 24px;
+    font-size: 18px;
+    margin-left: 8%; 
+    margin-right: 8%;
+  }
+  .footer-subscription-heading {
+    
+    margin-bottom: 24px;
+    font-size: 50px;
+  }
+  
+  }
+  
+  @media (max-width: 420px) {
+    .t__container {
+      flex-direction: column;
+      padding: 0px; 
+      height: 200px;
+    }
+  
+    .t__item {
+      height: 200px;
+      width: 140px;
+      margin: 20px 30px 20px;
+    }
+  
+    .t__item__img {
+      height: 140px;
+      margin-bottom: 10px;
+    }
+  
+    .t__item__text {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    
+  
+    .footer-subscription-heading {
+    
+      margin-bottom: 24px;
+      font-size: 40px;
+    }
+  
+    .footer-subscription-text {
+      margin-bottom: 16px;
+      font-size: 12px;
+      margin-left: 8%; 
+      margin-right: 8%;
+    }
+    .website-rights{
+      margin-top: 4%;
+      font-size: 15px;
+    }
+  
+    .footer-logo img{
+      max-width: 40%;
+      max-height: auto;
+      min-height: auto;
+      min-width: 10%;
+  }
+  
+   
+  }
+  
+  
