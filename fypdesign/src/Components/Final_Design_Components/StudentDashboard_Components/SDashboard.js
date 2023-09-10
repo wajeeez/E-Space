@@ -67,14 +67,14 @@ function TDashboard() {
 
   return (
     <>
-    <div className="td-card-container">
+    <div className="card-container">
       {cards.map((card, index) => (
-        <a key={index} href={card.link} className="td-card" style={{ backgroundColor: card.bgColor }}>
-          <div className="td-card-heading">
+        <a key={index} href={card.link} className="card" style={{ backgroundColor: card.bgColor }}>
+          <div className="card-heading">
             <div className={`icon ${card.icon}`} />
             <h3>{card.title}</h3>
           </div>
-          <p className="td-card-description">{card.description}</p>
+          <p className="card-description">{card.description}</p>
         </a>
         
       ))}

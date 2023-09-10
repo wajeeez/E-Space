@@ -19,16 +19,16 @@
 
 
 import React from 'react';
-import './TNavbar.css';
+import './Navbar.css';
 
 import logoImage from '../../../Assets/images/logo1.png';
 
-const TNavbar = () => {
+const Navbar = () => {
   return (
-    <div className="td-navbar-contain">
-      <img className="td-navbar-image" src={logoImage} alt="Logo" />
+    <div className="navbar-contain">
+      <img className="navbar-image" src={logoImage} alt="Logo" />
     </div>
   );
 };
 
-export default TNavbar;
+export default Navbar;

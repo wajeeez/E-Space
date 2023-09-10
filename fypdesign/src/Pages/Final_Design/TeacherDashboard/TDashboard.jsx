@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import './TDashboard.module.css';
-import Navbar from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TNavbar';
-import Sidebar from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TSidebar';
-import Content from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TContent';
-import Footer from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TFooter';
+import TNavbar from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TNavbar';
+import TSidebar from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TSidebar';
+import TContent from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TContent';
+import TFooter from '../../../Components/Final_Design_Components/TeacherDashboard_Components/TFooter';
 
 const TDashboard = () => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [sidebarVisible, setSidebarVisible] = useState(true); // New state for sidebar visibility
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   const handleNavbarButtonClick = () => {
-    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
+    setSidebarVisible(!sidebarVisible);
   };
 
   return (
-    <div className="tapp">
-      <Navbar onNavbarButtonClick={handleNavbarButtonClick} />
-      <div className="tcontent-container">
-        {sidebarVisible && <Sidebar onPageChange={handlePageChange} />}
-        <Content currentPage={currentPage} />
+    <div className="td-app">
+      <TNavbar onNavbarButtonClick={handleNavbarButtonClick} />
+      <div className="td-content-container">
+        {sidebarVisible && <TSidebar onPageChange={handlePageChange} />}
+        <TContent currentPage={currentPage} />
       </div>
-      <Footer/>
+      <TFooter />
     </div>
   );
 }

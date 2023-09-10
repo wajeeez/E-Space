@@ -1,19 +1,32 @@
 import React from 'react';
 import './TeacherMain.css';
-import './THeroSection.css';
+import './HeroSection.css';
 import { Link } from 'react-router-dom';
+
+
 
 import styles from "../../Final_Design_Components/TeacherDashboard_Components/TDashboard.module.css";
 
+
+
+
+
+// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
+function HeroSection() {
 
-function THeroSection() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
-  const navigate = useNavigate();
 
+
+  // const dispatch = useDispatch();
+
+  // const isAuthenticated = useSelector((state) => state.user.auth);
+  const navigate = useNavigate();
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
     window.location.reload(false);
@@ -46,51 +59,58 @@ function THeroSection() {
   }, [id]);
 
   return (
-    <>
 
-    <div className='thero-container'>
-      <div className='thero-heading'>
-        <th>CLASSES</th>
-      </div>
+    <div className='hero-container'>
+      <h1 className='hero-heading'>CLASSES</h1>
+
+
       <center>
-        <div>
-          <p className='t-info-top'>
-            Teacher Name : {name}   |   Teacher Email : {email}{" "}
-          </p>
-        </div>
-      </center>
+          <div >
+            <p>
+              Teacher Name : {name} | Teacher Email : {email}{" "}
+            </p>
+          </div>
+          </center>
 
-      <div className='thero-cards'>
+        <div style={{display: 'inline-block'}}>
         {classes.map((cls) => (
-          <Link to={`/teacher/class/${cls._id}`} className='thero-card' key={cls._id}>
-            <div className='thero-card-content'>
-              <tc>{cls.subjectName}</tc>
-            </div>
-          </Link>
-        ))}
-      </div>
 
+            <button className={styles.classes} key={cls._id} onClick={() => {
+              navigate(`/teacher/class/${cls._id}`)
+            }}>
+              <h2 className='card-content'> {cls.subjectName} </h2>
+
+            </button>
+        
+        ))}
       
 
-        <Link to='/teacher/createclass' className='thero-card1'>
-          <div className='thero-card-content'>
-            <h2>Create Class</h2>
-          </div>
-        </Link>
-        <Link onClick={handleLogout} className='thero-card2'>
-          <div className='thero-card-content'>
-            <h2>Logout</h2>
-          </div>
-        </Link>
+     
 
-        
+      <button
+        className={styles.logInButton}
+        onClick={() => {
+          navigate(`/teacher/createclass`);
+        }}
+      >
+        Create A Class
+      </button>
+
+      <button className={styles.logout} onClick={handleLogout}>
+        LOGOUT
+      </button>
+
       </div>
-    
-    </>
+
+
+    </div>
+
+
+
+
+
   );
 }
 
-export default THeroSection;
-
-
+export default HeroSection;
 

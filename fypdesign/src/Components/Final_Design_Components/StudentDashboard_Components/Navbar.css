@@ -1,5 +1,5 @@
 /* Navbar.css */
-.td-navbar-contain {
+.navbar-contain {
   height: 40px;
   padding: 10px; /* Add padding for spacing */
   background-color: #0A1045; 
@@ -7,7 +7,7 @@
 }
 
 
-.td-navbar-image {
+.navbar-image {
   width: 200px; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
   align-items: center;

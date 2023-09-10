@@ -1,5 +1,5 @@
-/* td-sdiebar.css */
-.td-sdiebar {
+/* Sidebar.css */
+.sidebar {
   background-color: #0A1045;
   width: 240px;
   min-width: 40px;
@@ -9,32 +9,32 @@
   transition: width 0.5s, min-width 0.5s; /* Adding transition properties */
 
 }
-.td-sdiebar-button-icond {
+.sidebar-button-icond {
   width: 40px; /* Adjust the width of the icon */
   height: auto; /* Adjust the height of the icon */
   margin-right: 20px; /* Add spacing between icon and text */
 }
 
-.td-sdiebar-bottom-d{
+.sidebar-bottom-d{
   margin-top: 60px;
 }
 
-  .td-sdiebar:hover .td-sdiebar-text {
+  .sidebar:hover .sidebar-text {
     font-size: large;
   }
-  .td-sdiebar:hover .td-sdiebar-button {
+  .sidebar:hover .sidebar-button {
     font-size: medium;
   }
   
-  /* td-sdiebar Top */
-  .td-sdiebar-top {
+  /* Sidebar Top */
+  .sidebar-top {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     margin-top: 55px;
   }
   
-  .td-sdiebar-icon {
+  .sidebar-icon {
     /* Style your icon/image here */
     width: 50px;
     height: auto;
@@ -42,19 +42,19 @@
     
   }
   
-  .td-sdiebar-text {
+  .sidebar-text {
     font-weight: bold;
     font-size: large;
     margin-left: 10px;
   }
   
-  /* td-sdiebar Middle (buttons) */
-  .td-sdiebar-middle {
+  /* Sidebar Middle (buttons) */
+  .sidebar-middle {
     margin-bottom: 40px; /* Add margin between middle and bottom sections */
     
   }
   
-  .td-sdiebar-button {
+  .sidebar-button {
     display: flex;
     align-items: center;
     width: 100%;
@@ -71,13 +71,13 @@
     
   }
   
-  .td-sdiebar-button:hover{
+  .sidebar-button:hover{
     background-color: white;
     color: #333;
     transform: scale(1.05);
     font-weight: bold;
   }
-  .td-sdiebar-button:active {
+  .sidebar-button:active {
     background-color: white;
     color: #333;
     transform: scale(1.05);
@@ -87,14 +87,14 @@
   
   
   /* Style the icon within the button */
-  .td-sdiebar-button-icon {
+  .sidebar-button-icon {
     width: 30px; /* Adjust the width of the icon */
     height: auto; /* Adjust the height of the icon */
     margin-right: 10px; /* Add spacing between icon and text */
   }
   
-  /* td-sdiebar Bottom (logout and account settings) */
-  .td-sdiebar-bottom .td-sdiebar-button {
+  /* Sidebar Bottom (logout and account settings) */
+  .sidebar-bottom .sidebar-button {
     width: 100%;
     margin: 5px 0;
   }
@@ -102,34 +102,34 @@
 
 
   
-  /* Responsive td-sdiebar */
+  /* Responsive Sidebar */
   @media (max-width: 880px) {
-    .td-sdiebar {
+    .sidebar {
       padding: 10px;
       width: 50px;
       min-width: 40px;
       color: aliceblue;
       transition: width 0.5s, min-width 0.5s; /* Adding transition properties */ 
     }
-    .td-sdiebar:hover {
+    .sidebar:hover {
       width: 170px;
       min-width: 40px;
     }
   
-    .td-sdiebar-middle .td-sdiebar-button,
-    .td-sdiebar-bottom .td-sdiebar-button {
+    .sidebar-middle .sidebar-button,
+    .sidebar-bottom .sidebar-button {
       margin: 5px 0;
       
     }
 
-    .td-sdiebar-text {
+    .sidebar-text {
       font-size: 0;
     }
 
-    .td-sdiebar-button{
+    .sidebar-button{
       font-size: 0;
     }
-    .td-sdiebar-icon{
+    .sidebar-icon{
       width: 40px;
       margin-left: 4px;
     }

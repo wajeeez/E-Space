@@ -1,72 +1,66 @@
-body{
-    margin: 0;
+/* General styles */
+body {
+  margin: 0;
+  
+}
+
+.td-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.td-content-container {
+  display: flex;
+  flex: 1;
+  border-radius: 20px;
+  overflow: hidden; /* Hide content overflow */
+}
+
+.td-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff; /* Set a background color for the content area */
+}
+
+.td-sidebar {
+  background-color: #f1f1f1;
+  padding: 25px;
+  min-width: 250px; /* Adjust the width as needed */
+  transition: padding 0.3s, min-width 0.3s;
+  overflow-y: auto; /* Add vertical scroll for the sidebar content */
+}
+
+.td-sidebar.hidden {
+  display: none; /* Hide the sidebar when it's not visible */
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  .td-sidebar {
+    padding: 10px;
+    min-width: 150px; /* Adjust the width for smaller screens */
   }
-  
-  /* General styles */
-  .tapp {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+
+  .td-sidebar button {
+    margin-bottom: 5px;
   }
-  
-  .tcontent-container {
-   
-    display: flex;
-    flex: 1;
-    border-radius: 20px;
-    margin: 0;
-    background-color: transparent; /* Set the background color to transparent */
-  
-  }
-  
-  
-  .tcontent {
-    flex: 1;
-    padding: 20px;
-    
-    
-  }
-  
-  
-  .tsidebar {
-    background-color: #f1f1f1;
-    padding: 25px;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    transition: padding 0.3s, min-width 0.3s; /* Add transitions */
-    
-  }
-  
-  /* Responsive Sidebar */
-  @media (max-width: 768px) {
-    .tsidebar {
-      padding: 10px;
-      min-width: 150px;
-    }
-  
-    .tsidebar button {
-      margin-bottom: 5px;
-    }
-  }
-  
-  
-  
-  
-  .tsidebar button {
-    margin-bottom: 10px;
-  }
-  
-  .tnavbar {
-    padding: 10px 20px; /* Adjust padding */
-    background-color: #333;
-    color: white;
-    font-size: 18px; /* Adjust font size */
-  }
-  
-  .tfooter {
-    padding: 10px 20px; /* Adjust padding */
-    background-color: #333;
-    color: white;
-    font-size: 14px; /* Adjust font size */
-  }
+}
+
+.td-sidebar button {
+  margin-bottom: 10px;
+}
+
+.td-navbar {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 18px;
+}
+
+.td-footer {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 14px;
+}

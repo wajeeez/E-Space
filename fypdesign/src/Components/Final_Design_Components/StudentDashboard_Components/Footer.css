@@ -1,5 +1,5 @@
 /* Footer.css */
-.td-footer {
+.footer {
     display: flex; /* Use flexbox to arrange elements horizontally */
     justify-content: center; /* Center elements horizontally */
     align-items: center; /* Center items vertically */
@@ -9,14 +9,14 @@
   }
   
   /* Styling for the copyright text */
-  .td-footer .td-copyright {
+  .footer .copyright {
     font-size: 14px;
     color: #ffffff;
     margin-right: 10px; /* Add spacing between the texts */
   }
   
   /* Styling for the highlighted text */
-  .td-footer .td-highlighted-text {
+  .footer .highlighted-text {
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;

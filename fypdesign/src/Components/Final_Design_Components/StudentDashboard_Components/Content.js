@@ -1,17 +1,18 @@
 
 import React from 'react';
-import './TContent.css';
+import './Content.css';
 
-
+import TDashboard from '../TeacherDashboard_Components/TDashboard.js';
 import AssignmentPage from '../../../Pages/Teacher/Assignment/Assignment';
 import AssignmentList from '../../../Pages/Teacher/AssigmentList/AssignmentList';
 import Class from '../../../Pages/Classes/Class/Class';
-const TContent = ({ currentPage }) => {
+import StdAssignment from '../../../Pages/Student/Assignment/stdAssignment';
+import StdClass from '../../../Pages/Classes/StdClass/StdClass';
+const SContent = ({ currentPage }) => {
   const pageComponents = {
-    dashboard: <Class/>,
+    dashboard: <StdClass/>,
     lectures: <div>lectures</div>,
-    assignment: <AssignmentPage/>,
-    assignmentList: <AssignmentList/>,
+    assignment: <StdAssignment/>,
     quiz: <div>quiz</div>,
     account: <div>user</div>,
     class: <div>class</div>,
@@ -22,10 +23,10 @@ const TContent = ({ currentPage }) => {
   };
 
   return (
-    <div className="td-content">
+    <div className="content">
       {pageComponents[currentPage]}
     </div>
   );
 }
 
-export default TContent;
+export default SContent;

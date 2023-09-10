@@ -28,10 +28,12 @@ import CustomMeeting from "./Pages/CustomMeeting/MeetingCustom/CustomMeeting";
 
 import AssignmentList from "./Pages/Teacher/AssigmentList/AssignmentList";
 import Stddb from "./Pages/Final_Design/Stddbclasses/Stddb";
+import StdMainPage from "./Pages/Final_Design/StudentMain/StdMainPage";
 import Slogin from "./Pages/Final_Design/Slogin/Slogin"
 import Tlogin from "./Pages/Final_Design/Tlogin/Tlogin";
 import Treg from "./Pages/Final_Design/Sreg/Treg";
 import Signin_Options from "./Components/Final_Design_Components/LandingPage_Components/Signin_Options";
+import StudentDashboard from "./Pages/Final_Design/StudentDashboard/StudentDashboard";
 function PrivateRoute({ component: Component }) {
   const navigate = useNavigate();
   
@@ -120,6 +122,32 @@ function PrivateRoute4({ component: Component }) {
 
 }
 
+function PrivateRoute5({ component: Component }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuthenticated = checkAuthentication();
+    
+    if (isAuthenticated) {
+      navigate('/TDashboard');
+    }
+  }, [navigate]);
+
+  const checkAuthentication = () => {
+    const token = localStorage.getItem('StdToken');
+
+    return !!token; 
+  };
+
+ 
+ 
+ 
+
+  return <Component />;
+
+}
+
+
 
 
 const router = createBrowserRouter([
@@ -141,7 +169,7 @@ const router = createBrowserRouter([
   { 
     
     path: "/std/dashboard",
-  element: <PrivateRoute2 component={Stddb} />,
+  element: <PrivateRoute2 component={StdMainPage} />,
 
   },
 
@@ -174,7 +202,7 @@ const router = createBrowserRouter([
 
   {
     path:`/student/class/:_id`,
-    element:<StdClass/>
+    element:<StudentDashboard/>
   },
 
   {
