@@ -1,11 +1,9 @@
 .td-content {
   flex: 1;
-<<<<<<< HEAD
-  
   background-color: #0951c5;
-=======
+
   width: 65%;
->>>>>>> 65c4a60e4b6fcfe2df01d4e95f99ee79d26f5f02
+
   /* background-image: url('../components/images/above-clouds-3840x2160-12391.jpg');
   background-size: cover;  */
   overflow: visible; /* Allow content to overflow the container */
