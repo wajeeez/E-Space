@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 
+
+
 function Navbar() {
 
   const navigate = useNavigate()
@@ -16,7 +18,7 @@ function Navbar() {
   const [navbar, setNavbar] = useState(false);
 
   const showButton = () => {
-    if (window.innerWidth <= 960) {
+    if (window.innerWidth <= 900) {
       setButton(false);
     } else {
       setButton(true);
@@ -31,7 +33,7 @@ function Navbar() {
 
   const changeBackground = () => {
     console.log(window.scrollY)
-    if (window.scrollY >= 930) {
+    if (window.scrollY >= 650) {
       setNavbar(true);
     } else {
       setNavbar(false);
@@ -46,7 +48,7 @@ function Navbar() {
       <nav className={navbar ? 'navbar active' : 'navbar'}>
         <div className='navbar-container'>
           <div className='navbar-logo' onClick={closeMobileMenu}>
-            <img src="../images/logo1.png" alt='' />
+            <img src="../images/logo1.png" alt='logo' />
           </div>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -76,7 +78,7 @@ function Navbar() {
               </Link>
             </li> */}
 
-            <li>
+            {/* <li>
               <Link
                 to='/'
                 className='nav-links-mobile'
@@ -84,7 +86,7 @@ function Navbar() {
               >
                 Login
               </Link>
-            </li>
+            </li> */}
           </ul>
           {button &&
             <div onClick={() => {
