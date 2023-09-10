@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 function TDashboard() {
 
-  
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
+
+
   // const dispatch = useDispatch();
 
   // const isAuthenticated = useSelector((state) => state.user.auth);
@@ -35,7 +37,7 @@ function TDashboard() {
 
       // Fetch classes for the logged-in user from the server
       axios
-        .get(`http://localhost:5000/teacher/classes/${decodedToken.id}`)
+        .get(baseURL+`/teacher/classes/${decodedToken.id}`)
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);

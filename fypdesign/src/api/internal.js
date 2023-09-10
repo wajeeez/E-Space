@@ -69,54 +69,17 @@ export const createclass = async (data) => {
 //Student
 export const stdLogin = async (data) => {
 
-
-
-
   let response;
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
+  try {
+    response = await axios.post(baseURL+ '/student/login', data )
+  }
+  catch (error) {
+    console.log(error)
+    return error;
+  }
 
-      // 'origin': "https://a19f-124-29-249-125.ngrok.io",
-      'Access-Control-Allow-Origin': '*', // Set the 'Origin' header to your app's origin
-    },
-  };
-
-
-
-  axios.defaults.baseURL = 'https://bfad-111-88-121-104.ngrok.io';
-  axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'; axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-  axios.post('/student/login', data)
-    .then(resp => {
-      let result = resp.data;
-       return result ;
-    })
-    .catch(error => {
-    
-        return error;
-      
-    })
-
-
-
-
-  // try {
-
-
-  //   // axios.defaults.headers.post ['Content-Type'] = 'application/json; charset=utf-8'; 
-  //   // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
-  //   // response = await axios.post( '/student/login', data, config)
-  // }
-  // catch (error) {
-  //   console.log(error)
-  //   return error;
-  // }
-
-  // return response;
+  return response;
 };
-
-
 
 export const TeacherAssignmentUpload = async (data) => {
   let response;

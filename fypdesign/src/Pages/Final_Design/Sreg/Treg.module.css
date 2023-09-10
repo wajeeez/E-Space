@@ -1,0 +1,141 @@
+.App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    /* background:linear-gradient(rgb(166, 159, 255), rgb(214, 214, 214)); */
+    background: url('/public/images/bnr.jpg') center center/cover no-repeat;
+  }
+  .errorMessage {
+    color: #ea3943;
+    margin: 20px 0;
+  
+    font-weight: bold;
+  }
+  .loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%; /* Adjust width for responsiveness */
+    max-width: 30em;
+    min-height: 50vh; /* Adjust min-height for responsiveness */
+    background-color: rgb(255, 255, 255);
+    border-radius: 55px;
+    padding: 40px;
+    
+  }
+
+  h2 {
+    /* Your font styles here */
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: bold;
+    /* Other font-related properties */
+  }
+  
+  .input_container {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
+  }
+  
+  .input_container label {
+    color: black;
+  }
+  
+  ::placeholder {
+    /* Your font styles here */
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    color: #999999;
+  }
+  
+
+
+  .input_container input {
+    height: 2em;
+    width: 100%; /* Adjust width for responsiveness */
+    max-width: 18em;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 6px rgb(166, 159, 255);
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  input:focus{   
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 16px rgb(125, 115, 255);
+    outline: 0 none;
+  }
+  
+  /* ... (other styles) ... */
+  
+  .loginBut {
+    height: 3em;
+    width: 35%; /* Adjust width for responsiveness */
+    max-width: 18em;
+    margin: 10px;
+    margin-top: 25px;
+    border-radius: 155px;
+    color: aliceblue;
+    font-weight: bold;
+    background-color: #0A1045;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* background:linear-gradient(rgb(95, 84, 245), rgb(115, 49, 236)); */
+    border: none;
+    transition: all .2s ease-in-out;
+  }
+  
+  .loginBut:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px rgb(238, 229, 229);
+  }
+  
+  .loginBut p {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 13px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  }
+  
+  @media screen and (max-width: 768px) {
+    /* Apply responsive styles for screens up to 768px wide */
+    .loginContainer {
+      width: 80%;
+      padding: 20px;
+    }
+    
+    .input_container input {
+      max-width: none;
+    }
+    
+    .loginBut {
+      max-width: none;
+    }
+    
+    /* ... (adjust other styles as needed) ... */
+  }
+  
+  @media screen and (max-width: 480px) {
+    /* Apply responsive styles for screens up to 480px wide */
+    .loginContainer {
+      width: 90%;
+    }
+    
+    .input_container input {
+      max-width: none;
+    }
+    
+    .loginBut {
+      max-width: none;
+    }
+    
+    /* ... (adjust other styles as needed) ... */
+  }
+  

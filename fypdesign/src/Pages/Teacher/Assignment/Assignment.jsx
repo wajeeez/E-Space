@@ -51,7 +51,6 @@ const AssignmentPage = () => {
         console.log(_id)
         console.log(response.data.response.teacherID)
         console.log(response.data.response.subjectName)
-
         setteacherID(response.data.response.teacherID)
         setSubjectName(response.data.response.subjectName)
       })
@@ -141,28 +140,28 @@ const AssignmentPage = () => {
 
 
   return (
-    // <div>
-    //   <center>  <h1>Assignments</h1>
+    <div>
+      <center>  <h1>Assignments</h1>
 
 
-    //     {/* Upload Assignment */}
-    //     <input type="file" onChange={handleFileChange} ref={fileInputRef} />
-    //     <input className={styles.assignmentButton} type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
+        {/* Upload Assignment */}
+        <input type="file" onChange={handleFileChange} ref={fileInputRef} />
+        <input className={styles.assignmentButton} type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
 
-    //     <button className={styles.assignmentButton} onClick={teacherAssignmentUpload}>Upload Assignment</button>
-    //     <span>
-    //       {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
-    //     </span>
-
-
+        <button className={styles.assignmentButton} onClick={teacherAssignmentUpload}>Upload Assignment</button>
+        <span>
+          {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
+        </span>
 
 
 
-    //   </center>
-    // </div>
 
 
-    <AssignmentList></AssignmentList>
+      </center>
+    </div>
+
+
+    // <AssignmentList></AssignmentList>
   );
 };
 

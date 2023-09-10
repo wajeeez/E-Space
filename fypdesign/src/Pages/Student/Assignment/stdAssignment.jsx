@@ -9,6 +9,8 @@ import { boolean } from 'yup';
 
 const StdAssignment = () => {
 
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
+
   const [getFileURL,setFileURL] = useState(null)
   const currentDate = new Date(); // Get the current date
   const [selectedFile, setSelectedFile] = useState(null);
@@ -48,7 +50,7 @@ useEffect(() => {
 
     // Fetch classes for the logged-in user from the server
     axios
-      .get(`http://localhost:5000/student/studentData/${decodedToken.email}`)
+      .get(baseURL+`/student/studentData/${decodedToken.email}`)
       .then((response) => {
         console.log(response.data.response);
         setStudentName(response.data.response.stdName);
@@ -69,7 +71,7 @@ useEffect(() => {
 
   let fileURLs = {};
   axios
-    .get(`http://localhost:5000/teacher/assignments/list/${_id}`)
+    .get(baseURL+`/teacher/assignments/list/${_id}`)
     .then((response) => {
       if (response.data) {
         fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -99,7 +101,7 @@ useEffect(() => {
 
          
           axios
-            .get(`http://localhost:5000/student/submitted`,{params:{
+            .get(baseURL+`/student/submitted`,{params:{
               fileURL: fileURL,
             }},{ responseType: 'blob' })
             .then((response) => {
@@ -134,7 +136,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/teacher/class/${_id}`)
+      .get(baseURL+`/teacher/class/${_id}`)
       .then((response) => {
 
         setTeacherName(response.data.response.teacherName);
@@ -148,7 +150,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/teacher/assignments/list/${_id}`)
+      .get(baseURL+`/teacher/assignments/list/${_id}`)
       .then((response) => {
         if (response.data) {
           //  fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -260,7 +262,7 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(`http://localhost:5000/files/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL+`/files/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
        
        
@@ -290,7 +292,7 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(`http://localhost:5000/submission/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL+`/submission/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
 
         
@@ -325,7 +327,7 @@ useEffect(() => {
         };
   
         axios
-        .get('http://localhost:5000/student/getSubmitedFileURL', {
+        .get(baseURL+'/student/getSubmitedFileURL', {
           params: {
             classId,
             Email,

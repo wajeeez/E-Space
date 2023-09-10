@@ -1,0 +1,113 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .fullcarddiv{
+    width: 85%;
+    background-color: rgb(243, 248, 248);
+    position: fixed;
+    display: flex;
+    /* margin-left: 30px; */
+    margin-right: 0;
+  }
+
+  .carddiv{
+    /* margin: px; */
+    padding: 10px;
+    border-radius: 100px;
+  }
+
+  .card{
+    background-color: rgb(83, 72, 245);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 16rem;
+    height: 7rem;
+    padding: 10px;
+  }
+
+  .lowercard{
+    background-color: rgb(30, 32, 160);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 16rem;
+    padding: 5px;
+    height: 2rem;
+  }
+
+  
+  .card2{
+    background-color: rgb(80, 184, 11);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 16rem;
+    height: 7rem;
+    padding: 10px;
+  }
+
+  .lowercard2{
+    background-color: rgb(39, 150, 17);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 16rem;
+    padding: 5px;
+    height: 2rem;
+  }
+
+  
+  .card3{
+    background-color: rgb(250, 66, 66);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 16rem;
+    height: 7rem;
+    padding: 10px;
+  }
+
+  .lowercard3{
+    background-color: rgb(194, 8, 8);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 16rem;
+    padding: 5px;
+    height: 2rem;
+  }
+
+  
+  .card4{
+    background-color: rgb(223, 219, 17);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 16rem;
+    height: 7rem;
+    padding: 10px;
+  }
+
+  .lowercard4{
+    background-color:  rgb(177, 180, 4);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 16rem;
+    padding: 5px;
+    height: 2rem;
+  }
