@@ -16,7 +16,7 @@ import AssignmentList from '../../../Pages/Teacher/AssigmentList/AssignmentList'
 import Class from '../../../Pages/Classes/Class/Class';
 
 import './Solution.css';
-import './TSidebar.css';
+// import './TSidebar.css';
 import './TContent.css';
 
 
