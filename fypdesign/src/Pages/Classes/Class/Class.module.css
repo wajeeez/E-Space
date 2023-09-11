@@ -8,7 +8,7 @@ body{
 }
 
 
-/* .Intro{
+.Intro{
     margin-top: 50px;
     font-weight: bold;
     font-size: 20px;
@@ -16,7 +16,7 @@ body{
   
   }
 
-  .meet{
+/*   .meet{
     margin: 10px;
     display: inline-block;
   padding: 16px 32px;
@@ -57,14 +57,14 @@ body{
 
   htc {
     
-    font-size: 28px;
+    
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     
   }
   
   ptc {
-    font-size: 18px;
+    
     margin-top: 10px;
     font-family: 'Roboto, sans-serif';
   }
@@ -79,7 +79,7 @@ body{
     
   }
   .tcCardDescription{
-    font-size: 18px;
+    font-size: 22px;
     
     font-family: 'Roboto, sans-serif'
   }

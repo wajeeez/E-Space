@@ -1,6 +1,7 @@
 /* td-sidebar.css */
 .td-sidebar {
   background-color: #0A1045;
+  
   width: 240px;
   min-width: 40px;
   display: flex;
@@ -21,6 +22,7 @@
 
   .td-sidebar:hover .td-sidebar-text {
     font-size: large;
+    
   }
   .td-sidebar:hover .td-sidebar-button {
     font-size: medium;
@@ -46,6 +48,7 @@
     font-weight: bold;
     font-size: large;
     margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
   }
   
   /* td-sidebar Middle (buttons) */

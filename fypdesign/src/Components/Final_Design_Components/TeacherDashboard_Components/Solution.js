@@ -59,7 +59,7 @@ function Solution() {
           </button>
           <button className="td-sidebar-button" onClick={() => handlePageChange('assignmentList')}>
             <img src={assignIcon} alt="Icon" className="td-sidebar-button-icon" />
-            AssignmentList
+            Assignment List
           </button>
           <button className="td-sidebar-button" onClick={() => handlePageChange('quiz')}>
             <img src={quizIcon} alt="Icon" className="td-sidebar-button-icon" />

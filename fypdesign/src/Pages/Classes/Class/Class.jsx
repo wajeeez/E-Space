@@ -122,8 +122,8 @@ function Class() {
   const tccards = [
     { title: 'Start Meeting 1', onClick: () => navigate(`/${classes}/meeting/${_id}`)  },
     { title: 'Start Meeting 2', },
-    { title: '70 %', description: 'Average Attendance', link: '' },
-    { title: '30 / 40', description: 'Last Meeting Attendance', link: '' },
+    { title: '70 %', description: 'Average Attendance',  },
+    { title: '30 / 40', description: 'Last Meeting Attendance',  },
     // Add more cards as needed
     // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
     // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },

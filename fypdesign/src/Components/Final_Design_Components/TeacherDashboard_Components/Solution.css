@@ -9,11 +9,13 @@
 /* td-sidebar.css */
 .td-sidebar {
   background-color: #0A1045;
-  width: 210px;
+  width: 190px;
   min-width: 40px;
   display: flex;
   flex-direction: column;
   color: aliceblue;
+  margin-left: 5px;
+  
   transition: width 0.5s, min-width 0.5s; /* Adding transition properties */
 
 }
@@ -55,6 +57,7 @@
     font-weight: bold;
     font-size: large;
     margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
   }
   
   /* td-sidebar Middle (buttons) */
@@ -77,6 +80,7 @@
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     font-size: medium;
     color: aliceblue;
+    font-family: 'Roboto', sans-serif;
     
   }
   
@@ -118,10 +122,11 @@
       width: 70px;
       min-width: 60px;
       color: aliceblue;
+      margin-left: 0px;
       transition: width 0.5s, min-width 0.5s; /* Adding transition properties */ 
     }
     .td-sidebar:hover {
-      width: 210px;
+      width: 190px;
       min-width: 60px;
     }
   
