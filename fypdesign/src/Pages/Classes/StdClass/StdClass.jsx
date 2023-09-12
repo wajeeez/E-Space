@@ -20,6 +20,26 @@ function StdClass() {
   const [stdEmail, setstdEmail] = useState(null);
   // const [classes, setClasses] = useState([]);
   const [StudentName, setStudentName] = useState([]);
+  const sccards = [
+    { title: 'Join Meeting 1', onClick: () => navigate(`/${classes}/meeting/${_id}`)  },
+    // { title: 'Join Meeting 2', onClick: handleRedirect },
+    // { title: name, description: 'Class Teacher', },
+    { title: '80 %', description: 'Class Attendance', onClick: () => navigate(`/${classes}/assignment/${_id}`)},
+    { title: '3 / 4', description: 'Assignments',  },
+
+    
+    
+
+    // Add more cards as needed
+    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
+    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
+    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
+    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
+  ];
+
+  // const handleNameChange = () => {
+  //   setName('New Title'); // Set the 'name' state to the new title
+  // };
 
 
   useEffect(() => {
@@ -63,66 +83,73 @@ function StdClass() {
   }, []);
 
 
-
-
-
-
-
-
-
-
   const handleRedirect = () => {
     // Redirect to the third-party URL
     window.location.href = `http://localhost:3030/${_id}`;
   };
 
 
-
-
-
-
-
-
-
   return (
     <div>
+      <div className={styles.sclass}>
+      Class : {classes}  &nbsp;  Teacher : {name}
+      </div>
       <center>
+        
         <p className={styles.Intro}>
-          Teacher Name : {name} | Class: {classes} | Email :{email}
+          Student Name : {StudentName} | Email : {stdEmail}
         </p>
-        <p className={styles.Intro}>
-          Student Name : {StudentName} | Email :{stdEmail}
-        </p>
-        <br />
-        <br />
-        <br />
-        <br />
+        </center>
 
 
-        <button className={styles.meet} onClick={() => {
 
-          navigate(`/${classes}/meeting/${_id}`)
+        <div className={styles.scCardContainer}>
+        {sccards.map((card, index) => (
+          <a
+            key={index}
+            href={card.link}
+            className={styles.scCard} 
+            style={{ backgroundColor: card.bgColor , fontFamily: 'Roboto, sans-serif'}}
+          >
+          <div className={styles.scCardHeading}>
+           <div className={`icon ${card.icon}`} />
+           <hsc>{card.title}</hsc>
+          </div>
+          <psc className={styles.scCardDescription}>{card.description}</psc>
+          </a>
+        ))}
+         </div>
 
-        }}>Join Meeting</button>
+        
 
-        <button className={styles.meet}
-          onClick={handleRedirect}
-        // onClick={()=>{
-        // //  navigate(`/custom/${classes}/meeting/${_id}`)
 
-        // }}
-        >Start Meeting 2 </button>
-        <button className={styles.button} onClick={() => {
 
-          navigate(`/${classes}/assignment/${_id}`)
-        }}>Assignments</button>
-        <button className={styles.button}>Quizess</button>
-
-        {/* students list  */}
-
-      </center>
+      
     </div>
   );
 }
 
 export default StdClass;
+
+
+
+{/* <button className={styles.meet} onClick={() => {
+
+  navigate(`/${classes}/meeting/${_id}`)
+
+}}>Join Meeting</button>
+
+<button className={styles.meet}
+  onClick={handleRedirect}
+// onClick={()=>{
+// //  navigate(`/custom/${classes}/meeting/${_id}`)
+
+// }}
+>Start Meeting 2 </button>
+<button className={styles.button} onClick={() => {
+
+  navigate(`/${classes}/assignment/${_id}`)
+}}>Assignments</button>
+<button className={styles.button}>Quizess</button>
+
+students list  */}

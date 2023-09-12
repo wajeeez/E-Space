@@ -1,40 +1,52 @@
-/* Sidebar.css */
-.sidebar {
+/* Solution.css */
+
+.Ssolution-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #0A1045;
+  }
+  
+/* sd-sidebar.css */
+.sd-sidebar {
   background-color: #0A1045;
-  width: 240px;
+  width: 190px;
   min-width: 40px;
   display: flex;
   flex-direction: column;
   color: aliceblue;
+  margin-left: 5px;
+  
   transition: width 0.5s, min-width 0.5s; /* Adding transition properties */
 
 }
-.sidebar-button-icond {
+.sd-sidebar-button-icond {
   width: 40px; /* Adjust the width of the icon */
   height: auto; /* Adjust the height of the icon */
   margin-right: 20px; /* Add spacing between icon and text */
 }
 
-.sidebar-bottom-d{
-  margin-top: 60px;
+.sd-sidebar-bottom-d{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 5px;
 }
 
-  .sidebar:hover .sidebar-text {
+  .sd-sidebar:hover .sd-sidebar-text {
     font-size: large;
   }
-  .sidebar:hover .sidebar-button {
+  .sd-sidebar:hover .sd-sidebar-button {
     font-size: medium;
   }
   
-  /* Sidebar Top */
-  .sidebar-top {
+  /* sd-sidebar Top */
+  .sd-sidebar-top {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     margin-top: 55px;
   }
   
-  .sidebar-icon {
+  .sd-sidebar-icon {
     /* Style your icon/image here */
     width: 50px;
     height: auto;
@@ -42,19 +54,20 @@
     
   }
   
-  .sidebar-text {
+  .sd-sidebar-text {
     font-weight: bold;
     font-size: large;
     margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
   }
   
-  /* Sidebar Middle (buttons) */
-  .sidebar-middle {
+  /* sd-sidebar Middle (buttons) */
+  .sd-sidebar-middle {
     margin-bottom: 40px; /* Add margin between middle and bottom sections */
     
   }
   
-  .sidebar-button {
+  .sd-sidebar-button {
     display: flex;
     align-items: center;
     width: 100%;
@@ -68,16 +81,17 @@
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     font-size: medium;
     color: aliceblue;
+    font-family: 'Roboto', sans-serif;
     
   }
   
-  .sidebar-button:hover{
+  .sd-sidebar-button:hover{
     background-color: white;
     color: #333;
     transform: scale(1.05);
     font-weight: bold;
   }
-  .sidebar-button:active {
+  .sd-sidebar-button:active {
     background-color: white;
     color: #333;
     transform: scale(1.05);
@@ -87,14 +101,14 @@
   
   
   /* Style the icon within the button */
-  .sidebar-button-icon {
+  .sd-sidebar-button-icon {
     width: 30px; /* Adjust the width of the icon */
     height: auto; /* Adjust the height of the icon */
     margin-right: 10px; /* Add spacing between icon and text */
   }
   
-  /* Sidebar Bottom (logout and account settings) */
-  .sidebar-bottom .sidebar-button {
+  /* sd-sidebar Bottom (logout and account settings) */
+  .sd-sidebar-bottom .sd-sidebar-button {
     width: 100%;
     margin: 5px 0;
   }
@@ -102,39 +116,54 @@
 
 
   
-  /* Responsive Sidebar */
+  /* Responsive sd-sidebar */
   @media (max-width: 880px) {
-    .sidebar {
+    .sd-sidebar {
       padding: 10px;
-      width: 50px;
-      min-width: 40px;
+      width: 70px;
+      min-width: 60px;
       color: aliceblue;
+      margin-left: 0px;
       transition: width 0.5s, min-width 0.5s; /* Adding transition properties */ 
     }
-    .sidebar:hover {
-      width: 170px;
-      min-width: 40px;
+    .sd-sidebar:hover {
+      width: 190px;
+      min-width: 60px;
     }
   
-    .sidebar-middle .sidebar-button,
-    .sidebar-bottom .sidebar-button {
+    .sd-sidebar-middle .sd-sidebar-button,
+    .sd-sidebar-bottom .sd-sidebar-button {
       margin: 5px 0;
       
     }
 
-    .sidebar-text {
+    .sd-sidebar-text {
       font-size: 0;
     }
 
-    .sidebar-button{
+    .sd-sidebar-button{
       font-size: 0;
     }
-    .sidebar-icon{
+    .sd-sidebar-icon{
       width: 40px;
       margin-left: 4px;
     }
     
   }
+  @media (max-width: 510px) {
+    .sd-sidebar:hover {
+      
+      min-width: 180px;
+    }
+
+  }
+
+
+  .sd-content {
+    width: 70%; /* Adjust the width as needed */
+    padding: 20px;
+    margin-right: 10px;
+    border-radius: 20px;
+
+  }
   
-
-

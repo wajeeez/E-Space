@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import Navbar from '../../../Components/Final_Design_Components/StudentDashboard_Components/Navbar';
-import Sidebar from '../../../Components/Final_Design_Components/StudentDashboard_Components/Sidebar';
-import SContent from '../../../Components/Final_Design_Components/StudentDashboard_Components/Content';
-import Footer from '../../../Components/Final_Design_Components/StudentDashboard_Components/Footer';
+import SNavbar from '../../../Components/Final_Design_Components/StudentDashboard_Components/SNavbar';
+// import Sidebar from '../../../Components/Final_Design_Components/StudentDashboard_Components/Sidebar';
+// import SContent from '../../../Components/Final_Design_Components/StudentDashboard_Components/Content';
+import SFooter from '../../../Components/Final_Design_Components/StudentDashboard_Components/SFooter';
+import SSolution from '../../../Components/Final_Design_Components/StudentDashboard_Components/SSolution';
 
 const StudentDashboard = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -19,12 +20,13 @@ const StudentDashboard = () => {
 
   return (
     <div className="app">
-      <Navbar onNavbarButtonClick={handleNavbarButtonClick} />
-      <div className="content-container">
+      <SNavbar onNavbarButtonClick={handleNavbarButtonClick} />
+      {/* <div className="content-container">
         {sidebarVisible && <Sidebar onPageChange={handlePageChange} />}
         <SContent currentPage={currentPage} />
-      </div>
-      <Footer/>
+      </div> */}
+      <SSolution/>
+      <SFooter/>
     </div>
   );
 }

@@ -19,16 +19,16 @@
 
 
 import React from 'react';
-import './Navbar.css';
+import './SNavbar.css';
 
 import logoImage from '../../../Assets/images/logo1.png';
 
-const Navbar = () => {
+const SNavbar = () => {
   return (
-    <div className="navbar-contain">
-      <img className="navbar-image" src={logoImage} alt="Logo" />
+    <div className="sd-navbar-contain">
+      <img className="sd-navbar-image" src={logoImage} alt="Logo" />
     </div>
   );
 };
 
-export default Navbar;
+export default SNavbar;

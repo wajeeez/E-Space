@@ -1,13 +1,13 @@
 /* Navbar.css */
-.navbar-contain {
-  height: 40px;
+.sd-navbar-contain {
+  height: 60px;
   padding: 10px; /* Add padding for spacing */
   background-color: #0A1045; 
  
 }
 
 
-.navbar-image {
+.sd-navbar-image {
   width: 200px; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
   align-items: center;
