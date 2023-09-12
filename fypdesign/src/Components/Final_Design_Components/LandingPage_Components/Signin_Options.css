@@ -2,19 +2,21 @@ html, body {
     /* height: 100vh; */
     margin: 0;
     padding: 0;
-    
+    height: 100%;
   }
   
   .signin-container {
     background-color: #0A1045;
-   
-    
-
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+    
     align-items: center;
-    padding: 2rem 0 2rem 0;
+    padding: 2rem 0;
+    min-height: 100vh; /* Ensure the container fills the viewport height */
+    width: 100%;
+    overflow: hidden;
   }
+
   .signin-subscription {
     display: flex;
     flex-direction: column;
@@ -23,7 +25,7 @@ html, body {
     text-align: center;
     margin-top: 20px;
   
-    margin-bottom: 0px;
+    margin-bottom: 50px;
     padding: 0px;
     color: #fff;
   }
@@ -39,7 +41,7 @@ html, body {
   } */
   
   .signin-subscription-heading {
-    margin-bottom: 24px;
+    margin-bottom: 0px;
     font-size: 60px;
     animation: glowing 2s ease-in-out infinite; /* Apply the glowing animation */
   }
@@ -69,10 +71,11 @@ html, body {
     display: flex;
     background-color: #0A1045;
     width: 100%;
-    max-width: 1000px;
-    margin-top: 100px;
+    
+    margin-top: 40px;
     margin-left: 10px;
     margin-right: 10px;
+
   }
   
   
@@ -82,7 +85,7 @@ html, body {
     font-size: 24px; /* Adjust the font size if needed */
     margin-left: auto; /* Add margin to separate from the logo */
     margin-top: 2%;
-    
+    margin-right: 30px;
   }
   
   
@@ -100,6 +103,7 @@ html, body {
     max-height: auto;
     min-height: auto;
     min-width: 10%;
+    margin-left: 10px;
     margin-right: 20px; /* Add some space between the image and text */
   }
   
@@ -114,10 +118,11 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
+    
     width: 90%;
     margin: 0 auto;
     padding: 40px;
+    margin-bottom: 90px;
   }
   
   
@@ -186,11 +191,20 @@ html, body {
       padding: 0px; 
       
     }
+    
   
     .t__item {
       height: 100%;
       width: 300px;
       margin: 20px 30px 20px;
+    } 
+
+
+  
+    .t__item {
+      flex: 1; /* Let the items take equal space */
+      max-width: calc(50% - 40px); /* Adjust the max-width based on your design needs */
+      margin: 20px;
     }
   
     .t__item__img {
@@ -228,21 +242,22 @@ html, body {
   
   }
   
-  @media (max-width: 420px) {
+@media (max-width: 700px) {
     .t__container {
       flex-direction: column;
       padding: 0px; 
-      height: 200px;
+      
     }
-  
+
     .t__item {
-      height: 200px;
-      width: 140px;
+      height: 300px;
+      width: 250px;
       margin: 20px 30px 20px;
     }
   
     .t__item__img {
-      height: 140px;
+      height: 250px;
+      
       margin-bottom: 10px;
     }
   
@@ -270,13 +285,188 @@ html, body {
     }
   
     .footer-logo img{
-      max-width: 40%;
+      max-width: 30%;
       max-height: auto;
       min-height: auto;
-      min-width: 10%;
+      min-width: 150px;
   }
   
    
   }
   
   
+
+    
+ @media (max-width: 550px) {
+    .t__container {
+      flex-direction: column;
+      padding: 0px; 
+      height: 100%;
+      width: 100%;
+    }
+    .tcards{
+      height: 300px;
+    }
+  
+    .t__item {
+      height: 300px;
+      width: 200px;
+      margin: 20px 30px 20px;
+    }
+  
+    .t__item__img {
+      height: 200px;
+      margin-bottom: 10px;
+    }
+  
+    .t__item__text {
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    
+  
+    .signin-subscription-heading {
+    
+      margin-bottom: 24px;
+      font-size: 40px;
+    }
+  
+    .signin-subscription-text {
+      margin-bottom: 16px;
+      font-size: 12px;
+      margin-left: 8%; 
+      margin-right: 8%;
+    }
+
+    .website-rights{
+      margin-top: 4%;
+      font-size: 15px;
+    }
+  
+    .footer-logo img{
+      max-width: 30%;
+      max-height: auto;
+      min-height: auto;
+      min-width: 150px;
+  }
+  
+   
+  }
+  
+
+  @media (max-width: 500px) {
+    .t__container {
+      flex-direction: column;
+      padding: 0px; 
+      height: 100%;
+      width: 100%;
+    }
+    .tcards{
+      height: 200px;
+      width: 200px;
+      ;
+    }
+  
+    .t__item {
+      height: 200px;
+      width: 150px;
+      margin: 20px 30px 20px;
+    }
+  
+    .t__item__img {
+      height: 200px;
+      margin-bottom: 10px;
+    }
+  
+    .t__item__text {
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    
+  
+    .signin-subscription-heading {
+    
+      margin-bottom: 0px;
+      font-size: 40px;
+    }
+  
+    .signin-subscription-text {
+      margin-bottom: 16px;
+      font-size: 12px;
+      margin-left: 8%; 
+      margin-right: 8%;
+    }
+
+    .website-rights{
+      margin-top: 4%;
+      font-size: 15px;
+    }
+  
+    .footer-logo img{
+      max-width: 30%;
+      max-height: auto;
+      min-height: auto;
+      min-width: 150px;
+  }
+  
+   
+  } 
+  
+
+  @media (max-width: 400px) {
+    .t__container {
+      flex-direction: column;
+      padding: 0px; 
+      height: 100%;
+      width: 100%;
+    }
+    .tcards{
+      height: 200px;
+      width: 100px;
+    }
+  
+    .t__item {
+      height: 200px;
+      width: 120px;
+      margin: 20px 30px 20px;
+    }
+  
+    .t__item__img {
+      height: 200px;
+      margin-bottom: 10px;
+    }
+  
+    .t__item__text {
+      margin-top: 40px;
+      font-size: 20px;
+    }
+    
+  
+    .signin-subscription-heading {
+    
+      margin-bottom: 24px;
+      font-size: 40px;
+    }
+  
+    .signin-subscription-text {
+      margin-bottom: 16px;
+      font-size: 12px;
+      margin-left: 8%; 
+      margin-right: 8%;
+    }
+
+    .website-rights{
+      margin-top: 4%;
+      font-size: 15px;
+    }
+  
+    .footer-logo img{
+      max-width: 30%;
+      max-height: auto;
+      min-height: auto;
+      min-width: 150px;
+      margin-left: 5px;
+  }
+  
+   
+  }
