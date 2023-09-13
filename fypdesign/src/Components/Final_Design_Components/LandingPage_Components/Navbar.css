@@ -7,6 +7,12 @@
   font-family: "Orbitron";
 }
 
+@media (max-width: 420px) {
+  .navbar {
+    overflow-x: visible !important;
+  }
+}
+
 .navbar {
   background: transparent;
   height: 80px;
@@ -22,7 +28,7 @@
 }
 
 .navbar.active {
-  background: #0A1045;
+  background: #0a1045;
   transition: background 0.4s ease-in-out; /* Add transition property */
 }
 
@@ -31,8 +37,8 @@
   justify-content: right;
   align-items: center;
   height: 80px;
-  width: 1950px;
-  margin-right: 50px;
+  width: 100%;
+  
 }
 
 .navbar-logo {
@@ -66,17 +72,24 @@
   grid-gap: 30px;
   list-style: none;
   text-align: center;
-  width: 60vw;
+  width: 100%; /* Set width to 100% to take up the full width */
   justify-content: end;
   top: 0;
   left: 100%; /* Initial position off-screen to the right */
-  opacity: 1;
+  opacity: 0;
   transition: left 0.5s ease; /* Add transition property for left */
+  position: absolute; /* Add position: absolute; */
+  background: #0a1045; /* Add background color to make it visible */
+  height: auto; /* Allow the menu to expand to fit its content */
+  z-index: 1; /* Make sure it's above other content */
+  margin-top: 0px;
+  margin-bottom: 50px;
+  max-height: none; /* Remove any max-height constraints */
 }
 
 .nav-menu.active {
-  background: #0A1045;
-  left: 0; /* Slide in from the right */
+  background: #0a1045;
+  left: 0; /* Slide in from the left */
   opacity: 1;
   transition: left 0.5s ease; /* Add transition property for left */
   z-index: 0;
@@ -135,7 +148,7 @@
   }
 
   .nav-menu.active {
-    background: #0A1045;
+    background: #0a1045;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -7,18 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Navbar() {
-
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [navbar, setNavbar] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const [navbar, setNavbar] = useState(false);
-
   const showButton = () => {
+    setScreenWidth(window.innerWidth);
     if (window.innerWidth <= 900) {
       setButton(false);
     } else {
@@ -30,23 +29,31 @@ function Navbar() {
     showButton();
   }, []);
 
-  window.addEventListener('resize', showButton);
+  useEffect(() => {
+    window.addEventListener('resize', showButton);
+    return () => {
+      window.removeEventListener('resize', showButton);
+    };
+  }, []);
 
   const changeBackground = () => {
-    console.log(window.scrollY)
-    if (window.scrollY >= 640) {
+    if (window.pageYOffset >= 640) {
       setNavbar(true);
     } else {
       setNavbar(false);
     }
-
   };
 
-  window.addEventListener('scroll', changeBackground);
+  useEffect(() => {
+    window.addEventListener('scroll', changeBackground);
+    return () => {
+      window.removeEventListener('scroll', changeBackground);
+    };
+  }, []);
 
   return (
     <>
-      <nav className={navbar ? 'navbar active' : 'navbar'}>
+      <nav className={navbar || screenWidth <= 420 ? 'navbar active' : 'navbar'}>
         <div className='navbar-container'>
           <div className='navbar-logo' onClick={closeMobileMenu}>
             <img src="../images/logo1.png" alt='logo' />
@@ -61,11 +68,7 @@ function Navbar() {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link
-                to='/'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
+              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 About Us
               </Link>
             </li>
@@ -78,26 +81,7 @@ function Navbar() {
                 Sign In
               </Link>
             </li>
-        
-
-            {/* <li>
-              <Link
-                to='/'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
-            </li> */}
           </ul>
-          {/* {button &&
-            <div onClick={() => {
-
-              navigate("/signin/options")
-
-            }}>
-              <Button  buttonStyle='btn--outline'>Sign In</Button>
-            </div>} */}
         </div>
       </nav>
     </>

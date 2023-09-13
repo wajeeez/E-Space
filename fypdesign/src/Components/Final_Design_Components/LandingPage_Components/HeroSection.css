@@ -9,6 +9,12 @@ video {
 
 */
 
+@media (max-width: 420px) {
+.hero-container{
+  max-width: 420px;
+}
+}
+
 
 .hero-container {
   

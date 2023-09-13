@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden; 
+  overflow: auto; 
 }
 
 .social-media {
@@ -76,7 +76,7 @@
   color: #fff;
   margin-bottom: 16px;
   font-size: 24px; /* Adjust the font size if needed */
-  margin-right: 30px;
+  margin-right: auto;
   margin-top: 2%;
   
 }
@@ -109,8 +109,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1200px;
-  width: 90%;
+  
+  width: 100%;
   margin: 0 auto;
   padding: 40px;
 }
@@ -224,11 +224,11 @@
 
 }
 
-@media (max-width: 650px) {
+@media (max-width: 550px) {
   .t__container {
     flex-direction: column;
     padding: 0px; 
-    height: 200px;
+    height: 150px;
     width: 100px;
   }
 
@@ -276,3 +276,8 @@
  
 }
 
+@media (max-width: 420px) {
+.footer-container{
+  max-width: 420px;
+}
+}

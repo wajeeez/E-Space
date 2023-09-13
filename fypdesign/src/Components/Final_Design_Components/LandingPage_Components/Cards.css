@@ -1,4 +1,9 @@
-
+@media (max-width: 420px) {
+.cards{
+  max-width: 420px;
+  overflow: auto;
+}
+}
 .cards {
 
   padding: 1rem 0 0;

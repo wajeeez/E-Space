@@ -10,8 +10,11 @@ function LandingPage() {
     <>
       <Navbar />
       <HeroSection />
+      
       <Cards />
       <Footer />
+      
+      
     </>
   );
 }
