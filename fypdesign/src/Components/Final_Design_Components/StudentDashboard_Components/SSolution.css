@@ -1,9 +1,52 @@
+
+
+.s-menu-icon {
+  
+  top: 20px; /* Adjust the top position as needed */
+  margin-left: 15px; /* Adjust the left position as needed */
+  cursor: pointer;
+  position: absolute;
+}
+@media (max-width: 425px) {
+  
+  .s-menu-icon  {
+    position: relative ;
+    margin-top: -70px;
+    margin-bottom: 30px;
+  }
+}
+.s-menu-icon i {
+  font-size: 0px;
+  transition: transform 0.3s ease-in-out;
+  color: #ffffff;
+}
+
+@media (max-width: 880px) {
+  
+  .s-menu-icon i {
+    font-size: 30px;
+    color: #ffffff; /* Change the color as needed */
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+
+
+/* Rotate the icon when the sidebar is closed */
+
+
+
+
+
+
+
 /* Solution.css */
 
 .Ssolution-container {
     display: flex;
     justify-content: space-between;
     background-color: #0A1045;
+    
   }
   
 /* sd-sidebar.css */
@@ -43,7 +86,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    margin-top: 55px;
+    margin-top: 10px;
+    
   }
   
   .sd-sidebar-icon {

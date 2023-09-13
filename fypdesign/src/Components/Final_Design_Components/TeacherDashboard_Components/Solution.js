@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import dashIcon from '../../../Assets/images/dashboard.png';
 import perfIcon from '../../../Assets/images/tre.png';
 import assignIcon from '../../../Assets/images/assign.png';
@@ -20,21 +20,70 @@ import './Solution.css';
 import './TContent.css';
 
 
+
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 function Solution() {
   const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
+
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
+  const [name, setName] = useState(null);
+  const navigate = useNavigate();
+  const [classes, setClasses] = useState([]);
+  const { _id } = useParams();
 
   const handlePageChange = (pageName) => {
     setCurrentPage(pageName);
   };
 
+  useEffect(() => {
+    axios
+      .get(baseURL + `/teacher/class/${_id}`)
+      .then((response) => {
+        
+        setName(response.data.response.teacherName);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleLogout = async () => {
+    localStorage.removeItem("authToken");
+    
+    navigate('/');
+  };
+  const handleLeaveClass = async () => {
+    navigate('/TDashboard');
+  };
+
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+
   return (
     <div className="solution-container">
       <div className="td-sidebar">
+        <div className='t-menu-icon' id="menuIcon" onClick={toggleMenu}>
+          {isMenuOpen ? (
+            <i className="fas fa-times" id="openIcon" />
+          ) : (
+            <i className="fas fa-bars" id="closeIcon" />
+          )}
+        </div>
         <div className="td-sidebar-top">
           <div className="td-sidebar-icon">
             <img src={userIcon} alt="Icon" className="td-sidebar-icon" />
           </div>
-          <div className="td-sidebar-text">Wajahat</div>
+          <div className="td-sidebar-text">{name}</div>
         </div>
         <div className="td-sidebar-middle">
           <button className="td-sidebar-button" onClick={() => handlePageChange('dashboard')}>
@@ -68,7 +117,7 @@ function Solution() {
         </div>
 
         <div className="td-sidebar-bottom">
-          <button className="td-sidebar-button" onClick={() => handlePageChange('return')}>
+          <button className="td-sidebar-button" onClick={handleLeaveClass}>
             <img src={retIcon} alt="Icon" className="td-sidebar-button-icon" />
             Leave Class
           </button>
@@ -76,7 +125,7 @@ function Solution() {
             <img src={accsetIcon} alt="Icon" className="td-sidebar-button-icon" />
             User Settings
           </button>
-          <button className="td-sidebar-button" onClick={() => handlePageChange('logout')}>
+          <button className="td-sidebar-button" onClick={handleLogout}>
             <img src={logoutIcon} alt="Icon" className="td-sidebar-button-icon" />
             Logout
           </button>
@@ -101,7 +150,7 @@ function Solution() {
         {currentPage === 'performance' && <div>performance</div>}
         {currentPage === 'return' && <div>home</div>}
         {currentPage === 'delete' && <div>delete</div>}
-        {currentPage === 'logout' && <div>logout</div>}
+        
       </div>
     </div>
   );

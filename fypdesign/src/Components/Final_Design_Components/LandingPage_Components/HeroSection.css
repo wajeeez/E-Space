@@ -9,11 +9,6 @@ video {
 
 */
 
-@media (max-width: 420px) {
-.hero-container{
-  max-width: 420px;
-}
-}
 
 
 .hero-container {
@@ -36,7 +31,7 @@ video {
 .hero-container > h1 {
   color: #fff;
   font-size: 100px;
-  margin-top: -100px;
+  margin-top: 0px;
   animation: glowingText 2s ease-in-out infinite; /* Use the correct animation name */
 }
 

@@ -146,16 +146,10 @@ function Class() {
 
   return (
     <>
-      <center>
-       <p className={styles.Intro}>
-          Teacher Name: {name} | Class: {classes}
-        </p>
-        <br/>
-        <br/>
-        <br/>
-      </center>
-
-
+      <div className={styles.tclass}>
+      Class : {classes}
+      </div>
+      
       <div className={styles.tcCardContainer}>
         {tccards.map((card, index) => (
           <a
