@@ -14,7 +14,12 @@ function HeroSection() {
       
 
       <h1>WELCOME TO E-SPACE</h1>
+      <br/>
+      <br/>
+      <br/>
       <p>What are you waiting for?</p>
+      <br/>
+      <br/>
       <div className='hero-btns'>
         <div   onClick={  () =>{
         navigate("/teacher/register")

@@ -29,6 +29,7 @@ video {
 
 
 .hero-container > h1 {
+  letter-spacing: 5px;
   color: #fff;
   font-size: 100px;
   margin-top: 0px;

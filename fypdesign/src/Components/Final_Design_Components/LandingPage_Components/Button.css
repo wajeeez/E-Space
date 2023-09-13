@@ -23,7 +23,7 @@
   background-color: transparent;
   color: var(--primary);
   padding: 14px 40px;
-  border: 1px solid var(--primary);
+  border: 5px solid var(--primary);
   transition: all 0.3s ease-out;
   font-weight: bold;
   font-size: 20px;
@@ -31,6 +31,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  border-radius: 20px;
 }
 
 .btn--medium {
@@ -39,8 +40,8 @@
 }
 
 .btn--large {
-  padding: 12px 26px;
-  font-size: 20px;
+  padding: 20px 30px;
+  font-size: 30px;
   
 }
 

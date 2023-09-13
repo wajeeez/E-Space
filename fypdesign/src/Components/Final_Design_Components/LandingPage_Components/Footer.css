@@ -26,9 +26,7 @@
   color: #fff;
 }
 
-.footer-subscription > p {
-  font-family: 'Orbitron';
-}
+
 
 /* .footer-subscription-heading {
   
@@ -40,6 +38,8 @@
   margin-bottom: 24px;
   font-size: 60px;
   animation: glowing 2s ease-in-out infinite; /* Apply the glowing animation */
+  font-family: 'Orbitron';
+  letter-spacing: 5px;
 }
 
 @keyframes glowing {
@@ -58,9 +58,10 @@
 .footer-subscription-text {
   margin-top: 20px;
   margin-bottom: 24px;
-  font-size: 20px;
+  font-size: 28px;
   margin-left: 15%; 
   margin-right: 15%;
+  font-family: Helvetica;
 }
 
 .social-media{
@@ -79,9 +80,11 @@
   color: #fff;
   margin-bottom: 16px;
   font-size: 24px; /* Adjust the font size if needed */
-  margin-right: auto;
-  margin-top: 2%;
   
+  
+  width: 100%;
+  margin-right: auto;
+  text-align: right;
 }
 
 
@@ -91,13 +94,15 @@
 .footer-logo {
   display: flex; /* Display items in a row */
   align-items: center; /* Vertically center items */
+  width: 100%;
 }
 
 .footer-logo img {
-  max-width: 30%;
+  max-width: 20%;
+  width: 20%;
   max-height: auto;
   min-height: auto;
-  min-width: 10%;
+  min-width: 20%;
   margin-left: 30px; /* Add some space between the image and text */
   margin-left: auto;
 }
@@ -207,13 +212,14 @@
 
   .footer-logo img{
     max-width: 30%;
+    width: 40%;
     max-height: auto;
     min-height: auto;
-    min-width: 10%;
+    min-width: 30%;
 }
 
 .website-rights{
-  margin-top: 2%;
+  margin-top: 1%;
   font-size: 20px;
 }
 .footer-subscription-text {
@@ -268,7 +274,7 @@
     margin-right: 8%;
   }
   .website-rights{
-    margin-top: 4%;
+    margin-top: 1%;
     font-size: 15px;
   }
 
@@ -276,14 +282,14 @@
     max-width: 40%;
     max-height: auto;
     min-height: auto;
-    min-width: 10%;
+    min-width: 20%;
 }
 
  
 }
 
-@media (max-width: 420px) {
-.footer-container{
-  max-width: 420px;
+@media (max-width: 500px) {
+.footer-logo{
+  margin-top: 20px;
 }
 }
