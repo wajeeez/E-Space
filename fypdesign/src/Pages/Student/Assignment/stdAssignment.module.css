@@ -1,18 +1,8 @@
-html,body{
-  padding: 0%;
-  margin: 0%;
-  
-}
-
-.main{
-  color: #fff;
-}
-
-.main.h1{
+.header{
   font-family: Helvetica;
+  letter-spacing: 1px;
+  font-size: 30px;
 }
-
-
 .logInButton {
     background-color: #3861fb;
     color: white;
@@ -27,7 +17,11 @@ html,body{
     margin: 10px;
     margin-top: 15px;
   }
-  
+  .intro{
+    font-family: Helvetica;
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
   .logInButton:disabled {
     background-color: #6e8dfc;
   }
@@ -38,18 +32,18 @@ html,body{
     font-size: 20px;
     font-weight: bold;
   }
-/* Add this to your CSS */
+
 .modaloverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent; /* Semi-transparent background */
+  background-color: transparent; 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Higher than your other content */
+  z-index: 1000; 
 }
 
 .modal {
@@ -63,25 +57,28 @@ html,body{
   height: 20%;
   border: 1px solid rgb(255, 255, 255);
   color: #fff;
+  font-family: Helvetica;
 }
 
 
 .table {
   border: 2px solid forestgreen;
-  width: 800px;
-  height: 200px;
+  width: 600px;
+
 }
 
 .th {
   border: 1px solid rgb(255, 0, 0);
   border-bottom: 1px solid rgb(255, 0, 0);
   width: 15%;
-  color: #fff;
+  font-family: Helvetica;
+
 }
 
 
 .td {
   text-align: center;
+  font-family: Helvetica;
   
 }
 .assignmentButton {
@@ -91,6 +88,7 @@ html,body{
   padding: 8px 16px; /* Add some padding to the button */
   border-radius: 4px; /* Add a border radius for a rounded look */
   cursor: pointer; /* Change the cursor to a hand pointer on hover */
+  font-family: Helvetica;
 }
 
 .assignmentButton:hover {
@@ -108,8 +106,189 @@ html,body{
   padding: 8px 16px; /* Add some padding to the button */
   border-radius: 4px; /* Add a border radius for a rounded look */
   cursor: pointer; /* Change the cursor to a hand pointer on hover */
+  font-family: Helvetica;
 }
 
 .submissionButton:hover {
   background-color: #1e7e34; /* Darker green color on hover */
+}
+
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .tr {
+    height: auto; /* Allow rows to adjust to content height */
+  }
+
+  .th {
+    width: auto; /* Allow headers to adjust to content width */
+  }
+
+  .td {
+    text-align: center;
+  }
+
+  /* Adjust button styles for mobile */
+  .assignmentButton,
+  .submissionButton {
+    width: 100%; /* Make buttons full width on mobile */
+    margin: 10px 0; /* Add some vertical spacing between buttons */
+  }
+}
+
+/* 
+.modaloverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: rgb(0, 59, 187);
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid green;
+  width: 400px;
+  height: 300px; 
+}
+
+.filesbtn{
+
+
+
+}
+
+
+
+.cancelbtn{
+
+}
+
+.fileselector{
+
+} */
+
+
+/* YourComponent.module.css */
+
+/* 
+.modaloverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+ 
+  background-color: transparent; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 550px;
+  height: 250px;
+  text-align: center;
+} */
+
+h3 {
+  color: #333; /* Header text color */
+}
+
+.fileselector {
+  
+  margin: 40px 0;
+  padding: 10px;
+  border: 2px dashed #ccc; /* Border for the file selector area */
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f9f9f9; /* Background color for the file selector area */
+}
+
+.filesbtn, .cancelbtn {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+ 
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filesbtn {
+  background-color: #007bff; /* Submit button background color */
+  color: #fff; /* Submit button text color */
+}
+
+.cancelbtn {
+  margin-top: 0px; 
+  background-color: #ccc; /* Cancel button background color */
+  color: #333; /* Cancel button text color */
+}
+
+/* Styling for the file input (hidden by default) */
+input[type="file"] {
+  color: #131212;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .modal {
+    width: 90%; /* Adjust the width for smaller screens */
+    height: auto; /* Allow the height to adapt to content */
+    max-height: 80vh; /* Limit the maximum height */
+  }
+
+  .fileselector {
+    margin: 20px 0;
+    width: 80%;
+  }
+
+  .filesbtn, .cancelbtn {
+    margin: 10px;
+    width: 100%; /* Make buttons full width */
+  }
+}
+
+
+
+/* YourComponent.module.css */
+
+.inputContainer {
+  margin: 10px 0;
+}
+
+.inputLabel {
+  color:#000000;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Additional styling for the number input (if needed) */
+.inputField[type="number"] {
+  /* Add specific styles for number input */
+}
+
+/* Additional styling for the text input (if needed) */
+.inputField[type="text"] {
+  /* Add specific styles for text input */
 }

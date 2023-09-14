@@ -381,13 +381,13 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ backgroundColor: 'transparent'}}>
+    <div style={{ backgroundColor: 'transparent'}} >
       <center className='main'>
 
     
     
 
-        <h1 style={{margin:'20px', color: '#fff' }}>Student Assignments</h1>
+        <h1 style={{margin:'20px', color: '#fff' }} className={styles.header}>Student Assignments</h1>
 
         <p style={{margin:'20px', color: '#fff'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
@@ -408,7 +408,7 @@ useEffect(() => {
            
             ( 
             <>
-            
+            <br/>
               <tr className={styles.tr} key={assignment.fileURL}>
 
                 <td className={styles.td} >{index + 1}</td>

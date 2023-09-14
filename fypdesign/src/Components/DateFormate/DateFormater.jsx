@@ -8,8 +8,10 @@ const FormattedDate = ({ rawDate }) => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}-${month}-${year}`;
   };
-
-  return <span>{formattedDate(rawDate)}</span>;
+  const spanStyle = {
+    fontFamily: 'Helvetica',
+  };
+  return <span style={spanStyle}>{formattedDate(rawDate)}</span>;
 };
 
 export default FormattedDate;

@@ -141,7 +141,13 @@ const AssignmentPage = () => {
 
   return (
     <div>
-      <center>  <h1>Assignments</h1>
+      <center> 
+        <br/>
+        <br/> 
+        <h1 className={styles.header} >Assignments</h1>
+        <br/>
+        <br/>
+        <br/>
 
 
         {/* Upload Assignment */}
