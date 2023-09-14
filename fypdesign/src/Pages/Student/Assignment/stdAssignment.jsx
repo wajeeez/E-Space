@@ -381,15 +381,15 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ backgroundColor: 'transparent' }}>
-      <center>
+    <div style={{ backgroundColor: 'transparent'}}>
+      <center className='main'>
 
     
     
 
-        <h1 style={{margin:'20px'}}>Student Assignments</h1>
+        <h1 style={{margin:'20px', color: '#fff' }}>Student Assignments</h1>
 
-        <p style={{margin:'20px'}} className={styles.intro}>
+        <p style={{margin:'20px', color: '#fff'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
         </p>
         <table>
