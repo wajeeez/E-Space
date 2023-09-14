@@ -1,17 +1,19 @@
 /* General styles */
 body {
   margin: 0;
+  padding:0;
+  
   
 }
 
 .td-app {
-  display: block;
+  display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  
 }
 
 .td-content-container {
-  display: flex;
+  
   background-color: aqua;
   margin: 0;
   
