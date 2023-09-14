@@ -9,6 +9,43 @@ function AssignmentList() {
   const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState('');
   const [submissions, setSubmissions] = useState([]);
+  const [dialogVisible, setDialogVisible] = useState(false)
+  const [message, setMessage] = useState(null);
+  const [suburl,setsuburl]=useState(null)
+  const [Email,setEmail]=useState(null)
+  const [ClassId,setClassId]=useState(null)
+  // const [assignmentFileURL,]
+
+  const [data, setData] = useState({
+    Email: null,
+    classId: null,
+    submissionFileURL: null,
+    marks: null,
+    remarks: null
+  });
+
+  const [formData, setFormData] = useState({
+    marks: '',
+    remarks: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+
+
+
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
 
   // Fetch assignments and submissions data from an API or mock data
   useEffect(() => {
@@ -18,7 +55,7 @@ function AssignmentList() {
     const fetchData = async () => {
       // Fetch assignments data
       axios
-        .get(baseURL+`/teacher/assignments/list/${_id}`)
+        .get(baseURL + `/teacher/assignments/list/${_id}`)
         .then((response) => {
           if (response.data) {
             //  fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -58,7 +95,7 @@ function AssignmentList() {
 
     if (_id && selectedAssignment) {
       axios
-        .get(baseURL+`/student/allSubmissions`, {
+        .get(baseURL + `/student/allSubmissions`, {
           params: {
             classId: _id,
             fileURL: selectedAssignment
@@ -97,16 +134,16 @@ function AssignmentList() {
   };
 
 
-  const ViewSubmission =(fileURL) => {
+  const ViewSubmission = (fileURL) => {
 
     console.log(fileURL)
 
     axios
-      .get(baseURL+`/submission/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL + `/submission/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
 
-        
-        
+
+
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
         window.open(blobURL, '_blank');
@@ -116,6 +153,67 @@ function AssignmentList() {
         console.log(error);
       });
   }
+
+  const openDialog = (fileURL,stdEmail,classId,) => {
+
+    setsuburl(fileURL)
+    setEmail(stdEmail)
+    setClassId(classId)
+    
+
+    setDialogVisible(true);
+  };
+
+  const closeDialog = () => {
+    setDialogVisible(false);
+  };
+
+  const submitMarks = () => {
+
+
+    //loader
+
+    const data = {
+      Email: Email,
+      classId: ClassId,
+      submissionFileURL: suburl,
+      marks: formData.marks,
+      remarks: formData.remarks
+    };
+
+ 
+
+   
+
+    console.log(suburl)
+
+   
+
+
+    axios
+      .post(baseURL + `/assignment/updateStudentMarks`, data)
+      .then((response) => {
+        if (response.status === 201 || response.status === 200) {
+          setMessage("Successfull")
+          console.log("Successfull")
+        }else{
+          setMessage("Failed to Update Marks")
+          console.log("Successfull")
+        }
+
+
+      })
+      .catch((error) => {
+        setMessage("Failed to Update Marks")
+        console.log(error);
+      });
+
+      setDialogVisible(false)
+
+
+
+  }
+  
 
   return (
     <div>
@@ -150,29 +248,84 @@ function AssignmentList() {
                   <th className={styles.th}>Student Email</th>
                   <th className={styles.th}>Submission Date</th>
                   <th className={styles.th}>File</th>
+                  <th className={styles.th}>Submit Marks</th>
+                  
+
                 </tr>
               </thead>
               <tbody>
 
 
                 {submissions.map((submission) => (
-                  <tr className={styles.tr} key={submission._id}>
-                    <td className={styles.td}>{submission.Email}</td>
-                    <td className={styles.td}>{submission.submissionDate}</td>
-                    <td className={styles.td}>
-                      <button  className={styles.assignmentButton} onClick={ViewSubmission.bind(null,submission.submissionFileURL)}>
-                        View Submission
-                      </button>
-                    </td>
-                  </tr>
-                ))
 
-                }
+                  <>
+
+                    <tr className={styles.tr} key={submission._id}>
+                      <td className={styles.td}>{submission.Email}</td>
+                      <td className={styles.td}>{submission.submissionDate}</td>
+                      <td className={styles.td}>
+                        <button className={styles.assignmentButton} onClick={ViewSubmission.bind(null, submission.submissionFileURL)}>
+                          View Submission
+                        </button>
+                      </td>
+                      <td className={styles.td}>
+                        <button className={styles.assignmentButton} onClick={openDialog.bind(null, submission.submissionFileURL,submission.Email,submission.classId)}>
+                          Submit Marks
+                        </button>
+                      </td>
+                     
+                    </tr>
 
 
+                    {dialogVisible && (
+                      <div className={styles.modaloverlay}>
+                        <div className={styles.modal}>
+                          <h3>Submit Marks & Remarks</h3>
 
+                          <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel} htmlFor="marksInput">
+                              Enter Marks:
+                            </label>
+                            <input
+                              className={styles.inputField}
+                              type="number"
+                               /* Allows only numeric input */
+                               /* Sets the keyboard to a numeric layout on mobile devices */
+                              id="marksInput"
+                              name="marks"
+                              placeholder="Enter Marks"
+                              value={formData.marks}
+                              onChange={handleInputChange}
+                              onKeyPress={(e) => isNumberKey(e)}
+                            />
+                          </div>
 
+                          <div className={styles.inputContainer}>
+                            <label className={styles.inputLabel} htmlFor="remarksInput">
+                              Enter Remarks:
+                            </label>
+                            <input
+                              name="remarks"
+                              className={styles.inputField}
+                              type="text"
+                              id="remarksInput"
+                              placeholder="Enter Remarks"
+                              value={formData.remarks}
+                              onChange={handleInputChange}
+                            />
+                          </div>
 
+                          <span>{message}</span>
+                          <button className={styles.filesbtn}
+                            onClick={submitMarks}>Submit</button>
+                          <button className={styles.cancelbtn}
+                            onClick={closeDialog}>Cancel</button>
+                        </div>
+                      </div>
+                    )}
+
+                  </>
+                ))}
 
 
               </tbody>

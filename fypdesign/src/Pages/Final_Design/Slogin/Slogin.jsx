@@ -94,7 +94,7 @@ function Slogin() {
         <Loader /> // Display the loader while loading
       ) : (
       <div className={styles.loginContainer}>
-        <h2>Student Login</h2>
+        <h2 style={{color:"#000"}}>Student Login</h2>
         <div className={styles.input_container}>
           {/* <label>Email </label> */}
             <input

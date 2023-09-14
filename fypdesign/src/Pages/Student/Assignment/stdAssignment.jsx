@@ -31,8 +31,12 @@ const StdAssignment = () => {
 
 //getting submission files 
 const [submissionMapping, setSubmissionMapping] = useState({});
-
+const [marksMapping, setmarksMapping] = useState({});
+const [remarksMapping, setremarksMapping] = useState({});
 // Function to update the submission mapping
+
+
+
 const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
   setSubmissionMapping((prevMapping) => ({
     ...prevMapping,
@@ -40,6 +44,20 @@ const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
   }));
 };
 
+
+const updateMarksMapping = (submissionFileURL, marks) => {
+  setmarksMapping((prevMapping) => ({
+    ...prevMapping,
+    [submissionFileURL]: marks,
+  }));
+};
+
+const updateReMarksMapping = (submissionFileURL, remarks) => {
+  setremarksMapping((prevMapping) => ({
+    ...prevMapping,
+    [submissionFileURL]: remarks,
+  }));
+};
   
 useEffect(() => {
   const authToken = localStorage.getItem("StdToken");
@@ -341,9 +359,12 @@ useEffect(() => {
               responses.forEach((assignment) => {
                 const assignmentFileURL = assignment.assignmentFileURL;
                 const submissionFileURL = assignment.submissionFileURL;
-          
+                const marks = assignment.marks;
+                const remarks = assignment.remarks;
                 // Call updateSubmissionMapping for each assignment
                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
+                updateMarksMapping(submissionFileURL,marks)
+                updateReMarksMapping(submissionFileURL,remarks)
               });
 
            
@@ -397,6 +418,8 @@ useEffect(() => {
             <tr>
               <th className={styles.th}>Assign. No.</th>
               <th className={styles.th}>Title</th>
+              <th className={styles.th}>Obtained Marks</th>
+              <th className={styles.th}>Remarks</th>
               <th className={styles.th}>Added Submission</th>
               <th className={styles.th}>Action</th>
               <th className={styles.th}>Deadline</th>
@@ -417,8 +440,13 @@ useEffect(() => {
                   <button   className={styles.assignmentButton}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}>Assignment File</button>
                 </td>
+
+                <td className={styles.td}> {marksMapping[submissionMapping[assignment.fileURL]] ? (marksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
+                <td className={styles.td}>  {remarksMapping[submissionMapping[assignment.fileURL]]? (remarksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
+
                 <td className={styles.td}>
                 
+              
                 
                 {submissionMapping[assignment.fileURL] ? (
                     <button  className={styles.assignmentButton} onClick={ openFile.bind(null,assignment.submissionURL)}>
@@ -449,14 +477,17 @@ useEffect(() => {
               {dialogVisible && (
                 <div className={styles.modaloverlay}>
                   <div className={styles.modal}>
-                    <h2>Submit Assignment</h2>
-                    <input
+                    <h3>Submit Assignment</h3>
+                    <input 
+                      className={styles.fileselector}
                       type="file"
                       ref={fileInputRef}
                       onChange={handleFileChange}
                     />
-                    <button onClick={submit_assignment}>Submit</button>
-                    <button onClick={closeDialog}>Cancel</button>
+                    <button  className={styles.filesbtn}
+                       onClick={submit_assignment}>Submit</button>
+                    <button className={styles.cancelbtn} 
+                     onClick={closeDialog}>Cancel</button>
                   </div>
                 </div>
               )}
