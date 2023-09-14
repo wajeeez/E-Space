@@ -1,3 +1,14 @@
+html,body{
+  margin: 0%;
+  padding: 0%;
+  height: 100%;
+  
+}
+.label{
+  font-family: Helvetica;
+  font-size: 20px;
+}
+
 .header{
   font-family: Helvetica;
   letter-spacing: 1px;
@@ -22,6 +33,19 @@
     letter-spacing: 2px;
     font-size: 16px;
   }
+  .introt{
+    font-family: Helvetica;
+    letter-spacing: 2px;
+    font-size: 30px;
+  }
+
+
+ 
+  .tbody{
+    height: 100%;
+    
+  }
+
   .logInButton:disabled {
     background-color: #6e8dfc;
   }
