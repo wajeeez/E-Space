@@ -70,7 +70,7 @@ function Treg() {
   return (
     <div className={styles.App}>
       <div className={styles.loginContainer}>
-        <h2>Register</h2>
+        <h2 style={{color:"black"}}>Register</h2>
         <div className={styles.input_container}>
           <input
 
