@@ -13,12 +13,7 @@
   
     font-weight: bold;
   }
-  .reg{
-    color: #0A1045;
-  }
-  .h2{
-    color: #0A1045;
-  }
+
   .loginContainer {
     display: flex;
     flex-direction: column;
