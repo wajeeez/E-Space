@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './StudentDashboard.css'
 import SNavbar from '../../../Components/Final_Design_Components/StudentDashboard_Components/SNavbar';
 // import Sidebar from '../../../Components/Final_Design_Components/StudentDashboard_Components/Sidebar';
 // import SContent from '../../../Components/Final_Design_Components/StudentDashboard_Components/Content';
