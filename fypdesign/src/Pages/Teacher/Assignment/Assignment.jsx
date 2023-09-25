@@ -140,7 +140,7 @@ const AssignmentPage = () => {
 
 
   return (
-    <div>
+    <div className='cen'>
       <center> 
         <br/>
         <br/> 

@@ -1,15 +1,19 @@
 body{
-    background-color: rgb(0, 0, 0);
-    color: #fff;
+    
     margin:0;
     padding: 0;
-    font-family: Inter;
+   
   }
   
   .header{
+    color: #111111;
     font-family: Helvetica;
   }
   
+  .cen{
+    background-color: black;
+    color: #fff;
+  }
 
   
 .assignmentButton {
