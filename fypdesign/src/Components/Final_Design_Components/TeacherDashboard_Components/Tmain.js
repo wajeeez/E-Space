@@ -178,8 +178,20 @@ function Tmain() {
         </a>
         <span class="tooltip">Quiz</span>
       </li>
+      <li>
+      
+      <a href="#">
+      {/* <img src={delIcon} alt="Icon" className="button-icon" /> */}
+      <i class='bx bx-x-circle'></i>
+        <span class="link_name">Delete Class</span>
+      </a>
+      <span class="tooltip">Delete Class</span>
+    </li>
+
+
       <p className='ps'>x</p>
       <li>
+        
         <a onClick={handleLeaveClass}>
         {/* <img src={retIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bxs-chevrons-left' ></i>
@@ -189,14 +201,7 @@ function Tmain() {
         <span class="tooltip">Leave Class</span>
       </li>
       <p className='ps'>x</p>
-      <li>
-        <a onClick={handleLogout}>
-        {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
-        <i class='bx bx-arrow-to-left' ></i>
-          <span class="link_name">Logout</span>
-        </a>
-        <span class="tooltip">Logout</span>
-      </li>
+      
       <li>
         <a onClick={() => handlePageChange('account')}>
         {/* <img src={accsetIcon} alt="Icon" className="button-icon" /> */}
@@ -205,17 +210,16 @@ function Tmain() {
         </a>
         <span class="tooltip">User Setting</span>
       </li>
-      
-      <p className='ps'>x</p>
       <li>
-      
-        <a href="#">
-        {/* <img src={delIcon} alt="Icon" className="button-icon" /> */}
-        <i class='bx bx-x-circle'></i>
-          <span class="link_name">Delete Class</span>
+        <a onClick={handleLogout}>
+        {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
+        <i class='bx bx-arrow-to-left' ></i>
+          <span class="link_name">Logout</span>
         </a>
-        <span class="tooltip">Delete Class</span>
+        <span class="tooltip">Logout</span>
       </li>
+      
+
       
     </ul>
   </div>

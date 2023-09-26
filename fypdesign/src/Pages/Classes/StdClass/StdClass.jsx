@@ -9,33 +9,20 @@ function StdClass() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const navigate = useNavigate()
 
+
   const [name, setName] = useState(null);
   const [std, setStd] = useState([]);
   const [email, setEmail] = useState(null);
   const [classes, setClasses] = useState([]);
   const { _id } = useParams();
 
+
   //
 
   const [stdEmail, setstdEmail] = useState(null);
   // const [classes, setClasses] = useState([]);
   const [StudentName, setStudentName] = useState([]);
-  const sccards = [
-    { title: 'Join Meeting 1', onClick: () => navigate(`/${classes}/meeting/${_id}`)  },
-    // { title: 'Join Meeting 2', onClick: handleRedirect },
-    // { title: name, description: 'Class Teacher', },
-    { title: '80 %', description: 'Class Attendance', onClick: () => navigate(`/${classes}/assignment/${_id}`)},
-    { title: '3 / 4', description: 'Assignments',  },
 
-    
-    
-
-    // Add more cards as needed
-    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
-    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
-    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
-    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
-  ];
 
   // const handleNameChange = () => {
   //   setName('New Title'); // Set the 'name' state to the new title
@@ -88,6 +75,23 @@ function StdClass() {
     window.location.href = `http://localhost:3030/${_id}`;
   };
 
+
+  const sccards = [
+    { title: 'Join API Meeting ', link: `/${classes}/meeting/${_id}`  },
+    { title: 'Join Custom Meeting ', link :`http://localhost:3030/${_id}`  },
+    // { title: name, description: 'Class Teacher', },
+    { title: '80 %', description: 'Class Attendance', link : "/${classes}/assignment/${_id}"},
+    { title: '3 / 4', description: 'Assignments',  },
+
+    
+    
+
+    // Add more cards as needed
+    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
+    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
+    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
+    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
+  ];
 
   return (
     <div>

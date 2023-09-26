@@ -14,9 +14,9 @@
 //   const [email, setEmail] = useState(null);
 //   const [classes, setClasses] = useState([]);
 //   const { _id } = useParams();
-//   const handleRedirect = () => {
-//     // Redirect to the third-party URL
-//     window.location.href = `http://localhost:3030/${_id}`;
+  // const handleRedirect = () => {
+  //   // Redirect to the third-party URL
+  //   window.location.href = `http://localhost:3030/${_id}`;
 
 
 //     const tccards = [
@@ -119,17 +119,7 @@ function Class() {
   const [classes, setClasses] = useState([]);
   const { _id } = useParams();
 
-  const tccards = [
-    { title: 'Start Meeting 1', onClick: () => navigate(`/${classes}/meeting/${_id}`)  },
-    { title: 'Start Meeting 2', },
-    { title: '70 %', description: 'Average Attendance',  },
-    { title: '30 / 40', description: 'Last Meeting Attendance',  },
-    // Add more cards as needed
-    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
-    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
-    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
-    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
-  ];
+
 
   useEffect(() => {
     axios
@@ -143,6 +133,22 @@ function Class() {
         console.log(error);
       });
   }, []);
+
+  const handleRedirect = () => {
+    // Redirect to the third-party URL
+    window.location.href = `http://localhost:3030/${_id}`;}
+
+  const tccards = [
+    { title: 'Join API Meeting ', link: `/${classes}/meeting/${_id}`  },
+    { title: 'Join Custom Meeting ', link :`http://localhost:3030/${_id}`  },
+    { title: '70 %', description: 'Average Attendance',  },
+    { title: '30 / 40', description: 'Last Meeting Attendance',  },
+    // Add more cards as needed
+    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
+    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
+    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
+    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
+  ];
 
   return (
     <>
