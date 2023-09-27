@@ -115,7 +115,7 @@ const AssignmentPage = () => {
         setMessage("Successfull")
         console.log("Successfull")
         if (fileInputRef.current) {
-          fileInputRef.current.value = ''; // Reset the input field
+          fileInputRef.current.value = '  '; // Reset the input field
         }
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
@@ -140,12 +140,19 @@ const AssignmentPage = () => {
 
 
   return (
-    <div>
-      <center>  <h1>Assignments</h1>
+    <div className='cen'>
+      <center> 
+        <br/>
+        <br/> 
+        <h1 className={styles.header} >Assignments</h1>
+        <br/>
+        <br/>
+        <br/>
 
 
         {/* Upload Assignment */}
-        <input type="file" onChange={handleFileChange} ref={fileInputRef} />
+        <input type="file" onChange={handleFileChange} ref={fileInputRef} className={styles.file} />
+        
         <input className={styles.assignmentButton} type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
 
         <button className={styles.assignmentButton} onClick={teacherAssignmentUpload}>Upload Assignment</button>

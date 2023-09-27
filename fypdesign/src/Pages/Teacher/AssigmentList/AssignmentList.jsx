@@ -218,23 +218,23 @@ function AssignmentList() {
   return (
     <div>
       <center>
-        <h1 style={{ margin: '20px' }}>Teacher Submissions</h1>
+        <h1 className={styles.introt} style={{ margin: '20px' }}>Student Submissions</h1>
         <div>
-          <label style={{ margin: '20px' }}>Select Assignment:</label>
-          <select style={{ margin: '20px' }} value={selectedAssignment} onChange={handleAssignmentChange}>
-            <option value="" disabled>
+          <label className={styles.label} style={{ margin: '20px' }}>Select Assignment:</label>
+          <select className={styles.label} style={{ margin: '20px' }} value={selectedAssignment} onChange={handleAssignmentChange}>
+            <option className={styles.label} value="" disabled>
               Select an Assignment
             </option>
 
             {assignments.map((assignment, index) => (
-              <option key={index + 1} value={assignment.fileURL}>
+              <option className={styles.label} key={index + 1} value={assignment.fileURL}>
                 Assignment {index + 1}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <h2>Submissions </h2>
+          
 
           {submissions.length === 0 ? ( // Check if submissions array is empty
 

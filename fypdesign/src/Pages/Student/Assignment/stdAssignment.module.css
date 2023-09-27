@@ -1,6 +1,18 @@
-body
-{
-  color: #ffffff;
+html,body{
+  margin: 0%;
+  padding: 0%;
+  height: 100%;
+  
+}
+.label{
+  font-family: Helvetica;
+  font-size: 20px;
+}
+
+.header{
+  font-family: Helvetica;
+  letter-spacing: 1px;
+  font-size: 30px;
 }
 .logInButton {
     background-color: #3861fb;
@@ -16,7 +28,24 @@ body
     margin: 10px;
     margin-top: 15px;
   }
-  
+  .intro{
+    font-family: Helvetica;
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+  .introt{
+    font-family: Helvetica;
+    letter-spacing: 2px;
+    font-size: 30px;
+  }
+
+
+ 
+  .tbody{
+    height: 100%;
+    
+  }
+
   .logInButton:disabled {
     background-color: #6e8dfc;
   }
@@ -51,6 +80,8 @@ body
 .tr{
   height: 20%;
   border: 1px solid rgb(255, 255, 255);
+  color: #fff;
+  font-family: Helvetica;
 }
 
 
@@ -63,13 +94,16 @@ body
 .th {
   border: 1px solid rgb(255, 0, 0);
   border-bottom: 1px solid rgb(255, 0, 0);
-  width: 5%;
+  width: 15%;
+  font-family: Helvetica;
 
 }
 
 
 .td {
   text-align: center;
+  font-family: Helvetica;
+  
 }
 .assignmentButton {
   background-color: #007bff; /* Blue color for the background */
@@ -78,6 +112,7 @@ body
   padding: 8px 16px; /* Add some padding to the button */
   border-radius: 4px; /* Add a border radius for a rounded look */
   cursor: pointer; /* Change the cursor to a hand pointer on hover */
+  font-family: Helvetica;
 }
 
 .assignmentButton:hover {
@@ -95,6 +130,7 @@ body
   padding: 8px 16px; /* Add some padding to the button */
   border-radius: 4px; /* Add a border radius for a rounded look */
   cursor: pointer; /* Change the cursor to a hand pointer on hover */
+  font-family: Helvetica;
 }
 
 .submissionButton:hover {

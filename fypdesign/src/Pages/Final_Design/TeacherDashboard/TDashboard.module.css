@@ -1,23 +1,7 @@
-/* General styles */
-body {
-  margin: 0;
-  padding:0;
-  
-  
-}
-
-.td-app {
-  display: flex;
-  flex-direction: column;
-  
-}
-
-.td-content-container {
-  
-  background-color: aqua;
-  margin: 0;
-  
-  /* background-color: transparent;  */
-}
-
-
+/* 
+html,body{
+  padding: 0%;
+  margin: 0%;
+  height: auto;
+  width: auto;
+} */

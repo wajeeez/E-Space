@@ -403,7 +403,7 @@ useEffect(() => {
 
   return (
     <div style={{ backgroundColor: 'transparent' }}>
-      <center>
+      <center className={styles.center}>
 
     
     
@@ -413,7 +413,7 @@ useEffect(() => {
         <p style={{margin:'20px'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
         </p>
-        <table>
+        <table className={styles.tbody}>
           <thead>
             <tr>
               <th className={styles.th}>Assign. No.</th>
