@@ -120,8 +120,13 @@ function Class() {
   const { _id } = useParams();
 
   const tccards = [
-    { title: 'Start Meeting 1', onClick: () => navigate(`/${classes}/meeting/${_id}`)  },
-    { title: 'Start Meeting 2', },
+  
+
+    { title: 'Join API Meeting ', link: `/${classes}/meeting/${_id}`  },
+    { title: 'Join Custom Meeting ', link :`http://localhost:3030/${_id}`  },
+    
+    // { t
+
     { title: '70 %', description: 'Average Attendance',  },
     { title: '30 / 40', description: 'Last Meeting Attendance',  },
     // Add more cards as needed

@@ -2,6 +2,7 @@ import React from 'react';
 import './TeacherMain.css';
 import './THeroSection.css';
 import { Link } from 'react-router-dom';
+import Loader from '../../Loader/Loader';
 
 import styles from "../../Final_Design_Components/TeacherDashboard_Components/TDashboard.module.css";
 
@@ -24,6 +25,8 @@ function THeroSection() {
   const [id, setUserId] = useState(null);
   const [email, setEmail] = useState(null);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
@@ -38,9 +41,11 @@ function THeroSection() {
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);
+          setLoading(false)
         })
         .catch((error) => {
           console.log(error);
+          setLoading(false)
         });
     }
   }, [id]);
@@ -52,7 +57,13 @@ function THeroSection() {
       <div className='thero-heading'>
         <th>CLASSES</th>
       </div>
-      <center>
+      {loading ? (
+        <Loader /> // Display the loader while loading
+      ) : (
+
+        <>
+        
+        <center>
         <div>
           <p className='t-info-top'>
             Teacher Name : {name}   |   Teacher Email : {email}{" "}
@@ -82,7 +93,10 @@ function THeroSection() {
             <h2>Logout</h2>
           </div>
         </Link>
+</>
 
+      )}
+    
         
       </div>
     
