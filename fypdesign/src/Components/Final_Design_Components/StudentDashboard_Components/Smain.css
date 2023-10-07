@@ -22,7 +22,10 @@
   
 }
 
-
+.name{
+  cursor:default;
+  color: white;
+}
 
 .smain {
   display: flex;
@@ -145,8 +148,9 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.ssidebar .nav-list{
-  
+.ssidebar .snav-list{
+  margin-left: -35px;
+
   height: 100%;
 }
 
@@ -229,6 +233,7 @@
     pointer-events: none;
     transition: all 0.4s ease;
     font-family: 'Poppins', sans-serif;
+    cursor:default;
   }
   
   .ssidebar li:hover .tooltip {
@@ -285,6 +290,7 @@
   pointer-events: auto;
   transition: all 0.4s ease;
   pointer-events: none;
+  cursor:default;
   opacity: 0;
   font-family: 'Poppins', sans-serif;
 }
@@ -292,12 +298,14 @@
 .ssidebar li a:hover .link_name,
 .ssidebar li a:hover i{
   transition: all 0.5s ease;
+  cursor:default;
   color:var(--color-default)
 }
 
 .ssidebar.open li a .link_name{
   opacity: 1;
   pointer-events: auto;
+  cursor:default;
 }
 
 .ssidebar li img{

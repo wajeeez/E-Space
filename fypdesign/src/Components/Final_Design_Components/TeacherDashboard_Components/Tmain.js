@@ -90,12 +90,14 @@ function Tmain() {
     navigate('/TDashboard');
   };
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
     
     return (
       <div className="tmain">
+        
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
-        <div class="sidebar open">
+    <div class="sidebar open">
     <div class="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>
@@ -138,7 +140,7 @@ function Tmain() {
         <span class="tooltip">Analysis</span>
       </li>
       <li>
-        <a href="#">
+      <a onClick={() => handlePageChange('lectures')}>
         {/* <img src={lectIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bxs-slideshow'></i>
           <span class="link_name">Lectures</span>
@@ -146,13 +148,13 @@ function Tmain() {
         <span class="tooltip">Lectures</span>
       </li>
       <li>
-        <a href="#">
+      <a onClick={() => handlePageChange('class')}>
         {/* <img src={dataIcon} alt="Icon" className="button-icon" /> */}
         {/* <FontAwesomeIcon icon="fa-thin fa-people-group" style={{color: "#000000",}} /> */}
         <i class='bx bxs-contact'></i>
-          <span class="link_name">Class Data</span>
+          <span class="link_name">Management</span>
         </a>
-        <span class="tooltip">Class Data</span>
+        <span class="tooltip">Class Management</span>
       </li>
       <li>
         <a  onClick={() => handlePageChange('assignment')}>
@@ -171,7 +173,7 @@ function Tmain() {
         <span class="tooltip">Submissions</span>
       </li>
       <li>
-        <a href="#">
+      <a onClick={() => handlePageChange('quiz')}>
         {/* <img src={quizIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-timer' ></i>
           <span class="link_name">Quiz</span>
@@ -180,7 +182,7 @@ function Tmain() {
       </li>
       <li>
       
-      <a href="#">
+      <a onClick={() => handlePageChange('delete')}>
       {/* <img src={delIcon} alt="Icon" className="button-icon" /> */}
       <i class='bx bx-x-circle'></i>
         <span class="link_name">Delete Class</span>

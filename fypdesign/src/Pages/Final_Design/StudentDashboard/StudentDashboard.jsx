@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-
+// import Shome from '../../../Components/Final_Design_Components/StudentHome/Shome';
 import Smain from '../../../Components/Final_Design_Components/StudentDashboard_Components/Smain';
 
 const StudentDashboard = () => {
@@ -14,11 +14,11 @@ const StudentDashboard = () => {
 
 
   return (
-    <div className="app">
+    
       
       <Smain/>
       
-    </div>
+    
   );
 }
 

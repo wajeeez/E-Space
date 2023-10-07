@@ -22,6 +22,10 @@
   
 }
 
+.name{
+  cursor:default;
+  color: white;
+}
 .ps{
   font-size: 5px;
   opacity: 0;
@@ -52,8 +56,8 @@
     background-color: var(--color-body);
     min-height: 100vh;
     top:0;
-    left:78px;
-    width: calc(100% - 90px);
+    left:90px;
+    width: 97%;
     transition: all .5s ease;
     z-index: 1;
     overflow-y: auto;
@@ -61,8 +65,8 @@
   
 
   .sidebar.open ~ .home-section{
-    left:250px;
-    width: calc(100% - 250px);
+    left:230px;
+    width: 88%;
     ;
   }
 
@@ -156,7 +160,7 @@
 .sidebar .nav-list{
   
   height: 100%;
-  
+  margin-left: -35px;
 }
 
 .sidebar lis{
@@ -232,6 +236,7 @@
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
+    cursor:default;
     transition: all 0.4s ease;
     font-family: 'Poppins', sans-serif;
   }
@@ -287,9 +292,9 @@
   font-size: 15px;
   font-weight: 400;
   white-space: nowrap;
-  pointer-events: auto;
+  cursor:default;
   transition: all 0.4s ease;
-  pointer-events: none;
+  
   opacity: 0;
   font-family: 'Poppins', sans-serif;
 }
@@ -302,7 +307,7 @@
 
 .sidebar.open li a .link_name{
   opacity: 1;
-  pointer-events: auto;
+  cursor:default;
 }
 
 .sidebar li img{

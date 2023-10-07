@@ -104,78 +104,15 @@
 
 
 import React, { useEffect, useState } from "react";
-import styles from "./Class.module.css";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-function Class() {
-  const baseURL = process.env.React_App_INTERNAL_API_PATH;
-
-  const navigate = useNavigate();
-  const [name, setName] = useState(null);
-  const [std, setStd] = useState([]);
-  const [email, setEmail] = useState(null);
-  const [classes, setClasses] = useState([]);
-  const { _id } = useParams();
+// import styles from "./Class.module.css";
+import Thome from '../../../Components/Final_Design_Components/TeacherHome/Thome.js'
 
 
+const  Class = () => {
 
-  useEffect(() => {
-    axios
-      .get(baseURL + `/teacher/class/${_id}`)
-      .then((response) => {
-        setStd(response.data.response.students);
-        setName(response.data.response.teacherName);
-        setClasses(response.data.response.subjectName);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleRedirect = () => {
-    // Redirect to the third-party URL
-    window.location.href = `http://localhost:3030/${_id}`;}
-
-  const tccards = [
-    { title: 'Join API Meeting ', link: `/${classes}/meeting/${_id}`  },
-    { title: 'Join Custom Meeting ', link :`http://localhost:3030/${_id}`  },
-    { title: '70 %', description: 'Average Attendance',  },
-    { title: '30 / 40', description: 'Last Meeting Attendance',  },
-    // Add more cards as needed
-    // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
-    // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
-    // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
-    // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
-  ];
 
   return (
-    <>
-      <div className={styles.tclass}>
-      Class : {classes}
-      </div>
-      
-      <div className={styles.tcCardContainer}>
-        {tccards.map((card, index) => (
-          <a
-            key={index}
-            href={card.link}
-            className={styles.tcCard} 
-            style={{ backgroundColor: card.bgColor , fontFamily: 'Roboto, sans-serif'}}
-          >
-          <div className={styles.tcCardHeading}>
-           <div className={`icon ${card.icon}`} />
-           <htc>{card.title}</htc>
-          </div>
-          <ptc className={styles.tcCardDescription}>{card.description}</ptc>
-          </a>
-        ))}
-      </div>
-        
-        {/* Rest of your code */}
-      
-    </>
+    <Thome/>
   );
 }
 
