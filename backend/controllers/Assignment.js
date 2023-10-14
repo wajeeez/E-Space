@@ -48,7 +48,8 @@ const { GridFSBucket } = require('mongodb');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const fileSchema = require("./../models/assignementFile")
+const fileSchema = require("./../models/assignementFile");
+const Lecture = require('../models/Lecture');
 
 // Create a MongoMemoryServer instance f
 
@@ -94,4 +95,49 @@ async function UploadAssignment(req, res, next) {
   }
 };
 
-module.exports = UploadAssignment;
+
+
+async function UploadLecture(req, res, next) {
+  try {
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const { originalname, buffer, mimetype } = req.file;
+    const { classId, teacherID, lectureName, lectureDesc } = req.body;
+
+    const file = new fileSchema({
+      name: originalname,
+      data: buffer,
+      contentType: mimetype,
+    });
+
+    // Save the file document
+    const savedFile = await file.save();
+
+    // Access the _id field of the saved file
+    const fileURL = savedFile._id;
+    console.log(fileURL)
+
+    const newLecture = new Lecture({
+      classId,
+      teacherID,
+      lectureName,
+      lectureDesc,
+      fileURL,
+      remarks, // Save the deadline in the Assignment model
+    });
+
+    await newLecture.save();
+
+
+    return res.status(201).json({ message: 'Lecture uploaded successfully' });
+  } catch (err) {
+    // Handle any errors that occurred during assignment upload
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
+
+module.exports = {UploadAssignment,UploadLecture};

@@ -75,10 +75,10 @@ function StdClass() {
   }, []);
 
 
-  const handleRedirect = () => {
-    // Redirect to the third-party URL
-    window.location.href = `http://localhost:3030/${_id}`;
-  };
+  // const handleRedirect = () => {
+  //   // Redirect to the third-party URL
+  //   window.location.href = `http://localhost:3030/${_id}`;
+  // };
 
 
   const sccards = [

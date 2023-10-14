@@ -287,6 +287,29 @@ const StudentAuth ={
    
 
 
-  }
+  },
+
+  async getAllStudents(req,res,next){
+
+    const {classId} = req.query
+
+      //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
+
+      const students = await StudentModel.find({ classID: { $in: classId } });
+
+      if (!students || students.length === 0) {
+        return res.status(404).json({ message: 'Students not found' });
+      }
+      if (!file) {
+        return res.status(404).json({ message: 'Students not found' });
+      }
+  
+     
+      res.json(file);
+
+      //const submitURL = response.data.Submission;
+    
+
+  },
 }
 module.exports = StudentAuth;

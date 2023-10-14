@@ -7,6 +7,7 @@ const auth = require('../middleware/auth');
 const StudentAuth = require('../controllers/Student')
 const Assignemts = require('../controllers/Assignment');
 const UploadAssignment = require('../controllers/Assignment');
+
 const getAllAssignments = require('../controllers/GetAllAssignment');
 const StdAssignmentUpload = require('../controllers/StdAssignmentUpload')
 const GetAllSubmissions = require('../controllers/GetAllSubmissions');
@@ -37,21 +38,27 @@ router.get('/student/class/:_id', StudentAuth.fetchsingleclass)
 // const upload = multer({ dest: 'uploads/' });
 
 router.get('/student/studentData/:email',StudentAuth.getStudentData);
-
-router.post('/teacher/assignments/upload', UploadAssignment)
-router.get('/teacher/assignments/list/:class_id', getAllAssignments)
+router.post('/teacher/assignments/upload', UploadAssignment.UploadAssignment)
+router.get('/teacher/assignments/list/:class_id', getAllAssignments.getAllAssignments)
 router.post('/student/assignments/upload', StdAssignmentUpload)
-
 router.get('/student/assignment/submissionAll/:fileURL', GetAllSubmissions)
-
-
 router.get('/student/submitted',StudentAuth.getSubmittedAssignment)
 router.get('/student/getSubmitedFileURL',StudentAuth.getSubmissionFileURL)
-
 router.get('/student/isSubmission',StudentAuth.CheckSubmissionAvailable)
-
 router.get('/student/allSubmissions',StudentAuth.getAllSubmission)
 router.post('/forgetpassword',StudentAuth.forgetpassword)
+
+
+//Lecture Apis 
+
+router.post("/teacher/submitLecture",UploadAssignment.UploadLecture)
+router.post("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
+
+//Group Assignments
+
+router.get("/studets/getAllStudents/:class_id",StudentAuth.getAllStudents)
+
+
 
 
 //Marks Api
