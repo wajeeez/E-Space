@@ -78,7 +78,7 @@
   padding: 10px 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out; /* Apply transition to all properties */
   font-family: Inter;
   width: 200px;
   font-size: 20px;
@@ -88,7 +88,9 @@
 
 .join-button:hover {
   transform: scale(1.1);
+  background-color: blue;
 }
+
 
 .image-container {
   display: flex;
