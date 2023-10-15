@@ -165,6 +165,14 @@ function Tmain() {
         <span class="tooltip">Assignment</span>
       </li>
       <li>
+        <a  onClick={() => handlePageChange('assignment')}>
+        
+        <i class='bx bx-edit'></i>
+          <span class="link_name">Group Assignment</span>
+        </a>
+        <span class="tooltip">Group Assignment</span>
+      </li>
+      <li>
         <a onClick={() => handlePageChange('assignmentList')}>
         {/* <img src={subIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-list-check' ></i>

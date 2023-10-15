@@ -30,38 +30,43 @@
 .smain {
   display: flex;
   width: 100%;
+  height: 100%;
   background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .spage {
-    flex: 1; /* Take up the remaining space */
-    background-color: rgb(255, 255, 255);
-    min-height: 100vh;
-    width: 100%; /* Adjusted to 100% */
-    /* Add margin-left to create space for the sidebar when open */
-    padding: 20px;
-    
-    /* Add overflow to prevent content from overflowing */
-    
-    transition: all 0.5s ease;
+  flex: 1; /* Take up the remaining space */
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%; /* Adjusted to 100% */
+  /* Add margin-left to create space for the sidebar when open */
+  padding: 20px;
+  
+  /* Add overflow to prevent content from overflowing */
+  overflow-x: hidden;
+  transition: all 0.5s ease;
   }
   .shome-section{
     position: relative;
     background-color: var(--color-body);
     min-height: 100vh;
     top:0;
-    left:78px;
-    width: calc(100% - 90px);
+    left:60px;
+    width: 100%;
     transition: all .5s ease;
     z-index: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     
   }
   
 
   .ssidebar.open ~ .shome-section{
-    left:250px;
-    width: calc(100% - 250px);
-    ;
+    left:200px;
+    width: 92%;
+    
   }
 
 
@@ -77,22 +82,26 @@
 
 
 .ssidebar{
-  min-height: 100vh;
+  min-height: 100vh; /* Set the sidebar to at least the height of the viewport */
   width: 78px;
   padding: 6px 14px;
-  z-index:2;
+  z-index: 2;
   background-color: var(--color-default);
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
   
+
 }
 
 .ssidebar.open{
   width: 220px;
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
+  
 }
 
 .ssidebar .logo_details{
@@ -146,10 +155,12 @@
   font-size: 25px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
+  
 }
 
 .ssidebar .snav-list{
   margin-left: -35px;
+  
 
   height: 100%;
 }

@@ -36,7 +36,7 @@ function Thome() {
   };
 
   return (
-    <div className="container-fluid" style={{ marginLeft: '-30px'}}>
+    <div className="container-fluid" style={{ marginLeft: '0px' , maxWidth : '97%'}}>
       {/* First row covering full width */}
       <div className="row">
         

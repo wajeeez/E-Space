@@ -5,7 +5,7 @@ import styles from './Dbcard.module.css'
 function Dbcard() {
   return (
 <>
-<div className={styles.fullcarddiv}>
+{/* <div className={styles.fullcarddiv}>
 
 <div className={styles.carddiv}>
   <div className={styles.card}>
@@ -37,11 +37,11 @@ function Dbcard() {
     <p>Class</p>
   </div>
   <div className={styles.lowercard4}><p>Sir Shahid </p></div>
-</div> */}
+</div> 
 
 
 
-</div>
+</div>*/}
 </>
 
     )

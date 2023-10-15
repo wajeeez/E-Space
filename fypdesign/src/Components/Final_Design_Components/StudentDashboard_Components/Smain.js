@@ -160,6 +160,13 @@ function Smain() {
         </a>
         <span class="tooltip">Assignment</span>
       </li>
+      <li>
+        <a  onClick={() => handlePageChange('assignment')}>
+        <i class='bx bxs-group'></i>
+          <span class="link_name">Group Assignment</span>
+        </a>
+        <span class="tooltip">Group Assignment</span>
+      </li>
       
       <li>
         <a href="#">

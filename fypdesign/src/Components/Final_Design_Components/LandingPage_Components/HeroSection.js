@@ -1,47 +1,37 @@
+
+
+// import { useNavigate } from "react-router";
+// const navigate = useNavigate()
+
+// src/components/HeroSection.js
+
 import React from 'react';
-// import './../../../Pages/Final_Design/Landing_Page/LandingPage.css';
-import { Button } from './Button';
 import './HeroSection.css';
-
-import { useNavigate } from "react-router";
-
+import main from '../../../Assets/images/home.jpg';
 
 function HeroSection() {
-
-  const navigate = useNavigate()
   return (
     <div className='hero-container'>
-      
-
-      <h1>WELCOME TO E-SPACE</h1>
-      <br/>
-      <br/>
-      <br/>
-      <p>What are you waiting for?</p>
-      <br/>
-      <br/>
-      <div className='hero-btns'>
-        <div   onClick={  () =>{
-        navigate("/teacher/register")
-      }}>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--large'
-          // path="/teacher/register"
-        >
-          Join Now
-        </Button>
-        </div>
+      <div className='content'>
+        <h1 className='title'>Welcome to E-Space</h1>
+        <p className='description'>Empowering Education, Empowering You: Choose E-Space</p>
+        <button className='join-button'>Join now</button>
+      </div>
+      <div className='image-container'>
+        <img src={main} alt='E-Space' />
       </div>
     </div>
   );
 }
 
 
-
-
 export default HeroSection;
+
+
+
+
+
+
 
 
 /*

@@ -56,7 +56,7 @@ function Navbar() {
       <nav className={navbar || screenWidth <= 420 ? 'navbar active' : 'navbar'}>
         <div className='navbar-container'>
           <div className='navbar-logo' onClick={closeMobileMenu}>
-            <img src="../images/logo1.png" alt='logo' />
+            <img src="../images/logo2.png" alt='logo' />
           </div>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -77,6 +77,7 @@ function Navbar() {
                 to='/signin/options'
                 className='nav-links'
                 onClick={closeMobileMenu}
+                style={{ fontWeight: 'bold', color: 'blue' }}
               >
                 Sign In
               </Link>
