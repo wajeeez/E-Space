@@ -12,14 +12,14 @@ import main from '../../../Assets/images/home.jpg';
 function HeroSection() {
   return (
     <div className='hero-container'>
-      <div className='content'>
-        <h1 className='title'>Welcome to E-Space</h1>
-        <p className='description'>Empowering Education, Empowering You: Choose E-Space</p>
-        <button className='join-button'>Join now</button>
+      <div className='hcontent'>
+        <h1 className='htitle'>Welcome to E-Space</h1>
+        <p className='hdescription'>Empowering Education, Empowering You: Choose E-Space</p>
+        <button className='hjoin-button'>Join now</button>
       </div>
-      <div className='image-container'>
+      {/* <div className='himage-container'>
         <img src={main} alt='E-Space' />
-      </div>
+      </div> */}
     </div>
   );
 }

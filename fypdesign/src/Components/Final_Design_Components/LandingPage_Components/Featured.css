@@ -1,0 +1,40 @@
+.img-rectangular {
+    width: 100%;
+    height: auto;
+    border: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+/* Title styles */
+.ftitle {
+  font-size: 40px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.7); /* Adjust the shadow values and color here */
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+}
+
+/* Description styles */
+.fdescription {
+  font-size: 22px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.5); /* Adjust the shadow values and color here */
+}
+
+
+  @media (max-width: 600px) {
+    .ftitle {
+      font-size: 32px; 
+      
+    }
+  
+    .fdescription {
+      font-size: 18px; 
+    }
+  }
+
+
+

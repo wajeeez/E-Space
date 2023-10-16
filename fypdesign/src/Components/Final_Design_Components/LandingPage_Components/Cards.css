@@ -1,4 +1,4 @@
-@media (max-width: 420px) {
+/* @media (max-width: 420px) {
 .cards{
   max-width: 420px;
   overflow: auto;
@@ -89,7 +89,7 @@ h1 {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Use 'contain' to fit the image within the container */
+  object-fit: contain; 
   transition: all 0.2s linear;
 }
 
@@ -101,15 +101,15 @@ h1 {
   padding: 20px 30px 30px;
 }
 
-/* Include the Exo font from Google Fonts */
+
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
 
 .cards__item__text {
   color: #252e48;
   font-size: 18px;
   line-height: 24px;
-  font-family: 'Exo', Arial, sans-serif; /* Use the Exo font and fallbacks */
-  font-weight: 600; /* Set font weight to semi-bold (600) */
+  font-family: 'Exo', Arial, sans-serif; 
+  font-weight: 600; 
 }
 
 
@@ -127,4 +127,4 @@ h1 {
     margin-bottom: 2rem;
   }
 }
-
+ */

@@ -31,46 +31,34 @@
   width: 100%;
 }
 
-.content {
+.hcontent {
   margin-top: 20px;
-  margin-left: 30px;
+  margin-left: 60px;
   
-  padding: 10px;
-}
-
-/* Keyframes for the glowing animation */
-@keyframes glowingText {
-  0% {
-    text-shadow: 0 0 10px rgba(0, 4, 255, 0.4);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(0, 4, 255, 0.6);
-  }
-  100% {
-    text-shadow: 0 0 10px rgba(0, 4, 255, 0.4);
-  }
+  padding: 50px;
 }
 
 /* Default styles for the title */
-.title {
+.htitle {
   font-weight: bold;
   font-size: 60px;
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
   text-align: left;
-  animation: glowingText 2s ease-in-out infinite;
+  letter-spacing: 2px;
+  text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.8);
 }
 
 
-.description {
+.hdescription {
   font-weight: 600;
-  font-family: Inter;
+  font-family: 'Raleway', sans-serif;
   text-align: left;
   font-size: 20px;
   margin-top: 20px;
   margin-left: 10px;
 }
 
-.join-button {
+.hjoin-button {
   background-color: black;
   color: white;
   border: none;
@@ -79,20 +67,20 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease-in-out; /* Apply transition to all properties */
-  font-family: Inter;
+  font-family: 'Raleway', sans-serif;
   width: 200px;
   font-size: 20px;
   margin-top: 10px;
   margin-left: 10px;
 }
 
-.join-button:hover {
+.hjoin-button:hover {
   transform: scale(1.1);
   background-color: blue;
 }
 
 
-.image-container {
+.himage-container {
   display: flex;
   
   border-radius: 30px;
@@ -103,7 +91,7 @@
 
 }
 
-.image-container img {
+.himage-container img {
   width: 100%; /* Ensure the image doesn't exceed the container width */
   height: auto;
   border-radius: 30px;
@@ -112,26 +100,26 @@
 
 /* Responsive styles for screens with a maximum width of 700px */
 @media screen and (max-width: 700px) {
-  .title {
+  .htitle {
     font-size: 48px; /* Adjust font size for screens up to 700px */
   }
-  .description {
+  .hdescription {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
-  .join-button {
+  .hjoin-button {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
 }
 
 /* Responsive styles for screens with a maximum width of 500px */
 @media screen and (max-width: 500px) {
-  .title {
+  .htitle {
     font-size: 40px; /* Adjust font size for screens up to 500px */
   }
-  .description {
+  .hdescription {
     font-size: 16px; /* Adjust font size for screens up to 500px */
   }
-  .join-button {
+  .hjoin-button {
     font-size: 16px; /* Adjust font size for screens up to 500px */
   }
 }

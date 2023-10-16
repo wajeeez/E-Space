@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import  MeetCheck from "./Pages/MeetCheck";
 // import myImage from '../public/logo192.png'
 import LandingPage from "./Pages/Final_Design/Landing_Page/LandingPage";
-import Footer from "./Components/Final_Design_Components/LandingPage_Components/Footer";
+import Footer from "./Components/Final_Design_Components/LandingPage_Components/oldFooter";
 import Main from "./Pages/Main/Main";
 import StdSign from "./Pages/Student/Login/StdSign";
 import Std from "./Pages/Student/Std";
