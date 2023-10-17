@@ -1,8 +1,8 @@
 html, body {
-    /* height: 100vh; */
+   
     margin: 0;
     padding: 0;
-    height: 100%;
+    
   }
   
   .signin-container {
@@ -12,7 +12,7 @@ html, body {
     
     align-items: center;
     padding: 2rem 0;
-    min-height: 100vh; /* Ensure the container fills the viewport height */
+    min-height: 100vh; 
     width: 100%;
     overflow: hidden;
   }
@@ -34,16 +34,12 @@ html, body {
     font-family: 'Orbitron';
   }
   
-  /* .signin-subscription-heading {
-    
-    margin-bottom: 24px;
-    font-size: 60px;
-  } */
+
   
   .signin-subscription-heading {
     margin-bottom: 0px;
     font-size: 60px;
-    animation: glowing 2s ease-in-out infinite; /* Apply the glowing animation */
+    animation: glowing 2s ease-in-out infinite; 
   }
   
   @keyframes glowing {
@@ -82,8 +78,8 @@ html, body {
   .website-rights {
     color: #fff;
     margin-bottom: 16px;
-    font-size: 24px; /* Adjust the font size if needed */
-    margin-left: auto; /* Add margin to separate from the logo */
+    font-size: 24px; 
+    margin-left: auto; 
     margin-top: 2%;
     margin-right: 30px;
   }
@@ -94,8 +90,8 @@ html, body {
   
   .footer-logo {
     justify-content: center;
-    display: flex; /* Display items in a row */
-    align-items: center; /* Vertically center items */
+    display: flex; 
+    align-items: center; 
   }
   
   .footer-logo img {
@@ -104,14 +100,13 @@ html, body {
     min-height: auto;
     min-width: 10%;
     margin-left: 10px;
-    margin-right: 20px; /* Add some space between the image and text */
+    margin-right: 20px; 
   }
   
-  /* footer.css */
-  
+
   .tcards {
-    padding: 0px; /* Adjust padding as needed */
-    background-color: transparent; /* Example background color */
+    padding: 0px; 
+    background-color: transparent; 
   }
   
   .t__container {
@@ -134,7 +129,7 @@ html, body {
     padding: 0;
   }
   
-  /* Individual card styles */
+
   
   .t__item {
     position: relative;
@@ -143,13 +138,13 @@ html, body {
     background-color: transparent;
     border-radius: 20px;
     margin: 0 20px;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transform transition */
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; 
   }
   
   
   .t__item:hover {
     box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    transform: scale(1.05); /* Scale up on hover */
+    transform: scale(1.05); 
   }
   
   
@@ -202,8 +197,8 @@ html, body {
 
   
     .t__item {
-      flex: 1; /* Let the items take equal space */
-      max-width: calc(50% - 40px); /* Adjust the max-width based on your design needs */
+      flex: 1; 
+      max-width: calc(50% - 40px); 
       margin: 20px;
     }
   

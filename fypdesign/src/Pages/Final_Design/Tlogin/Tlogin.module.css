@@ -5,7 +5,8 @@
   min-width: 100vw;
   min-height: 100vh;
   /* background:linear-gradient(rgb(166, 159, 255), rgb(214, 214, 214)); */
-  background: url('/public/images/bnr.jpg') center center/cover no-repeat;
+  /* background: url('/public/images/bnr.jpg') center center/cover no-repeat; */
+  background:linear-gradient(rgb(28, 29, 70), rgb(214, 214, 214));
 }
 
 h2 {
