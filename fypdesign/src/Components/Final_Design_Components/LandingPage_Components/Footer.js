@@ -2,6 +2,8 @@ import React from 'react';
 import logo from '../../../Assets/images/logo1.png';
 import gplay from '../../../Assets/images/playstore2.png';
 import aplay from '../../../Assets/images/appstore1.png';
+import { Link } from 'react-router-dom';
+
 
 function Footer() {
   
@@ -31,16 +33,20 @@ function Footer() {
               <img src={logo} alt="Logo" style={{ width: '200px', height: 'auto', marginBottom: '30px' }} className="logo-img" />
             </div>
             <div className="d-flex flex-column align-items-center">
+            <Link to="/">
               <img
                 src={gplay}
                 alt="store"
                 style={{ width: '150px', height: '60px', marginBottom: '10px' }}
               />
+              </Link>
+              <Link to="/">
               <img
                 src={aplay}
                 alt="store"
                 style={{ width: '150px', height: '50px', marginBottom: '20px' }}
               />
+              </Link>
             </div>
           </div>
           <div className="col-md-3 d-flex flex-column align-items-center">
