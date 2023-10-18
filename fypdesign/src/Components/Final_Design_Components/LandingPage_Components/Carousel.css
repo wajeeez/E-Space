@@ -10,7 +10,7 @@
   .custom-buttons button {
     margin: 0 10px; 
     border-radius: 30px;
-    background-color: black;
+    
     width: 150px;
     
     transition: all 0.3s ease-in-out;
@@ -18,7 +18,7 @@
 
   .custom-buttons button:hover {
     transform: scale(1.1);
-    background-color: blue;
+    
   }
 
 
@@ -32,9 +32,9 @@
     margin-top: 20px;
   }
   
-  .card:hover {
-    transform: scale(1.01); /* Scale the card by 1.01 on hover */
-  }
+  /* .card:hover {
+    transform: scale(1.01); 
+  } */
 .card{
     overflow: hidden;
     
@@ -55,14 +55,16 @@
   }
 
   .card-title {
-    background-color: rgb(11, 10, 14);
-    color: white !important;
+    /* background-color: rgb(11, 10, 14); */
+    color: rgb(0, 0, 0) !important;
     display: inline-block; 
     padding: 10px;
     /* border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px;  */
     border-radius: 20px;
     text-align: center;
+    font-weight: bolder;
+    font-size: 30px;
     
   }
 

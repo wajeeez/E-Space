@@ -60,12 +60,12 @@ const CardsCarousel = () => {
   const renderCards = (start, end) => {
     const cards = cardData.slice(start, end);
     return cards.map((card, index) => (
-      <Col key={index} md={4}>
+      <Col key={index} md={4} >
         <div className="card " 
         onClick={() => (card.link)}
-        style={{ borderRadius: '20px' , border: 'none',  backgroundColor: ''}}
+        style={{ borderRadius: '20px' , border: '2px solid black',  backgroundColor: ''}}
         >
-          <img src={card.imgSrc} alt={card.title} />
+          {/* <img src={card.imgSrc} alt={card.title} /> */}
           <div className="card-body ">
             <h5 className="card-title">{card.title}</h5>
             <p className="card-text">{card.description}</p>
@@ -101,6 +101,7 @@ const CardsCarousel = () => {
               onClick={() => handleRowChange(activeRow - 1)}
               disabled={activeRow === 0}
               className="btn-transition"
+              style={{backgroundColor:"black" ,border: 'none' }}
             >
               Prev
             </Button>
@@ -108,6 +109,7 @@ const CardsCarousel = () => {
               onClick={() => handleRowChange(activeRow + 1)}
               disabled={activeRow === 2}
               className="btn-transition"
+              style={{backgroundColor:"black", border: 'none' }}
             >
              Next
             </Button>

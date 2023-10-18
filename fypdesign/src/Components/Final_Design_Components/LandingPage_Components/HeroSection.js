@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './HeroSection.css';
-import main from '../../../Assets/images/home.jpg';
+import main from '../../../Assets/images/bg.jpg';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
@@ -72,12 +72,19 @@ function HeroSection() {
   return (
     <div className="hero-container">
       <div className="hcontent">
-        <h1 className="htitle">Welcome to E-Space</h1>
-        <p className="hdescription">Empowering Education, Empowering You: Choose E-Space</p>
-        <button className="hjoin-button" onClick={toggleRegistrationCard}>
-          Join now
-        </button>
+          <h1 className="htitle">Welcome to E-Space</h1>
+          <p className="hdescription">Empowering Education, Empowering You: Choose E-Space</p>
+          <button className="hjoin-button" onClick={toggleRegistrationCard}>
+              Join now
+          </button>
+          <button className="hsign-button" style={{border: '2px solid black'}}>
+              Sign In
+          </button>
+          <div className="himage-container">
+           <img src={main} alt="Image description" className="" />
+          </div>
       </div>
+
 
       {showRegistrationCard && !registrationComplete && (
         <div className="container mt-5 custom-container">
