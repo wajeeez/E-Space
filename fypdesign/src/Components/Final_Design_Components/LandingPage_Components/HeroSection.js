@@ -74,7 +74,7 @@ function HeroSection() {
       <div className="hcontent">
           <h1 className="htitle">Welcome to E-Space</h1>
           <p className="hdescription">Empowering Education, Empowering You: Choose E-Space</p>
-          <button className="hjoin-button" onClick={toggleRegistrationCard}>
+          <button className="hjoin-button" onClick={toggleRegistrationCard} style={{border: '2px solid black'}}>
               Join now
           </button>
           <button className="hsign-button" style={{border: '2px solid black'}}>

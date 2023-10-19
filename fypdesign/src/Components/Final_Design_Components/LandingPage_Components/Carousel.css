@@ -37,7 +37,7 @@
   } */
 .card{
     overflow: hidden;
-    
+    margin: 20px;
 }
 
 .card img{
@@ -65,10 +65,19 @@
     text-align: center;
     font-weight: bolder;
     font-size: 30px;
-    
+    text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.8);
   }
 
   .card-text{
     text-align: center;
+    font-size: 18px;
     padding: 10px;
+  }
+
+  .custom-icon{
+    width: 50px;
+    height: auto;
+    align-items: left;
+    justify-content: left;
+    box-shadow: 0px 0px 6px 6px rgba(123, 87, 196, 0.8);
   }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
-import feat from '../../../Assets/images/home.jpg';
-
+import analysis from '../../../Assets/images/analysis.png';
+import feat from '../../../Assets/images/home.jpg'
 import './Carousel.css';
 
 const cardData = [
   {
-    imgSrc: feat,
+    imgSrc: analysis,
     title: 'Card 1',
     description: 'Description for Card 1',
     link: '/card1',
@@ -67,6 +67,7 @@ const CardsCarousel = () => {
         >
           {/* <img src={card.imgSrc} alt={card.title} /> */}
           <div className="card-body ">
+            <img className="rounded-circle  custom-icon" src={card.imgSrc} style={{alignSelf: 'left'}} />
             <h5 className="card-title">{card.title}</h5>
             <p className="card-text">{card.description}</p>
           </div>
