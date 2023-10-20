@@ -61,9 +61,10 @@ const CardsCarousel = () => {
     const cards = cardData.slice(start, end);
     return cards.map((card, index) => (
       <Col key={index} md={4} >
-        <div className="card " 
+        <div className="card custom-catousel-card" 
         onClick={() => (card.link)}
-        style={{ borderRadius: '20px' , border: '2px solid black',  backgroundColor: ''}}
+        style={{ borderRadius: '20px' , border: '2px solid black',  
+        backgroundColor: '' }}
         >
           {/* <img src={card.imgSrc} alt={card.title} /> */}
           <div className="card-body ">
@@ -79,7 +80,7 @@ const CardsCarousel = () => {
  
 
   return (
-    <Container>
+    <Container className='custom-carousel'>
       <Row className="mt-3">
         <Col>
           <Carousel activeIndex={activeRow} indicators={false} controls={false}>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import './HeroSection.css';
-import main from '../../../Assets/images/bg.jpg';
+import React, { useState, useEffect, useRef } from 'react';
+
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
@@ -11,9 +10,15 @@ import { setUser } from '../../../store/userSlice';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 
+import Signin from './Signin_Options'; 
+import './HeroSection.css';
+
+
 function HeroSection() {
   const [showRegistrationCard, setShowRegistrationCard] = useState(false);
   const [registrationComplete, setRegistrationComplete] = useState(false);
+  const [showSigninOptions, setShowSigninOptions] = useState(false);
+
   const [error, setError] = useState('');
 
   const toggleRegistrationCard = () => {
@@ -69,28 +74,45 @@ function HeroSection() {
     // validationSchema: regSchema, // You can add your validation schema here
   });
 
+  const handleJoinNow = () => {
+    setShowSigninOptions(false); // Set Sign In to false
+    toggleRegistrationCard(); // Toggle Join Now card
+  };
+
+  const handleSignIn = () => {
+    setShowRegistrationCard(false); // Set Join Now to false
+    setShowSigninOptions(!showSigninOptions); // Toggle Sign In card
+  };
+
+  const toggleSigninOptions = () => {
+    setShowSigninOptions(!showSigninOptions);
+  };
+
   return (
     <div className="hero-container">
       <div className="hcontent">
           <h1 className="htitle">Welcome to E-Space</h1>
           <p className="hdescription">Empowering Education, Empowering You: Choose E-Space</p>
-          <button className="hjoin-button" onClick={toggleRegistrationCard} style={{border: '2px solid black'}}>
+          <button className="hjoin-button" onClick={handleJoinNow} style={{border: '2px solid black'}}>
               Join now
           </button>
-          <button className="hsign-button" style={{border: '2px solid black'}}>
+          <button className="hsign-button" onClick={handleSignIn} style={{border: '2px solid black'}}>
               Sign In
           </button>
-          <div className="himage-container">
-           <img src={main} alt="Image description" className="" />
-          </div>
       </div>
 
+      {showSigninOptions && (
+        <div className="signin-options" onClick={toggleSigninOptions}>
+        <Signin/>
+        </div>
+      )}
 
       {showRegistrationCard && !registrationComplete && (
+        <div className="registration-card" onClick={toggleRegistrationCard}>
         <div className="container mt-5 custom-container">
           <div className="row justify-content-center">
             <div className="col-md-6">
-              <div className="custom-card" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
+              <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
                 <div className="card-body">
                   <h2 className="custom-title text-center">Register as Teacher</h2>
 
@@ -171,6 +193,7 @@ function HeroSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       )}
 

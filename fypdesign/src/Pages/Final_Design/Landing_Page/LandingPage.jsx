@@ -8,13 +8,14 @@ import oldFooter from '../../../Components/Final_Design_Components/LandingPage_C
 import Carousel from '../../../Components/Final_Design_Components/LandingPage_Components/Carousel';
 import Featured from '../../../Components/Final_Design_Components/LandingPage_Components/Featured';
 import Footer from '../../../Components/Final_Design_Components/LandingPage_Components/Footer';
-
+import Pic from '../../../Components/Final_Design_Components/LandingPage_Components/pic';
 
 function LandingPage() {
   return (
     <>
       <Navbar />
       <HeroSection />
+      <Pic/>
       <Carousel/>
       <Featured/>
       <Footer/>

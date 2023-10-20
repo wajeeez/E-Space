@@ -1,9 +1,16 @@
+
+.custom-carousel{
+  z-index: 1;
+}
+
+
 /* Custom CSS for the buttons */
 .custom-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
+    
   }
   
   /* Style for the buttons */
@@ -25,22 +32,20 @@
 /* .card img{
     border-radius: 20px;
 } */
-.card {
+.custom-catousel-card {
     overflow: hidden;
     transition: transform 0.3s ease; /* Add a smooth transition effect */
     padding: 10px;
     margin-top: 20px;
+    z-index: 1;
   }
   
   /* .card:hover {
     transform: scale(1.01); 
   } */
-.card{
-    overflow: hidden;
-    margin: 20px;
-}
 
-.card img{
+
+.custom-catousel-card img{
     /* border-top-right-radius: 20px;
     border-top-left-radius: 20px; */
     border-radius: 20px;
