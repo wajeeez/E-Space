@@ -38,6 +38,15 @@ export default StdClass;
 //   const [email, setEmail] = useState(null);
 //   const [classes, setClasses] = useState([]);
 //   const { _id } = useParams();
+  // const [name, setName] = useState(null);
+  // const [std, setStd] = useState([]);
+  // const [email, setEmail] = useState(null);
+  // const [classes, setClasses] = useState([]);
+  // const { _id } = useParams();
+  // const handleRedirect = () => {
+  //   // Redirect to the third-party URL
+  //   window.location.href = `http://localhost:3030/${_id}`;
+  // };
 
 
 //   //
@@ -106,7 +115,7 @@ export default StdClass;
 //       Class : {classes}  &nbsp;  Teacher : {name}
 //       </div>
 //       <center>
-        
+
 //         <p className={styles.Intro}>
 //           Student Name : {StudentName} | Email : {stdEmail}
 //         </p>
