@@ -15,7 +15,7 @@ function LandingPage() {
     <>
       <Navbar />
       <HeroSection />
-      <Pic/>
+      
       <Carousel/>
       <Featured/>
       <Footer/>
