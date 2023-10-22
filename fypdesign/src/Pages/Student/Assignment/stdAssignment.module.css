@@ -4,6 +4,11 @@ html,body{
   height: 100%;
   
 }
+
+.cont{
+  display: flex;
+}
+
 .label{
   font-family: Helvetica;
   font-size: 20px;

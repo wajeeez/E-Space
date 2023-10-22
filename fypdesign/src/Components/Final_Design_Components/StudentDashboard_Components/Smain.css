@@ -42,8 +42,8 @@
   height: 100%;
   width: 100%; /* Adjusted to 100% */
   /* Add margin-left to create space for the sidebar when open */
-  padding: 20px;
-  
+  padding: 40px;
+  margin-left: -10px;
   /* Add overflow to prevent content from overflowing */
   overflow-x: hidden;
   transition: all 0.5s ease;

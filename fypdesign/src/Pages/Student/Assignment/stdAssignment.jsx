@@ -7,11 +7,13 @@ import jwt_decode from "jwt-decode";
 import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
 
+import StdTable from './stdassign'
+
 const StdAssignment = () => {
 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
 
-  const [getFileURL,setFileURL] = useState(null)
+  const [getFileURL, setFileURL] = useState(null)
   const currentDate = new Date(); // Get the current date
   const [selectedFile, setSelectedFile] = useState(null);
   const [assignments, setAssignments] = useState([]);
@@ -22,65 +24,65 @@ const StdAssignment = () => {
   const [message, setMessage] = useState(null);
   const { _id } = useParams();
   const [fileURLsByIndex, setFileURLsByIndex] = useState([]);
-  const [stdEmail,setEmail]=useState()
-  const [StudentName,setStudentName] = useState();
-  const [Subbtn,setSubbtn] = useState(false);
-
-  
-   //SubmisionBTn 
-
-//getting submission files 
-const [submissionMapping, setSubmissionMapping] = useState({});
-const [marksMapping, setmarksMapping] = useState({});
-const [remarksMapping, setremarksMapping] = useState({});
-// Function to update the submission mapping
+  const [stdEmail, setEmail] = useState()
+  const [StudentName, setStudentName] = useState();
+  const [Subbtn, setSubbtn] = useState(false);
 
 
+  //SubmisionBTn 
 
-const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
-  setSubmissionMapping((prevMapping) => ({
-    ...prevMapping,
-    [assignmentFileURL]: submissionFileURL,
-  }));
-};
+  //getting submission files 
+  const [submissionMapping, setSubmissionMapping] = useState({});
+  const [marksMapping, setmarksMapping] = useState({});
+  const [remarksMapping, setremarksMapping] = useState({});
+  // Function to update the submission mapping
 
 
-const updateMarksMapping = (submissionFileURL, marks) => {
-  setmarksMapping((prevMapping) => ({
-    ...prevMapping,
-    [submissionFileURL]: marks,
-  }));
-};
 
-const updateReMarksMapping = (submissionFileURL, remarks) => {
-  setremarksMapping((prevMapping) => ({
-    ...prevMapping,
-    [submissionFileURL]: remarks,
-  }));
-};
-  
-useEffect(() => {
-  const authToken = localStorage.getItem("StdToken");
-  if (authToken) {
-    const decodedToken = jwt_decode(authToken);
-    setEmail(decodedToken.email);
-  
+  const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
+    setSubmissionMapping((prevMapping) => ({
+      ...prevMapping,
+      [assignmentFileURL]: submissionFileURL,
+    }));
+  };
 
-    // Fetch classes for the logged-in user from the server
-    axios
-      .get(baseURL+`/student/studentData/${decodedToken.email}`)
-      .then((response) => {
-        console.log(response.data.response);
-        setStudentName(response.data.response.stdName);
-      
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-}, []);
 
- 
+  const updateMarksMapping = (submissionFileURL, marks) => {
+    setmarksMapping((prevMapping) => ({
+      ...prevMapping,
+      [submissionFileURL]: marks,
+    }));
+  };
+
+  const updateReMarksMapping = (submissionFileURL, remarks) => {
+    setremarksMapping((prevMapping) => ({
+      ...prevMapping,
+      [submissionFileURL]: remarks,
+    }));
+  };
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("StdToken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setEmail(decodedToken.email);
+
+
+      // Fetch classes for the logged-in user from the server
+      axios
+        .get(baseURL + `/student/studentData/${decodedToken.email}`)
+        .then((response) => {
+          console.log(response.data.response);
+          setStudentName(response.data.response.stdName);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+
 
 
 
@@ -89,7 +91,7 @@ useEffect(() => {
 
   let fileURLs = {};
   axios
-    .get(baseURL+`/teacher/assignments/list/${_id}`)
+    .get(baseURL + `/teacher/assignments/list/${_id}`)
     .then((response) => {
       if (response.data) {
         fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -106,45 +108,47 @@ useEffect(() => {
 
 
 
-    //SUbmission
+  //SUbmission
 
-    const getSubmission=(fileURL)=>{
-      
-      const authToken = localStorage.getItem("StdToken");
-        if (authToken) {
-          const decodedToken = jwt_decode(authToken);
-          setEmail(decodedToken.email);
-  
-        
+  const getSubmission = (fileURL) => {
 
-         
-          axios
-            .get(baseURL+`/student/submitted`,{params:{
-              fileURL: fileURL,
-            }},{ responseType: 'blob' })
-            .then((response) => {
-              console.log(response);
-              
-             
-           
-              const blob = new Blob([response.data], { type: response.headers['content-type'] });
-              const blobURL = URL.createObjectURL(blob);
-              window.open(blobURL, '_blank');
-              URL.revokeObjectURL(blobURL);
-              
+    const authToken = localStorage.getItem("StdToken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setEmail(decodedToken.email);
 
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      
-    
+
+
+
+      axios
+        .get(baseURL + `/student/submitted`, {
+          params: {
+            fileURL: fileURL,
+          }
+        }, { responseType: 'blob' })
+        .then((response) => {
+          console.log(response);
+
+
+
+          const blob = new Blob([response.data], { type: response.headers['content-type'] });
+          const blobURL = URL.createObjectURL(blob);
+          window.open(blobURL, '_blank');
+          URL.revokeObjectURL(blobURL);
+
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
-    //Submission
-    
-    
+
+  }
+
+  //Submission
+
+
 
 
 
@@ -154,7 +158,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(baseURL+`/teacher/class/${_id}`)
+      .get(baseURL + `/teacher/class/${_id}`)
       .then((response) => {
 
         setTeacherName(response.data.response.teacherName);
@@ -168,7 +172,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(baseURL+`/teacher/assignments/list/${_id}`)
+      .get(baseURL + `/teacher/assignments/list/${_id}`)
       .then((response) => {
         if (response.data) {
           //  fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -176,7 +180,7 @@ useEffect(() => {
           //   return accumulator;
           // }, {});
           setAssignments(response.data);
-         
+
 
         }
       })
@@ -204,7 +208,7 @@ useEffect(() => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      formData.append('Email',stdEmail)
+      formData.append('Email', stdEmail)
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL)
       formData.append('deadline', currentDate); // Append the deadline value
@@ -268,11 +272,11 @@ useEffect(() => {
     setDialogVisible(false);
   };
 
-//Submisision Btn
- 
+  //Submisision Btn
 
 
-  
+
+
 
 
   const openFileInBrowser = (fileURL) => {
@@ -280,22 +284,22 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(baseURL+`/files/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL + `/files/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
-       
-       
-       
-       
-       // console.log(response.data.response.name)
-        
 
-        
+
+
+
+        // console.log(response.data.response.name)
+
+
+
 
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
         console.log(blobURL)
         console.log(response.name)
-        
+
         window.open(blobURL, '_blank');
         URL.revokeObjectURL(blobURL);
       })
@@ -310,11 +314,11 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(baseURL+`/submission/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL + `/submission/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
 
-        
-        
+
+
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
         window.open(blobURL, '_blank');
@@ -326,7 +330,7 @@ useEffect(() => {
   };
 
 
-  
+
 
 
   //CHECKING IF ANY ASSIGNMENT WAS UPLOADED BY STUDENT
@@ -335,22 +339,22 @@ useEffect(() => {
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
       const Email = decodedToken.email;
-      const classId=_id;
+      const classId = _id;
 
-      
+
       if (Email && classId) { // Check if both userEmail and _id are truthy
         const data = {
           classId,
           Email
         };
-  
+
         axios
-        .get(baseURL+'/student/getSubmitedFileURL', {
-          params: {
-            classId,
-            Email,
-          },
-        })
+          .get(baseURL + '/student/getSubmitedFileURL', {
+            params: {
+              classId,
+              Email,
+            },
+          })
           .then((response) => {
             if (response.data && response.data.response) {
 
@@ -363,30 +367,30 @@ useEffect(() => {
                 const remarks = assignment.remarks;
                 // Call updateSubmissionMapping for each assignment
                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
-                updateMarksMapping(submissionFileURL,marks)
-                updateReMarksMapping(submissionFileURL,remarks)
+                updateMarksMapping(submissionFileURL, marks)
+                updateReMarksMapping(submissionFileURL, remarks)
               });
 
-           
+
               // console.log(response.data.response.assignmentFileURL)
               // const submissionFileURL = response.data.response.submissionFileURL;
               // console.log(response.data)
               // updateSubmissionMapping(response.data.response.assignmentFileURL, submissionFileURL);
               console.log(submissionMapping);
-          
-  
 
-  
+
+
+
             }
           })
           .catch((error) => {
             console.log(error);
           });
-      }else{
+      } else {
         console.log("EMAIL OR CLASSID is not AVAILABLE")
       }
     }
-  
+
 
 
 
@@ -402,109 +406,113 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ backgroundColor: 'transparent' }}>
-      <center className={styles.center}>
+    <>
+      <StdTable />
 
-    
-    
-
-        <h1 style={{margin:'20px'}}>Student Assignments</h1>
-
-        <p style={{margin:'20px'}} className={styles.intro}>
-          Student Name : {StudentName} | Email :{stdEmail}
-        </p>
-        <table className={styles.tbody}>
-          <thead>
-            <tr>
-              <th className={styles.th}>Assign. No.</th>
-              <th className={styles.th}>Title</th>
-              <th className={styles.th}>Obtained Marks</th>
-              <th className={styles.th}>Remarks</th>
-              <th className={styles.th}>Added Submission</th>
-              <th className={styles.th}>Action</th>
-              <th className={styles.th}>Deadline</th>
-            </tr>
-          </thead>
-          <tbody >
-            {assignments.map((assignment, index) =>
-
-           
-            ( 
-            <>
-            
-              <tr className={styles.tr} key={assignment.fileURL}>
-
-                <td className={styles.td} >{index + 1}</td>
-
-                <td className={styles.td}> 
-                  <button   className={styles.assignmentButton}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}>Assignment File</button>
-                </td>
-
-                <td className={styles.td}> {marksMapping[submissionMapping[assignment.fileURL]] ? (marksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
-                <td className={styles.td}>  {remarksMapping[submissionMapping[assignment.fileURL]]? (remarksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
-
-                <td className={styles.td}>
-                
-              
-                
-                {submissionMapping[assignment.fileURL] ? (
-                    <button  className={styles.assignmentButton} onClick={ openFile.bind(null,assignment.submissionURL)}>
-                      Submission File
-                    </button>
-                  ) : (
-                    'No Submission'
-                  )}
-                </td>
-
-                <td className={styles.td}>
+      {/* <div className="cont" style={{ backgroundColor: 'blue' }}>
+        <center className={styles.center}>
 
 
 
-                  {currentDate <= new Date(assignment.deadline) ? (
-                    // <button  className={styles.submissionButton} onClick={openDialog}>Submit</button>
-                     <button className={styles.submissionButton} onClick={() => handleSubmissionClick(assignment.fileURL)}>
-                  SUBMIT
-                </button>
-                  ) : (
-                    <button className={styles.submissionButton}   style={{ backgroundColor: '#fc1100', color: '#000' }}>Deadline Exceeded</button>
-                  )}
 
-                </td>
-                <td className={styles.td}>{<FormattedDate rawDate={assignment.deadline} />}</td>
+          <h1 style={{ margin: '20px' }}>Student Assignments</h1>
+
+          <p style={{ margin: '20px' }} className={styles.intro}>
+            Student Name : {StudentName} | Email :{stdEmail}
+          </p>
+          <table className={styles.tbody}>
+            <thead>
+              <tr>
+                <th className={styles.th}>Assign. No.</th>
+                <th className={styles.th}>Title</th>
+                <th className={styles.th}>Obtained Marks</th>
+                <th className={styles.th}>Remarks</th>
+                <th className={styles.th}>Added Submission</th>
+                <th className={styles.th}>Action</th>
+                <th className={styles.th}>Deadline</th>
               </tr>
-
-              {dialogVisible && (
-                <div className={styles.modaloverlay}>
-                  <div className={styles.modal}>
-                    <h3>Submit Assignment</h3>
-                    <input 
-                      className={styles.fileselector}
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileChange}
-                    />
-                    <button  className={styles.filesbtn}
-                       onClick={submit_assignment}>Submit</button>
-                    <button className={styles.cancelbtn} 
-                     onClick={closeDialog}>Cancel</button>
-                  </div>
-                </div>
-              )}
-
-            </>
-            ))}
-          </tbody>
+            </thead>
+            <tbody >
+              {assignments.map((assignment, index) =>
 
 
-        </table>
+              (
+                <>
 
-        <span>
-          {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
-        </span>
+                  <tr className={styles.tr} key={assignment.fileURL}>
 
-      </center>
-    </div>
+                    <td className={styles.td} >{index + 1}</td>
+
+                    <td className={styles.td}>
+                      <button className={styles.assignmentButton}
+                        onClick={openFileInBrowser.bind(null, assignment.fileURL)}>Assignment File</button>
+                    </td>
+
+                    <td className={styles.td}> {marksMapping[submissionMapping[assignment.fileURL]] ? (marksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available")}  </td>
+                    <td className={styles.td}>  {remarksMapping[submissionMapping[assignment.fileURL]] ? (remarksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available")}  </td>
+
+                    <td className={styles.td}>
+
+
+
+                      {submissionMapping[assignment.fileURL] ? (
+                        <button className={styles.assignmentButton} onClick={openFile.bind(null, assignment.submissionURL)}>
+                          Submission File
+                        </button>
+                      ) : (
+                        'No Submission'
+                      )}
+                    </td>
+
+                    <td className={styles.td}>
+
+
+
+                      {currentDate <= new Date(assignment.deadline) ? (
+                        // <button  className={styles.submissionButton} onClick={openDialog}>Submit</button>
+                        <button className={styles.submissionButton} onClick={() => handleSubmissionClick(assignment.fileURL)}>
+                          SUBMIT
+                        </button>
+                      ) : (
+                        <button className={styles.submissionButton} style={{ backgroundColor: '#fc1100', color: '#000' }}>Deadline Exceeded</button>
+                      )}
+
+                    </td>
+                    <td className={styles.td}>{<FormattedDate rawDate={assignment.deadline} />}</td>
+                  </tr>
+
+                  {dialogVisible && (
+                    <div className={styles.modaloverlay}>
+                      <div className={styles.modal}>
+                        <h3>Submit Assignment</h3>
+                        <input
+                          className={styles.fileselector}
+                          type="file"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                        />
+                        <button className={styles.filesbtn}
+                          onClick={submit_assignment}>Submit</button>
+                        <button className={styles.cancelbtn}
+                          onClick={closeDialog}>Cancel</button>
+                      </div>
+                    </div>
+                  )}
+
+                </>
+              ))}
+            </tbody>
+
+
+          </table>
+
+          <span>
+            {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
+          </span>
+
+        </center>
+      </div> */}
+    </>
   );
 };
 

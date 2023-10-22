@@ -52,11 +52,11 @@ router.post('/forgetpassword',StudentAuth.forgetpassword)
 //Lecture Apis 
 
 router.post("/teacher/submitLecture",UploadAssignment.UploadLecture)
-router.post("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
+router.get("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
 
 //Group Assignments
 
-router.get("/studets/getAllStudents/:class_id",StudentAuth.getAllStudents)
+router.get("/students/getAllStudents/:class_id",StudentAuth.getAllStudents)
 
 
 

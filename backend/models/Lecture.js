@@ -12,6 +12,7 @@ const lectureSchema = new mongoose.Schema({
   
   lectureDesc:{
     type: String,
+    default: "Not Available",
     required: true,
 
   },
@@ -19,13 +20,17 @@ const lectureSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lectureLink: {
+    type: String,
+    default: "Not Available",
+  },
   fileURL: {
     type: String,
     required: true,
   },
   remarks:{
     type: String,
-    default:""
+    default: "Not Available",
   }
 
 });

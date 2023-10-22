@@ -105,7 +105,7 @@ async function UploadLecture(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, lectureName, lectureDesc } = req.body;
+    const { classId, teacherID, lectureName, lectureDesc, lectureLink,remarks} = req.body;
 
     const file = new fileSchema({
       name: originalname,
@@ -125,6 +125,7 @@ async function UploadLecture(req, res, next) {
       teacherID,
       lectureName,
       lectureDesc,
+      lectureLink,
       fileURL,
       remarks, // Save the deadline in the Assignment model
     });
