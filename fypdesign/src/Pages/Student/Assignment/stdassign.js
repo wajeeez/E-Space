@@ -7,9 +7,9 @@ import jwt_decode from "jwt-decode";
 import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
 
-import StdTable from './stdassign'
 
-const StdAssignment = () => {
+
+const StdTable = () => {
 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
 
@@ -404,114 +404,100 @@ useEffect(() => {
   };
 
   return (
-    <>
-    <StdTable/>
-
-    <div className="cont" style={{ backgroundColor: 'blue' }}>
-      <center className={styles.center}>
-
-    
-    
-
-        <h1 style={{margin:'20px'}}>Student Assignments</h1>
-
-        <p style={{margin:'20px'}} className={styles.intro}>
-          Student Name : {StudentName} | Email :{stdEmail}
-        </p>
-        <table className={styles.tbody}>
-          <thead>
-            <tr>
-              <th className={styles.th}>Assign. No.</th>
-              <th className={styles.th}>Title</th>
-              <th className={styles.th}>Obtained Marks</th>
-              <th className={styles.th}>Remarks</th>
-              <th className={styles.th}>Added Submission</th>
-              <th className={styles.th}>Action</th>
-              <th className={styles.th}>Deadline</th>
-            </tr>
-          </thead>
-          <tbody >
-            {assignments.map((assignment, index) =>
-
-           
-            ( 
-            <>
-            
-              <tr className={styles.tr} key={assignment.fileURL}>
-
-                <td className={styles.td} >{index + 1}</td>
-
-                <td className={styles.td}> 
-                  <button   className={styles.assignmentButton}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}>Assignment File</button>
-                </td>
-
-                <td className={styles.td}> {marksMapping[submissionMapping[assignment.fileURL]] ? (marksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
-                <td className={styles.td}>  {remarksMapping[submissionMapping[assignment.fileURL]]? (remarksMapping[submissionMapping[assignment.fileURL]]) : ("Not Available") }  </td>
-
-                <td className={styles.td}>
-                
-              
-                
-                {submissionMapping[assignment.fileURL] ? (
-                    <button  className={styles.assignmentButton} onClick={ openFile.bind(null,assignment.submissionURL)}>
-                      Submission File
-                    </button>
-                  ) : (
-                    'No Submission'
-                  )}
-                </td>
-
-                <td className={styles.td}>
-
-
-
-                  {currentDate <= new Date(assignment.deadline) ? (
-                    // <button  className={styles.submissionButton} onClick={openDialog}>Submit</button>
-                     <button className={styles.submissionButton} onClick={() => handleSubmissionClick(assignment.fileURL)}>
-                  SUBMIT
+    <div className="container" style={{ marginLeft: '-20px', 
+    textAlign: 'center', padding:'12px' , marginTop: '-80px', }}>
+      <div className="text-center mt-5">
+        <h1 style={{background:'black' , padding:'5px' , color : 'white', borderRadius: '20px'}}>
+            Assignments</h1>
+        {/* <p>
+          Student Name: {StudentName} | Email: {stdEmail}
+        </p> */}
+      </div>
+      
+      <table className="table " style={{border:'1px solid white'}}>
+        <thead style={{border:'3px solid black' , padding: '15px'}} >
+          <tr >
+            <th style={{ width: '5%' , fontSize:'large' }}>Sr#</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Title</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Assignment/Solution</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Remarks</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Marks Obtained</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Submission</th>
+            <th style={{ width: '10%', fontSize:'large'  }}>Deadline</th>
+            <th style={{ width: '10%', fontSize:'large' }}>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assignments.map((assignment, index) => (
+            <tr key={assignment.fileURL}>
+              <td>{index + 1}</td>
+              <td>
+                {/* Content */}
+              </td>
+              <td>
+                <button
+                  className="btn btn-primary " style={{margin: '2px'}}
+                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Assignment
                 </button>
-                  ) : (
-                    <button className={styles.submissionButton}   style={{ backgroundColor: '#fc1100', color: '#000' }}>Deadline Exceeded</button>
-                  )}
-
-                </td>
-                <td className={styles.td}>{<FormattedDate rawDate={assignment.deadline} />}</td>
-              </tr>
-
-              {dialogVisible && (
-                <div className={styles.modaloverlay}>
-                  <div className={styles.modal}>
-                    <h3>Submit Assignment</h3>
-                    <input 
-                      className={styles.fileselector}
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileChange}
-                    />
-                    <button  className={styles.filesbtn}
-                       onClick={submit_assignment}>Submit</button>
-                    <button className={styles.cancelbtn} 
-                     onClick={closeDialog}>Cancel</button>
-                  </div>
-                </div>
-              )}
-
-            </>
-            ))}
-          </tbody>
-
-
-        </table>
-
-        <span>
-          {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
-        </span>
-
-      </center>
+                <br /> {/* Add a line break to separate the buttons */}
+                <button
+                  className="btn btn-secondary" style={{margin: '2px'}}
+                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Solution
+                </button>
+              </td>
+              <td>
+                {remarksMapping[submissionMapping[assignment.fileURL]]
+                  ? remarksMapping[submissionMapping[assignment.fileURL]]
+                  : ' --- '}
+              </td>
+              <td>
+                {marksMapping[submissionMapping[assignment.fileURL]]
+                  ? marksMapping[submissionMapping[assignment.fileURL]]
+                  : 'Not marked yet'}
+              </td>
+              <td>
+                {submissionMapping[assignment.fileURL] ? (
+                  <button
+                    className="btn btn-primary"
+                    onClick={openFile.bind(null, assignment.submissionURL)}
+                  >
+                    Submission File
+                  </button>
+                ) : (
+                  'No Submission'
+                )}
+              </td>
+              <td>
+                <FormattedDate rawDate={assignment.deadline} />
+              </td>
+              <td>
+                {currentDate <= new Date(assignment.deadline) ? (
+                  <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
+                    SUBMIT
+                  </button>
+                ) : (
+                  <button className="btn btn-danger" disabled>
+                    Deadline Exceeded
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="text-center">
+        {message !== '' && <p className="text-danger">{message}</p>}
+      </div>
     </div>
-    </>
   );
+  
+  
+  
+  
 };
 
-export default StdAssignment;
+export default StdTable;

@@ -11,15 +11,16 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 
 import Signin from './Signin_Options'; 
+import Register from './Register';
 import './HeroSection.css';
-
+import close from '../../../Assets/images/cross.png';
 
 function HeroSection() {
+  const [error, setError] = useState('');
+
   const [showRegistrationCard, setShowRegistrationCard] = useState(false);
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [showSigninOptions, setShowSigninOptions] = useState(false);
-
-  const [error, setError] = useState('');
 
   const toggleRegistrationCard = () => {
     setShowRegistrationCard(!showRegistrationCard);
@@ -108,14 +109,16 @@ function HeroSection() {
       )}
 
       {showRegistrationCard && !registrationComplete && (
-        <div className="registration-card" onClick={toggleRegistrationCard}>
-        <div className="container mt-5 custom-container">
+        <div className="registration-card" >
+
+          <div className="container mt-5 custom-container">
           <div className="row justify-content-center">
             <div className="col-md-6">
               <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
                 <div className="card-body">
+                    <i className="fa fa-times " onClick={toggleRegistrationCard}/>
+                    {/* <img className="custom-close-icon" onClick={toggleRegistrationCard} src={close}/> */}
                   <h2 className="custom-title text-center">Register as Teacher</h2>
-
                   <div className="form-group custom-form-group">
                     <input
                       type="text"
@@ -176,11 +179,11 @@ function HeroSection() {
                     />
                   </div>
 
-                  <button className="btn btn-primary btn-block custom-button"
+                  <button className="custom-button"
                     onClick={handleReg}
-                    style={{ borderRadius: '20px', fontSize: 'large', backgroundColor: 'blue' }}
+                    style={{ borderRadius: '20px', fontSize: 'large', backgroundColor: '' }}
                   >
-                    Register
+                    Sign Up
                   </button>
 
                   {error !== '' ? (
@@ -193,8 +196,11 @@ function HeroSection() {
               </div>
             </div>
           </div>
+        </div> 
+        
+
         </div>
-        </div>
+        
       )}
 
       {registrationComplete && (

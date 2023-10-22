@@ -18,12 +18,21 @@ function Register() {
 
   const handleReg = async () => {
     const data = {
-      tname: formik.values.tname,
-      institute: formik.values.institute,
-      phone: formik.values.phone,
-      email: formik.values.email,
-      password: formik.values.password,
+      tname: values.tname,
+      institute: values.institute,
+      phone: values.phone,
+      email: values.email,
+      password: values.password,
     };
+
+  // const handleReg = async () => {
+  //   const data = {
+  //     tname: formik.values.tname,
+  //     institute: formik.values.institute,
+  //     phone: formik.values.phone,
+  //     email: formik.values.email,
+  //     password: formik.values.password,
+  //   };
 
     try {
       const response = await Reg(data);
@@ -51,7 +60,18 @@ function Register() {
     }
   };
 
-  const formik = useFormik({
+  // const formik = useFormik({
+  //   initialValues: {
+  //     tname: '',
+  //     institute: '',
+  //     phone: '',
+  //     email: '',
+  //     password: '',
+  //   },
+  //   onSubmit: handleReg,
+  // });
+  
+  const { values, touched, handleBlur, handleChange, errors } = useFormik({
     initialValues: {
       tname: '',
       institute: '',
@@ -59,90 +79,91 @@ function Register() {
       email: '',
       password: '',
     },
-    onSubmit: handleReg,
+    // validationSchema: regSchema, // You can add your validation schema here
   });
+
 
   return (
     <>
-      {!registrationComplete && (
+      
+        
         <div className="container mt-5 custom-container">
           <div className="row justify-content-center">
             <div className="col-md-6">
-              <div className="custom-card" style={{ borderRadius: '30px', border: '3px solid black', padding: '10px' }}>
+              <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
                 <div className="card-body">
                   <h2 className="custom-title text-center">Register as Teacher</h2>
 
-                  <form onSubmit={formik.handleSubmit}>
-                    <div className="form-group custom-form-group">
-                      <input
-                        type="text"
-                        name="tname"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.tname}
-                        className="form-control"
-                        placeholder="Teacher Name"
-                      />
-                    </div>
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.tname}
+                      name="tname"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Teacher Name"
+                    />
+                  </div>
 
-                    <div className="form-group custom-form-group">
-                      <input
-                        type="text"
-                        name="institute"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.institute}
-                        className="form-control"
-                        placeholder="Institute"
-                      />
-                    </div>
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.institute}
+                      name="institute"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Institute"
+                    />
+                  </div>
 
-                    <div className="form-group custom-form-group">
-                      <input
-                        type="text"
-                        name="phone"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.phone}
-                        className="form-control"
-                        placeholder="Phone"
-                      />
-                    </div>
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.phone}
+                      name="phone"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Phone"
+                    />
+                  </div>
 
-                    <div className="form-group custom-form-group">
-                      <input
-                        type="text"
-                        name="email"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                        className="form-control"
-                        placeholder="Email"
-                      />
-                    </div>
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.email}
+                      name="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Email"
+                    />
+                  </div>
 
-                    <div className="form-group custom-form-group">
-                      <input
-                        type="password"
-                        name="password"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                        className="form-control"
-                        placeholder="Password"
-                      />
-                    </div>
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      value={values.password}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Password"
+                    />
+                  </div>
 
-                    <button
-                      type="submit"
-                      className="custom-button"
-                      style={{ borderRadius: '20px', fontSize: 'large' }}
-                    >
-                      Register
-                    </button>
-                  </form>
+                  <button className="btn btn-primary btn-block custom-button"
+                    onClick={handleReg}
+                    style={{ borderRadius: '20px', fontSize: 'large', backgroundColor: 'blue' }}
+                  >
+                    Register
+                  </button>
 
-                  {error !== '' ? <div className="alert alert-danger mt-3">{error}</div> : null}
+                  {error !== '' ? (
+                    <div className="alert alert-danger mt-3">{error}</div>
+                  ) : null}
 
                   <p className="text-center mt-3">Already have an account?</p>
                   <Link to="/teacher/login">Login here</Link>
@@ -150,17 +171,99 @@ function Register() {
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {registrationComplete && (
-        <div className="registration-complete" style={{ textAlign: 'center' }}>
-          <i className="fa fa-check-circle" style={{ color: 'green', fontSize: '50px' }}></i>
-          <p style={{ color: 'green', fontSize: '50px', fontFamily: 'Raleway' }}>Registration Complete</p>
-        </div>
-      )}
+        </div> 
+     
     </>
   );
 }
 
 export default Register;
+
+
+
+
+        {/* <div className="container mt-5 custom-container">
+          <div className="row justify-content-center">
+            <div className="col-md-6">
+              <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
+                <div className="card-body">
+                  <h2 className="custom-title text-center">Register as Teacher</h2>
+
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.tname}
+                      name="tname"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Teacher Name"
+                    />
+                  </div>
+
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.institute}
+                      name="institute"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Institute"
+                    />
+                  </div>
+
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.phone}
+                      name="phone"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Phone"
+                    />
+                  </div>
+
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="text"
+                      value={values.email}
+                      name="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Email"
+                    />
+                  </div>
+
+                  <div className="form-group custom-form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      value={values.password}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Password"
+                    />
+                  </div>
+
+                  <button className="btn btn-primary btn-block custom-button"
+                    onClick={handleReg}
+                    style={{ borderRadius: '20px', fontSize: 'large', backgroundColor: 'blue' }}
+                  >
+                    Register
+                  </button>
+
+                  {error !== '' ? (
+                    <div className="alert alert-danger mt-3">{error}</div>
+                  ) : null}
+
+                  <p className="text-center mt-3">Already have an account?</p>
+                  <Link to="/teacher/login">Login here</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
