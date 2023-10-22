@@ -33,11 +33,11 @@ export default StdClass;
 //   const navigate = useNavigate()
 
 
-//   const [name, setName] = useState(null);
-//   const [std, setStd] = useState([]);
-//   const [email, setEmail] = useState(null);
-//   const [classes, setClasses] = useState([]);
-//   const { _id } = useParams();
+  // const [name, setName] = useState(null);
+  // const [std, setStd] = useState([]);
+  // const [email, setEmail] = useState(null);
+  // const [classes, setClasses] = useState([]);
+  // const { _id } = useParams();
 
 
 //   //
@@ -78,27 +78,43 @@ export default StdClass;
 
 
 
-//   useEffect(() => {
-//     axios
-//       .get(baseURL + `/student/class/${_id}`)
-//       .then((response) => {
-//         setStd(response.data.response.students);
-//         setName(response.data.response.teacherName);
-//         setClasses(response.data.response.subjectName);
-//         setEmail(response.data.response.teacherEmail)
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(baseURL + `/student/class/${_id}`)
+  //     .then((response) => {
+  //       setStd(response.data.response.students);
+  //       setName(response.data.response.teacherName);
+  //       setClasses(response.data.response.subjectName);
+  //       setEmail(response.data.response.teacherEmail)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
 
-//   const handleRedirect = () => {
-//     // Redirect to the third-party URL
-//     window.location.href = `http://localhost:3030/${_id}`;
-//   };
+  // const handleRedirect = () => {
+  //   // Redirect to the third-party URL
+  //   window.location.href = `http://localhost:3030/${_id}`;
+  // };
 
 
+  // const sccards = [
+  //   { title: 'Join API Meeting ', link: `/${classes}/meeting/${_id}`  },
+  //   { title: 'Join Custom Meeting ', link :`http://localhost:3030/${_id}`  },
+  //   // { title: name, description: 'Class Teacher', },
+  //   { title: '80 %', description: 'Class Attendance', link : "/${classes}/assignment/${_id}"},
+  //   { title: '3 / 4', description: 'Assignments',  },
+
+    
+    
+
+  //   // Add more cards as needed
+  //   // { title: 'Card 1', icon: 'icon1', description: 'Description for Card 1', link: '/page1', bgImage: 'url(path_to_image_1)' },
+  //   // { title: 'Card 2', icon: 'icon2', description: 'Description for Card 2', link: '/page2', bgImage: 'url(path_to_image_2)' },
+  //   // { title: 'Card 3', icon: 'icon3', description: 'Description for Card 3', link: '/page3', bgImage: 'url(path_to_image_3)' },
+  //   // { title: 'Card 4', icon: 'icon4', description: 'Description for Card 4', link: '/page4', bgImage: 'url(path_to_image_4)' },
+  // ];
 
 //   return (
 //     <div>
@@ -107,40 +123,40 @@ export default StdClass;
 //       </div>
 //       <center>
         
-//         <p className={styles.Intro}>
-//           Student Name : {StudentName} | Email : {stdEmail}
-//         </p>
-//         </center>
+// //         <p className={styles.Intro}>
+// //           Student Name : {StudentName} | Email : {stdEmail}
+// //         </p>
+// //         </center>
 
 
 
-//         <div className={styles.scCardContainer}>
-//         {sccards.map((card, index) => (
-//           <a
-//             key={index}
-//             href={card.link}
-//             className={styles.scCard} 
-//             style={{ backgroundColor: card.bgColor , fontFamily: 'Roboto, sans-serif'}}
-//           >
-//           <div className={styles.scCardHeading}>
-//            <div className={`icon ${card.icon}`} />
-//            <hsc>{card.title}</hsc>
-//           </div>
-//           <psc className={styles.scCardDescription}>{card.description}</psc>
-//           </a>
-//         ))}
-//          </div>
+// //         <div className={styles.scCardContainer}>
+// //         {sccards.map((card, index) => (
+// //           <a
+// //             key={index}
+// //             href={card.link}
+// //             className={styles.scCard} 
+// //             style={{ backgroundColor: card.bgColor , fontFamily: 'Roboto, sans-serif'}}
+// //           >
+// //           <div className={styles.scCardHeading}>
+// //            <div className={`icon ${card.icon}`} />
+// //            <hsc>{card.title}</hsc>
+// //           </div>
+// //           <psc className={styles.scCardDescription}>{card.description}</psc>
+// //           </a>
+// //         ))}
+// //          </div>
 
         
 
 
 
       
-//     </div>
-//   );
-// }
+// //     </div>
+// //   );
+// // }
 
-// export default StdClass;
+// // export default StdClass;
 
 
 

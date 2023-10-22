@@ -8,14 +8,15 @@ import styles from "./CreateClass.module.css";
 import TextInput from "../../../Components/TextInput/TextInput";
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
-
+import Loader from "../../../Components/Loader/Loader";
 
 
 function CreateClass() {
   // State to store parsed data
-
+  const [loading, setLoading] = useState(false);
   //State to store the values
   const [emails, setEmails] = useState([]);
+
 
   const changeHandler = (event) => {
     // Passing file data (event.target.files[0]) to parse using Papa.parse
@@ -52,17 +53,17 @@ function CreateClass() {
       setEmail(decodedToken.email);
       setName(decodedToken.name);
     }
-    
-  },[tid]);
+
+  }, [tid]);
 
   const handleReg = async () => {
+    setLoading(true)
 
 
-    if(values.students==null || values.subjectName == null)
-    {
+    if (values.students == null || values.subjectName == null) {
 
       setError("Please Provide Details")
-    }else{
+    } else {
       const data = {
         teacherName: name,
         teacherID: tid,
@@ -71,10 +72,11 @@ function CreateClass() {
         students: values.students,
       };
       const response = await createclass(data);
-     
-     
+
+
       if (response.status === 409) {
         setError(response.response.data.message);
+        setLoading(false)
       }
       if (response.status === 201) {
         const teacher = {
@@ -82,23 +84,24 @@ function CreateClass() {
           email: response.data.createclassDto.teacherEmail,
           auth: response.data.createclassDto.auth,
         };
-  
+
         // dispatch(setUser(teacher));
         navigate("/TDashboard");
+        setLoading(false)
       } else if (response.code === "ERR_BAD_REQUEST") {
         setError(response.response.data.message);
-  
+        setLoading(false)
         if (response.status === 409) {
           setError(response.response.data.message);
         }
       }
     }
 
-    
 
 
 
-    
+
+
   };
 
   const [error, setError] = useState("");
@@ -115,67 +118,54 @@ function CreateClass() {
   console.log(values.students);
 
   return (
-    <div className={styles.loginWrapper}>
-      <div className={styles.Intro}>
-        <p>
-          Teacher Name : {name} | Teacher Email : {email}
-        </p>
-      </div>
+   
+    <>
 
-      <div className={styles.loginHeader}>Create Class</div>
-      {/* <TextInput
-        type="text"
-        value={values.teacherName}
-        name="teacherName"
-        onChange={handleChange}
-        placeholder="Teacher Name"
-        // error={errors.email && touched.email ? 1 : undefined}
-        errormessage={errors.teacherID}
-      />
-      <TextInput
-        type="text"
-        value={values.teacherID}
-        name="teacherID"
-        onChange={handleChange}
-        placeholder="teacherID"
-        // error={errors.email && touched.email ? 1 : undefined}
-        errormessage={errors.institute}
-      />
+{   loading ? (
+        <Loader /> // Display the loader while loading
+      ) : (
 
-      <TextInput
-        type="text"
-        value={values.teacherEmail}
-        name="teacherEmail"
-        onChange={handleChange}
-        placeholder="teacherEmail"
-        // error={errors.email && touched.email ? 1 : undefined}
-        errormessage={errors.institute}
-      /> */}
-      <TextInput
-        type="text"
-        value={values.subjectName}
-        name="subjectName"
-        onChange={handleChange}
-        placeholder="subjectName"
-        // error={errors.email && touched.email ? 1 : undefined}
-        errormessage={errors.institute}
-      />
-      <input
-        type="file"
-        name="file"
-        onChange={changeHandler}
-        accept=".csv"
-        style={{ display: "block", margin: "10px auto" }}
-      />
+        <>
+                   <div className={styles.loginWrapper}>
+            <div className={styles.Intro}>
+              <p>
+                Teacher Name : {name} | Teacher Email : {email}
+              </p>
+            </div>
 
-      <span>
-        {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
-      </span>
-      <button className={styles.logInButton} onClick={handleReg}>
-        Create Class
-      </button>
-    </div>
-  );
+            <div className={styles.loginHeader}>Create Class</div>
+
+            <TextInput
+              type="text"
+              value={values.subjectName}
+              name="subjectName"
+              onChange={handleChange}
+              placeholder="subjectName"
+              // error={errors.email && touched.email ? 1 : undefined}
+              errormessage={errors.institute}
+            />
+            <input
+              type="file"
+              name="file"
+              onChange={changeHandler}
+              accept=".csv"
+              style={{ display: "block", margin: "10px auto" }}
+            />
+
+            <span>
+              {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
+            </span>
+            <button className={styles.logInButton} onClick={handleReg}>
+              Create Class
+            </button>
+          </div>
+
+        </>
+      )}
+    </>
+  )
 }
+   
+
 
 export default CreateClass;
