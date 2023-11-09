@@ -4,7 +4,7 @@ import { TeacherAssignmentUpload } from '../../../api/internal';
 import { useParams } from "react-router-dom";
 import styles from './Assignment.module.css'
 import AssignmentList from '../AssigmentList/AssignmentList';
-
+import { Form, Button } from 'react-bootstrap';
 
 const AssignmentPage = () => {
 
@@ -154,31 +154,171 @@ const AssignmentPage = () => {
         <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'}}>
            Upload Assignment</h1>
         
-        <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} onChange={handleFileChange} ref={fileInputRef} className={styles.file} />
-        
-        <input className={styles.assignmentButton}  type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
+        {/* <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} 
+        onChange={handleFileChange} ref={fileInputRef} className={styles.file} /> */}
+    <div className="row justify-content-center align-items-center d-flex">
+    <Form.Group className="col-md-2">
+        <Form.Control
+          type="text"
+          placeholder="Title"
+          style={{textAlign:'center', marginTop:'-20px'}}
+        />
+      </Form.Group>
 
-        <button className={styles.assignmentButton} style={{background:'green'}} onClick={teacherAssignmentUpload}>Upload Assignment</button>
-        <span>
-          {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
-        </span> 
+      <Form.Group className="col-md-3">
+        <Form.Control
+          type="file"
+          onChange={handleFileChange}
+          ref={fileInputRef}
+          className={`${styles.file} custom-file-input`}
+          style={{ background: 'grey', color: 'white', marginTop:'-20px' ,}}
+        />
+      </Form.Group>
 
-        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'
+      <Form.Group className="col-md-2">
+        <Form.Control
+          type="date"
+          onChange={handleDeadlineChange}
+          ref={fileInputRef}
+          min={getCurrentDate}
+          className={styles.assignmentButton}
+          style={{ color: 'white', marginTop:'-20px', marginLeft:'10px' }}
+        />
+      </Form.Group>
+
+      
+
+      <Form.Group className="col-md-2">
+        <Form.Control
+          type="number"
+          placeholder="Total Marks"
+          style={{textAlign:'center', marginTop:'-20px', marginLeft:'10px'}}
+        />
+      </Form.Group>
+
+      <div className="col-md-2">
+        <Button
+          className={`${styles.assignmentButton} btn-success`}
+          onClick={teacherAssignmentUpload}
+          style={{ background: 'green', color: 'white', }}
+        >
+          Upload Assignment
+        </Button>
+        <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
+      </div>
+    </div>
+
+
+
+
+
+        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '0px'
       , marginTop: '40px'}}>
            Edit Assignment</h1>
+
+           <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
+              <div className="col-md-3">
+                <label className="text-center" style={{ fontSize: 'large', fontWeight: 'bold', 
+                marginTop: '0px' ,marginRight:'-60px'}}>Select Assignment : </label>
+              </div>
+              <div className="col-md-3">
+                <select
+                  className="form-select text-center"
+                  style={{ maxWidth: '200px' ,marginLeft:'-60px'}}
+                  // value={selectedAssignment}
+                  // onChange={handleAssignmentChange}
+                >
+                  <option value="" disabled>
+                    Select an Assignment
+                  </option>
+                  {assignments.map((assignment, index) => (
+                    <option key={index + 1} value={assignment.fileURL}>
+                      Assignment {index + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+            </div>
+
 
            <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
           <tr >
-            <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment<br/>/ Solution</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Total Marks</th>
+
+            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment File</th>
+            {/* <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Solution File</th> */}
+            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Total Marks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
+        <tbody style={{textAlign:'center', verticalAlign: 'middle',  padding: '15px'}}>
+        <tr>
+        <td style={{...row_color }}>
+
+        </td>
+
+        <td  style={{...row_color }}>
+               <>
+                <button
+                  className="btn btn-primary " style={{margin: '2px', fontSize: 'large'}}
+                  // onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  View Assignment
+                </button>
+                
+                <Form.Group className="mb-3">
+                  <Form.Label style={{ color: 'white' }}>Choose File:</Form.Label>
+                  <Form.Control
+                    type="file"
+                    onChange={handleFileChange}
+                    ref={fileInputRef}
+                    className={`${styles.file} custom-file-input`}
+                    style={{ background: 'grey', color: 'white', marginTop: '-10px' }}
+                  />
+                </Form.Group>
+                </>
+              </td>
+
+        <td style={{...row_color }}>
+        <p>5</p><br/>
+        <button
+                  className="btn btn-primary" style={{margin: '2px', fontSize: 'large'}}
+                  // onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Edit
+                </button>
+        </td>
+
+        <td style={{...row_color }}>
+      <p>Deadline</p><br/>
+        <input className={styles.assignmentButton}  
+        type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
+        </td>
         
+        <td style={{...row_color }}>
+        <button
+          className="btn btn-primary " style={{margin: '2px', fontSize: 'large', background:'green',width:'150px'}}
+          // onClick={}
+        >
+            Update
+        </button>
+        <br/>
+        <button
+          className="btn btn-danger " style={{margin: '2px', fontSize: 'large', width:'150px'}}
+          // onClick={}
+        >
+            Delete
+        </button>
+        </td>
+        
+
+
+
+        </tr>
+        </tbody>
         </table>
 
       </center>
