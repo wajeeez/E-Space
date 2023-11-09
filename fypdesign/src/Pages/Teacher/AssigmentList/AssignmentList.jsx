@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../Student/Assignment/stdAssignment.module.css'
 import axios from 'axios';
 import { useParams } from 'react-router';
+import Tlist from './TList'
+
 function AssignmentList() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
@@ -216,7 +218,11 @@ function AssignmentList() {
   
 
   return (
-    <div>
+   <>
+
+   <Tlist/>
+
+    <div classname="container-fluid" style={{ background: 'blue' }}>
       <center>
         <h1 className={styles.introt} style={{ margin: '20px' }}>Student Submissions</h1>
         <div>
@@ -236,7 +242,7 @@ function AssignmentList() {
         <div>
           
 
-          {submissions.length === 0 ? ( // Check if submissions array is empty
+          {submissions.length === 0 ? ( 
 
             <p style={{ margin: '20px' }} >No submissions till now</p>
 
@@ -289,8 +295,7 @@ function AssignmentList() {
                             <input
                               className={styles.inputField}
                               type="number"
-                               /* Allows only numeric input */
-                               /* Sets the keyboard to a numeric layout on mobile devices */
+                               
                               id="marksInput"
                               name="marks"
                               placeholder="Enter Marks"
@@ -334,7 +339,47 @@ function AssignmentList() {
         </div>
       </center>
     </div>
+    </> 
   );
 }
 
 export default AssignmentList;
+
+
+{/* <tbody>
+              
+{submissions.map((submission) => (
+  <tr key={submission._id}>
+    <td>{submission.Email}</td>
+    <td>{submission.submissionDate}</td>
+    <td>
+      <button className="btn btn-primary" onClick={() => ViewSubmission(submission.submissionFileURL)}>
+        View Submission
+      </button>
+    </td>
+    <td>
+      <input
+        className="form-control"
+        type="number"
+        placeholder="Enter Marks"
+        value={marks}
+        onChange={handleMarksChange}
+      />
+    </td>
+    <td>
+      <input
+        className="form-control"
+        type="text"
+        placeholder="Enter Remarks"
+        value={remarks}
+        onChange={handleRemarksChange}
+      />
+    </td>
+    <td>
+      <button className="btn btn-primary" onClick={() => submitMarks(submission.submissionFileURL, submission.Email, submission.classId)}>
+        Submit
+      </button>
+    </td>
+  </tr>
+))}
+</tbody>  */}

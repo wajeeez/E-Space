@@ -134,35 +134,52 @@ const AssignmentPage = () => {
   }
 
 
-
+  const row_color = {
+    backgroundColor: 'transparent',
+    color: 'black',
+  }
+  const head_color ={
+    backgroundColor: 'transparent',
+    color: 'black',
+  }
 
 
 
 
   return (
-    <div className='cen'>
+    <div className="container-fluid" style={{  
+      textAlign: 'center', marginTop: '10px', }}>
       <center> 
-        <br/>
-        <br/> 
-        <h1 className={styles.header} >Assignments</h1>
-        <br/>
-        <br/>
-        <br/>
-
-
-        {/* Upload Assignment */}
-        <input type="file" onChange={handleFileChange} ref={fileInputRef} className={styles.file} />
+       
+        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'}}>
+           Upload Assignment</h1>
         
-        <input className={styles.assignmentButton} type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
+        <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} onChange={handleFileChange} ref={fileInputRef} className={styles.file} />
+        
+        <input className={styles.assignmentButton}  type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
 
-        <button className={styles.assignmentButton} onClick={teacherAssignmentUpload}>Upload Assignment</button>
+        <button className={styles.assignmentButton} style={{background:'green'}} onClick={teacherAssignmentUpload}>Upload Assignment</button>
         <span>
           {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}
-        </span>
+        </span> 
 
+        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'
+      , marginTop: '40px'}}>
+           Edit Assignment</h1>
 
-
-
+           <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+          <tr >
+            <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment<br/>/ Solution</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Total Marks</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+          </tr>
+        </thead>
+        
+        </table>
 
       </center>
     </div>

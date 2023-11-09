@@ -93,7 +93,7 @@ function Tmain() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
     
     return (
-      <div className="tmain">
+      <div className="container-fluid tmain">
         
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
@@ -233,9 +233,9 @@ function Tmain() {
       
     </ul>
   </div>
-  <section class="home-section">
+  <section class="container-fluid home-section">
     
-    <div className="tpage" >
+    {/* <div className="tpage" > */}
           {currentPage === 'dashboard' && <Class />}
           {currentPage === 'lectures' && <div>lectures</div>}
           {currentPage === 'assignment' && <AssignmentPage />}
@@ -247,7 +247,7 @@ function Tmain() {
           {currentPage === 'return' && <div>home</div>}
           {currentPage === 'delete' && <div>delete</div>}
           
-    </div>
+    {/* </div> */}
   </section>
         
       </div>

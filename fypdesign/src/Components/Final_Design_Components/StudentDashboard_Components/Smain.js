@@ -102,7 +102,7 @@ function Smain() {
 
     
     return (
-      <div className="smain">
+      <div className="container-fluid smain">
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
         <div class="ssidebar open">
@@ -202,9 +202,9 @@ function Smain() {
       
     </ul>
   </div>
-  <section class="shome-section">
+  <div class="container-fluid shome-section">
     
-    <div className="spage" >
+    {/* <div className="spage" > */}
         {currentPage === 'dashboard' && <StdClass />}
         {currentPage === 'lectures' && <div>lectures</div>}
         {currentPage === 'assignment' && <StdAssignment />}
@@ -216,8 +216,8 @@ function Smain() {
         {currentPage === 'return' && <div>home</div>}
         
           
-    </div>
-  </section>
+    {/* </div> */}
+  </div>
         
       </div>
     );

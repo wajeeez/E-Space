@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import styles from './stdAssignment.module.css'
+// import styles from './stdAssignment.module.css'
 import { StudentSubmissions } from '../../../api/internal'
 import jwt_decode from "jwt-decode";
 import FormattedDate from '../../../Components/DateFormate/DateFormater'
@@ -407,7 +407,7 @@ useEffect(() => {
     <>
     <StdTable/>
 
-    <div className="cont" style={{ backgroundColor: 'blue' }}>
+    {/* <div className="cont" style={{ backgroundColor: 'blue' }}>
       <center className={styles.center}>
 
     
@@ -509,7 +509,7 @@ useEffect(() => {
         </span>
 
       </center>
-    </div>
+    </div> */}
     </>
   );
 };

@@ -403,78 +403,144 @@ useEffect(() => {
 
   };
 
+  const deleteSubmission = (submissionURL) => {
+    // You can send a DELETE request to the server to delete the submission
+    axios
+      .delete(baseURL + '/submission/' + submissionURL)
+      .then((response) => {
+        // Handle successful deletion, such as updating the UI or showing a message.
+        console.log('Submission deleted successfully.');
+      })
+      .catch((error) => {
+        // Handle errors, such as displaying an error message.
+        console.error('Error deleting submission:', error);
+      });
+  };
+  
+  const row_color = {
+    backgroundColor: 'transparent',
+    color: 'black',
+  }
+  const head_color ={
+    backgroundColor: 'transparent',
+    color: 'black',
+  }
+ 
+
   return (
-    <div className="container" style={{ marginLeft: '-20px', 
-    textAlign: 'center', padding:'12px' , marginTop: '-80px', }}>
+    <div className="container-fluid" style={{  
+    textAlign: 'center', marginTop: '-55px', }}>
       <div className="text-center mt-5">
-        <h1 style={{background:'black' , padding:'5px' , color : 'white', borderRadius: '20px'}}>
+        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px'}}>
             Assignments</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
         </p> */}
       </div>
       
-      <table className="table " style={{border:'1px solid white'}}>
-        <thead style={{border:'3px solid black' , padding: '15px'}} >
+      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle'}} >
           <tr >
-            <th style={{ width: '5%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Title</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Assignment/Solution</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Remarks</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Marks Obtained</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Submission</th>
-            <th style={{ width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ width: '10%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment<br/>/ Solution</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Marks Obtained</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {assignments.map((assignment, index) => (
-            <tr key={assignment.fileURL}>
-              <td>{index + 1}</td>
-              <td>
+            <tr key={assignment.fileURL} >
+              <td style={{...row_color }}>{index + 1}</td>
+              <td style={{...row_color }}>
                 {/* Content */}
               </td>
-              <td>
+
+              <td  style={{...row_color }}>
+               <>
                 <button
-                  className="btn btn-primary " style={{margin: '2px'}}
+                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small'}}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                 >
                   Assignment
                 </button>
-                <br /> {/* Add a line break to separate the buttons */}
+                
                 <button
-                  className="btn btn-secondary" style={{margin: '2px'}}
+                  className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                 >
                   Solution
                 </button>
+                </>
               </td>
-              <td>
+              {/* <td  style={{...row_color }}>
+               <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <button
+                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small'}}
+                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Assignment
+                </button>
+              
+                <button
+                  className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
+                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Solution
+                </button>
+                </div>
+              </td> */}
+
+
+              <td style={{...row_color }}>
                 {remarksMapping[submissionMapping[assignment.fileURL]]
                   ? remarksMapping[submissionMapping[assignment.fileURL]]
                   : ' --- '}
               </td>
-              <td>
+              <td style={{...row_color }}>
                 {marksMapping[submissionMapping[assignment.fileURL]]
                   ? marksMapping[submissionMapping[assignment.fileURL]]
                   : 'Not marked yet'}
               </td>
-              <td>
+              {/* <td style={{...row_color }}>
                 {submissionMapping[assignment.fileURL] ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={openFile.bind(null, assignment.submissionURL)}
-                  >
-                    Submission File
-                  </button>
+                  <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <button className="btn btn-primary" style={{ margin: '2px', fontSize: 'small' }} onClick={openFile.bind(null, assignment.submissionURL)}>
+                      Submission
+                    </button>
+                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }} onClick={() => deleteSubmission(assignment.submissionURL)}>
+                     &zwnj; Delete &zwnj;
+                    </button>
+                  </div>
+                ) : (
+                  'No Submission'
+                )}
+              </td> */}
+              <td style={row_color}>
+                {submissionMapping[assignment.fileURL] ? (
+                  <>
+                    <button className="btn btn-primary" style={{ margin: '2px', fontSize: 'small' }} onClick={openFile.bind(null, assignment.submissionURL)}>
+                      Submission
+                    </button>
+                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }} onClick={() => deleteSubmission(assignment.submissionURL)}>
+                      &zwnj; Delete &zwnj;
+                    </button>
+                  </>
                 ) : (
                   'No Submission'
                 )}
               </td>
-              <td>
+
+              
+
+              <td style={{...row_color }}>
                 <FormattedDate rawDate={assignment.deadline} />
               </td>
-              <td>
+
+              {/* <td>
                 {currentDate <= new Date(assignment.deadline) ? (
                   <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
                     SUBMIT
@@ -484,7 +550,33 @@ useEffect(() => {
                     Deadline Exceeded
                   </button>
                 )}
+              </td> */}
+              <td style={{...row_color }}>
+                {submissionMapping[assignment.fileURL] === undefined ? (
+                  currentDate > new Date(assignment.deadline) ? (
+                    <button className="btn btn-danger" disabled style={{ margin: '2px', fontSize: 'small' }}>
+                      Deadline Exceeded
+                    </button>
+                  ) : (
+                    <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
+                      Not Submitted
+                    </button>
+                  )
+                ) : currentDate <= new Date(assignment.deadline) ? (
+                  <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
+                    Submitted
+                  </button>
+                ) : (
+                  <button className="btn btn-danger" disabled style={{ margin: '2px', fontSize: 'small' }}>
+                    Deadline Exceeded
+                  </button>
+                )}
               </td>
+
+
+
+
+
             </tr>
           ))}
         </tbody>

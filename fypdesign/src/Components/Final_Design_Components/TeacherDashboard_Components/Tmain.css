@@ -40,34 +40,35 @@
   overflow-y: auto;
 }
 
-.tpage {
-    flex: 1; /* Take up the remaining space */
+/* .tpage {
+    flex: 1; 
     background-color: rgb(255, 255, 255);
     height: 100%;
-    width: 100%; /* Adjusted to 100% */
-    /* Add margin-left to create space for the sidebar when open */
+    width: 100%; 
     padding: 20px;
-    
-    /* Add overflow to prevent content from overflowing */
     overflow-x: hidden;
     transition: all 0.5s ease;
-  }
+  } */
+
   .home-section{
     position: relative;
     background-color: var(--color-body);
     min-height: 100vh;
     top:0;
-    left:60px;
-    width: 100%;
+    left:35px;
+    width: calc(100% - 60px);
     transition: all .5s ease;
     z-index: 1;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+    margin-top: 10px;
   }
   
 
   .sidebar.open ~ .home-section{
-    left:200px;
-    width: 92%;
+    left:110px;
+    width: calc(100% - 200px);
     
   }
 

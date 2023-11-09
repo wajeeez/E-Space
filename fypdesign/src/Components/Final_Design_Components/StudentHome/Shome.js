@@ -44,7 +44,7 @@ function Shome() {
   };
 
   return (
-    <div className="container-fluid" style={{ marginLeft: '0px' , maxWidth : '97%'}}>
+    <div className="container-fluid" style={{ marginTop: '-10px'}}>
       {/* First row covering full width */}
       <div className="row">
         
