@@ -25,6 +25,7 @@ import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
 import './Tmain.css';
 
+import Lectures from '../../../Pages/Teacher/Lectures/Lectures';
 
 
 function Tmain() {
@@ -237,7 +238,7 @@ function Tmain() {
     
     {/* <div className="tpage" > */}
           {currentPage === 'dashboard' && <Class />}
-          {currentPage === 'lectures' && <div>lectures</div>}
+          {currentPage === 'lectures' && <Lectures/>}
           {currentPage === 'assignment' && <AssignmentPage />}
           {currentPage === 'assignmentList' && <AssignmentList />}
           {currentPage === 'quiz' && <div>quiz</div>}

@@ -96,6 +96,21 @@ export const TeacherAssignmentUpload = async (data) => {
 };
 
 
+export const TeacherLectureUpload = async (data) => {
+  let response;
+  try {
+
+    response = await axios.post(baseURL + '/teacher/submitLecture', data)
+
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+
+  return response;
+};
+
+
 
 export const StudentSubmissions = async (data) => {
   let response;

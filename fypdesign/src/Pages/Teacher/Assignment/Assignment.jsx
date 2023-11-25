@@ -156,58 +156,60 @@ const AssignmentPage = () => {
         
         {/* <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} 
         onChange={handleFileChange} ref={fileInputRef} className={styles.file} /> */}
-    <div className="row justify-content-center align-items-center d-flex">
-    <Form.Group className="col-md-2">
-        <Form.Control
-          type="text"
-          placeholder="Title"
-          style={{textAlign:'center', marginTop:'-20px'}}
-        />
-      </Form.Group>
+<div className="row justify-content-center align-items-center d-flex" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+  <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
+    <Form.Control
+      type="text"
+      placeholder="Title"
+      style={{ textAlign: 'center' }}
+    />
+  </Form.Group>
 
-      <Form.Group className="col-md-3">
-        <Form.Control
-          type="file"
-          onChange={handleFileChange}
-          ref={fileInputRef}
-          className={`${styles.file} custom-file-input`}
-          style={{ background: 'grey', color: 'white', marginTop:'-20px' ,}}
-        />
-      </Form.Group>
+  <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+    <Form.Control
+      type="file"
+      onChange={handleFileChange}
+      ref={fileInputRef}
+      className={`${styles.file} custom-file-input`}
+      style={{ background: 'grey', color: 'white' }}
+    />
+  </Form.Group>
 
-      <Form.Group className="col-md-2">
-        <Form.Control
-          type="date"
-          onChange={handleDeadlineChange}
-          ref={fileInputRef}
-          min={getCurrentDate}
-          className={styles.assignmentButton}
-          style={{ color: 'white', marginTop:'-20px', marginLeft:'10px' }}
-        />
-      </Form.Group>
+  <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
+    <Form.Control
+      type="date"
+      onChange={handleDeadlineChange}
+      ref={fileInputRef}
+      min={getCurrentDate}
+      className={styles.assignmentButton}
+      style={{ color: '' }}
+    />
+  </Form.Group>
 
-      
+  <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
+    <Form.Control
+      type="number"
+      placeholder="Total Marks"
+      style={{ textAlign: 'center' }}
+    />
+  </Form.Group>
 
-      <Form.Group className="col-md-2">
-        <Form.Control
-          type="number"
-          placeholder="Total Marks"
-          style={{textAlign:'center', marginTop:'-20px', marginLeft:'10px'}}
-        />
-      </Form.Group>
+  <div className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%' }}>
+    <Button
+      className={`${styles.assignmentButton} btn-success`}
+      onClick={teacherAssignmentUpload}
+      style={{ background: 'green', color: 'white' , fontSize:'large' , width:'220px', height:'50px'}}
+    >
+      Upload Assignment
+    </Button>
+    <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
+  </div>
+</div>
 
-      <div className="col-md-2">
-        <Button
-          className={`${styles.assignmentButton} btn-success`}
-          onClick={teacherAssignmentUpload}
-          style={{ background: 'green', color: 'white', }}
-        >
-          Upload Assignment
-        </Button>
-        <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
-      </div>
-    </div>
 
+
+
+<div style={{ background: 'black', height: '10px', width: '2000px' }}></div>
 
 
 
@@ -247,7 +249,7 @@ const AssignmentPage = () => {
           <tr >
 
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment File</th>
+            <th style={{ ...head_color,width: '15%', fontSize:'large'  }}>Assignment File</th>
             {/* <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Solution File</th> */}
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Total Marks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
@@ -260,30 +262,33 @@ const AssignmentPage = () => {
 
         </td>
 
-        <td  style={{...row_color }}>
-               <>
-                <button
-                  className="btn btn-primary " style={{margin: '2px', fontSize: 'large'}}
-                  // onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  View Assignment
-                </button>
-                
-                <Form.Group className="mb-3">
-                  <Form.Label style={{ color: 'white' }}>Choose File:</Form.Label>
-                  <Form.Control
-                    type="file"
-                    onChange={handleFileChange}
-                    ref={fileInputRef}
-                    className={`${styles.file} custom-file-input`}
-                    style={{ background: 'grey', color: 'white', marginTop: '-10px' }}
-                  />
-                </Form.Group>
-                </>
-              </td>
+        <td style={{ ...row_color }}>
+  <>
+    <button
+      className="btn btn-primary"
+      style={{ margin: '2px', fontSize: 'large' }}
+    >
+      View Assignment
+    </button>
+
+    {/* Add some separation */}
+    <div style={{ height: '5px' }}></div>
+
+    <Form.Group className="mb-3" style={{ marginTop: '10px', width: '100%', maxWidth: '300px', margin: 'auto' }}>
+      <Form.Control
+        type="file"
+        onChange={handleFileChange}
+        ref={fileInputRef}
+        className={`${styles.file} custom-file-input`}
+        style={{ background: 'grey', color: 'white' }}
+      />
+    </Form.Group>
+  </>
+</td>
+
 
         <td style={{...row_color }}>
-        <p>5</p><br/>
+        <p style={{fontSize:'large', fontWeight:'bold'}}>5</p>
         <button
                   className="btn btn-primary" style={{margin: '2px', fontSize: 'large'}}
                   // onClick={openFileInBrowser.bind(null, assignment.fileURL)}
@@ -293,21 +298,21 @@ const AssignmentPage = () => {
         </td>
 
         <td style={{...row_color }}>
-      <p>Deadline</p><br/>
+      <p style={{fontSize:'large', fontWeight:'bold'}}>Deadline</p>
         <input className={styles.assignmentButton}  
         type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
         </td>
         
         <td style={{...row_color }}>
         <button
-          className="btn btn-primary " style={{margin: '2px', fontSize: 'large', background:'green',width:'150px'}}
+          className="btn btn-primary " style={{margin: '5px', fontSize: 'large', background:'green',width:'150px'}}
           // onClick={}
         >
             Update
         </button>
         <br/>
         <button
-          className="btn btn-danger " style={{margin: '2px', fontSize: 'large', width:'150px'}}
+          className="btn btn-danger " style={{margin: '5px', fontSize: 'large', width:'150px'}}
           // onClick={}
         >
             Delete

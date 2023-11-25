@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
 import './Smain.css';
-
+import StdLectures from '../../../Pages/Student/Lectures/StdLectures';
 
 
 function Smain() {
@@ -146,7 +146,7 @@ function Smain() {
         <span class="tooltip">Analysis</span>
       </li>
       <li>
-        <a href="#">
+        <a onClick={() => handlePageChange('lectures')}>
         <i class='bx bxs-slideshow'></i>
           <span class="link_name">Lectures</span>
         </a>
@@ -206,7 +206,7 @@ function Smain() {
     
     {/* <div className="spage" > */}
         {currentPage === 'dashboard' && <StdClass />}
-        {currentPage === 'lectures' && <div>lectures</div>}
+        {currentPage === 'lectures' && <StdLectures/>}
         {currentPage === 'assignment' && <StdAssignment />}
         {/* {currentPage === 'assignmentList' && <AssignmentList />} */}
         {currentPage === 'quiz' && <div>quiz</div>}

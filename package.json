@@ -21,7 +21,10 @@
     "boxicons": "^2.1.4",
     "concurrently": "^7.6.0",
     "crypto-browserify": "^3.12.0",
+    "date-fns": "^2.30.0",
+    "icofont": "^1.0.0",
     "multer": "^1.4.5-lts.1",
+    "react-datepicker": "^4.23.0",
     "socket.io-client": "^4.7.2",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.5"
