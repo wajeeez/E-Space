@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const classmodel = require("../models/classes");
 const {ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET} = require('../config/config');
 const StudentModel = require("../models/studentModel");
+const GroupModel = require("../models/Groups")
 const Submission = require("../models/stdsubmissionFile");
 const stdAssignmentFile = require("../models/stdassignmentFile");
 const sendEmail = require("./email");
@@ -291,25 +292,85 @@ const StudentAuth ={
 
   async getAllStudents(req,res,next){
 
-    const {classId} = req.query
+    const {class_id} = req.params
 
       //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
 
-      const students = await StudentModel.find({ classID: { $in: classId } });
 
-      if (!students || students.length === 0) {
-        return res.status(404).json({ message: 'Students not found' });
-      }
-      if (!file) {
-        return res.status(404).json({ message: 'Students not found' });
-      }
+    console.log(class_id)
+
+      const students = await StudentModel.find({classID :class_id });
+    
+      // console.log(students)
+      if (!students) {
+        return res.status(404).send("Student not found.");
+    }
+
+    // const isStringInClassID = students.some(student => student.classID.includes(class_id));
+
+    // if (isStringInClassID) {
+    //     res.send(`${class_id} is present in at least one student's classID array.`,);
+    // } else {
+    //     res.send(`${class_id} is not present in any student's classID array.`);
+    // }
   
      
-      res.json(file);
+      res.json(students);
 
       //const submitURL = response.data.Submission;
     
 
   },
+
+  async creatGroup(req,res,next){
+
+    const {class_id} = req.params
+    const {stdIds} = req.body
+
+      //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
+
+
+    console.log(class_id)
+    console.log(stdIds)
+
+
+
+    const group = new GroupModel({
+     
+      stdIds:stdIds,
+      classID:class_id
+    })
+
+    let response = await group.save();
+   
+    res.status(200).json({message:"SuccessFull"});
+   
+
+  },
+
+  
+  async getAllGroups(req,res,next){
+
+  
+
+    const {class_id} = req.params
+    
+
+      //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
+
+
+    
+
+      const groups = await GroupModel.find({classID :class_id });
+    
+      // console.log(students)
+      if (!groups) {
+        return res.status(404).send("Student not found.");
+    }
+
+    return res.status(200).json(groups)
+
+  }
+
 }
 module.exports = StudentAuth;

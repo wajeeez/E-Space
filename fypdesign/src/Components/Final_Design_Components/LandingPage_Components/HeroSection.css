@@ -1,63 +1,149 @@
 
-
-/* .hero-container {
-  
-  background: url('/public/images/above-clouds-3840x2160-12391.jpg') top/cover no-repeat; 
-  
-  height: 100vh;
-  width: 100%;
+.my-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
-  position: relative;
-  z-index: 0;
-  /* margin-top: -80px; */
-
- */
-
-/* src/components/HeroSection.css */
-
-/* src/components/HeroSection.css */
-
-/* src/components/HeroSection.css */
-
-.hero-container {
-  display: flex;
-  z-index: 1;
-  margin-top: 20px;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 82vh;
   padding: 20px;
-  width: 100%;
+  /* border: 1px solid #ccc; */
+  box-sizing: border-box;
 }
 
-.hcontent {
-  margin-top: 20px;
-  margin-left: 60px;
-  
-  padding: 50px;
+.text-div {
+  flex: 1;
+  margin-top: 120px;
+  margin-right: 20px;
+  margin-left: 14px;
 }
 
-/* Default styles for the title */
-.htitle {
+.text-div h2 {
   font-weight: bold;
-  font-size: 60px;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+  color: #000; /* You can adjust the color as needed */
+  font-size: 60px; /* You can adjust the font size as needed */
+  margin-left: 5px;
+  text-transform: uppercase; /* Optional: Convert text to uppercase */
+  letter-spacing: 1px; /* Optional: Add letter spacing for a decorative effect */
+  
+  white-space: nowrap; 
+}
+
+.typewriter-wrapper{
+  font-weight: bold;
   font-family: 'Raleway', sans-serif;
   text-align: left;
-  letter-spacing: 2px;
-  text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.8);
-  margin-bottom: 50px;
+  color: #000;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+
+.text-div p{
+  font-weight: bold;
+  font-family: 'Raleway', sans-serif;
+  text-align: left;
+  color: #000;
+  font-size: 20px;
+  margin-left: 5px;
+  
+}
+
+.image-div {
+  flex: 1.5;
+}
+
+.my-image {
+  width: 100%;
+  height: auto;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  /* Apply styles for screens with a maximum width of 768 pixels */
+  .hero {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .hcontent {
+    margin-left: 0; /* Remove left margin on smaller screens */
+  }
+}
+
+
+
+
+
+.hero-container {
+  display: flex; 
+  width: 100%;
+
+}
+.hero{
+  width: 100%;
+  display: flex; 
+  justify-content: center;
+  border: 1px solid rgb(255, 0, 179);
+}
+
+.heroimg{
+width: 50%;
+border: 1px solid red;
+padding: '20px'
+
+}
+.heroimg img{
+ 
+}
+
+
+.hcontent {
+  border: 1px solid red;
+  padding-top:100px;
+ 
+
+  padding-left: 50px;
+
+  
+}
+
+.hcontent h1{
+  padding-right:100px;
+  border: 1px solid red;
+ 
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #000;
+  /* text-shadow: 2px 2px 4px rgba(93, 92, 92, 0.8);  */
+  margin-bottom: 10px;
+
+}
+
+
+.htitle {
+  padding-right:100px;
+  border: 1px solid red;
+  font-size: 80px;
+  font-family: 'Poppins',sans-serif;
+  text-align: left;
+  letter-spacing: 1px;
+  color: #000;
+  /* text-shadow: 2px 2px 4px rgba(93, 92, 92, 0.8);  */
+  margin-bottom: 10px;
 }
 
 
 .hdescription {
-  font-weight: 600;
+  font-weight: bold;
   font-family: 'Raleway', sans-serif;
   text-align: left;
+  color: #000;
   font-size: 20px;
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-bottom: 50px;
+  margin-left: 5px;
+  
 }
 
 .hjoin-button {
@@ -65,15 +151,18 @@
   color: white;
   border: none;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 5px ;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out; /* Apply transition to all properties */
+  transition: all 0.3s ease-in-out; 
   font-family: 'Raleway', sans-serif;
   width: 200px;
   font-size: 20px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 15px;
+  
+  margin-right: 10px;
+  margin-bottom: 10px;
+ 
   
 }
 .hsign-button {
@@ -81,15 +170,16 @@
   color: rgb(0, 0, 0);
   border: 2px black;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 5px ;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out; /* Apply transition to all properties */
+  transition: all 0.3s ease-in-out; 
   font-family: 'Raleway', sans-serif;
   width: 200px;
   font-size: 20px;
-  margin-top: 10px;
-  margin-left: 20px;
+  
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .hsign-button:hover {
@@ -102,11 +192,11 @@
   transform: scale(1.1);
   background-color: rgb(255, 255, 255);
   color: #000;
-  
-}
+  padding: 0.5rem 1rem;
+} 
 
-/* 
-.himage-container {
+
+/* .himage-container {
   display: flex;
   width: 100%;
   border-radius: 30px;
@@ -120,7 +210,7 @@
   width: 100%; 
   height: auto;
   border-radius: 30px;
-} */
+}  */
 
 
 /* Responsive styles for screens with a maximum width of 700px */
@@ -141,6 +231,10 @@
     
     margin-left: 20px;
     
+  }
+  .heroimg{
+   width: 800px;
+  
   }
 }
 
@@ -165,6 +259,7 @@
     
     
   }
+
 }
 
 .custom-popup {
@@ -175,6 +270,7 @@
  
   position: relative;
 }
+
 
 
 .custom-title {
@@ -278,6 +374,7 @@
   .custom-close-icon {
     width: 30px;
   }
+  
 
 }
 

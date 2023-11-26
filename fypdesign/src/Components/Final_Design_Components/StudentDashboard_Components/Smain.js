@@ -24,7 +24,7 @@ import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
 import './Smain.css';
 import StdLectures from '../../../Pages/Student/Lectures/StdLectures';
-
+import GroupAssignment from '../../../Pages/Student/GroupAssignment/GroupAssigment'
 
 function Smain() {
     const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
@@ -161,7 +161,7 @@ function Smain() {
         <span class="tooltip">Assignment</span>
       </li>
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <a  onClick={() => handlePageChange('groupAssignment')}>
         <i class='bx bxs-group'></i>
           <span class="link_name">Group Assignment</span>
         </a>
@@ -208,7 +208,7 @@ function Smain() {
         {currentPage === 'dashboard' && <StdClass />}
         {currentPage === 'lectures' && <StdLectures/>}
         {currentPage === 'assignment' && <StdAssignment />}
-        {/* {currentPage === 'assignmentList' && <AssignmentList />} */}
+        {currentPage === 'groupAssignment' && <GroupAssignment/>}
         {currentPage === 'quiz' && <div>quiz</div>}
         {currentPage === 'account' && <div>user</div>}
         {currentPage === 'class' && <div>class</div>}

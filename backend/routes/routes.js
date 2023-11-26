@@ -21,6 +21,10 @@ router.post('/teacher/login', TeacherAuthController.login)
 
 router.post('/teacher/createclass', TeacherCreateClass.createclass)
 
+router.post('/teacher/addstudents/:classId', TeacherCreateClass.addStudentsToClass)
+router.post('/teacher/deleteClass/:classId',TeacherCreateClass.deleteClass)
+
+
 router.post('/teacher/logout', auth, TeacherAuthController.logout)
 
 router.get('/teacher/classes/:teacherId', TeacherCreateClass.fetchclass)
@@ -39,6 +43,10 @@ router.get('/student/class/:_id', StudentAuth.fetchsingleclass)
 
 router.get('/student/studentData/:email',StudentAuth.getStudentData);
 router.post('/teacher/assignments/upload', UploadAssignment.UploadAssignment)
+router.post('/teacher/assignments/:fileURL', UploadAssignment.deleteAssignment)
+
+
+
 router.get('/teacher/assignments/list/:class_id', getAllAssignments.getAllAssignments)
 router.post('/student/assignments/upload', StdAssignmentUpload)
 router.get('/student/assignment/submissionAll/:fileURL', GetAllSubmissions)
@@ -46,18 +54,29 @@ router.get('/student/submitted',StudentAuth.getSubmittedAssignment)
 router.get('/student/getSubmitedFileURL',StudentAuth.getSubmissionFileURL)
 router.get('/student/isSubmission',StudentAuth.CheckSubmissionAvailable)
 router.get('/student/allSubmissions',StudentAuth.getAllSubmission)
+
+
 router.post('/forgetpassword',StudentAuth.forgetpassword)
+
 
 
 //Lecture Apis 
 
 router.post("/teacher/submitLecture",UploadAssignment.UploadLecture)
 router.get("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
+//delete lecture
+router.post('/teacher/deleteLectures/:fileURL', UploadAssignment.deleteAssignment)
 
 //Group Assignments
 
 router.get("/students/getAllStudents/:class_id",StudentAuth.getAllStudents)
+router.post("/students/createGroup/:class_id",StudentAuth.creatGroup)
+router.get("/students/getAllGroups/:class_id",StudentAuth.getAllGroups)
 
+
+
+
+router.post('/teacher/groupAssignment/upload', UploadAssignment.UploadGroupAssignment)
 
 
 

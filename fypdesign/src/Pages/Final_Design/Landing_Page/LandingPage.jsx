@@ -9,12 +9,13 @@ import Carousel from '../../../Components/Final_Design_Components/LandingPage_Co
 import Featured from '../../../Components/Final_Design_Components/LandingPage_Components/Featured';
 import Footer from '../../../Components/Final_Design_Components/LandingPage_Components/Footer';
 import Pic from '../../../Components/Final_Design_Components/LandingPage_Components/pic';
-
+import MiddleImage from '../../../Components/Final_Design_Components/LandingPage_Components/MiddleImage'
 function LandingPage() {
   return (
     <>
       <Navbar />
       <HeroSection />
+      <MiddleImage/>
       
       <Carousel/>
       <Featured/>

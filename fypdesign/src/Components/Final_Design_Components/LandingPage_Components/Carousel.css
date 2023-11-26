@@ -1,4 +1,5 @@
 
+/* bedfore */
 .custom-carousel{
   z-index: 1;
 }
@@ -10,7 +11,7 @@
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
-    
+
   }
   
   /* Style for the buttons */
@@ -35,10 +36,17 @@
 .custom-catousel-card {
     overflow: hidden;
     transition: transform 0.3s ease; /* Add a smooth transition effect */
-    padding: 10px;
+    
     margin-top: 20px;
     z-index: 1;
   }
+  
+.custom-carousel-card:hover {
+  /* Add styles for when the card is being hovered */
+  border:10px solid purple
+  /* For example, yorgb(0, 0, 0)hange the background color */
+ 
+}
   
   /* .card:hover {
     transform: scale(1.01); 
@@ -74,16 +82,31 @@
   }
 
   .card-text{
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
     text-align: center;
-    font-size: 18px;
+    color: #000;
+    font-size: 20px;
+    margin-left: 5px;
     padding: 10px;
+  }
+  .iconclass{
+    background-color: rgb(0, 0, 0);
+   
+   height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .iconclass i{
+    color: #faf9f9;
+    font-size: 80px;
   }
 
   .custom-icon {
-    position: absolute;
-    top: 20px;
-    left: 30px; 
-    width: 40px;
+   
+   
+    width: 100px;
     height: auto;
     box-shadow: 0px 0px 6px 6px rgba(151, 196, 255, 0.8);
   }

@@ -140,6 +140,7 @@ const SigninOptions = () => {
             >
               <img
                 src={tea}
+                placeholder={tea}
                 className="card-img-top rounded-top"
                 alt="Card Image"
               />
@@ -159,6 +160,7 @@ const SigninOptions = () => {
             >
               <img
                 src={std}
+                placeholder={std}
                 className="card-img-top rounded-top"
                 alt="Card Image"
                 style={{  padding: '10px 10px 10px 10px' , height: '100%' , width : '100%'}}

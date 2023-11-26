@@ -75,11 +75,13 @@ function Navbar() {
             <li className='nav-item'>
               <Link
                 to='/signin/options'
-                className='nav-links'
+                className='nav-link-last'
                 onClick={closeMobileMenu}
-                style={{ fontWeight: 'bold', color: 'blue' }}
+               
               >
+                <button className="hjoin-btn"  style={{border: '2px solid black'}}>
                 Sign In
+               </button>
               </Link>
             </li>
           </ul>

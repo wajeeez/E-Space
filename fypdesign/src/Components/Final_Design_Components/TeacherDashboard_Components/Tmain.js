@@ -6,7 +6,7 @@ import Class from '../../../Pages/Classes/Class/Class';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import GroupAssignmentTeacher from '../../../Pages/Teacher/GroupAssignmentTeacher/GroupAssignmentTeacher';
 // import dashIcon from '../../../Assets/images/dashboard.png';
 // import perfIcon from '../../../Assets/images/tre.png';
 // import subIcon from '../../../Assets/images/checklist.png';
@@ -166,7 +166,7 @@ function Tmain() {
         <span class="tooltip">Assignment</span>
       </li>
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <a  onClick={() => handlePageChange('groupAssignment')}>
         
         <i class='bx bx-edit'></i>
           <span class="link_name">Group Assignment</span>
@@ -241,6 +241,8 @@ function Tmain() {
           {currentPage === 'lectures' && <Lectures/>}
           {currentPage === 'assignment' && <AssignmentPage />}
           {currentPage === 'assignmentList' && <AssignmentList />}
+          {currentPage === 'groupAssignment' && <GroupAssignmentTeacher />}
+          
           {currentPage === 'quiz' && <div>quiz</div>}
           {currentPage === 'account' && <div>user</div>}
           {currentPage === 'class' && <div>class</div>}

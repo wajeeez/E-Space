@@ -1,52 +1,59 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import analysis from '../../../Assets/images/analysis.png';
+
 import feat from '../../../Assets/images/home.jpg'
 import './Carousel.css';
 
 const cardData = [
   {
-    imgSrc: analysis,
-    title: 'Card 1',
-    description: 'Description for Card 1',
+    iconClass: 'fa-solid fa-chalkboard-user fa-bounce',
+    title: 'Intereactive White Board',
+    description: 'Our interactive whiteboard makes collaboration visually inspiring and efficient',
     link: '/card1',
+    backgroundColor: '#f12711',
   },
   {
+    iconClass: 'fas fa-clock fa-fade',
     imgSrc: analysis,
-    title: 'Card 2',
-    description: 'In the updated code, I modified the transition property to apply the transition to all properties, including background-color. This change ensures a smoother transition for the background color change on hover.',
+    title: 'No Time Limit Meetings ',
+    description: 'We offer unlimited time for conducting meeting and classes and online lectures without any charges ',
     link: '/card2',
+    backgroundColor: '#7F00FF',
   },
   {
+    iconClass: 'fas fa-cogs fa-bounce',
     imgSrc: analysis,
-    title: 'Card 3',
-    description: 'Description for Card 3',
+    title: 'Content Management System',
+    description: 'Unlike other platform we offer built in content management system to enhance productivity',
     link: '/card3',
+    backgroundColor: '#38ef7d',
   },
   {
+    iconClass: 'fa-solid fa-user-secret fa-bounce',
     imgSrc: analysis,
-    title: 'Card 4',
-    description: 'Description for Card 4',
+    title: 'Safety & Security in Meetings',
+    description: 'Teacher can explore many safety security features such as locking meeting lobby etc to stay save from online harsment',
     link: '/card4',
+    backgroundColor: '#11998e',
   },
   {
+    iconClass: 'fas fa-chalkboard',
     imgSrc: analysis,
-    title: 'Card 5',
-    description: 'Description for Card 5',
+    title: 'Never Miss Update',
+    description: 'Real time Notification enabale you to access everything everywhere you go',
     link: '/card5',
+    backgroundColor: '#7F00FF',
   },
   {
+    iconClass: 'fas fa-chalkboard',
     imgSrc: analysis,
     title: 'Card 6',
     description: 'Description for Card 6',
     link: '/card6',
+    backgroundColor: '#f12711',
   },
-  {
-    imgSrc: analysis,
-    title: 'Card 7',
-    description: 'Description for Card 7',
-    link: '/card7',
-  },
+ 
 ];
 
 const CardsCarousel = () => {
@@ -61,14 +68,18 @@ const CardsCarousel = () => {
     const cards = cardData.slice(start, end);
     return cards.map((card, index) => (
       <Col key={index} md={4} >
+
         <div className="card custom-catousel-card" 
-        onClick={() => (card.link)}
-        style={{ borderRadius: '20px' , border: '2px solid black',  
+        
+        style={{ height:'450px',borderRadius: '10px' , border: '1px solid black',  
         backgroundColor: '' }}
         >
           {/* <img src={card.imgSrc} alt={card.title} /> */}
+         <div style={{backgroundColor:card.backgroundColor }} className='iconclass'>
+         <i className={`${card.iconClass}`}></i>
+         </div>
           <div className="card-body ">
-            <img className="rounded-circle  custom-icon" src={card.imgSrc} style={{alignSelf: 'left'}} />
+           
             <h5 className="card-title">{card.title}</h5>
             <p className="card-text">{card.description}</p>
           </div>
@@ -109,7 +120,7 @@ const CardsCarousel = () => {
             </Button>
             <Button
               onClick={() => handleRowChange(activeRow + 1)}
-              disabled={activeRow === 2}
+              disabled={activeRow === 1}
               className="btn-transition"
               style={{backgroundColor:"black", border: 'none' }}
             >

@@ -404,10 +404,14 @@ useEffect(() => {
   };
 
   return (
-    <div className="container" style={{ marginLeft: '-20px', 
-    textAlign: 'center', padding:'12px' , marginTop: '-80px', }}>
-      <div className="text-center mt-5">
-        <h1 style={{background:'black' , padding:'5px' , color : 'white', borderRadius: '20px'}}>
+
+
+
+
+    <div className="container" style={{  
+    textAlign: 'center', padding:'2px'  }}>
+      <div className="text-center mt-1">
+        <h1 style={{background:'black' , padding:'5px' , color : 'white', borderRadius: '5px'}}>
             Assignments</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}

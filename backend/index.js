@@ -65,7 +65,7 @@ app.get('/files/:id', async (req, res) => {
 
     res.send(file.data);
   } catch (error) {
-    console.error(error);
+    console.error(error); 
     res.status(500).json({ message: 'Error retrieving file' });
   }
 });
