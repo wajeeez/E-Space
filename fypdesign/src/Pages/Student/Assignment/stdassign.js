@@ -6,7 +6,8 @@ import { StudentSubmissions } from '../../../api/internal'
 import jwt_decode from "jwt-decode";
 import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
-
+import { Form, Button } from 'react-bootstrap';
+import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 
 
 const StdTable = () => {
@@ -196,7 +197,7 @@ useEffect(() => {
 
   console.log(selectedFile)
 
-  const submit_assignment = async () => {
+  const submit_assignments = async () => {
 
     setDialogVisible(false)
 
@@ -395,13 +396,7 @@ useEffect(() => {
   }, []);
 
 
-  const handleSubmissionClick = (assignmentFileURL) => {
-    // Handle the submission for the specific assignment
-    console.log(`Clicked on assignment: ${assignmentFileURL}`);
-    setFileURL(assignmentFileURL)
-    openDialog()
 
-  };
 
   const deleteSubmission = (submissionURL) => {
     // You can send a DELETE request to the server to delete the submission
@@ -425,7 +420,141 @@ useEffect(() => {
     backgroundColor: 'transparent',
     color: 'black',
   }
- 
+
+
+  const handleSubmissionClicks = (assignmentFileURL) => {
+    // Handle the submission for the specific assignment
+    console.log(`Clicked on assignment: ${assignmentFileURL}`);
+    setFileURL(assignmentFileURL)
+    openDialog()
+    
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const handleSubmissionClick = (assignmentFileURL) => {
+    setFileURL(assignmentFileURL);
+    openModal();
+  };
+  
+  const submit_assignment = async () => {
+
+    
+
+    setShowModal(false); // Close the modal
+
+    //Problem is this code is runing before file change and imedialty after file broweser opens
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('Email',stdEmail)
+      formData.append('classId', _id);
+      formData.append('assignmentFileURL', getFileURL)
+      formData.append('deadline', currentDate); // Append the deadline value
+      for (const entry of formData.entries()) {
+        console.log(entry[0], entry[1]);
+      }
+
+
+      const response = await StudentSubmissions(formData);
+
+      if (response.status === 201 || response.status === 200) {
+        setMessage("Successfull")
+        console.log("Successfull")
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''; // Reset the input field
+        }
+
+        setTimeout(() => {
+          window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
+        }, 2000); // Adjust the delay (in milliseconds) as needed
+      } else if (response.code === "ERR_BAD_REQUEST") {
+        // setError(response.response.mes);
+        console.log("BAD REQUEST")
+        if (response.response.status === 500) {
+          console.log("500 BAD REQUEST ")
+        }
+
+
+        if (response.response.status === 401) {
+          setMessage(response.response.data.message);
+          console.log("401")
+
+        }
+      }
+
+
+
+
+
+
+    } else {
+
+      console.log(selectedFile + "ERROR")
+    }
+
+
+
+
+
+
+
+
+  }
+
+
+  // const modalContent = ({ show, submit_assignment, closeModal }) => {
+  //   return(
+  //   <Modal show={show} onHide={closeModal} centered style={{ backgroundColor: 'transparent' }}>
+  //     <Modal.Header closeButton>
+  //       <Modal.Title>Submit Assignment</Modal.Title>
+  //     </Modal.Header>
+  //     <Modal.Body>
+  //       <h5>Max 15mb File</h5>
+  //       <h5 style={{ color: 'red', marginBottom: '10px', marginTop: '10px' }}>
+  //         only (.zip , .pdf , .docx )files
+  //       </h5>
+  //       <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+  //         <Form.Control
+  //           type="file"
+  //           ref={fileInputRef}
+  //           onChange={handleFileChange}
+  //           className={`custom-file-input`}
+  //           style={{ background: 'grey', color: 'white' }}
+  //         />
+  //       </Form.Group>
+  //       </Modal.Body>
+  //     <Modal.Footer className="justify-content-center align-items-center d-flex">
+  //       <Button
+  //         type="button"
+  //         className="btn btn-primary"
+  //         onClick={submit_assignment}
+  //         style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+  //       >
+  //         Submit
+  //       </Button>
+  //       <Button
+  //         type="button"
+  //         variant="secondary"
+  //         onClick={closeModal}
+  //         style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+  //       >
+  //         Cancel
+  //       </Button>
+  //     </Modal.Footer>
+  //   </Modal>
+  // );
+  //   }
+
+
+
+
 
   return (
     <div className="container-fluid" style={{  
@@ -468,12 +597,12 @@ useEffect(() => {
                   Assignment
                 </button>
                 
-                <button
+                {/* <button
                   className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                 >
                   Solution
-                </button>
+                </button> */}
                 </>
               </td>
               {/* <td  style={{...row_color }}>
@@ -520,18 +649,75 @@ useEffect(() => {
                 )}
               </td> */}
               <td style={row_color}>
-                {submissionMapping[assignment.fileURL] ? (
-                  <>
-                    <button className="btn btn-primary" style={{ margin: '2px', fontSize: 'small' }} onClick={openFile.bind(null, assignment.submissionURL)}>
-                      Submission
-                    </button>
-                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }} onClick={() => deleteSubmission(assignment.submissionURL)}>
-                      &zwnj; Delete &zwnj;
-                    </button>
-                  </>
-                ) : (
-                  'No Submission'
-                )}
+              
+                  
+              {/* <button
+              className={`btn ${submissionMapping[assignment.fileURL] ? 'btn-success' : 'btn-primary'}`}
+              style={{ margin: '2px', fontSize: 'small' }}
+              onClick={() => handleSubmissionClick(assignment.fileURL)}
+            >
+              {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
+            </button>
+            <button
+                className={`btn ${submissionMapping[assignment.fileURL] ? 'btn-success' : 'btn-primary'}`}
+                style={{ margin: '2px', fontSize: 'small' }}
+                onClick={() => {
+                  if (submissionMapping[assignment.fileURL]) {
+                    // If submission exists, open the file
+                    openFile(assignment.submissionURL);
+                  } else {
+                    // Handle the case when there is no submission, you might want to provide feedback to the user
+                    console.log('No submission available');
+                  }
+                }}
+              >
+                {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
+              </button> */}
+
+<div>
+  {submissionMapping[assignment.fileURL] ? (
+    <>
+      <button
+        className="btn btn-success"
+        style={{ margin: '2px', fontSize: 'small' }}
+        onClick={() => {
+          openFile(assignment.submissionURL);
+        }}
+      >
+        View Submission
+      </button>
+      <button
+        className="btn btn-primary"
+        style={{ margin: '2px', fontSize: 'small' }}
+        onClick={() => handleSubmissionClick(assignment.fileURL)}
+        disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+      >
+        Edit
+      </button>
+    </>
+  ) : (
+    <button
+      className="btn btn-primary"
+      style={{ margin: '2px', fontSize: 'small' }}
+      onClick={() => handleSubmissionClick(assignment.fileURL)}
+      disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+    >
+      Submission
+    </button>
+  )}
+
+
+</div>
+
+
+
+{/* <modalConetnt
+        show={showModal}
+        submit_assignment={submit_assignment}
+        closeModal={closeModal}
+      /> */}
+
+                
               </td>
 
               
@@ -554,7 +740,7 @@ useEffect(() => {
               <td style={{...row_color }}>
                 {submissionMapping[assignment.fileURL] === undefined ? (
                   currentDate > new Date(assignment.deadline) ? (
-                    <button className="btn btn-danger" disabled style={{ margin: '2px', fontSize: 'small' }}>
+                    <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
                       Deadline Exceeded
                     </button>
                   ) : (
@@ -567,7 +753,7 @@ useEffect(() => {
                     Submitted
                   </button>
                 ) : (
-                  <button className="btn btn-danger" disabled style={{ margin: '2px', fontSize: 'small' }}>
+                  <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
                     Deadline Exceeded
                   </button>
                 )}
@@ -581,6 +767,43 @@ useEffect(() => {
           ))}
         </tbody>
       </table>
+
+      <Modal  show={showModal} onHide={closeModal} centered 
+  style={{background: 'transparent', }}>
+    <Modal.Header closeButton>
+      <Modal.Title>Submit Assignment</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+    <h5>Max 15mb File</h5>
+        <h5 style={{ color: 'red', marginBottom: '10px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h5>
+      {/* <input
+        className="form-control"
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />  */}
+      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+    <Form.Control
+      type="file"
+      ref={fileInputRef}
+      onChange={handleFileChange}
+      className={`custom-file-input`}
+      style={{ background: 'grey', color: 'white' }}
+    />
+  </Form.Group>
+    </Modal.Body>
+    <Modal.Footer className="justify-content-center align-items-center d-flex">
+    <Button type="button" className="btn btn-primary" onClick={submit_assignment}
+    style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+      Submit
+    </Button>
+      <Button type="button" variant="secondary" onClick={closeModal}
+      style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+        Cancel
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
       <div className="text-center">
         {message !== '' && <p className="text-danger">{message}</p>}
       </div>

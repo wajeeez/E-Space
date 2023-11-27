@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import AssignmentPage from '../../../Pages/Teacher/Assignment/Assignment';
 import AssignmentList from '../../../Pages/Teacher/AssigmentList/AssignmentList';
 import Class from '../../../Pages/Classes/Class/Class';
-
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { Modal, Button } from 'react-bootstrap'; // Make sure to import Modal and Button from 'react-bootstrap'
 // import dashIcon from '../../../Assets/images/dashboard.png';
 // import perfIcon from '../../../Assets/images/tre.png';
 // import subIcon from '../../../Assets/images/checklist.png';
@@ -92,6 +92,50 @@ function Tmain() {
   };
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteConfirmed = () => {
+    // Perform the deletion logic
+    // ...
+
+    // Close the modal
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteCancelled = () => {
+    // Handle cancel action
+    setShowDeleteModal(false);
+  };
+
+  const DeleteClassModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+    return (
+      <Modal show={show} onHide={handleDeleteCancelled} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Class</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Are you sure you want to Permanently Delete this Class?</h5>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center align-items-center d-flex">
+          <Button
+            variant="danger"
+            onClick={handleDeleteConfirmed}
+            style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleDeleteCancelled}
+            style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+        );
+      };
     
     return (
       <div className="container-fluid tmain">
@@ -125,100 +169,106 @@ function Tmain() {
       
       <p className='ps'>x</p>
       <li>
-        <a onClick={() => { handlePageChange('dashboard');}}>
+        <Link onClick={() => { handlePageChange('dashboard');}}>
         {/* <img src={dashIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-home-alt-2'></i>
           <span class="link_name">Dashboard</span>
-        </a>
+        </Link>
         <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <a onClick={() => handlePageChange('performance')}>
+        <Link onClick={() => handlePageChange('performance')}>
         {/* <img src={perfIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-bar-chart-alt-2'></i>
           <span class="link_name">Analysis</span>
-        </a>
+        </Link>
         <span class="tooltip">Analysis</span>
       </li>
       <li>
-      <a onClick={() => handlePageChange('lectures')}>
+      <Link onClick={() => handlePageChange('lectures')}>
         {/* <img src={lectIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bxs-slideshow'></i>
           <span class="link_name">Lectures</span>
-        </a>
+        </Link>
         <span class="tooltip">Lectures</span>
       </li>
       <li>
-      <a onClick={() => handlePageChange('class')}>
+      <Link onClick={() => handlePageChange('class')}>
         {/* <img src={dataIcon} alt="Icon" className="button-icon" /> */}
         {/* <FontAwesomeIcon icon="fa-thin fa-people-group" style={{color: "#000000",}} /> */}
         <i class='bx bxs-contact'></i>
           <span class="link_name">Management</span>
-        </a>
+        </Link>
         <span class="tooltip">Class Management</span>
       </li>
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <Link  onClick={() => handlePageChange('assignment')}>
         {/* <img src={assignIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-edit'></i>
           <span class="link_name">Assignment</span>
-        </a>
+        </Link>
         <span class="tooltip">Assignment</span>
       </li>
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <Link  onClick={() => handlePageChange('assignment')}>
         
         <i class='bx bx-edit'></i>
           <span class="link_name">Group Assignment</span>
-        </a>
+        </Link>
         <span class="tooltip">Group Assignment</span>
       </li>
       <li>
-        <a onClick={() => handlePageChange('assignmentList')}>
+        <Link onClick={() => handlePageChange('assignmentList')}>
         {/* <img src={subIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-list-check' ></i>
           <span class="link_name">Submissions</span>
-        </a>
+        </Link>
         <span class="tooltip">Submissions</span>
       </li>
       <li>
-      <a onClick={() => handlePageChange('quiz')}>
+      <Link onClick={() => handlePageChange('quiz')}>
         {/* <img src={quizIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-timer' ></i>
           <span class="link_name">Quiz</span>
-        </a>
+        </Link>
         <span class="tooltip">Quiz</span>
       </li>
       <li>
       
-      <a onClick={() => handlePageChange('delete')}>
+      <a onClick={() => setShowDeleteModal(true)}>
       {/* <img src={delIcon} alt="Icon" className="button-icon" /> */}
       <i class='bx bx-x-circle'></i>
         <span class="link_name">Delete Class</span>
       </a>
       <span class="tooltip">Delete Class</span>
+
+      <DeleteClassModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
     </li>
 
 
       <p className='ps'>x</p>
       <li>
         
-        <a onClick={handleLeaveClass}>
+        <Link onClick={handleLeaveClass}>
         {/* <img src={retIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bxs-chevrons-left' ></i>
           <span class="link_name">Leave Class</span>
-        </a>
+        </Link>
         
         <span class="tooltip">Leave Class</span>
       </li>
       <p className='ps'>x</p>
       
       <li>
-        <a onClick={() => handlePageChange('account')}>
+        <Link onClick={() => handlePageChange('account')}>
         {/* <img src={accsetIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
-        </a>
+        </Link>
         <span class="tooltip">User Setting</span>
       </li>
       <li>

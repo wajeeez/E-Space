@@ -4,7 +4,8 @@ import styles from '../../Student/Assignment/stdAssignment.module.css'
 import axios from 'axios';
 import { useParams } from 'react-router';
 import jwt_decode from "jwt-decode";
-
+import { Modal, Button, Form } from 'react-bootstrap';
+import { InputGroup, FormControl } from 'react-bootstrap';
 function TList() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
@@ -270,6 +271,7 @@ function TList() {
                 <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle',
               textAlign:'center'}} >
                 <tr>
+                  <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>File</th>
@@ -283,11 +285,12 @@ function TList() {
               <tbody style={{textAlign:'center'}}>
 
 
-                {submissions.map((submission) => (
+                {submissions.map((submission,index) => (
 
                   <>
 
                     <tr className={styles.tr} key={submission._id}>
+                      <td style={{...row_color }}>{index+1}</td>
                       <td style={{...row_color }}>{submission.Email}</td>
                       <td style={{...row_color }}>{submission.submissionDate}</td>
                       <td style={{...row_color }}>
@@ -323,14 +326,14 @@ function TList() {
                     </tr>
 
 
-                    {dialogVisible && (
+                    {/* {dialogVisible && (
   <div className="modal fade show d-flex align-items-center" style={{ display: 'block', justifyContent: 'center'
   ,position:'absolute' , top:'-40px' }} tabIndex="-1" role="dialog">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
         <div className="modal-header">
           <h3 className="modal-title text-center">Update Marks & Remarks</h3>
-          {/* <button type="button" className="btn-close" aria-label="Close" onClick={closeDialog}></button> */}
+          
         </div>
         <div className="modal-body text-center">
           <div className="mb-3">
@@ -367,7 +370,7 @@ function TList() {
       </div>
     </div>
   </div>
-)}
+)} */}
 
 
 
@@ -377,8 +380,54 @@ function TList() {
 
               </tbody>
             </table>
+
+
           )}
+          
         </div>
+
+        <Modal show={dialogVisible} onHide={closeDialog} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Marks & Remarks</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="text-center justify-content-center align-items-center">
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Marks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="number"
+            id="marksInput"
+            name="marks"
+            placeholder="---"
+            value={formData.marks}
+            onChange={handleInputChange}
+            onKeyPress={(e) => isNumberKey(e)}
+          />
+           </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Remarks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="text"
+            id="remarksInput"
+            name="remarks"
+            placeholder="---"
+            value={formData.remarks}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <span>{message}</span>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
+          Submit
+        </Button>
+        <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeDialog}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
       </center>
     </div>
     </> 

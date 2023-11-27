@@ -6,6 +6,8 @@ import { StudentSubmissions } from '../../../api/internal'
 import jwt_decode from "jwt-decode";
 import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
+import { Link } from 'react-router-dom';
+
 
 const StdLectures = () => {
 
@@ -396,19 +398,103 @@ useEffect(() => {
 
 //   };
 
+const row_color = {
+  backgroundColor: 'transparent',
+  color: 'black',
+  paddingTop:'10px',
+  paddingBottom:'10px',
+}
+const head_color ={
+  backgroundColor: 'transparent',
+  color: 'black',
+}
+
+
   return (
-    <div style={{ backgroundColor: 'transparent' }}>
-      <center className={styles.center}>
+    <div className="container-fluid" style={{  
+      textAlign: 'center', marginTop: '10px', }}>
+      <center>
 
-    
-    
+      <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px'}}>
+           Lectures</h1>
 
-        <h1 style={{margin:'20px'}}>Lectures</h1>
-
-        <p style={{margin:'20px'}} className={styles.intro}>
+        {/* <p style={{margin:'20px'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
-        </p>
-        <table className={styles.tbody}>
+        </p> */}
+
+        <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+          <tr >
+            <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
+            {/* <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Description</th> */}
+            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Lecture File</th>
+            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Video Link</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
+          </tr>
+        </thead>
+        {lectures.map((lecture, index) =>
+
+           
+( 
+        <tbody style={{textAlign:'center', verticalAlign: 'middle', padding: '15px'}}>
+        <tr key={lecture.fileURL} >
+
+        <td style={{...row_color , marginTop:'5px'}}>
+        <p style={{fontSize:'large', fontWeight:''}}>
+        {index + 1}
+          </p>
+        </td>
+
+        <td style={{...row_color }}>
+        <p style={{fontSize:'large', fontWeight:''}}>
+          {lecture.lectureName}
+          </p>
+        </td>
+
+
+
+        {/* <td style={{...row_color }}>
+        <p style={{fontSize:'large', fontWeight:'bold'}}>
+          description
+          </p>
+
+        </td> */}
+
+        
+        <td style={{ ...row_color }}>
+  
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: '-10px', fontSize: 'large' }}
+              onClick={openFileInBrowser.bind(null, lecture.fileURL)}
+            >
+              View Lecture
+            </button>
+
+        </td>
+
+        <td style={{...row_color }}>
+      <p style={{fontSize:'large', fontWeight:''}}>
+      <Link to ={lecture.lectureLink} >{lecture.lectureLink}</Link>
+      </p>
+        </td>
+
+        <td style={{...row_color }}>
+      <p style={{fontSize:'large', fontWeight:''}}>
+      {lecture.remarks}
+      </p>
+        </td>
+        
+
+        
+        </tr>
+        </tbody>
+        ))}
+        </table>
+
+
+        {/* <table className={styles.tbody}>
           <thead>
             <tr>
               <th className={styles.th}>Lecture No.</th>
@@ -447,7 +533,7 @@ useEffect(() => {
           </tbody>
 
 
-        </table>
+        </table> */}
 
         <span>
           {message != "" ? <p className={styles.errorMessage}>{message}</p> : ""}

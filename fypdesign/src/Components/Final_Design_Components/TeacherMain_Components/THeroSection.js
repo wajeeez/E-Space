@@ -127,7 +127,7 @@ function THeroSection() {
       <Col md={12}>
         <Row>
           {cardsWithCreateClass.map((card, index) => (
-            <Col key={index} md={3} className="p-3">
+            <Col key={index} md={3} className="p-4">
               {card.specialCard ? (
                 <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                   <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
@@ -139,7 +139,7 @@ function THeroSection() {
                 </div>
               ) : (
                 <div className="card " style={{ background: '', borderRadius: '20px', border: '3px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', height:'140px' }}>
-                  <Link to="/teacher/class/${card._id}" style={{ textDecoration: 'none' }}>
+                  <Link to={`/teacher/class/${card._id}`} style={{ textDecoration: 'none' }}>
                     <div className="card-body" style={{ textAlign: 'center', padding: '5px', margin: '5px' }}>
                       <h4 className="card-title1" style={{ fontSize: 'large', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', color: 'black',whiteSpace:'', maxWidth:'200px' }}>{card.subjectName}</h4>
                       <img src={iclass} alt="Class Image" className="img-fluid" style={{ marginTop: '5px', marginBottom: '10px' }} />
@@ -278,7 +278,7 @@ function THeroSection() {
     <Col>
       <Carousel activeIndex={activeRow} indicators={false} controls={false}>
         {Array.from({ length: totalRows }).map((_, index) => (
-          <Carousel.Item key={index} style={{ height: '350px' }}>
+          <Carousel.Item key={index} style={{ height: '380px' }}>
             <Row>{renderCards(index * cardsPerRow, (((index + 2) * cardsPerRow) - 1))}</Row>
           </Carousel.Item>
         ))}
@@ -326,8 +326,6 @@ function THeroSection() {
     </div>
   </div>
 </div> */}
-
-
 
 
 </div>

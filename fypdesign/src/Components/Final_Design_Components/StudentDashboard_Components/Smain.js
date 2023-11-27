@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StdAssignment from '../../../Pages/Student/Assignment/stdAssignment';
 import StdClass from '../../../Pages/Classes/StdClass/StdClass';
-
+import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -132,63 +132,63 @@ function Smain() {
 
       <p className='pss'>x</p>
       <li>
-        <a onClick={() => { handlePageChange('dashboard');}}>
+        <Link onClick={() => { handlePageChange('dashboard');}}>
         <i class='bx bx-home-alt-2'></i>
           <span class="link_name">Dashboard</span>
-        </a>
+        </Link>
         <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <a onClick={() => handlePageChange('performance')}>
+        <Link onClick={() => handlePageChange('performance')}>
         <i class='bx bx-bar-chart-alt-2'></i>
           <span class="link_name">Analysis</span>
-        </a>
+        </Link>
         <span class="tooltip">Analysis</span>
       </li>
       <li>
-        <a onClick={() => handlePageChange('lectures')}>
+        <Link onClick={() => handlePageChange('lectures')}>
         <i class='bx bxs-slideshow'></i>
           <span class="link_name">Lectures</span>
-        </a>
+        </Link>
         <span class="tooltip">Lectures</span>
       </li>
       
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <Link  onClick={() => handlePageChange('assignment')}>
         <i class='bx bx-edit'></i>
           <span class="link_name">Assignment</span>
-        </a>
+        </Link>
         <span class="tooltip">Assignment</span>
       </li>
       <li>
-        <a  onClick={() => handlePageChange('assignment')}>
+        <Link  onClick={() => handlePageChange('assignment')}>
         <i class='bx bxs-group'></i>
           <span class="link_name">Group Assignment</span>
-        </a>
+        </Link>
         <span class="tooltip">Group Assignment</span>
       </li>
       
       <li>
-        <a href="#">
+        <Link href="#">
         <i class='bx bx-timer' ></i>
           <span class="link_name">Quiz</span>
-        </a>
+        </Link>
         <span class="tooltip">Quiz</span>
       </li>
       <p className='pss'>x</p>
       <li>
-        <a onClick={handleLeaveClass}>
+        <Link onClick={handleLeaveClass}>
         <i class='bx bxs-chevrons-left' ></i>
           <span class="link_name">Leave Class</span>
-        </a>
+        </Link>
         <span class="tooltip">Leave Class</span>
       </li>
       <p className='pss'>x</p>
       <li>
-        <a onClick={() => handlePageChange('account')}>
+        <Link onClick={() => handlePageChange('account')}>
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
-        </a>
+        </Link>
         <span class="tooltip">User Setting</span>
       </li>
       <li>
