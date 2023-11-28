@@ -445,69 +445,53 @@ useEffect(() => {
   };
   
   const submit_assignment = async () => {
-
-    
-
     setShowModal(false); // Close the modal
-
-    //Problem is this code is runing before file change and imedialty after file broweser opens
+  
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      formData.append('Email',stdEmail)
+      formData.append('Email', stdEmail);
       formData.append('classId', _id);
-      formData.append('assignmentFileURL', getFileURL)
-      formData.append('deadline', currentDate); // Append the deadline value
-      for (const entry of formData.entries()) {
-        console.log(entry[0], entry[1]);
-      }
-
-
+      formData.append('assignmentFileURL', getFileURL);
+      formData.append('deadline', currentDate);
+  
       const response = await StudentSubmissions(formData);
-
+  
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfull")
-        console.log("Successfull")
+        setMessage("Successful");
+        console.log("Successful");
+  
+        // Fetch and update the list of submitted assignments without reloading the page
+        axios
+          .get(baseURL + `/teacher/class/${_id}`)
+          .then((response) => {
+            console.log(response.data);
+            // setUploadedAssignments(response.data.assignments);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
         }
-
-        setTimeout(() => {
-          window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-        }, 2000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
-        // setError(response.response.mes);
-        console.log("BAD REQUEST")
+        console.log("BAD REQUEST");
+  
         if (response.response.status === 500) {
-          console.log("500 BAD REQUEST ")
+          console.log("500 BAD REQUEST ");
         }
-
-
+  
         if (response.response.status === 401) {
           setMessage(response.response.data.message);
-          console.log("401")
-
+          console.log("401");
         }
       }
-
-
-
-
-
-
     } else {
-
-      console.log(selectedFile + "ERROR")
+      console.log(selectedFile + " ERROR");
     }
-
-
-
-
-
-
-
-
   }
+  
 
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
@@ -558,6 +542,67 @@ useEffect(() => {
     // Increment the refresh key to force a re-render of the container
     setRefreshKey((prevKey) => prevKey + 1);
   };
+
+  const [showEModal, setShowEModal] = useState(false);
+  const openEModal = () => {
+    setShowEModal(true);
+  };
+  
+  const closeEModal = () => {
+    setShowEModal(false);
+  };
+  const handleEditClick = (assignmentFileURL) => {
+    setFileURL(assignmentFileURL);
+    openEModal();
+  };
+  const esubmit_assignment = async () => {
+    setShowEModal(false); // Close the modal
+  
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('Email', stdEmail);
+      formData.append('classId', _id);
+      formData.append('assignmentFileURL', getFileURL);
+      formData.append('deadline', currentDate);
+  
+      const response = await StudentSubmissions(formData);
+  
+      if (response.status === 201 || response.status === 200) {
+        setMessage("Successful");
+        console.log("Successful");
+  
+        // Fetch and update the list of submitted assignments without reloading the page
+        axios
+          .get(baseURL + `/teacher/class/${_id}`)
+          .then((response) => {
+            console.log(response.data);
+            // setUploadedAssignments(response.data.assignments);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''; // Reset the input field
+        }
+      } else if (response.code === "ERR_BAD_REQUEST") {
+        console.log("BAD REQUEST");
+  
+        if (response.response.status === 500) {
+          console.log("500 BAD REQUEST ");
+        }
+  
+        if (response.response.status === 401) {
+          setMessage(response.response.data.message);
+          console.log("401");
+        }
+      }
+    } else {
+      console.log(selectedFile + " ERROR");
+    }
+  }
+  
 
 
 
@@ -780,7 +825,7 @@ useEffect(() => {
                   <button
                     className="btn btn-primary"
                     style={{ margin: '2px', fontSize: 'medium' }}
-                    onClick={() => handleSubmissionClick(assignment.fileURL)}
+                    onClick={() => handleEditClick(assignment.fileURL)}
                   >
                     Edit Submission
                   </button>
@@ -810,7 +855,7 @@ useEffect(() => {
     </Modal.Header>
     <Modal.Body>
     <h5>Max 15mb File</h5>
-        <h5 style={{ color: 'red', marginBottom: '10px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h5>
+        <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
       {/* <input
         className="form-control"
         type="file"
@@ -833,6 +878,42 @@ useEffect(() => {
       Submit
     </Button>
       <Button type="button" variant="secondary" onClick={closeModal}
+      style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+        Cancel
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
+  <Modal  show={showEModal} onHide={closeEModal} centered 
+  style={{background: 'transparent', }}>
+    <Modal.Header closeButton>
+      <Modal.Title>Update Submission</Modal.Title>
+    </Modal.Header>
+    <Modal.Body >
+    <h5>Max 15mb File</h5>
+        <h6 style={{ color: 'red', marginBottom: '30px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
+      {/* <input
+        className="form-control"
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />  */}
+      <Form.Group className="mb-3" style={{ marginBottom: '20px',margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+    <Form.Control
+      type="file"
+      ref={fileInputRef}
+      onChange={handleFileChange}
+      className={`custom-file-input`}
+      style={{ background: 'grey', color: 'white' }}
+    />
+  </Form.Group>
+    </Modal.Body>
+    <Modal.Footer className="justify-content-center align-items-center d-flex" >
+    <Button type="button" className="btn btn-primary" onClick={esubmit_assignment}
+    style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+      Update
+    </Button>
+      <Button type="button" variant="secondary" onClick={closeEModal}
       style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
         Cancel
       </Button>
