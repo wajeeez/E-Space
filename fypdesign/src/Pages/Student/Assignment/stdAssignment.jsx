@@ -408,7 +408,7 @@ const StdAssignment = () => {
   return (
     <>
       <StdTable />
-
+{/* 
       <div className="cont" style={{ backgroundColor: 'blue' }}>
         <center className={styles.center}>
 
@@ -512,7 +512,7 @@ const StdAssignment = () => {
           </span>
 
         </center>
-      </div>
+      </div> */}
     </>
   );
 };

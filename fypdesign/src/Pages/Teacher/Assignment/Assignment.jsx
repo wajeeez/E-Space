@@ -6,7 +6,9 @@ import styles from './Assignment.module.css'
 import AssignmentList from '../AssigmentList/AssignmentList';
 import { Form, Button } from 'react-bootstrap';
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
+// import ReactTooltip from 'react-tooltip';
 
 const AssignmentPage = () => {
 
@@ -116,6 +118,7 @@ const AssignmentPage = () => {
       if (response.status === 201 || response.status === 200) {
         setMessage("Successfull")
         console.log("Successfull")
+        
         if (fileInputRef.current) {
           fileInputRef.current.value = '  '; // Reset the input field
         }
@@ -267,11 +270,46 @@ const AssignmentPage = () => {
 
 
 
+  const [uploadedAssignments, setUploadedAssignments] = useState([]);
+ 
+  useEffect(() => {
+    axios
+      .get(baseURL + `/teacher/class/${_id}`)
+      .then((response) => {
+        console.log(response.data);
+        setUploadedAssignments(response.data.assignments);
+        setteacherID(response.data.response.teacherID);
+        setSubjectName(response.data.response.subjectName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [_id]);
+  
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = () => {
+    // Increment the refresh key to force a re-render of the container
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+
+  
   return (
     <div className="container-fluid" style={{  
       textAlign: 'center', marginTop: '10px', }}>
       <center> 
-       
+      <button
+          className="btn btn-primary"
+          style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
+          onClick={handleRefresh}
+          title='Refresh Page'
+          
+        >
+          <FontAwesomeIcon icon={faSync} />
+          
+        </button>
+        
+
         <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'}}>
            Upload Assignment</h1>
         
@@ -318,7 +356,10 @@ const AssignmentPage = () => {
   <div className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%' }}>
     <Button
       className={`${styles.assignmentButton} btn-success`}
-      onClick={teacherAssignmentUpload}
+      onClick={() => {
+        teacherAssignmentUpload();
+        
+      }}
       style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px'}}
     >
       Upload Assignment
@@ -336,11 +377,11 @@ const AssignmentPage = () => {
 
 
 
-        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '0px'
+        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px'
       , marginTop: '10px'}}>
            Uploaded Assignments</h1>
 
-           <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
+           {/* <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
               <div className="col-md-3">
                 <label className="text-center" style={{ fontSize: 'large', fontWeight: 'bold', 
                 marginTop: '0px' ,marginRight:'-60px'}}>Select Assignment : </label>
@@ -363,13 +404,13 @@ const AssignmentPage = () => {
                 </select>
               </div>
 
-            </div>
+            </div> */}
 
 
            <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
           <tr >
-            <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
+            <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment File</th>
             {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
@@ -378,64 +419,54 @@ const AssignmentPage = () => {
             <th style={{ ...head_color,width: '5%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
-        <tbody style={{textAlign:'center', verticalAlign: 'middle',  padding: '15px'}}>
-        <tr>
-
-        <td style={{...row_color }}>
-        <p style={{fontSize:'large', fontWeight:''}}>
-        {/* {index + 1} */}
-          </p>
-        </td>
-
-        <td style={{...row_color }}>
-        <p style={{fontSize:'large', fontWeight:''}}>
-          title
-          </p>
-        </td>
-
-        <td style={{ ...row_color }}>
-  <>
-    <button
-      className="btn btn-primary"
-      style={{ marginTop: '-10px', fontSize: 'large' }}
-    >
-      View Assignment
-    </button>
-  </>
-</td>
-
-
-        <td style={{...row_color }}>
-        <p style={{fontSize:'large', fontWeight:'bold'}}>
-          5
-          </p>
-
-        </td>
-
-        <td style={{...row_color }}>
-      <p style={{fontSize:'large', fontWeight:''}}>
-        Deadline
-      </p>
-        </td>
-        
-        <td style={{...row_color }}>
+        <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px' }}>
+  {uploadedAssignments?.map((assignment, index) => (
+    <tr key={index}>
+      <td style={{ ...row_color }}>
+        <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
+      </td>
+      <td style={{ ...row_color }}>
+        <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.name}</p>
+      </td>
+      <td style={{ ...row_color }}>
+        <>
+          <button
+            className="btn btn-primary"
+            style={{ marginTop: '-10px', fontSize: 'large' }}
+          >
+            View Assignment
+          </button>
+        </>
+      </td>
+      <td style={{ ...row_color }}>
+        <p style={{ fontSize: 'large', fontWeight: 'bold' }}>{assignment.submissions}</p>
+      </td>
+      <td style={{ ...row_color }}>
+        <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>
+          {assignment.deadline}
+        </p>
+      </td>
+      <td style={{ ...row_color }}>
         <button
-          className="btn btn-primary " style={{margin: '5px', fontSize: 'medium',width:'100px' ,fontWeight:'bold'}}
+          className="btn btn-primary "
+          style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
           onClick={handleShowUpdateModal}
         >
-            Edit
+          Edit
         </button>
-        <br/>
+        <br />
         <button
-          className="btn btn-danger " style={{margin: '5px', fontSize: 'medium', width:'100px',fontWeight:'bold'}}
+          className="btn btn-danger "
+          style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
           onClick={handleDeleteClick}
         >
-            Delete
+          Delete
         </button>
-        </td>
-        
-        </tr>
-        </tbody>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
         </table>
 
       {/* Update Assignment Modal */}

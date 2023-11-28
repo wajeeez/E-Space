@@ -8,7 +8,8 @@ import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
 import { Form, Button } from 'react-bootstrap';
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
 
 const StdTable = () => {
 
@@ -552,27 +553,42 @@ useEffect(() => {
   // );
   //   }
 
-
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    // Increment the refresh key to force a re-render of the container
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
 
 
 
   return (
     <div className="container-fluid" style={{  
-    textAlign: 'center', marginTop: '-55px', }}>
-      <div className="text-center mt-5">
+    textAlign: 'center', marginTop: '0px', }}>
+      <center>
+
+      <button
+          className="btn btn-primary"
+          style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
+          onClick={handleRefresh}
+          title='Refresh Page'
+          
+        >
+          <FontAwesomeIcon icon={faSync} />
+          
+        </button>
+
         <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px'}}>
             Assignments</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
-        </p> */}
-      </div>
-      
-      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+    </p> */}
+
+      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle' ,textAlign: 'center'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle'}} >
           <tr >
             <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment<br/>/ Solution</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Marks Obtained</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
@@ -580,10 +596,10 @@ useEffect(() => {
             <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody style={{}}>
           {assignments.map((assignment, index) => (
             <tr key={assignment.fileURL} >
-              <td style={{...row_color }}>{index + 1}</td>
+              <td style={{...row_color  }}>{index + 1}</td>
               <td style={{...row_color }}>
                 {/* Content */}
               </td>
@@ -674,9 +690,9 @@ useEffect(() => {
                 {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
               </button> */}
 
-<div>
+<div style={{alignItems: 'center' }}>
   {submissionMapping[assignment.fileURL] ? (
-    <>
+    <div >
       <button
         className="btn btn-success"
         style={{ margin: '2px', fontSize: 'small' }}
@@ -685,29 +701,36 @@ useEffect(() => {
         }}
       >
         View Submission
-      </button>
-      <button
-        className="btn btn-primary"
-        style={{ margin: '2px', fontSize: 'small' }}
-        onClick={() => handleSubmissionClick(assignment.fileURL)}
-        disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
-      >
-        Edit
-      </button>
-    </>
+      </button >
+      {/* {currentDate <= new Date(assignment.deadline) && (
+        <button
+          className="btn btn-primary"
+          style={{ margin: '2px', fontSize: 'small' }}
+          onClick={() => handleSubmissionClick(assignment.fileURL)}
+        >
+          Edit
+        </button>
+      )} */}
+    </div>
   ) : (
-    <button
-      className="btn btn-primary"
-      style={{ margin: '2px', fontSize: 'small' }}
-      onClick={() => handleSubmissionClick(assignment.fileURL)}
-      disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
-    >
-      Submission
-    </button>
+    <span>
+      {currentDate > new Date(assignment.deadline) ? (
+        <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
+      ) : (
+        <button
+          className="btn btn-primary"
+          style={{ margin: '2px', fontSize: 'small' }}
+          onClick={() => handleSubmissionClick(assignment.fileURL)}
+          disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+        >
+          Submission
+        </button>
+      )}
+    </span>
   )}
-
-
 </div>
+
+
 
 
 
@@ -749,9 +772,21 @@ useEffect(() => {
                     </button>
                   )
                 ) : currentDate <= new Date(assignment.deadline) ? (
-                  <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
+                  <>
+                  {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
                     Submitted
+                  </button> */}
+                
+                  <button
+                    className="btn btn-primary"
+                    style={{ margin: '2px', fontSize: 'medium' }}
+                    onClick={() => handleSubmissionClick(assignment.fileURL)}
+                  >
+                    Edit Submission
                   </button>
+
+                  </>
+                        
                 ) : (
                   <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
                     Deadline Exceeded
@@ -807,6 +842,9 @@ useEffect(() => {
       <div className="text-center">
         {message !== '' && <p className="text-danger">{message}</p>}
       </div>
+
+      </center>
+
     </div>
   );
   
