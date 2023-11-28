@@ -295,27 +295,21 @@ const StudentAuth ={
     const {class_id} = req.params
 
       //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
+      const foundClass = await classmodel.findOne({ _id: class_id });
 
-
-    console.log(class_id)
-
-      const students = await StudentModel.find({classID :class_id });
+      // Check if the class exists
+      if (!foundClass) {
+        return null; // Class not found
+      }
+      // Extract student emails from the class
+      const studentEmails = foundClass.students || [];
     
-      // console.log(students)
-      if (!students) {
-        return res.status(404).send("Student not found.");
-    }
-
-    // const isStringInClassID = students.some(student => student.classID.includes(class_id));
-
-    // if (isStringInClassID) {
-    //     res.send(`${class_id} is present in at least one student's classID array.`,);
-    // } else {
-    //     res.send(`${class_id} is not present in any student's classID array.`);
-    // }
+      // Fetch additional data for students based on emails
+      const studentsData = await StudentModel.find({ stdEmail: { $in: studentEmails } });
   
-     
-      res.json(students);
+      // return studentsData;
+
+      res.json(studentsData);
 
       //const submitURL = response.data.Submission;
     

@@ -21,6 +21,8 @@ router.post('/teacher/login', TeacherAuthController.login)
 
 router.post('/teacher/createclass', TeacherCreateClass.createclass)
 
+
+
 router.post('/teacher/addstudents/:classId', TeacherCreateClass.addStudentsToClass)
 router.post('/teacher/deleteClass/:classId',TeacherCreateClass.deleteClass)
 
@@ -73,15 +75,9 @@ router.get("/students/getAllStudents/:class_id",StudentAuth.getAllStudents)
 router.post("/students/createGroup/:class_id",StudentAuth.creatGroup)
 router.get("/students/getAllGroups/:class_id",StudentAuth.getAllGroups)
 
-
-
-
 router.post('/teacher/groupAssignment/upload', UploadAssignment.UploadGroupAssignment)
 
-
-
 //Marks Api
-
 
 router.post('/assignment/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)
 

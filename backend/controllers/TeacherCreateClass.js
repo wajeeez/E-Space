@@ -140,36 +140,42 @@ const TeacherCreateClass = {
 
 
   async addStudentsToClass(req, res, next) {
-      try {
-       
-
-        const addStudentsSchema = Joi.object({
-          students: Joi.array().items(Joi.string()).min(1).required(),
-        });
-    
-        const { error } = addStudentsSchema.validate(req.body);
-    
-        if (error) {
-          return next(error);
-        }
-    
-        const { students } = req.body;
-        const classId = req.params.classId;
-    
-        // Find the class by classId
-        const existingClass = await classmodel.findById(classId);
-    
-        if (!existingClass) {
-          return res.status(404).json({ message: 'Class not found' });
-        }
-    
-        // Add new students to the existing class
-        for (let i = 0; i < students.length; i++) {
-          const email = students[i];
-    
+    try {
+      const addStudentsSchema = Joi.object({
+        students: Joi.array().items(Joi.string()).min(1).required(),
+      });
+  
+      const { error } = addStudentsSchema.validate(req.body);
+  
+      if (error) {
+        return next(error);
+      }
+  
+      const { students } = req.body;
+      const classId = req.params.classId;
+  
+      // Find the class by classId
+      const existingClass = await classmodel.findById(classId);
+  
+      if (!existingClass) {
+        return res.status(404).json({ message: 'Class not found' });
+      }
+  
+      // Add new students to the existing class
+      for (let i = 0; i < students.length; i++) {
+        const email = students[i];
+  
+        // Check if the student already exists in the class
+        const isStudentInClass = existingClass.students.includes(email);
+  
+        if (!isStudentInClass) {
+          // Add student to the classModel
+          existingClass.students.push(email);
+          await existingClass.save();
+  
           // Check if the student already exists
           const existingStudent = await StudentModel.findOne({ stdEmail: email });
-    
+  
           if (existingStudent) {
             // If the student exists, update the classID
             await StudentModel.updateMany(
@@ -177,33 +183,34 @@ const TeacherCreateClass = {
               { $push: { classID: classId } }
             );
             sendEmail.sendEmail(email, "Welcome back!");
+           
           } else {
             // If the student doesn't exist, create a new student and assign to the class
             const name = email.split('@')[0];
             const randomPassword = generateRandomPassword();
-    
+  
             const newStudent = new StudentModel({
               stdName: name,
               stdEmail: email,
-              classID: classId,
+              classID: [classId], // Create an array with the current classID
               teacherID: existingClass.teacherID,
               teacherEmail: existingClass.teacherEmail,
               password: randomPassword,
             });
-    
+  
             await newStudent.save();
             sendEmail.sendEmail(email, randomPassword);
           }
         }
-    
-        return res.status(200).json({ message: 'Students added to the class successfully' });
-      } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Internal Server Error', error: err.message });
       }
-    
-    
+  
+      return res.status(200).json({ message: 'Students added to the class successfully' });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
   },
+  
 
 
   async deleteStudent(req, res, next) {

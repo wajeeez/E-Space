@@ -58,8 +58,6 @@ function CreateClass() {
 
   const handleReg = async () => {
     setLoading(true)
-
-
     if (values.students == null || values.subjectName == null) {
 
       setError("Please Provide Details")

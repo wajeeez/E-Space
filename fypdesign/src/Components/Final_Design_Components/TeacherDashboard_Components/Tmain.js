@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AssignmentPage from '../../../Pages/Teacher/Assignment/Assignment';
 import AssignmentList from '../../../Pages/Teacher/AssigmentList/AssignmentList';
 import Class from '../../../Pages/Classes/Class/Class';
-
+import Management from '../../../Pages/Classes/ClassManagemenet/Management';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -94,7 +94,7 @@ function Tmain() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
     
     return (
-      <div className="tmain">
+      <div className="container-fluid tmain">
         
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
@@ -234,9 +234,9 @@ function Tmain() {
       
     </ul>
   </div>
-  <section class="home-section">
+  <section class="container-fluid home-section">
     
-    <div className="tpage" >
+    {/* <div className="tpage" > */}
           {currentPage === 'dashboard' && <Class />}
           {currentPage === 'lectures' && <Lectures/>}
           {currentPage === 'assignment' && <AssignmentPage />}
@@ -245,12 +245,12 @@ function Tmain() {
           
           {currentPage === 'quiz' && <div>quiz</div>}
           {currentPage === 'account' && <div>user</div>}
-          {currentPage === 'class' && <div>class</div>}
+          {currentPage === 'class' && <Management></Management>}
           {currentPage === 'performance' && <div>performance</div>}
           {currentPage === 'return' && <div>home</div>}
           {currentPage === 'delete' && <div>delete</div>}
           
-    </div>
+    {/* </div> */}
   </section>
         
       </div>

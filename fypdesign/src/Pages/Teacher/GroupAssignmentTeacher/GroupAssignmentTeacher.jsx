@@ -544,12 +544,12 @@ const GroupAssignmentTeacher = () => {
                 <div style={{ textAlign: "start", padding: '5px' }}>
 
 
-                    <a className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleOpenDialog}>
+                    {/* <a className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleOpenDialog}>
                         <i class='bx bx-edit'></i>
                         <span style={{ color: 'white' }} class="link_name"> Create a Group</span>
-                    </a>
+                    </a> */}
 
-                    {dialogOpen === true ? (
+                    {/* {dialogOpen === true ? (
                         // <StudentListDialog></StudentListDialog>
 
                         <Dialog open={dialogOpen} maxWidth="md" fullWidth>
@@ -630,7 +630,7 @@ const GroupAssignmentTeacher = () => {
                             </DialogContent>
                         </Dialog>
 
-                    ) : ("")}
+                    ) : ("")} */}
 
 
                 </div>
@@ -666,14 +666,14 @@ const GroupAssignmentTeacher = () => {
                                         className="btn btn-primary " style={{ margin: '0px' }}
                                         onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                     >
-                                        Assignment
+                                        Assignment Uploaded
                                     </button>
                                     :
                                     <button
                                     className="btn btn-secondary " style={{ margin: '0px' }}
                                     onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                 >
-                                    No file Uploaded yet
+                                    Upload Assignment
                                 </button>
 
                                    }

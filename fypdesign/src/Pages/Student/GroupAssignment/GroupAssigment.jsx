@@ -529,11 +529,11 @@ const GroupAssignment = () => {
 
     return (
         <div className="container" style={{
-
+            marginTop:'10px',
             textAlign: 'center', padding: '2px', 
         }}>
-            <div className="text-center mt-1">
-                <h1 style={{ background:'black' ,padding: '5px', color: 'white', borderRadius: '5px' }}>
+            <div className="text-center mt-3">
+                <h1 style={{ background:'black' ,padding: '20px', color: 'white' }}>
 
                 Group Assignment
                    </h1>
