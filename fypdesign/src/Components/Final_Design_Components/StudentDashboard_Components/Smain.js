@@ -24,7 +24,7 @@ import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
 import './Smain.css';
 import StdLectures from '../../../Pages/Student/Lectures/StdLectures';
-
+import StdSettings from '../../../Pages/Student/User/AccSetting';
 
 function Smain() {
     const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
@@ -210,7 +210,7 @@ function Smain() {
         {currentPage === 'assignment' && <StdAssignment />}
         {/* {currentPage === 'assignmentList' && <AssignmentList />} */}
         {currentPage === 'quiz' && <div>quiz</div>}
-        {currentPage === 'account' && <div>user</div>}
+        {currentPage === 'account' && <StdSettings/>}
         {currentPage === 'class' && <div>class</div>}
         {currentPage === 'performance' && <div>performance</div>}
         {currentPage === 'return' && <div>home</div>}

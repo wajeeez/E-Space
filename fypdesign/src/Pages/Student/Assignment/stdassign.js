@@ -41,6 +41,9 @@ const [remarksMapping, setremarksMapping] = useState({});
 
 
 
+
+
+
 const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
   setSubmissionMapping((prevMapping) => ({
     ...prevMapping,
@@ -399,19 +402,7 @@ useEffect(() => {
 
 
 
-  const deleteSubmission = (submissionURL) => {
-    // You can send a DELETE request to the server to delete the submission
-    axios
-      .delete(baseURL + '/submission/' + submissionURL)
-      .then((response) => {
-        // Handle successful deletion, such as updating the UI or showing a message.
-        console.log('Submission deleted successfully.');
-      })
-      .catch((error) => {
-        // Handle errors, such as displaying an error message.
-        console.error('Error deleting submission:', error);
-      });
-  };
+
   
   const row_color = {
     backgroundColor: 'transparent',
@@ -440,6 +431,7 @@ useEffect(() => {
     setShowModal(false);
   };
   const handleSubmissionClick = (assignmentFileURL) => {
+    console.log(`Clicked on assignment: ${assignmentFileURL}`);
     setFileURL(assignmentFileURL);
     openModal();
   };
@@ -454,27 +446,20 @@ useEffect(() => {
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL);
       formData.append('deadline', currentDate);
-  
+      for (const entry of formData.entries()) {
+        console.log(entry[0], entry[1]);
+      }
       const response = await StudentSubmissions(formData);
   
       if (response.status === 201 || response.status === 200) {
         setMessage("Successful");
         console.log("Successful");
   
-        // Fetch and update the list of submitted assignments without reloading the page
-        axios
-          .get(baseURL + `/teacher/class/${_id}`)
-          .then((response) => {
-            console.log(response.data);
-            // setUploadedAssignments(response.data.assignments);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-  
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
-        }
+        }        setTimeout(() => {
+          window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
+        }, 2000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
         console.log("BAD REQUEST");
   
@@ -491,7 +476,7 @@ useEffect(() => {
       console.log(selectedFile + " ERROR");
     }
   }
-  
+
 
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
@@ -537,74 +522,70 @@ useEffect(() => {
   // );
   //   }
 
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    // Increment the refresh key to force a re-render of the container
-    setRefreshKey((prevKey) => prevKey + 1);
-  };
-
-  const [showEModal, setShowEModal] = useState(false);
-  const openEModal = () => {
-    setShowEModal(true);
-  };
-  
-  const closeEModal = () => {
-    setShowEModal(false);
-  };
-  const handleEditClick = (assignmentFileURL) => {
-    setFileURL(assignmentFileURL);
-    openEModal();
-  };
-  const esubmit_assignment = async () => {
-    setShowEModal(false); // Close the modal
-  
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('Email', stdEmail);
-      formData.append('classId', _id);
-      formData.append('assignmentFileURL', getFileURL);
-      formData.append('deadline', currentDate);
-  
-      const response = await StudentSubmissions(formData);
-  
-      if (response.status === 201 || response.status === 200) {
-        setMessage("Successful");
-        console.log("Successful");
-  
-        // Fetch and update the list of submitted assignments without reloading the page
-        axios
-          .get(baseURL + `/teacher/class/${_id}`)
-          .then((response) => {
-            console.log(response.data);
-            // setUploadedAssignments(response.data.assignments);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-  
-        if (fileInputRef.current) {
-          fileInputRef.current.value = ''; // Reset the input field
-        }
-      } else if (response.code === "ERR_BAD_REQUEST") {
-        console.log("BAD REQUEST");
-  
-        if (response.response.status === 500) {
-          console.log("500 BAD REQUEST ");
-        }
-  
-        if (response.response.status === 401) {
-          setMessage(response.response.data.message);
-          console.log("401");
-        }
-      }
-    } else {
-      console.log(selectedFile + " ERROR");
-    }
-  }
-  
 
 
+  // const [showEModal, setShowEModal] = useState(false);
+  // const openEModal = () => {
+  //   setShowEModal(true);
+  // };
+  
+  // const closeEModal = () => {
+  //   setShowEModal(false);
+  // };
+  // const handleEditClick = (assignmentFileURL) => {
+  //   setFileURL(assignmentFileURL);
+  //   openEModal();
+  // };
+  // const esubmit_assignment = async () => {
+  //   setShowEModal(false); // Close the modal
+  
+  //   if (selectedFile) {
+  //     const formData = new FormData();
+  //     formData.append('file', selectedFile);
+  //     formData.append('Email', stdEmail);
+  //     formData.append('classId', _id);
+  //     formData.append('assignmentFileURL', getFileURL);
+  //     formData.append('deadline', currentDate);
+  
+  //     const response = await StudentSubmissions(formData);
+  
+  //     if (response.status === 201 || response.status === 200) {
+  //       setMessage("Successful");
+  //       console.log("Successful");
+  
+  //       // Fetch and update the list of submitted assignments without reloading the page
+  //       axios
+  //         .get(baseURL + `/teacher/class/${_id}`)
+  //         .then((response) => {
+  //           console.log(response.data);
+  //           // setUploadedAssignments(response.data.assignments);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  
+  //       if (fileInputRef.current) {
+  //         fileInputRef.current.value = ''; // Reset the input field
+  //       }
+  //     } else if (response.code === "ERR_BAD_REQUEST") {
+  //       console.log("BAD REQUEST");
+  
+  //       if (response.response.status === 500) {
+  //         console.log("500 BAD REQUEST ");
+  //       }
+  
+  //       if (response.response.status === 401) {
+  //         setMessage(response.response.data.message);
+  //         console.log("401");
+  //       }
+  //     }
+  //   } else {
+  //     console.log(selectedFile + " ERROR");
+  //   }
+  // }
+
+
+  
 
   return (
     <div className="container-fluid" style={{  
@@ -614,7 +595,7 @@ useEffect(() => {
       <button
           className="btn btn-primary"
           style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
-          onClick={handleRefresh}
+          // onClick={handleRefresh}
           title='Refresh Page'
           
         >
@@ -747,6 +728,13 @@ useEffect(() => {
       >
         View Submission
       </button >
+      <button
+          className="btn btn-danger"
+          style={{ margin: '2px', fontSize: 'small' }}
+          
+        >
+          Delete
+        </button>
       {/* {currentDate <= new Date(assignment.deadline) && (
         <button
           className="btn btn-primary"
@@ -825,7 +813,7 @@ useEffect(() => {
                   <button
                     className="btn btn-primary"
                     style={{ margin: '2px', fontSize: 'medium' }}
-                    onClick={() => handleEditClick(assignment.fileURL)}
+                    onClick={() => handleSubmissionClick(assignment.fileURL)}
                   >
                     Edit Submission
                   </button>
@@ -884,7 +872,7 @@ useEffect(() => {
     </Modal.Footer>
   </Modal>
 
-  <Modal  show={showEModal} onHide={closeEModal} centered 
+  <Modal  show={showModal} onHide={closeModal} centered 
   style={{background: 'transparent', }}>
     <Modal.Header closeButton>
       <Modal.Title>Update Submission</Modal.Title>
@@ -909,11 +897,11 @@ useEffect(() => {
   </Form.Group>
     </Modal.Body>
     <Modal.Footer className="justify-content-center align-items-center d-flex" >
-    <Button type="button" className="btn btn-primary" onClick={esubmit_assignment}
+    <Button type="button" className="btn btn-primary" onClick={submit_assignment}
     style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
       Update
     </Button>
-      <Button type="button" variant="secondary" onClick={closeEModal}
+      <Button type="button" variant="secondary" onClick={closeModal}
       style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
         Cancel
       </Button>
