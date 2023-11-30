@@ -22,7 +22,7 @@ router.post('/teacher/login', TeacherAuthController.login)
 router.post('/teacher/createclass', TeacherCreateClass.createclass)
 
 
-
+router.post('/delete/student/:classId',TeacherCreateClass.removeStudent)
 router.post('/teacher/addstudents/:classId', TeacherCreateClass.addStudentsToClass)
 router.post('/teacher/deleteClass/:classId',TeacherCreateClass.deleteClass)
 

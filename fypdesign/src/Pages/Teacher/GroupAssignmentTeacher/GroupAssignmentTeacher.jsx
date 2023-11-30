@@ -20,6 +20,7 @@ const GroupAssignmentTeacher = () => {
     const [getFileURL, setFileURL] = useState(null)
     const currentDate = new Date(); // Get the current date
     const [selectedFile, setSelectedFile] = useState(null);
+    const [groups,setGroups]=useState(null);
     const [assignments, setAssignments] = useState([]);
     const [teacherName, setTeacherName] = useState([]);
     const [subjectName, setsubjectName] = useState([]);
@@ -63,7 +64,7 @@ const GroupAssignmentTeacher = () => {
 
 
 
-    const recheck=()=>{
+    useEffect(() => {
 
         axios
         .get(baseURL + `/students/getAllGroups/${_id}`)
@@ -73,7 +74,7 @@ const GroupAssignmentTeacher = () => {
                 //   accumulator[index] = item.fileURL;
                 //   return accumulator;
                 // }, {});
-                setAssignments(response.data);
+                setStudents(response.data);
 
 
             }
@@ -82,44 +83,14 @@ const GroupAssignmentTeacher = () => {
             console.log(error);
         });
 
-    };
+    }, [_id])
+
 
 
 
     //SUbmission
     const [dialogMessage,setDialogMessage] = useState();
-    const handleCreate = () => {
-        // Check if the studentId is already in the selectedStudents array
-        console.log(selectedStudents)
-
-        if (selectedStudents && selectedStudents.length > 0) {
-            axios
-                .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents })
-                .then((response) => {
-                    if (response.data) {
-
-
-                        console.log(response.data)
-                        setDialogMessage("Success")
-                        recheck()
-
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-
-
-            setDialogOpen(false)
-
-        } else {
-            setDialogMessage("Please Select Students")
-        }
-
-
-
-    };
-
+    
 
 
 
@@ -131,7 +102,7 @@ const GroupAssignmentTeacher = () => {
             .then((response) => {
                 if (response.data) {
 
-                    setStudents(response.data);
+                    // setStudents(response.data);
                     console.log(response.data)
 
 
@@ -361,20 +332,9 @@ const GroupAssignmentTeacher = () => {
 
 
 
-
-
-
         } else {
-
             console.log(selectedFile + "ERROR")
         }
-
-
-
-
-
-
-
 
     }
 
@@ -529,7 +489,7 @@ const GroupAssignmentTeacher = () => {
     return (
         <div className="container" style={{
             marginLeft: '-20px',
-            textAlign: 'center', padding: '12px', marginTop: '-80px',
+            textAlign: 'center', padding: '12px', marginTop: '-60px',
         }}>
             <div className="text-center mt-5">
                 <h1 style={{ padding: '5px', color: 'black', borderRadius: '20px' }}>
@@ -653,25 +613,25 @@ const GroupAssignmentTeacher = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {assignments.map((assignment, index) => (
-                        <React.Fragment key={assignment.fileURL}>
+                    {students.map((student, index) => (
+                        <React.Fragment key={index}>
 
-                            <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
+                            <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                 <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                 <td>
                                     Group {index+1}
                                 </td>
                                 <td>
-                                   {assignment.fileURL!="" ?  <button
+                                   {student.fileURL!="" ?  <button
                                         className="btn btn-primary " style={{ margin: '0px' }}
-                                        onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                                        onClick={openFileInBrowser.bind(null, student.fileURL)}
                                     >
                                         Assignment Uploaded
                                     </button>
                                     :
                                     <button
                                     className="btn btn-secondary " style={{ margin: '0px' }}
-                                    onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                                    onClick={openFileInBrowser.bind(null, student.fileURL)}
                                 >
                                     Upload Assignment
                                 </button>
@@ -680,20 +640,20 @@ const GroupAssignmentTeacher = () => {
 
                                 </td>
                                 <td>
-                                    {remarksMapping[submissionMapping[assignment.fileURL]]
-                                        ? remarksMapping[submissionMapping[assignment.fileURL]]
+                                    {remarksMapping[submissionMapping[student.fileURL]]
+                                        ? remarksMapping[submissionMapping[student.fileURL]]
                                         : ' --- '}
                                 </td>
                                 <td>
-                                    {marksMapping[submissionMapping[assignment.fileURL]]
-                                        ? marksMapping[submissionMapping[assignment.fileURL]]
+                                    {marksMapping[submissionMapping[student.fileURL]]
+                                        ? marksMapping[submissionMapping[student.fileURL]]
                                         : 'Not marked yet'}
                                 </td>
                                 <td>
-                                    {submissionMapping[assignment.fileURL] ? (
+                                    {submissionMapping[student.fileURL] ? (
                                         <button
                                             className="btn btn-secondary"
-                                            onClick={openFile.bind(null, assignment.submissionURL)}
+                                            onClick={openFile.bind(null, student.submissionURL)}
                                         >
                                             Submission File
                                         </button>
@@ -702,14 +662,14 @@ const GroupAssignmentTeacher = () => {
                                     )}
                                 </td>
                                 <td>
-                                  {assignment.deadline != null ?
-                                    <FormattedDate rawDate={assignment.deadline} />
+                                  {student.deadline != null ?
+                                    <FormattedDate rawDate={student.deadline} />
                                     : "Not Available"
                                   }
                                 </td>
                                 <td>
-                                    {currentDate <= new Date(assignment.deadline) ? (
-                                        <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
+                                    {currentDate <= new Date(student.deadline) ? (
+                                        <button className="btn btn-success" onClick={() => handleSubmissionClick(student.fileURL)}>
                                             SUBMIT
                                         </button>
                                     ) : (
@@ -722,7 +682,7 @@ const GroupAssignmentTeacher = () => {
 
                             </tr>
 
-                            {index < assignments.length - 1 && (
+                            {index < students.length - 1 && (
                                 <tr style={{ padding: '1px' }}>
                                     <td colSpan="8" style={{ height: '0px' }}>
                                         <hr />

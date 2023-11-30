@@ -5,7 +5,10 @@ import { useParams } from "react-router-dom";
 import styles from './Assignment.module.css'
 import AssignmentList from '../AssigmentList/AssignmentList';
 import { Form, Button } from 'react-bootstrap';
+import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AssignmentPage = () => {
 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
@@ -98,7 +101,12 @@ const AssignmentPage = () => {
 
 
     if (!selectedFile || !teacherID || !subjectName || !deadline) {
-      setMessage("Data Missing Please Select a File and Deadline")
+      
+      toast.error('Data Missing Please Select a File and Deadline', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close the toast after 3 seconds
+      });
+      // setMessage("Data Missing Please Select a File and Deadline")
     } else {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -143,10 +151,134 @@ const AssignmentPage = () => {
     color: 'black',
   }
 
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleUpdate = () => {
+    // Add your update logic here
+    setShowUpdateModal(false);
+  };
+  const handleShowUpdateModal = () => setShowUpdateModal(true);
+  const handleCloseUpdateModal = () => setShowUpdateModal(false);
+
+  const UpdateAssignmentModal = ({ show, handleClose }) => {
+    return (
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Assignment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Title"
+              style={{ textAlign: 'center' }}
+            />
+          </Form.Group>
+  
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="file"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+              className={`${styles.file} custom-file-input`}
+              style={{ background: 'grey', color: 'white' }}
+            />
+          </Form.Group>
+  
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="date"
+              onChange={handleDeadlineChange}
+              ref={fileInputRef}
+              min={getCurrentDate}
+              className={styles.assignmentButton}
+              style={{ color: '' }}
+            />
+          </Form.Group>
+  
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="number"
+              placeholder="Total Marks"
+              style={{ textAlign: 'center' }}
+            />
+          </Form.Group>
+          <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center align-items-center d-flex">
+          <Button variant="success" onClick={handleUpdate}
+          style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+            Update
+          </Button>
+          <Button variant="danger" onClick={handleClose}
+          style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+  
+
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+    // You may also perform additional actions before showing the modal
+  };
+
+  const handleDeleteConfirmed = () => {
+    // Perform the deletion logic
+    // ...
+
+    // Close the modal
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteCancelled = () => {
+    // Handle cancel action
+    setShowDeleteModal(false);
+  };
+  
+  const DeleteAssignmentModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+    return (
+      <Modal show={show} onHide={handleDeleteCancelled} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Assignment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Are you sure you want to delete this assignment?</h5>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center align-items-center d-flex">
+          <Button
+            variant="danger"
+            onClick={handleDeleteConfirmed}
+            style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleDeleteCancelled}
+            style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
+
 
 
 
   return (
+
+    // 
+    <>
+      <ToastContainer />
+   
     <div className="container-fluid" style={{  
       textAlign: 'center', marginTop: '10px', }}>
       <center> 
@@ -198,11 +330,12 @@ const AssignmentPage = () => {
     <Button
       className={`${styles.assignmentButton} btn-success`}
       onClick={teacherAssignmentUpload}
-      style={{ background: 'green', color: 'white' , fontSize:'large' , width:'220px', height:'50px'}}
+      style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px'}}
     >
       Upload Assignment
     </Button>
-    <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
+    <span>{message !== "" && <h3 style={{marginTop:'20px',color:'blue',
+  fontFamily:'Poppins', fontWeight:'bold'}}>{message}</h3>}</span>
   </div>
 </div>
 
@@ -215,8 +348,8 @@ const AssignmentPage = () => {
 
 
         <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '0px'
-      , marginTop: '40px'}}>
-           Edit Assignment</h1>
+      , marginTop: '10px'}}>
+           Uploaded Assignments</h1>
 
            <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
               <div className="col-md-3">
@@ -247,89 +380,88 @@ const AssignmentPage = () => {
            <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
           <tr >
-
-            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '15%', fontSize:'large'  }}>Assignment File</th>
-            {/* <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Solution File</th> */}
+            <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
+            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment File</th>
+            {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Total Marks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '5%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
         <tbody style={{textAlign:'center', verticalAlign: 'middle',  padding: '15px'}}>
         <tr>
-        <td style={{...row_color }}>
 
+        <td style={{...row_color }}>
+        <p style={{fontSize:'large', fontWeight:''}}>
+        {/* {index + 1} */}
+          </p>
+        </td>
+
+        <td style={{...row_color }}>
+        <p style={{fontSize:'large', fontWeight:''}}>
+          title
+          </p>
         </td>
 
         <td style={{ ...row_color }}>
   <>
     <button
       className="btn btn-primary"
-      style={{ margin: '2px', fontSize: 'large' }}
+      style={{ marginTop: '-10px', fontSize: 'large' }}
     >
       View Assignment
     </button>
-
-    {/* Add some separation */}
-    <div style={{ height: '5px' }}></div>
-
-    <Form.Group className="mb-3" style={{ marginTop: '10px', width: '100%', maxWidth: '300px', margin: 'auto' }}>
-      <Form.Control
-        type="file"
-        onChange={handleFileChange}
-        ref={fileInputRef}
-        className={`${styles.file} custom-file-input`}
-        style={{ background: 'grey', color: 'white' }}
-      />
-    </Form.Group>
   </>
 </td>
 
 
         <td style={{...row_color }}>
-        <p style={{fontSize:'large', fontWeight:'bold'}}>5</p>
-        <button
-                  className="btn btn-primary" style={{margin: '2px', fontSize: 'large'}}
-                  // onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Edit
-                </button>
+        <p style={{fontSize:'large', fontWeight:'bold'}}>
+          5
+          </p>
+
         </td>
 
         <td style={{...row_color }}>
-      <p style={{fontSize:'large', fontWeight:'bold'}}>Deadline</p>
-        <input className={styles.assignmentButton}  
-        type="date" onChange={handleDeadlineChange} ref={fileInputRef} min={getCurrentDate} />
+      <p style={{fontSize:'large', fontWeight:''}}>
+        Deadline
+      </p>
         </td>
         
         <td style={{...row_color }}>
         <button
-          className="btn btn-primary " style={{margin: '5px', fontSize: 'large', background:'green',width:'150px'}}
-          // onClick={}
+          className="btn btn-primary " style={{margin: '5px', fontSize: 'medium',width:'100px' ,fontWeight:'bold'}}
+          onClick={handleShowUpdateModal}
         >
-            Update
+            Edit
         </button>
         <br/>
         <button
-          className="btn btn-danger " style={{margin: '5px', fontSize: 'large', width:'150px'}}
-          // onClick={}
+          className="btn btn-danger " style={{margin: '5px', fontSize: 'medium', width:'100px',fontWeight:'bold'}}
+          onClick={handleDeleteClick}
         >
             Delete
         </button>
         </td>
         
-
-
-
         </tr>
         </tbody>
         </table>
 
+      {/* Update Assignment Modal */}
+      <UpdateAssignmentModal show={showUpdateModal} handleClose={handleCloseUpdateModal} />
+
+      {/* Delete Assignment Modal */}
+      <DeleteAssignmentModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
       </center>
     </div>
 
-
+    </>
     // <AssignmentList></AssignmentList>
   );
 };

@@ -213,34 +213,50 @@ const TeacherCreateClass = {
   
 
 
-  async deleteStudent(req, res, next) {
-  try {
-    const classId = req.params.classId;
-    const studentId = req.params.studentId;
-
-    // Find the class by classId
-    const existingClass = await classmodel.findById(classId);
-
-    if (!existingClass) {
-      return res.status(404).json({ message: 'Class not found' });
-    }
-
-    // Find the student by studentId
-    const existingStudent = await StudentModel.findById(studentId);
-
-    if (!existingStudent) {
-      return res.status(404).json({ message: 'Student not found' });
-    }
-
-    // Remove the classId from the student's classID array
-    await StudentModel.findByIdAndUpdate(studentId, {
-      $pull: { classID: classId },
-    });
-
-    return res.status(200).json({ message: 'Student removed from the class successfully' });
+  async removeStudent(req, res, next) {
+    try {
+      const removeStudentSchema = Joi.object({
+        studentId: Joi.string().required(),
+        studentEmail: Joi.string().required(),
+      });
+  
+      const { error } = removeStudentSchema.validate(req.body);
+  
+      if (error) {
+        return next(error);
+      }
+  
+      const { studentId, studentEmail } = req.body;
+      const classId = req.params.classId;
+  
+      // Find the class by classId
+      const existingClass = await classmodel.findById(classId);
+  
+      if (!existingClass) {
+        return res.status(404).json({ message: 'Class not found' });
+      }
+  
+      // Check if the student exists in the class
+      const studentIndex = existingClass.students.indexOf(studentEmail);
+  
+      if (studentIndex !== -1) {
+        // Remove the student from the classModel
+        existingClass.students.splice(studentIndex, 1);
+        await existingClass.save();
+  
+        // Remove the classID from the student in the StudentModel
+        await StudentModel.updateOne(
+          { _id: studentId, stdEmail: studentEmail },
+          { $pull: { classID: classId } }
+        );
+  
+        return res.status(200).json({ message: 'Student removed from the class successfully' });
+      } else {
+        return res.status(404).json({ message: 'Student not found in the class' });
+      }
     } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+      console.error(err);
+      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
   },
 

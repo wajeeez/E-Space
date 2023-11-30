@@ -63,31 +63,31 @@ const GroupAssignment = () => {
 
 
 
-    const recheck=()=>{
+    const recheck = () => {
 
         axios
-        .get(baseURL + `/students/getAllGroups/${_id}`)
-        .then((response) => {
-            if (response.data) {
-                //  fileURLs = response.data.reduce((accumulator, item, index) => {
-                //   accumulator[index] = item.fileURL;
-                //   return accumulator;
-                // }, {});
-                setAssignments(response.data);
+            .get(baseURL + `/students/getAllGroups/${_id}`)
+            .then((response) => {
+                if (response.data) {
+                    //  fileURLs = response.data.reduce((accumulator, item, index) => {
+                    //   accumulator[index] = item.fileURL;
+                    //   return accumulator;
+                    // }, {});
+                    setAssignments(response.data);
 
 
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     };
 
 
 
     //SUbmission
-    const [dialogMessage,setDialogMessage] = useState();
+    const [dialogMessage, setDialogMessage] = useState();
     const handleCreate = () => {
         // Check if the studentId is already in the selectedStudents array
         console.log(selectedStudents)
@@ -529,14 +529,14 @@ const GroupAssignment = () => {
 
     return (
         <div className="container" style={{
-            marginTop:'10px',
-            textAlign: 'center', padding: '2px', 
+            marginTop: '10px',
+            textAlign: 'center', padding: '2px',
         }}>
             <div className="text-center mt-3">
-                <h1 style={{ background:'black' ,padding: '20px', color: 'white' }}>
+                <h1 style={{ background: 'black', padding: '20px', color: 'white' }}>
 
-                Group Assignment
-                   </h1>
+                    Group Assignment
+                </h1>
                 {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
         </p> */}
@@ -661,24 +661,24 @@ const GroupAssignment = () => {
                             <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                 <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                 <td>
-                                    Group {index+1}
+                                    Group {index + 1}
                                 </td>
                                 <td>
-                                   {assignment.fileURL!="" ?  <button
+                                    {assignment.fileURL != "" ? <button
                                         className="btn btn-primary " style={{ margin: '0px' }}
                                         onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                     >
                                         Assignment
                                     </button>
-                                    :
-                                    <button
-                                    className="btn btn-secondary " style={{ margin: '0px' }}
-                                    onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                                >
-                                    No file Uploaded yet
-                                </button>
+                                        :
+                                        <button
+                                            className="btn btn-secondary " style={{ margin: '0px' }}
+                                            onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                                        >
+                                            No file Uploaded yet
+                                        </button>
 
-                                   }
+                                    }
 
                                 </td>
                                 <td>
@@ -704,10 +704,10 @@ const GroupAssignment = () => {
                                     )}
                                 </td>
                                 <td>
-                                  {assignment.deadline != null ?
-                                    <FormattedDate rawDate={assignment.deadline} />
-                                    : "Not Available"
-                                  }
+                                    {assignment.deadline != null ?
+                                        <FormattedDate rawDate={assignment.deadline} />
+                                        : "Not Available"
+                                    }
                                 </td>
                                 <td>
                                     {currentDate <= new Date(assignment.deadline) ? (

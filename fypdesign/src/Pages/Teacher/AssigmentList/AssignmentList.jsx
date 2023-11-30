@@ -251,6 +251,7 @@ function AssignmentList() {
             <table>
               <thead>
                 <tr>
+                  <th className={styles.th}>Sr.No</th>
                   <th className={styles.th}>Student Email</th>
                   <th className={styles.th}>Submission Date</th>
                   <th className={styles.th}>File</th>
@@ -262,11 +263,12 @@ function AssignmentList() {
               <tbody>
 
 
-                {submissions.map((submission) => (
+                {submissions.map((submission,index) => (
 
                   <>
 
                     <tr className={styles.tr} key={submission._id}>
+                    <td className={styles.td}>{index + 1}</td>
                       <td className={styles.td}>{submission.Email}</td>
                       <td className={styles.td}>{submission.submissionDate}</td>
                       <td className={styles.td}>

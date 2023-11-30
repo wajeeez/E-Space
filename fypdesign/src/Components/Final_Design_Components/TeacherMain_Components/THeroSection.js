@@ -127,8 +127,7 @@ function THeroSection() {
       <Col md={12}>
         <Row>
           {cardsWithCreateClass.map((card, index) => (
-          
-            <Col key={index} md={3} className="p-3">
+            <Col key={index} md={3} className="p-4">
               {card.specialCard ? (
                 <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                   <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
@@ -279,7 +278,7 @@ function THeroSection() {
     <Col>
       <Carousel activeIndex={activeRow} indicators={false} controls={false}>
         {Array.from({ length: totalRows }).map((_, index) => (
-          <Carousel.Item key={index} style={{ height: '350px' }}>
+          <Carousel.Item key={index} style={{ height: '380px' }}>
             <Row>{renderCards(index * cardsPerRow, (((index + 2) * cardsPerRow) - 1))}</Row>
           </Carousel.Item>
         ))}
@@ -327,8 +326,6 @@ function THeroSection() {
     </div>
   </div>
 </div> */}
-
-
 
 
 </div>

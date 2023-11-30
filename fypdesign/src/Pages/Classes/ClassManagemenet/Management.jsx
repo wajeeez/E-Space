@@ -47,10 +47,7 @@ function Management() {
         setShowModal(true);
     };
 
-    const handleRemove = (studentId) => {
-        // Handle the removal logic, e.g., make an API request to delete the student
-        // and then update the state to reflect the changes in the UI
-    };
+   
 
     const handleFileUpload = (event) => {
         // Implement your file upload logic here
@@ -101,6 +98,38 @@ function Management() {
         }
     };
 
+    const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
+    const [selectedStudentId, setSelectedStudentId] = useState(null);
+    const [selectedStudentEmail, setSelectedStudentEmail] = useState(null);
+  
+    const handleRemove = (studentId, studentEmail) => {
+      setSelectedStudentId(studentId);
+      setSelectedStudentEmail(studentEmail);
+      setShowRemoveConfirmation(true);
+    };
+  
+    const confirmRemove = async () => {
+      setShowRemoveConfirmation(false);
+  
+      // Make API request to remove student
+      try {
+        const response = await axios.post(baseURL + `/delete/student/${_id}`, {
+          studentId: selectedStudentId,
+          studentEmail: selectedStudentEmail,
+        });
+  
+        if (response.data.message === 'Student removed from the class successfully') {
+          toast.success('Student removed from the class successfully');
+          // Optionally, update the state or fetch the updated list of students
+        } else {
+          toast.error('Error removing student from the class');
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error('Error removing student from the class');
+      }
+    };
+
 
     return (
         <>
@@ -145,7 +174,7 @@ function Management() {
                                 <td>
                                     <button
                                         type="button"
-                                        onClick={() => handleRemove(student._id)}
+                                        onClick={() => handleRemove(student._id,student.stdEmail)}
                                     >Remove</button>
                                 </td>
 
@@ -182,6 +211,27 @@ function Management() {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+
+
+
+             {/* Modal for remove confirmation */}
+      <Modal show={showRemoveConfirmation} onHide={() => setShowRemoveConfirmation(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Remove Student</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to remove this student from the class?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowRemoveConfirmation(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={confirmRemove}>
+            Remove
+          </Button>
+        </Modal.Footer>
+      </Modal>
         </>
     );
 }
