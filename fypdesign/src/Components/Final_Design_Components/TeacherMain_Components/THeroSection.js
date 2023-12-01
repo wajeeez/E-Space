@@ -216,9 +216,7 @@ function THeroSection() {
     navigate('/', { replace: true });
   };
 
-  const handleLeaveClass = async () => {
-    navigate('/TDashboard');
-  };
+
 
 
 
@@ -537,6 +535,10 @@ function THeroSection() {
 
 
 {classes.length > 0 ? (
+              <>
+              {loading ? (
+               <Loader />
+             ) : ( 
   <Container className='custom-carousel' style={{ marginTop: '5px'}}>
     <Row className="mt-3">
       <Col>
@@ -577,7 +579,8 @@ function THeroSection() {
       </Col>
     </Row>
   </Container>
-
+          )}
+          </>
   ) : (
 
 <div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -639,7 +642,8 @@ function THeroSection() {
 </div> */}
 
 
-</div>}
+</div>
+}
 
 
 {currentPage === 'create' &&     <>

@@ -116,57 +116,7 @@ function Smain() {
   };
 
 
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-  const getCurrentMonthYear = () => {
-    const currentDate = new Date();
-    const month = currentDate.toLocaleString('default', { month: 'long' });
-    const year = currentDate.getFullYear();
-    return `${month} ${year}`;
-  };
-  const getDaysInMonth = () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const lastDay = new Date(year, month + 1, 0).getDate();
-    return lastDay;
-  };
-
-  const renderCalendar = () => {
-    const daysInMonth = getDaysInMonth();
-    const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
-    const currentDay = new Date().getDate();
-    // Create an array to represent the calendar rows and columns
-    let calendar = [];
-    let dayCounter = 1;
-    const highlightColor = '#8539d1';
-    for (let i = 0; i < 6; i++) {
-      let row = [];
-      for (let j = 0; j < 7; j++) {
-        if (i === 0 && j < firstDayOfMonth) {
-          // Empty cells before the first day of the month
-          row.push(<td key={j}></td>);
-        } else if (dayCounter <= daysInMonth) {
-          // Cells with dates
-          const isCurrentDay = dayCounter === currentDay;
-          const cellStyle = {
-            backgroundColor: isCurrentDay ? highlightColor : '',
-            color: isCurrentDay ? 'white' : 'black',
-            fontSize: isCurrentDay ? '0.9rem' : '',
-          };
-          row.push(
-            <td key={j} style={cellStyle}>
-              {dayCounter}
-            </td>
-          );
-          dayCounter++;
-        }
-      }
-      calendar.push(<tr key={i}>{row}</tr>);
-    }
   
-    return calendar;
-  };
     
     return (
       <div className="container-fluid smain">

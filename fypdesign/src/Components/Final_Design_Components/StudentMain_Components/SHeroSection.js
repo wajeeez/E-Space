@@ -114,57 +114,63 @@ function SHeroSection() {
         }
       }, []);
 
-  const menuBtnChange = () => {
-    const ssidebar = document.querySelector(".ssidebar");
-    const closeBtn = document.querySelector("#btn");
 
-    if (ssidebar.classList.contains("open")) {
-      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-    } else {
-      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    }
-  };
-
-  const handleSidebarToggle = () => {
-    const ssidebar = document.querySelector(".ssidebar");
-    const closeBtn = document.querySelector("#btn");
-
-    ssidebar.classList.toggle("open");
-    menuBtnChange();
-  };
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1200);
-
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth <= 1200);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const sidebarClass = isSmallScreen ? "ssidebar " : "ssidebar open";
-
-
-  // useEffect(() => {
-  //   const closeBtn = document.querySelector("#btn");
-  //   closeBtn.addEventListener("click", handleSidebarToggle);
-
-  //   return () => {
-  //     closeBtn.removeEventListener("click", handleSidebarToggle);
-  //   };
-  // }, []); 
+  
+      const menuBtnChange = () => {
+        const sidebar = document.querySelector(".ssidebar");
+        const closeBtn = document.querySelector("#btn");
+    
+        if (sidebar.classList.contains("open")) {
+          closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else {
+          closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+      };
+    
+      const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1200);
+    
+      // Function to handle window resize
+      const handleResize = () => {
+        setIsSmallScreen(window.innerWidth <= 1200);
+      };
+      const sidebarClass = isSmallScreen ? "ssidebar" : "ssidebar open";
+      // Effect to add event listener for window resize
+      useEffect(() => {
+        window.addEventListener("resize", handleResize);
+    
+        // Cleanup the event listener when the component unmounts
+        return () => {
+          window.removeEventListener("resize", handleResize);
+        };
+      }, []); // Empty dependency array means this effect runs once after mounting
+    
+    
+        const handleSidebarToggle = () => {
+          const sidebar = document.querySelector(".ssidebar");
+          const closeBtn = document.querySelector("#btn");
+      
+    
+          sidebar.classList.toggle("open");
+          menuBtnChange();
+    
+        };
+    
+        
+      // Call the setup function after the DOM is ready
+      useEffect(() => {
+        const closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", handleSidebarToggle);
+    
+        // Cleanup the event listener when the component unmounts
+        return () => {
+          closeBtn.removeEventListener("click", handleSidebarToggle);
+        };
+      }, []); // Empty dependency array means this effect runs once after mounting
+    
 
   const handleLogout = async () => {
     localStorage.removeItem("StdToken");
     navigate('/', { replace: true }); // Use the replace option to replace the current entry in the history stack
-  };
-
-  const handleLeaveClass = async () => {
-    navigate('/std/dashboard');
   };
 
 
@@ -256,13 +262,7 @@ function SHeroSection() {
   return (
     <>
 
-
-{loading ? (
-        <Loader /> // Display the loader while loading
-      ) : (
-        <>
-
-<div className="container-fluid smain">
+<div className="container-fluid scmain">
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
         <div class={sidebarClass}>
@@ -318,9 +318,10 @@ function SHeroSection() {
       
     </ul>
   </div>
-  <div class="container-fluid shome-section">
+  <div class="container-fluid schome-section">
 
         {currentPage === 'home' && 
+
                  <div className="container-fluid" style={{ marginTop: '10px', overflow:'hidden'}}>
                  {/* First row covering full width */}
                  <div className="row">
@@ -386,47 +387,53 @@ function SHeroSection() {
            
            
            {classes.length > 0 ? (
-             <Container className='custom-carousel' style={{ marginTop: '5px'}}>
-               <Row className="mt-3">
-                 <Col>
-                   <Carousel activeIndex={activeRow} indicators={false} controls={false}>
-                     {Array.from({ length: totalRows }).map((_, index) => (
-                       <Carousel.Item key={index} style={{ height: '380px' }}>
-                         <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
-                       </Carousel.Item>
-                     ))}
-                   </Carousel>
-                 </Col>
-               </Row>
-               <Row style={{ marginTop: '-30px' }}>
-                 <Col className="d-flex justify-content-center">
-                   <div className="custom-buttons-tc p-2">
-                     <Button
-                       onClick={() => handleRowChange(activeRow - 1)}
-                       disabled={activeRow === 0}
-                       className="btn-transition"
-                       style={{background:'transparent' , border: 'none', padding: '10px', 
-                       margin: '10px', 
-                       fontWeight: 'bold' }}
-            
-                     >
-                       <i class='bx bxs-chevrons-left' style={{color: "#8539d1", fontSize:'50px'}}></i>
-                     </Button>
-                     <Button
-                       onClick={() => handleRowChange(activeRow + 1)}
-                       disabled={activeRow === totalRows - 1}
-                       className="btn-transition"
-                       style={{background:'transparent' , border: 'none', padding: '10px', 
-                       margin: '10px', 
-                       fontWeight: 'bold' }}
-                     >
-                       <i class='bx bxs-chevrons-right' style={{color: "#8539d1", fontSize:'50px'}}></i>
-                     </Button>
-                   </div>
-                 </Col>
-               </Row>
-             </Container>
+            <>
+           {loading ? (
+            <Loader />
+          ) : ( 
+            <Container className='custom-carousel' style={{ marginTop: '5px'}}>
+            <Row className="mt-3">
+              <Col>
+                <Carousel activeIndex={activeRow} indicators={false} controls={false}>
+                  {Array.from({ length: totalRows }).map((_, index) => (
+                    <Carousel.Item key={index} style={{ height: '380px' }}>
+                      <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              </Col>
+            </Row>
+            <Row style={{ marginTop: '-30px' }}>
+              <Col className="d-flex justify-content-center">
+                <div className="custom-buttons-tc p-2">
+                  <Button
+                    onClick={() => handleRowChange(activeRow - 1)}
+                    disabled={activeRow === 0}
+                    className="btn-transition"
+                    style={{background:'transparent' , border: 'none', padding: '10px', 
+                    margin: '10px', 
+                    fontWeight: 'bold' }}
+         
+                  >
+                    <i class='bx bxs-chevrons-left' style={{color: "#8539d1", fontSize:'50px'}}></i>
+                  </Button>
+                  <Button
+                    onClick={() => handleRowChange(activeRow + 1)}
+                    disabled={activeRow === totalRows - 1}
+                    className="btn-transition"
+                    style={{background:'transparent' , border: 'none', padding: '10px', 
+                    margin: '10px', 
+                    fontWeight: 'bold' }}
+                  >
+                    <i class='bx bxs-chevrons-right' style={{color: "#8539d1", fontSize:'50px'}}></i>
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
            
+          )}
+          </>
              ) : (
            
            <div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -537,11 +544,7 @@ function SHeroSection() {
         
         
         </>
-        
-      )}
 
-   
-    </>
   );
 }
 
