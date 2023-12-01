@@ -77,6 +77,21 @@ function Smain() {
     ssidebar.classList.toggle("open");
     menuBtnChange();
   };
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1200);
+
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 1200);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const sidebarClass = isSmallScreen ? "ssidebar " : "ssidebar open";
 
 
 
@@ -92,20 +107,72 @@ function Smain() {
   }, []); // Empty dependency array means this effect runs once after mounting
 
   const handleLogout = async () => {
-    localStorage.removeItem("authToken");
-    navigate('/');
+    localStorage.removeItem("StdToken");
+    navigate('/', { replace: true }); // Use the replace option to replace the current entry in the history stack
   };
 
   const handleLeaveClass = async () => {
     navigate('/std/dashboard');
   };
 
+
+  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  const getCurrentMonthYear = () => {
+    const currentDate = new Date();
+    const month = currentDate.toLocaleString('default', { month: 'long' });
+    const year = currentDate.getFullYear();
+    return `${month} ${year}`;
+  };
+  const getDaysInMonth = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    return lastDay;
+  };
+
+  const renderCalendar = () => {
+    const daysInMonth = getDaysInMonth();
+    const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
+    const currentDay = new Date().getDate();
+    // Create an array to represent the calendar rows and columns
+    let calendar = [];
+    let dayCounter = 1;
+    const highlightColor = '#8539d1';
+    for (let i = 0; i < 6; i++) {
+      let row = [];
+      for (let j = 0; j < 7; j++) {
+        if (i === 0 && j < firstDayOfMonth) {
+          // Empty cells before the first day of the month
+          row.push(<td key={j}></td>);
+        } else if (dayCounter <= daysInMonth) {
+          // Cells with dates
+          const isCurrentDay = dayCounter === currentDay;
+          const cellStyle = {
+            backgroundColor: isCurrentDay ? highlightColor : '',
+            color: isCurrentDay ? 'white' : 'black',
+            fontSize: isCurrentDay ? '0.9rem' : '',
+          };
+          row.push(
+            <td key={j} style={cellStyle}>
+              {dayCounter}
+            </td>
+          );
+          dayCounter++;
+        }
+      }
+      calendar.push(<tr key={i}>{row}</tr>);
+    }
+  
+    return calendar;
+  };
     
     return (
       <div className="container-fluid smain">
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
-        <div class="ssidebar open">
+        <div class={sidebarClass}>
     <div class="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>

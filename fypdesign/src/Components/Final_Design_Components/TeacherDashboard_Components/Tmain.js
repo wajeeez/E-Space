@@ -60,6 +60,24 @@ function Tmain() {
     menuBtnChange();
   };
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1200);
+
+  // Function to handle window resize
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 1200);
+  };
+  const sidebarClass = isSmallScreen ? "sidebar" : "sidebar open";
+  // Effect to add event listener for window resize
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); // Empty dependency array means this effect runs once after mounting
+
+
   useEffect(() => {
     axios
       .get(baseURL + `/teacher/class/${_id}`)
@@ -84,14 +102,14 @@ function Tmain() {
 
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
   const handleLeaveClass = async () => {
     navigate('/TDashboard');
   };
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
+
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -142,7 +160,7 @@ function Tmain() {
         
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
-    <div class="sidebar open">
+    <div class={sidebarClass}>
     <div class="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>
@@ -306,4 +324,3 @@ function Tmain() {
   }
   
   export default Tmain;
-  
