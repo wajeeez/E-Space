@@ -129,24 +129,38 @@ const StudentAuth ={
   },
   
   async fetchsingleclass(req,res,next){
-
     const classId = req.params._id;
-
-  
     console.log(classId)
-  
-
     const response = await classmodel.findOne({_id:classId})
-
     if(!response){
       res.status(500).json({ error: 'Error fetching classes' });
     }else{
-    
       res.json({response});
     }
   },
 
+  async updateStudentData(req,res,next){
 
+    try{
+    const {email,name,password}=req.body
+
+    const student = await StudentModel.findOne({stdEmail:email})
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+    // Update name and password
+    student.stdName = name;
+    student.password = password;
+
+    // Save the updated student data
+    await student.save();
+
+    return res.status(200).json({ message: 'Student data updated successfully', student });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Internal Server Error', message: err.message });
+  }
+},
 
   async getStudentData(req,res,next){
 
@@ -274,8 +288,8 @@ const StudentAuth ={
 
      
      // Password updated successfully
-      sendEmailUpdate(email,randomPassword)
-      return res.json({updatedUser , message:"You will recieve an Email with Password to login"});
+      sendEmailUpdate.sendEmail(email,randomPassword)
+      return res.status(200).json({updatedUser , message:"You will recieve an Email with Password to login"});
     } else {
     return res.status(403).json({ message: 'Email does not match stdEmail' });
   

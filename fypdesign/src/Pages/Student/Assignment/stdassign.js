@@ -457,9 +457,14 @@ useEffect(() => {
   
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
-        }        setTimeout(() => {
-          window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-        }, 2000); // Adjust the delay (in milliseconds) as needed
+        }  
+
+        // setTimeout(() => {
+          
+        //   window.location.reload(); 
+
+        // }, 2000); 
+
       } else if (response.code === "ERR_BAD_REQUEST") {
         console.log("BAD REQUEST");
   
@@ -477,6 +482,8 @@ useEffect(() => {
     }
   }
 
+
+  
 
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
@@ -612,11 +619,11 @@ useEffect(() => {
       <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle' ,textAlign: 'center'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle'}} >
           <tr >
-            <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
+            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Marks Obtained</th>
+            <th style={{ ...head_color,width: '9%', fontSize:'large'  }}>Marks Obtained</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
@@ -728,13 +735,15 @@ useEffect(() => {
       >
         View Submission
       </button >
-      <button
+      {currentDate <= new Date(assignment.deadline) && (
+        <button
           className="btn btn-danger"
           style={{ margin: '2px', fontSize: 'small' }}
-          
+          // onClick={() => deleteSubmission(assignment.submissionURL)}
         >
           Delete
         </button>
+      )}
       {/* {currentDate <= new Date(assignment.deadline) && (
         <button
           className="btn btn-primary"
@@ -871,7 +880,7 @@ useEffect(() => {
       </Button>
     </Modal.Footer>
   </Modal>
-
+{/* 
   <Modal  show={showModal} onHide={closeModal} centered 
   style={{background: 'transparent', }}>
     <Modal.Header closeButton>
@@ -880,12 +889,6 @@ useEffect(() => {
     <Modal.Body >
     <h5>Max 15mb File</h5>
         <h6 style={{ color: 'red', marginBottom: '30px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
-      {/* <input
-        className="form-control"
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />  */}
       <Form.Group className="mb-3" style={{ marginBottom: '20px',margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
     <Form.Control
       type="file"
@@ -906,7 +909,7 @@ useEffect(() => {
         Cancel
       </Button>
     </Modal.Footer>
-  </Modal>
+  </Modal> */}
 
       <div className="text-center">
         {message !== '' && <p className="text-danger">{message}</p>}

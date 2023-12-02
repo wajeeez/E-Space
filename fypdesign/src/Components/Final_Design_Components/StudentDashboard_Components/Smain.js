@@ -78,6 +78,21 @@ function Smain() {
     ssidebar.classList.toggle("open");
     menuBtnChange();
   };
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1200);
+
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 1200);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const sidebarClass = isSmallScreen ? "ssidebar " : "ssidebar open";
 
 
 
@@ -93,20 +108,22 @@ function Smain() {
   }, []); // Empty dependency array means this effect runs once after mounting
 
   const handleLogout = async () => {
-    localStorage.removeItem("authToken");
-    navigate('/');
+    localStorage.removeItem("StdToken");
+    navigate('/', { replace: true }); // Use the replace option to replace the current entry in the history stack
   };
 
   const handleLeaveClass = async () => {
     navigate('/std/dashboard');
   };
 
+
+  
     
     return (
       <div className="container-fluid smain">
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
-        <div class="ssidebar open">
+        <div class={sidebarClass}>
     <div class="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>

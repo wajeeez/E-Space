@@ -15,11 +15,19 @@ import { setUser } from "../../../store/userSlice";
 import { useDispatch } from "react-redux";
 import { useState } from 'react';
 import Loader from "../../../Components/Loader/Loader";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import axios from "axios";
 function Slogin() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+ const baseURL = process.env.React_App_INTERNAL_API_PATH;
+
+
 
   const [error, setError] = useState("");
 
@@ -69,7 +77,37 @@ function Slogin() {
   });
 
 
+  const handleForgetPassword = () =>{
 
+    if(values.email!=""){
+
+      const requestData = {
+        email: values.email, // Replace with the user's email
+      };
+
+      axios.post(baseURL+`/forgetpassword`, requestData)
+      .then(response => {
+
+        if(response.status == 200){
+          toast.success("You will recieve an Email with Password to login")
+        }else{
+          toast.error("Something Went Wrong")
+        }
+
+      // Handle the response data
+      })
+      .catch(error => {
+        toast.error("Something Went Wrong") // Handle the error response
+      });
+
+   
+
+    }else{
+      toast.error("Please Enter Email Address")
+    }
+
+
+  }
 
 
 
@@ -133,7 +171,7 @@ function Slogin() {
 
         <label>
           
-          <a href="#" style={{fontSize:'18px', marginBottom:'20px'}}>Forget password?</a>
+          <Link onClick={handleForgetPassword} style={{fontSize:'18px', marginBottom:'20px'}}>Forget password?</Link>
         </label>
 
         <Button  onClick={handleLogin} variant='primary' 
@@ -160,6 +198,7 @@ function Slogin() {
         </button> */}
       </div>
       )}
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

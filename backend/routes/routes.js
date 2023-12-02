@@ -37,7 +37,7 @@ router.get('/teacher/class/:_id', TeacherCreateClass.fetchsingleclass)
 router.post('/student/login', StudentAuth.studentlogin)
 router.get('/student/classes/:stdId', StudentAuth.fetchclasses)
 router.get('/student/class/:_id', StudentAuth.fetchsingleclass)
-
+router.post('/student/update',StudentAuth.updateStudentData)
 
 //Assignment 
 // const multer = require('multer');
