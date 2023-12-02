@@ -62,7 +62,7 @@ function THeroSection() {
   }, [id]);
 
 
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getCurrentMonthYear = () => {
     const currentDate = new Date();
@@ -70,6 +70,7 @@ function THeroSection() {
     const year = currentDate.getFullYear();
     return `${month} ${year}`;
   };
+  
   const getDaysInMonth = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -411,14 +412,15 @@ function THeroSection() {
        </Link>
        <span class="tooltip">Classes</span>
      </li>
-     <li>
+
+     {/* <li>
        <Link onClick={() => handlePageChange('create')}>
-       {/* <img src={perfIcon} alt="Icon" className="button-icon" /> */}
+
        <i class='bx bx-add-to-queue'></i>
          <span class="link_name">Create Class</span>
        </Link>
        <span class="tooltip">New CLass</span>
-     </li>
+     </li> */}
 
      
 
@@ -447,7 +449,6 @@ function THeroSection() {
      
      <li>
        <Link onClick={() => handlePageChange('create')} >
-       {/* <img src={accsetIcon} alt="Icon" className="button-icon" /> */}
        <i class='bx bxs-user-detail' ></i>
          <span class="link_name">User Settings</span>
        </Link>

@@ -266,7 +266,6 @@ padding: '20px'
   border-radius: 20px;
   /* background: linear-gradient(to bottom , #9c88f7 , #eee3ff); */
   background-color: white;
-  margin-top: -40px;
  
   position: relative;
 }
@@ -286,9 +285,8 @@ padding: '20px'
 }
 
 .custom-form-group {
-  width: 250px;
-  padding: 10px;
- 
+  padding:0.5rem 0rem;
+  padding-left:0px;
 }
 
 .form-control{
@@ -303,7 +301,7 @@ padding: '20px'
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  width: 250px;
+  width: 180px;
   transition: all 0.3s ease-in-out;
 }
 

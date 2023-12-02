@@ -1,11 +1,27 @@
+.custom-popup {
+  border-radius: 20px;
+  /* background: linear-gradient(to bottom , #9c88f7 , #eee3ff); */
+  background-color: white;
+  margin-top: -40px;
+ 
+  position: relative;
+}
+
+
+
+
+
+
+
+
 .App {
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 100vw;
-  min-height: 100vh;
-  background: url('/public/images/bnr.jpg') center center/cover no-repeat;
- 
+  min-height: 90vh;
+  /* background: url('/public/images/bnr.jpg') center center/cover no-repeat; */
+  background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)';
 }
 
 .errorMessage {
@@ -19,11 +35,11 @@
   flex-direction: column;
   align-items: center;
   width: 90%; /* Adjust width for responsiveness */
-  max-width: 30em;
+  max-width: 35em;
   min-height: 50vh; /* Adjust min-height for responsiveness */
   background-color: rgba(255, 255, 255, 1); /* Use rgba to set the background color with some transparency */
   border-radius: 55px;
-  padding: 40px;
+  padding: 2rem 0rem;
 }
 
 h2 {
@@ -49,11 +65,10 @@ h2 {
   }
   
   .input_container {
-    padding-top: 10px;
+    max-width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 10px;
+ 
   }
   
   .input_container label {
@@ -72,7 +87,7 @@ h2 {
   .input_container input {
     height: 2em;
     width: 100%; /* Adjust width for responsiveness */
-    max-width: 18em;
+    max-width: 320px;
     border-radius: 5px;
     border: none;
     box-shadow: 0 0 6px rgb(166, 159, 255);

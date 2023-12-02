@@ -162,17 +162,21 @@ function HeroSection() {
           </div>
         )}
 
-        {showRegistrationCard && !registrationComplete && (
+{showRegistrationCard && !registrationComplete && (
           <div className="registration-card" >
+            
 
-            <div className="container mt-5 custom-container">
-              <div className="row justify-content-center">
-                <div className="col-md-6">
-                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '10px', backgroundColor: '' }}>
-                    <div className="card-body">
+            <div className="container-fluid custom-container" style={{minWidth:'300px',maxWidth:'600px',}}>
+
+                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '20px', backgroundColor: '' 
+                      }}>
+
+                    <center>
                       <i className="fa fa-times " onClick={toggleRegistrationCard} />
                       {/* <img className="custom-close-icon" onClick={toggleRegistrationCard} src={close}/> */}
-                      <h2 className="custom-title text-center">Register as Teacher</h2>
+                      <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
+                        marginBottom:'20px', fontWeight:'bold',}}>
+                          Register as Teacher</h1>
                       <div className="form-group custom-form-group">
                         <input
                           type="text"
@@ -182,6 +186,9 @@ function HeroSection() {
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Teacher Name"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)' }}
                         />
                       </div>
 
@@ -194,6 +201,9 @@ function HeroSection() {
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Institute"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
 
@@ -206,6 +216,9 @@ function HeroSection() {
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Phone"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
 
@@ -218,6 +231,9 @@ function HeroSection() {
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Email"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
 
@@ -230,12 +246,18 @@ function HeroSection() {
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Password"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
 
                       <button className="custom-button"
                         onClick={handleReg}
-                        style={{ borderRadius: '20px', fontSize: 'large', backgroundColor: '' }}
+                        style={{ fontFamily:'poppins',
+                        borderRadius: '20px', fontSize: '20px', 
+                        backgroundColor: '',letterSpacing:'2px',
+                        fontWeight:'bold', marginBottom:'10px' }}
                       >
                         Sign Up
                       </button>
@@ -244,8 +266,128 @@ function HeroSection() {
                         <div className="alert alert-danger mt-3">{error}</div>
                       ) : null}
 
-                      <p className="text-center mt-3">Already have an account?</p>
-                      <Link to="/teacher/login">Login here</Link>
+                      <p className="text-center mt-3" style={{fontSize:'18px'}}>Already have an account?</p>
+                      <Link to="/teacher/login" style={{fontSize:'18px'}}>Login here</Link>
+                    
+                      </center>
+
+                    
+                  </div>
+
+            </div>
+
+
+          </div>
+
+        )}
+
+
+        {/* {showRegistrationCard && !registrationComplete && (
+          <div className="registration-card" >
+            
+
+            <div className="container mt-5 custom-container">
+              <div className="row justify-content-center">
+                <div className="col-md-6">
+                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '20px', backgroundColor: '' }}>
+                    <div className="card-body">
+                      
+                      <i className="fa fa-times " onClick={toggleRegistrationCard} />
+      
+                      <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
+                        marginBottom:'20px', fontWeight:'bold',}}>
+                          Register as Teacher</h1>
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="text"
+                          value={values.tname}
+                          name="tname"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Teacher Name"
+                          style={{maxWidth:'400px', minWidth:'250px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="text"
+                          value={values.institute}
+                          name="institute"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Institute"
+                          style={{maxWidth:'400px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="text"
+                          value={values.phone}
+                          name="phone"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Phone"
+                          style={{maxWidth:'400px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="text"
+                          value={values.email}
+                          name="email"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Email"
+                          style={{maxWidth:'400px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Password"
+                          style={{maxWidth:'400px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
+                      <button className="custom-button"
+                        onClick={handleReg}
+                        style={{ fontFamily:'poppins',
+                        borderRadius: '20px', fontSize: '20px', 
+                        backgroundColor: '',letterSpacing:'2px',
+                        fontWeight:'bold', marginBottom:'10px' }}
+                      >
+                        Sign Up
+                      </button>
+
+                      {error !== '' ? (
+                        <div className="alert alert-danger mt-3">{error}</div>
+                      ) : null}
+
+                      <p className="text-center mt-3" style={{fontSize:'18px'}}>Already have an account?</p>
+                      <Link to="/teacher/login" style={{fontSize:'18px'}}>Login here</Link>
                     </div>
                   </div>
                 </div>
@@ -255,7 +397,7 @@ function HeroSection() {
 
           </div>
 
-        )}
+        )} */}
 
         {registrationComplete && (
           <div className="registration-complete" style={{ textAlign: 'center' }}>

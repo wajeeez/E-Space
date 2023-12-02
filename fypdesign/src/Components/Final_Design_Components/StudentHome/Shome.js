@@ -57,8 +57,7 @@ function Shome() {
   };
 
 
-
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getCurrentMonthYear = () => {
     const currentDate = new Date();
@@ -66,6 +65,7 @@ function Shome() {
     const year = currentDate.getFullYear();
     return `${month} ${year}`;
   };
+  
   const getDaysInMonth = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
