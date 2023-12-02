@@ -11,8 +11,10 @@ import { setUser } from "../../../store/userSlice";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
-import { FormGroup, FormControl } from 'react-bootstrap';
+import { OverlayTrigger, Popover, FormGroup, FormControl } from 'react-bootstrap';
+
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+
 import Loader from "../../../Components/Loader/Loader";
 
 function Treg() {
@@ -71,7 +73,20 @@ function Treg() {
     validationSchema: regSchema,
   });
 
-
+  const renderPasswordCriteriaPopover = () => (
+    <Popover id="password-criteria-popover">
+      <Popover.Content>
+        <div>
+          <p>At least one digit </p>
+          <p>At least one lowercase letter</p>
+          <p>At least one uppercase letter </p>
+          <p>At least one special character </p>
+          <p>Minimum length of 8 characters</p>
+        </div>
+      </Popover.Content>
+    </Popover>
+  );
+  
 
   return (
     <div className="container-fluid" style={{background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)' , marginTop: '10px', 
@@ -173,27 +188,59 @@ function Treg() {
   />
 </FormGroup>
 
-<FormGroup >
-  <FormControl
-    type="password"
-    name="password"
-    value={values.password}
-    onBlur={handleBlur}
-    onChange={handleChange}
-    placeholder="Password"
-    // error={errors.password && touched.password ? 1 : undefined}
-    errormessage={errors.password}
-    style={{
-      maxWidth: '320px',
-      minWidth: '200px',
-      fontSize: '18px',
-      height: '50px',
-      borderRadius: '16px',
-      marginBottom: '0px',
-      boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)',
-    }}
-  />
-</FormGroup>
+
+
+<FormGroup>
+
+    <FormControl
+      type="password"
+      name="password"
+      value={values.password}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      placeholder="Password"
+      errormessage={errors.password}
+      style={{
+        maxWidth: '320px',
+        minWidth: '200px',
+        fontSize: '18px',
+        height: '50px',
+        borderRadius: '16px',
+        marginBottom: '0px',
+        boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)',
+      }}
+    />
+
+</FormGroup> 
+
+
+{/* <FormGroup>
+  <OverlayTrigger
+    trigger="click"
+    placement="bottom"
+    overlay={renderPasswordCriteriaPopover()}
+  >
+    <FormControl
+      type="password"
+      name="password"
+      value={values.password}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      placeholder="Password"
+      errormessage={errors.password}
+      style={{
+        maxWidth: '320px',
+        minWidth: '200px',
+        fontSize: '18px',
+        height: '50px',
+        borderRadius: '16px',
+        marginBottom: '0px',
+        boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)',
+      }}
+    />
+  </OverlayTrigger>
+</FormGroup> */}
+
 
 
         {/* <div className={styles.input_container}>
@@ -313,4 +360,4 @@ function Treg() {
   )
 }
 
-export default Treg
+export default Treg;

@@ -6,6 +6,8 @@ import { useParams } from 'react-router';
 import jwt_decode from "jwt-decode";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { InputGroup, FormControl } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+
 function TList() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
@@ -248,11 +250,31 @@ function TList() {
       ))}
     </select>
   </div>
+</div>
 
-  <h3 style={{ marginTop: '30px', fontSize:'25px',fontWeight:'bolder' }}>
-  {selectedAssignment && `Total Submissions: ${submissions.length}`}
-</h3>
+<div className="d-flex flex-wrap justify-content-center" style={{ marginBottom: '10px' }}>
+  {selectedAssignment && (
+    <>
+      <Card style={{ width: '20rem', marginTop: '30px', margin: '10px',
+        background: 'linear-gradient(to right, rgba(133, 57, 209, 0.7) 20%, rgba(252, 16, 242, 0.7) 100%)'
+        , borderRadius: '20px' }}>
+        <Card.Body>
+          <h4 style={{ fontWeight: 'bolder', textAlign: 'center', textShadow: 'none', color: 'white' }}>
+            {selectedAssignment && `Total Submissions: ${submissions.length}`}
+          </h4>
+        </Card.Body>
+      </Card>
 
+      <Card style={{ width: '20rem', marginTop: '30px', margin: '10px',
+        background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)', borderRadius: '20px' }}>
+        <Card.Body>
+          <h4 style={{ fontWeight: 'bolder', textAlign: 'center', textShadow: 'none', color: 'white' }}>
+            {selectedAssignment && `Total Students: ${submissions.length}`}
+          </h4>
+        </Card.Body>
+      </Card>
+    </>
+  )}
 </div>
 
 
@@ -262,8 +284,25 @@ function TList() {
 
           {submissions.length === 0 ? ( 
 
-            <h3 style={{ margin: '0px', fontSize:'25px',fontWeight:'bolder' ,color:'red'}} >
-             " No Submissions till now "</h3>
+            <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+            <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle',
+            textAlign:'center'}} >
+            <tr>
+              <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>File</th>
+              
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Marks</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Remarks</th>
+              
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Edit Marks / Remarks</th>
+            </tr>
+            </thead>
+            <tbody style={{textAlign:'center'}}>
+
+            </tbody>
+            </table>
 
 
           ) : (
