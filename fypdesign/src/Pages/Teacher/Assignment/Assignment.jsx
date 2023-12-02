@@ -168,15 +168,6 @@ const AssignmentPage = () => {
   }
 
 
-  const row_color = {
-    backgroundColor: 'transparent',
-    color: 'black',
-  }
-  const head_color ={
-    backgroundColor: 'transparent',
-    color: 'black',
-  }
-
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdate = () => {
       // Reset state values to clear the input fields
@@ -377,6 +368,20 @@ const AssignmentPage = () => {
         console.log(error);
       });
   };
+
+
+  
+  const row_color = {
+    backgroundColor: 'transparent',
+    color: 'black',
+
+  }
+  const head_color ={
+    backgroundColor: 'transparent',
+    color: 'black',
+    fontWeight:'500',
+  }
+
   
   return (
 
@@ -399,8 +404,8 @@ const AssignmentPage = () => {
         </button> */}
         
 
-        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '40px'}}>
-           Upload Assignment</h1>
+        <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '30px', fontWeight:'100'}}>
+           ASSIGNMENT</h1>
         
         {/* <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} 
         onChange={handleFileChange} ref={fileInputRef} className={styles.file} /> */}
@@ -454,7 +459,8 @@ const AssignmentPage = () => {
         teacherAssignmentUpload();
         
       }}
-      style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px'}}
+      style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'
+      , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
     >
       Upload Assignment
     </Button>
@@ -470,15 +476,15 @@ const AssignmentPage = () => {
 
 
 
-
-<div style={{ background: 'black', height: '10px', width: '2000px' }}></div>
-
-
+{/* 
+<div style={{ background: 'black', height: '5px', width: '2000px' }}></div> */}
 
 
-        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px'
+
+
+        {/* <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px'
       , marginTop: '10px'}}>
-           Uploaded Assignments</h1>
+           Uploaded Assignments</h1> */}
 
            {/* <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
               <div className="col-md-3">
@@ -506,8 +512,8 @@ const AssignmentPage = () => {
             </div> */}
 
 
-           <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
-        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+           <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+        <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
@@ -515,12 +521,12 @@ const AssignmentPage = () => {
             {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Total Marks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '5%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
-        <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px' }}>
+        <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
   {assignments.map((assignment, index) => (
-    <tr key={index}>
+    <tr key={index} >
       <td style={{ ...row_color }}>
         <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
       </td>
@@ -531,10 +537,10 @@ const AssignmentPage = () => {
         <>
           <button
             className="btn btn-primary"
-            style={{ marginTop: '-10px', fontSize: 'medium' }}
+            style={{ marginTop: '-10px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
             onClick={openFileInBrowser.bind(null, assignment.fileURL)}
           >
-            View<br/> Assignment
+            View File
           </button>
         </>
       </td>
@@ -549,15 +555,15 @@ const AssignmentPage = () => {
       <td style={{ ...row_color }}>
         <button
           className="btn btn-primary "
-          style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
+          style={{ margin: '5px', fontSize: 'medium', width: '80px', fontWeight: '400',marginTop:'-5px' }}
           onClick={() => handleShowUpdateModal(assignment._id)}
         >
           Edit
         </button>
-        <br />
+
         <button
           className="btn btn-danger "
-          style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
+          style={{ margin: '5px', fontSize: 'medium', width: '80px', fontWeight: '400',marginTop:'-5px' }}
           onClick={() => handleDeleteClick(assignment._id)}
 
         >

@@ -104,7 +104,7 @@ function Thome() {
   // }
 
   return (
-    <div className="container-fluid" style={{ marginTop: '-8px', margin:'0px' ,background: bg}}>
+    <div className="container-fluid" style={{ marginTop: '10px', margin:'0px' ,background: bg}}>
       {/* First row covering full width */}
       <div className="row">
       
@@ -129,7 +129,7 @@ function Thome() {
               <img
                 src={headerimg} 
                 alt="Right Image"
-                style={{ verticalAlign: 'middle',height:'204px', maxwidth:'250px' }}
+                style={{ verticalAlign: 'middle',height:'227px', maxwidth:'250px' }}
               />
             </div>
           </div>

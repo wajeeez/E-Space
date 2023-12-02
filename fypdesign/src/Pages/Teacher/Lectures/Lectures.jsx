@@ -144,6 +144,7 @@ const Lectures = () => {
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
+    fontWeight:'500',
   }
 
 
@@ -271,9 +272,8 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
 <>
     <div className="container-fluid" style={{ textAlign: 'center', marginTop: '10px' }}>
   <center>
-    <h1 className={styles.header}>Upload New Lecture</h1>
-    <br/>
-
+  <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           LECTURES</h1>
 
     {/* Upload Lecture */}
     <div className="row justify-content-center align-items-center d-flex" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -327,41 +327,34 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
         <Button
           className={`${styles.assignmentButton} btn-success`}
           onClick={teacherLectureUpload}
-          style={{ background: '', color: 'white', fontSize: 'large', width: '220px', height: '50px' }}
-        >
+          style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'
+                  , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
+          >
           Upload Lecture
         </Button>
         <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
       </div>
     </div>
 
-    <div style={{ background: 'black', height: '10px', width: '2000px' }}></div>
-
-    <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '0px'
-      , marginTop: '20px'}}>
-           Uploaded Lectures</h1>
-           <br/>
-
-
-           <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
-        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+           <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+        <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
-            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Lecture File</th>
             {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Description</th> */}
-            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Video Link</th>
+            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Video Link</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large' }}>Remark</th>
-            <th style={{ ...head_color,width: '5%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
 
-        <tbody style={{textAlign:'center', verticalAlign: 'middle',  padding: '15px'}}>
-        <tr>
+        <tbody style={{textAlign:'center', verticalAlign: 'middle',  padding: '10px'}}>
+        <tr style={{border:'1px solid silver'}}>
 
         <td style={{...row_color }}>
         <p style={{fontSize:'large', fontWeight:''}}>
-        {/* {index + 1} */}
+        {/* {index + 1} */} 1
           </p>
         </td>
 
@@ -375,7 +368,7 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
   <>
     <button
       className="btn btn-primary"
-      style={{ marginTop: '-10px', fontSize: 'large' }}
+      style={{ marginTop: '-10px', fontSize: 'large' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
     >
       View Lecture
     </button>
@@ -405,14 +398,14 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
         
         <td style={{...row_color }}>
         <button
-          className="btn btn-primary " style={{margin: '5px', fontSize: 'medium',width:'100px',fontWeight:'bold'}}
+          className="btn btn-primary " style={{margin: '5px', fontSize: 'medium',width:'100px',fontWeight:'400',marginTop:'-5px'}}
           onClick={handleUpdateClick}
         >
             Edit
         </button>
-        <br/>
+
         <button
-          className="btn btn-danger " style={{margin: '5px', fontSize: 'medium', width:'100px',fontWeight:'bold'}}
+          className="btn btn-danger " style={{margin: '5px', fontSize: 'medium', width:'100px',fontWeight:'400' ,marginTop:'-5px'}}
           onClick={handleDeleteClick}
         >
             Delete

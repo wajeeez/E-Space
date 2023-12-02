@@ -411,6 +411,7 @@ useEffect(() => {
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
+    fontWeight:'500',
   }
 
 
@@ -735,7 +736,7 @@ useEffect(() => {
       >
         View Submission
       </button >
-      {currentDate <= new Date(assignment.deadline) && (
+      {/* {currentDate <= new Date(assignment.deadline) && (
         <button
           className="btn btn-danger"
           style={{ margin: '2px', fontSize: 'small' }}
@@ -743,7 +744,7 @@ useEffect(() => {
         >
           Delete
         </button>
-      )}
+      )} */}
       {/* {currentDate <= new Date(assignment.deadline) && (
         <button
           className="btn btn-primary"
@@ -805,11 +806,13 @@ useEffect(() => {
               <td style={{...row_color }}>
                 {submissionMapping[assignment.fileURL] === undefined ? (
                   currentDate > new Date(assignment.deadline) ? (
-                    <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
+                    <button className="btn btn-danger"  style={{border:'none', background:'#d13f46', margin: '2px', fontSize: 'small' , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                    , cursor:'default'}}>
                       Deadline Exceeded
                     </button>
                   ) : (
-                    <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
+                    <button className="btn" style={{border:'none', margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'medium' , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                    , cursor:'default'}}>
                       Not Submitted
                     </button>
                   )
@@ -821,7 +824,8 @@ useEffect(() => {
                 
                   <button
                     className="btn btn-primary"
-                    style={{ margin: '2px', fontSize: 'medium' }}
+                    style={{ margin: '2px', fontSize: 'medium' , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                    , cursor:'default'}}
                     onClick={() => handleSubmissionClick(assignment.fileURL)}
                   >
                     Edit Submission
@@ -830,7 +834,8 @@ useEffect(() => {
                   </>
                         
                 ) : (
-                  <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
+                  <button className="btn btn-danger"  style={{border:'none', background:'#d13f46', margin: '2px', fontSize: 'small' , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                  , cursor:'default'}}>
                     Deadline Exceeded
                   </button>
                 )}
