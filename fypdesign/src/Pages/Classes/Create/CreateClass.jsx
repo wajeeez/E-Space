@@ -9,7 +9,9 @@ import TextInput from "../../../Components/TextInput/TextInput";
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
 import Loader from "../../../Components/Loader/Loader";
-
+import { Button, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { Modal } from 'react-bootstrap';
 
 function CreateClass() {
   // State to store parsed data
@@ -115,6 +117,8 @@ function CreateClass() {
 
   console.log(values.students);
 
+
+
   return (
    
     <>
@@ -123,8 +127,72 @@ function CreateClass() {
         <Loader /> // Display the loader while loading
       ) : (
 
-        <>
-                   <div className={styles.loginWrapper}>
+        <div className="container-fluid" style={{background:'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)' , marginTop: '10px', 
+        overflow:'hidden', padding:'20px' , display: 'flex', justifyContent: 'center'
+        , alignItems: 'center', minHeight: '100vh',marginTop:'0px' }}>
+         <center>
+
+         <div className="container-fluid class" style={{background:'white', 
+         padding: '50px',margin:'10px' , minWidth:'350px',maxWidth:'600px', border:'', 
+         borderRadius:'30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'}}>
+
+         <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', marginBottom:'40px', fontWeight:'bold'}}>
+            Create A New Class</h1>
+                <Form.Group controlId="subjectName" >
+                  
+                  <Form.Control
+                    type="text"
+                    value={values.subjectName}
+                    name="subjectName"
+                    onChange={handleChange}
+                    placeholder="Class Name"
+                    style={{maxWidth:'400px', textAlign:'center',
+                     fontSize:'22px', height:'50px' , borderRadius:'16px', marginBottom:'30px'}}
+                  />
+                  
+                  <Form.Text className="text-danger">{errors.subjectName}</Form.Text>
+                </Form.Group>
+ 
+                <Form.Group>
+                  <Form.Control
+                    type="file"
+                    name="file"
+                    onChange={changeHandler}
+                    accept=".csv"
+                    label="Choose CSV file"
+                    style={{maxWidth:'400px', textAlign:'center',
+                     fontSize:'16px',padding:'10px' , borderRadius:'16px'}}
+                  />
+                </Form.Group>
+
+                <h5 style={{marginTop:'30px',color:'red'}}>
+                  "Only CSV File is accepted!!!
+                 <br/> First column contains only Student Emails
+                </h5>
+
+                <Form.Group>
+                  {error !== "" && <p className={styles.errorMessage}>{error}</p>}
+                </Form.Group>
+
+                <Button variant="success" onClick={handleReg}
+                style={{marginTop:'20px',marginBottom:'20px', fontSize:'24px'}}>
+                  Create Class
+                </Button>
+                <br/>
+                <Button variant="danger" onClick={() => navigate('/TDashboard')}
+                 style={{ fontSize:'18px'}}>
+                Cancel
+                </Button>
+              
+
+
+            </div>
+
+
+
+         </center>
+
+                   {/* <div className={styles.loginWrapper}>
             <div className={styles.Intro}>
               <p>
                 Teacher Name : {name} | Teacher Email : {email}
@@ -156,9 +224,9 @@ function CreateClass() {
             <button className={styles.logInButton} onClick={handleReg}>
               Create Class
             </button>
-          </div>
+          </div> */}
 
-        </>
+        </div>
       )}
     </>
   )

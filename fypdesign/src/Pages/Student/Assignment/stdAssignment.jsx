@@ -405,6 +405,21 @@ const StdAssignment = () => {
 
   };
 
+
+  const deleteSubmission = (submissionURL) => {
+    // You can send a DELETE request to the server to delete the submission
+    axios
+      .delete(baseURL + '/submission/' + submissionURL)
+      .then((response) => {
+        // Handle successful deletion, such as updating the UI or showing a message.
+        console.log('Submission deleted successfully.');
+      })
+      .catch((error) => {
+        // Handle errors, such as displaying an error message.
+        console.error('Error deleting submission:', error);
+      });
+  };
+
   return (
     <>
       <StdTable />
@@ -513,6 +528,8 @@ const StdAssignment = () => {
 
         </center>
       </div> */}
+
+      
     </>
   );
 };

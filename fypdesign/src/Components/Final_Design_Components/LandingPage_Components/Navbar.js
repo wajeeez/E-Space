@@ -72,7 +72,7 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            <li className='nav-item'>
+            {/* <li className='nav-item'>
               <Link
                 to='/signin/options'
                 className='nav-link-last'
@@ -83,7 +83,7 @@ function Navbar() {
                 Sign In
                </button>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

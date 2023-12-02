@@ -221,7 +221,7 @@ function AssignmentList() {
    <>
 
    <Tlist/>
-
+{/* 
     <div classname="container-fluid" style={{ background: 'blue' }}>
       <center>
         <h1 className={styles.introt} style={{ margin: '20px' }}>Student Submissions</h1>
@@ -340,7 +340,7 @@ function AssignmentList() {
           )}
         </div>
       </center>
-    </div>
+    </div> */}
     </> 
   );
 }

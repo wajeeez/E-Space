@@ -8,7 +8,8 @@ import FormattedDate from '../../../Components/DateFormate/DateFormater'
 import { boolean } from 'yup';
 import { Form, Button } from 'react-bootstrap';
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
 
 const StdTable = () => {
 
@@ -37,6 +38,9 @@ const [submissionMapping, setSubmissionMapping] = useState({});
 const [marksMapping, setmarksMapping] = useState({});
 const [remarksMapping, setremarksMapping] = useState({});
 // Function to update the submission mapping
+
+
+
 
 
 
@@ -398,19 +402,7 @@ useEffect(() => {
 
 
 
-  const deleteSubmission = (submissionURL) => {
-    // You can send a DELETE request to the server to delete the submission
-    axios
-      .delete(baseURL + '/submission/' + submissionURL)
-      .then((response) => {
-        // Handle successful deletion, such as updating the UI or showing a message.
-        console.log('Submission deleted successfully.');
-      })
-      .catch((error) => {
-        // Handle errors, such as displaying an error message.
-        console.error('Error deleting submission:', error);
-      });
-  };
+
   
   const row_color = {
     backgroundColor: 'transparent',
@@ -439,74 +431,52 @@ useEffect(() => {
     setShowModal(false);
   };
   const handleSubmissionClick = (assignmentFileURL) => {
+    console.log(`Clicked on assignment: ${assignmentFileURL}`);
     setFileURL(assignmentFileURL);
     openModal();
   };
   
   const submit_assignment = async () => {
-
-    
-
     setShowModal(false); // Close the modal
-
-    //Problem is this code is runing before file change and imedialty after file broweser opens
+  
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      formData.append('Email',stdEmail)
+      formData.append('Email', stdEmail);
       formData.append('classId', _id);
-      formData.append('assignmentFileURL', getFileURL)
-      formData.append('deadline', currentDate); // Append the deadline value
+      formData.append('assignmentFileURL', getFileURL);
+      formData.append('deadline', currentDate);
       for (const entry of formData.entries()) {
         console.log(entry[0], entry[1]);
       }
-
-
       const response = await StudentSubmissions(formData);
-
+  
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfull")
-        console.log("Successfull")
+        setMessage("Successful");
+        console.log("Successful");
+  
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
-        }
-
-        setTimeout(() => {
+        }        setTimeout(() => {
           window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
         }, 2000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
-        // setError(response.response.mes);
-        console.log("BAD REQUEST")
+        console.log("BAD REQUEST");
+  
         if (response.response.status === 500) {
-          console.log("500 BAD REQUEST ")
+          console.log("500 BAD REQUEST ");
         }
-
-
+  
         if (response.response.status === 401) {
           setMessage(response.response.data.message);
-          console.log("401")
-
+          console.log("401");
         }
       }
-
-
-
-
-
-
     } else {
-
-      console.log(selectedFile + "ERROR")
+      console.log(selectedFile + " ERROR");
     }
-
-
-
-
-
-
-
-
   }
+
 
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
@@ -554,25 +524,97 @@ useEffect(() => {
 
 
 
+  // const [showEModal, setShowEModal] = useState(false);
+  // const openEModal = () => {
+  //   setShowEModal(true);
+  // };
+  
+  // const closeEModal = () => {
+  //   setShowEModal(false);
+  // };
+  // const handleEditClick = (assignmentFileURL) => {
+  //   setFileURL(assignmentFileURL);
+  //   openEModal();
+  // };
+  // const esubmit_assignment = async () => {
+  //   setShowEModal(false); // Close the modal
+  
+  //   if (selectedFile) {
+  //     const formData = new FormData();
+  //     formData.append('file', selectedFile);
+  //     formData.append('Email', stdEmail);
+  //     formData.append('classId', _id);
+  //     formData.append('assignmentFileURL', getFileURL);
+  //     formData.append('deadline', currentDate);
+  
+  //     const response = await StudentSubmissions(formData);
+  
+  //     if (response.status === 201 || response.status === 200) {
+  //       setMessage("Successful");
+  //       console.log("Successful");
+  
+  //       // Fetch and update the list of submitted assignments without reloading the page
+  //       axios
+  //         .get(baseURL + `/teacher/class/${_id}`)
+  //         .then((response) => {
+  //           console.log(response.data);
+  //           // setUploadedAssignments(response.data.assignments);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  
+  //       if (fileInputRef.current) {
+  //         fileInputRef.current.value = ''; // Reset the input field
+  //       }
+  //     } else if (response.code === "ERR_BAD_REQUEST") {
+  //       console.log("BAD REQUEST");
+  
+  //       if (response.response.status === 500) {
+  //         console.log("500 BAD REQUEST ");
+  //       }
+  
+  //       if (response.response.status === 401) {
+  //         setMessage(response.response.data.message);
+  //         console.log("401");
+  //       }
+  //     }
+  //   } else {
+  //     console.log(selectedFile + " ERROR");
+  //   }
+  // }
 
+
+  
 
   return (
     <div className="container-fluid" style={{  
-    textAlign: 'center', marginTop: '-55px', }}>
-      <div className="text-center mt-5">
+    textAlign: 'center', marginTop: '0px', }}>
+      <center>
+
+      <button
+          className="btn btn-primary"
+          style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
+          // onClick={handleRefresh}
+          title='Refresh Page'
+          
+        >
+          <FontAwesomeIcon icon={faSync} />
+          
+        </button>
+
         <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px'}}>
             Assignments</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
-        </p> */}
-      </div>
-      
-      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
+    </p> */}
+
+      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle' ,textAlign: 'center'}}>
         <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle'}} >
           <tr >
             <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Sr#</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment<br/>/ Solution</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Marks Obtained</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
@@ -580,7 +622,7 @@ useEffect(() => {
             <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody style={{}}>
           {assignments.map((assignment, index) => (
             <tr key={index} >
               <td style={{...row_color }}>{index + 1}</td>
@@ -674,9 +716,9 @@ useEffect(() => {
                 {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
               </button> */}
 
-<div>
+<div style={{alignItems: 'center' }}>
   {submissionMapping[assignment.fileURL] ? (
-    <>
+    <div >
       <button
         className="btn btn-success"
         style={{ margin: '2px', fontSize: 'small' }}
@@ -685,29 +727,43 @@ useEffect(() => {
         }}
       >
         View Submission
-      </button>
+      </button >
       <button
-        className="btn btn-primary"
-        style={{ margin: '2px', fontSize: 'small' }}
-        onClick={() => handleSubmissionClick(assignment.fileURL)}
-        disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
-      >
-        Edit
-      </button>
-    </>
+          className="btn btn-danger"
+          style={{ margin: '2px', fontSize: 'small' }}
+          
+        >
+          Delete
+        </button>
+      {/* {currentDate <= new Date(assignment.deadline) && (
+        <button
+          className="btn btn-primary"
+          style={{ margin: '2px', fontSize: 'small' }}
+          onClick={() => handleSubmissionClick(assignment.fileURL)}
+        >
+          Edit
+        </button>
+      )} */}
+    </div>
   ) : (
-    <button
-      className="btn btn-primary"
-      style={{ margin: '2px', fontSize: 'small' }}
-      onClick={() => handleSubmissionClick(assignment.fileURL)}
-      disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
-    >
-      Submission
-    </button>
+    <span>
+      {currentDate > new Date(assignment.deadline) ? (
+        <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
+      ) : (
+        <button
+          className="btn btn-primary"
+          style={{ margin: '2px', fontSize: 'small' }}
+          onClick={() => handleSubmissionClick(assignment.fileURL)}
+          disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+        >
+          Submission
+        </button>
+      )}
+    </span>
   )}
-
-
 </div>
+
+
 
 
 
@@ -749,9 +805,21 @@ useEffect(() => {
                     </button>
                   )
                 ) : currentDate <= new Date(assignment.deadline) ? (
-                  <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
+                  <>
+                  {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
                     Submitted
+                  </button> */}
+                
+                  <button
+                    className="btn btn-primary"
+                    style={{ margin: '2px', fontSize: 'medium' }}
+                    onClick={() => handleSubmissionClick(assignment.fileURL)}
+                  >
+                    Edit Submission
                   </button>
+
+                  </>
+                        
                 ) : (
                   <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
                     Deadline Exceeded
@@ -775,7 +843,7 @@ useEffect(() => {
     </Modal.Header>
     <Modal.Body>
     <h5>Max 15mb File</h5>
-        <h5 style={{ color: 'red', marginBottom: '10px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h5>
+        <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
       {/* <input
         className="form-control"
         type="file"
@@ -804,9 +872,48 @@ useEffect(() => {
     </Modal.Footer>
   </Modal>
 
+  <Modal  show={showModal} onHide={closeModal} centered 
+  style={{background: 'transparent', }}>
+    <Modal.Header closeButton>
+      <Modal.Title>Update Submission</Modal.Title>
+    </Modal.Header>
+    <Modal.Body >
+    <h5>Max 15mb File</h5>
+        <h6 style={{ color: 'red', marginBottom: '30px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
+      {/* <input
+        className="form-control"
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />  */}
+      <Form.Group className="mb-3" style={{ marginBottom: '20px',margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+    <Form.Control
+      type="file"
+      ref={fileInputRef}
+      onChange={handleFileChange}
+      className={`custom-file-input`}
+      style={{ background: 'grey', color: 'white' }}
+    />
+  </Form.Group>
+    </Modal.Body>
+    <Modal.Footer className="justify-content-center align-items-center d-flex" >
+    <Button type="button" className="btn btn-primary" onClick={submit_assignment}
+    style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+      Update
+    </Button>
+      <Button type="button" variant="secondary" onClick={closeModal}
+      style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+        Cancel
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
       <div className="text-center">
         {message !== '' && <p className="text-danger">{message}</p>}
       </div>
+
+      </center>
+
     </div>
   );
   

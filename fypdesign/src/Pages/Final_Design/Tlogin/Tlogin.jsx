@@ -1,7 +1,8 @@
 
 import styles from "./Tlogin.module.css";
 
-
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import Button from 'react-bootstrap/Button'; // Import Bootstrap Button component
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -72,12 +73,12 @@ function  Tlogin() {
   });
 
   return (
-    <div className={styles.App}>
+    <div className={styles.App} style={{background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)'}}>
     {loading ? (
         <Loader /> // Display the loader while loading
       ) : (<div className={styles.loginContainer}>
-      <h2 style={{color:"#000"}}>Teacher Login</h2>
-      <div className={styles.input_container}>
+      <h2 style={{color:"#000", fontFamily:'poppins', marginBottom:'20px', textAlign:'center'}}>Teacher Login</h2>
+      <div className={styles.input_container} style={{marginBottom:'20px', width:'270px'}}>
         {/* <label>Email </label> */}
         <input
           type="email"
@@ -95,7 +96,7 @@ function  Tlogin() {
         
         {/* {renderErrorMessage("uname")} */}
       </div>
-      <div className={styles.input_container}>
+      <div className={styles.input_container} style={{marginBottom:'20px', width:'270px'}}>
         {/* <label>Password </label> */}
         <input
           type="password"
@@ -114,20 +115,24 @@ function  Tlogin() {
 
       <label>
         {" "}
-        <a href="#">Forget password?</a>
+        <a href="#" style={{fontSize:'18px', marginBottom:'20px'}}>Forgot password?</a>
       </label>
 
-      <button  onClick={handleLogin} className={styles.loginBut}>Login</button>
+      <Button  onClick={handleLogin} variant='primary' 
+      style={{fontSize:'22px', letterSpacing:'3px',
+      fontFamily:'Poppins', padding:'10px', width:'150px', margin:'20px'
+      ,backgroundColor:'#8539d1'
+      }}>Login</Button>
       <div>
       <span>
           {error != "" ? <p className={styles.errorMessage}>{error}</p> : ""}
         </span>
       </div>
       {/* <p className={styles.p}>Don't have an account?<span><a href="#">Register here</a></span></p> */}
-      <label className={styles.p}>Don't have an account?</label>
+      <label className={styles.p} style={{fontSize:'18px', marginTop:'10px', marginBottom:'20px'}}>Don't have an account?</label>
       <label>
         {" "}
-        <a href="/teacher/register">Register here</a>
+        <a href="/teacher/register" style={{fontSize:'18px', marginTop:'10px'}}>Register here</a>
       </label>
 
     </div>)}
