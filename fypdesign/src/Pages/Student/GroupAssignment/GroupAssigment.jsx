@@ -9,12 +9,12 @@ import { boolean } from 'yup';
 
 import StdTable from '../Assignment/stdassign';
 import StudentListDialog from './StudentListDialog';
-
+import { Form, Button } from 'react-bootstrap';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 
 import styles from '../Assignment/stdAssignment.module.css'
-import { Form, Button } from 'react-bootstrap';
+
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 
 
@@ -537,7 +537,16 @@ const GroupAssignment = () => {
         setDialogOpen(true);
     };
 
-
+    const row_color = {
+        backgroundColor: 'transparent',
+        color: 'black',
+    
+      }
+      const head_color ={
+        backgroundColor: 'transparent',
+        color: 'black',
+        fontWeight:'500',
+      }
 
 
     const submissionUpload = async () => {
@@ -610,59 +619,60 @@ const GroupAssignment = () => {
 
     return (
 
-
         <>
-        
-        
-        <div className="container" style={{
-            marginTop: '10px',
-            textAlign: 'center', padding: '2px',
-        }}>
-            <div className="text-center mt-3">
-                <h1 style={{ background: 'black', padding: '20px', color: 'white' }}>
+        <div className="container-fluid" style={{  
+            textAlign: 'center', marginTop: '10px', }}> 
+            
+            <center>
 
-                    Group Assignment
-                </h1>
-                {/* <p>
-          Student Name: {StudentName} | Email: {stdEmail}
-        </p> */}
+            <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           GROUP ASSIGNMENT</h1>
+  
+                <>
 
-
-
-                <div style={{ textAlign: "start", padding: '5px' }}>
-
-
-                    <a className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleOpenDialog}>
+                    {/* <a className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleOpenDialog}>
                         <i class='bx bx-edit'></i>
                         <span style={{ color: 'white' }} class="link_name"> Create a Group</span>
-                    </a>
+                    </a> */}
+
+                    <Button
+                    className={`btn-success`}
+                    onClick={handleOpenDialog}
+                    style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', 
+                    height:'50px', borderRadius:'30px', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
+                    >
+                    <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px', marginTop:'0px'}}> </i> 
+                    Create A Group
+                    </Button>
 
                     {dialogOpen === true ? (
                         // <StudentListDialog></StudentListDialog>
 
                         <Dialog open={dialogOpen} maxWidth="md" fullWidth>
                             <DialogContent>
+                                <center>
 
-                                <div style={{ background: "black", padding: "3px" }}><h4 style={{ color: 'white', textAlign: 'center' }}>Select Students</h4></div>
-                                <table className="table " style={{ border: '1px solid white', marginTop: '1px' }}>
-                                    <thead style={{ border: '1px solid black', padding: '3px' }} >
+                            <h3 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+                                 Select Students</h3>
+                                 <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+                                    <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
                                         <tr >
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Student</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Email</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Action</th>
+                                            <th style={{...head_color, width: '2%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
+                                            <th style={{...head_color, width: '5%', fontSize: 'large', textAlign: 'center' }}>Student</th>
+                                            <th style={{...head_color, width: '5%', fontSize: 'large', textAlign: 'center' }}>Email</th>
+                                            <th style={{...head_color, width: '2%', fontSize: 'large', textAlign: 'center' }}>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
                                         {students.map((student, index) => (
                                             <React.Fragment key={student.i}>
 
-                                                <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' }}>
-                                                    <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                                                <tr key={student.stdEmail} style={{boder:'1px solid silver', color: 'black', textAlign: 'center' }}>
+                                                    <td style={{...row_color, textAlign: 'center' }}>{index + 1}</td>
                                                     <td>
                                                         {student.stdName}
                                                     </td>
-                                                    <td>
+                                                    <td style={{...row_color, textAlign: 'center' }}>
                                                         <p
                                                             style={{ margin: '0px' }}
                                                         >
@@ -671,21 +681,31 @@ const GroupAssignment = () => {
                                                     </td>
 
 
-                                                    <td>
+                                                    <td style={{...row_color, textAlign: 'center' }}>
                                                         <input
                                                             type="checkbox"
                                                             onClick={() => handleCheckboxChange(student._id)}
+                                                            size="large"
                                                         />
-                                                    </td>
+                                                    </td> 
+{/* 
+                                                    <td style={{ ...row_color, textAlign: 'center' }}>
+                                                    <Form.Check
+                                                        type="checkbox"
+                                                        onChange={() => handleCheckboxChange(student._id)}
+                                                        style={{ fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 0, 0)'}}
+                                                        size="lg"
+                                                    />
+                                                    </td> */}
 
 
                                                 </tr>
 
                                                 {index < students.length - 1 && (
                                                     <tr style={{ padding: '1px' }}>
-                                                        <td colSpan="8" style={{ height: '0px' }}>
+                                                        {/* <td colSpan="8" style={{ height: '0px' }}>
                                                             <hr />
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 )}
 
@@ -704,61 +724,70 @@ const GroupAssignment = () => {
                                 <div style={{ textAlign: "center" }}>
 
 
-                                    <a disabled={true} className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleCreate}>
+                                    {/* <a disabled={true} className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleCreate}>
                                         <i class='bx bx-edit'></i>
                                         <span style={{ color: 'white' }} class="link_name"> Create a Group</span>
-                                    </a>
+                                    </a> */}
+                                    <Button
+                                        className={`btn-success`}
+                                        onClick={handleOpenDialog}
+                                        style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'}}
+                                        >
+                                        <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px', marginTop:'0px'}}> </i> 
+                                        Create A Group
+                                        </Button>
                                     <div className="text-center">
                                         {dialogMessage !== '' && <p className="text-danger">{dialogMessage}</p>}
                                     </div>
 
                                 </div>
 
-
+                                </center>
                             </DialogContent>
                         </Dialog>
 
                     ) : ("")}
 
 
-                </div>
+                </>
 
 
 
-            </div>
+            </center>
 
-            <table className="table " style={{ border: '1px solid white' }}>
-                <thead style={{ border: '1px solid black', padding: '3px' }} >
+            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
+                <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
                     <tr >
-                        <th style={{ width: '5%', fontSize: 'large' }}>Sr#</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Title</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Assignment File</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Remarks</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Marks Obtained</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Submission</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Deadline</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Action</th>
+                        <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Assignment File</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Remarks</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Marks Obtained</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Submission</th>
+                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Deadline</th>
+                        <th style={{ ...head_color, width: '3%', fontSize: 'large' }}>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
                     {assignments.map((assignment, index) => (
                         <React.Fragment key={assignment.fileURL}>
 
-                            <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
-                                <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                            <tr key={assignment.fileURL} style={{boder:'1px solid silver', color: 'black', textAlign: 'center' }}>
+                                <td style={{...row_color, textAlign: 'center' }}>{index + 1}</td>
                                 <td>
                                     Group {index + 1}
                                 </td>
-                                <td>
+                                <td style={{...row_color, textAlign: 'center' }}>
                                     {assignment.fileURL != "" ? <button
-                                        className="btn btn-primary " style={{ margin: '0px' }}
+                                        className="btn btn-primary " 
+                                        style={{ marginTop: '0px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
                                         onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                     >
                                         Assignment
                                     </button>
                                         :
                                         <button
-                                            className="btn btn-secondary " style={{ margin: '0px' }}
+                                            className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
                                             onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                         >
                                             No file Uploaded yet
@@ -766,13 +795,13 @@ const GroupAssignment = () => {
 
                                     }
 
-                                </td>
-                                <td>
+                                </td >
+                                <td style={{...row_color, textAlign: 'center' }}>
                                     {remarksMapping[submissionMapping[assignment.fileURL]]
                                         ? remarksMapping[submissionMapping[assignment.fileURL]]
                                         : ' --- '}
                                 </td>
-                                <td>
+                                <td style={{...row_color, textAlign: 'center' }}>
                                     {marksMapping[submissionMapping[assignment.fileURL]]
                                         ? marksMapping[submissionMapping[assignment.fileURL]]
                                         : 'Not marked yet'}
@@ -796,6 +825,8 @@ const GroupAssignment = () => {
                                 </td>
                                 {/* <td>
                                     {submissionMapping[assignment.submissionFileURL] ? (
+                                <td style={{...row_color, textAlign: 'center' }}>
+                                    {submissionMapping[assignment.fileURL] ? (
                                         <button
                                             className="btn btn-secondary"
                                             onClick={openFile.bind(null, assignment.submissionURL)}
@@ -807,19 +838,21 @@ const GroupAssignment = () => {
                                     )}
                                 </td> */}
                                 <td>
+                                </td>
+                                <td style={{...row_color, textAlign: 'center' }}>
                                     {assignment.deadline != null ?
                                         <FormattedDate rawDate={assignment.deadline} />
                                         : "Not Available"
                                     }
                                 </td>
-                                <td>
+                                <td style={{...row_color, textAlign: 'center' }}>
                                     {currentDate <= new Date(assignment.deadline) ? (
                                         <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id,assignment.deadline)}>
                                             SUBMIT 
                                         </button>
                                     ) : (
-                                        <button className="btn" disabled>
-                                           Time's Up 
+                                        <button className="btn btn-danger" disabled>
+                                            Time's up
                                         </button>
                                     )}
 
@@ -831,9 +864,9 @@ const GroupAssignment = () => {
 
                             {index < assignments.length - 1 && (
                                 <tr style={{ padding: '1px' }}>
-                                    <td colSpan="8" style={{ height: '0px' }}>
+                                    {/* <td colSpan="8" style={{ height: '0px' }}>
                                         <hr />
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )}
 

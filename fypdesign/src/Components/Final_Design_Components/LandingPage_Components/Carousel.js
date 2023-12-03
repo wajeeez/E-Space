@@ -11,47 +11,47 @@ const cardData = [
     title: 'Intereactive White Board',
     description: 'Our interactive whiteboard makes collaboration visually inspiring and efficient',
     link: '/card1',
-    backgroundColor: '#f12711',
+    backgroundColor: '#b23ac7',
   },
   {
-    iconClass: 'fas fa-clock fa-fade',
+    iconClass: 'fas fa-clock fa-spin',
     imgSrc: analysis,
     title: 'No Time Limit Meetings ',
     description: 'We offer unlimited time for conducting meeting and classes and online lectures without any charges ',
     link: '/card2',
-    backgroundColor: '#7F00FF',
+    backgroundColor: '#f6cf46',
   },
   {
-    iconClass: 'fas fa-cogs fa-bounce',
+    iconClass: 'fas fa-cogs fa-spin',
     imgSrc: analysis,
     title: 'Content Management System',
     description: 'Unlike other platform we offer built in content management system to enhance productivity',
     link: '/card3',
-    backgroundColor: '#38ef7d',
+    backgroundColor: '#4aa5fd',
   },
   {
-    iconClass: 'fa-solid fa-user-secret fa-bounce',
+    iconClass: 'fa-solid fa-user-secret fa-beat-fade ',
     imgSrc: analysis,
     title: 'Safety & Security in Meetings',
     description: 'Teacher can explore many safety security features such as locking meeting lobby etc to stay save from online harsment',
     link: '/card4',
-    backgroundColor: '#11998e',
+    backgroundColor: '#1b1a56',
   },
   {
-    iconClass: 'fas fa-chalkboard',
+    iconClass: 'fas fa-chalkboard fa-shake',
     imgSrc: analysis,
-    title: 'Never Miss Update',
-    description: 'Real time Notification enabale you to access everything everywhere you go',
+    title: 'Never Miss A Deadline',
+    description: 'Real time Notification enabale you to always submit assignments on time',
     link: '/card5',
-    backgroundColor: '#7F00FF',
+    backgroundColor: ' #e5abc6',
   },
   {
-    iconClass: 'fas fa-chalkboard',
+    iconClass: 'fas fa-users fa-flip',
     imgSrc: analysis,
-    title: 'Card 6',
-    description: 'Description for Card 6',
+    title: 'Group Assignment',
+    description: '',
     link: '/card6',
-    backgroundColor: '#f12711',
+    backgroundColor: '#ae236d',
   },
  
 ];
@@ -78,10 +78,10 @@ const CardsCarousel = () => {
          <div style={{backgroundColor:card.backgroundColor }} className='iconclass'>
          <i className={`${card.iconClass}`}></i>
          </div>
-          <div className="card-body ">
+          <div className="card-body  car-body">
            
-            <h5 className="card-title">{card.title}</h5>
-            <p className="card-text">{card.description}</p>
+            <h5 className="card-title car-title">{card.title}</h5>
+            <p className="card-text car-text">{card.description}</p>
           </div>
         </div>
       </Col>

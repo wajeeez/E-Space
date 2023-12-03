@@ -155,6 +155,7 @@ const Lectures = () => {
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
+    fontWeight:'500',
   }
 
 

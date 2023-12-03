@@ -1,6 +1,6 @@
 import React from 'react';
-import tea from '../../../Assets/images/t.png';
-import std from '../../../Assets/images/s2.png';
+import tea from '../../../Assets/images/t3.png';
+import std from '../../../Assets/images/s4.png';
 import './Featured.css'; // Import the CSS file
 
 function Featured() {
@@ -20,10 +20,10 @@ function Featured() {
             <div>
               <h5 className="ftitle">For Teachers:</h5>
               <p className="fdescription">
-                <strong>" Our software offers a plethora of 
+                <strong>Our software offers a plethora of 
                   exceptional features that cultivate a vibrant and 
                   conducive learning environment, empowering educators to 
-                  inspire and engage their students effectively. "</strong>
+                  inspire and engage their students effectively.</strong>
               </p>
             </div>
           </div>
@@ -33,9 +33,9 @@ function Featured() {
             <div>
               <h5 className="ftitle">For Students:</h5>
               <p className="fdescription">
-                <strong>" Our software boasts an array of enriching 
+                <strong>Our software boasts an array of enriching 
                   features that foster a nurturing and dynamic learning ecosystem, 
-                  facilitating a seamless and engaging educational experience. "</strong>
+                  facilitating a seamless and engaging educational experience.</strong>
               </p>
             </div>
           </div>

@@ -9,19 +9,21 @@
 /* Title styles */
 .ftitle {
   font-size: 40px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway';
   font-weight: bold;
-  text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.7); /* Adjust the shadow values and color here */
-  margin-bottom: 50px;
+  /* text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.7); */
+  margin-bottom: 20px;
   letter-spacing: 2px;
 }
 
 /* Description styles */
 .fdescription {
   font-size: 22px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Poppins', italics;
+  font-style: italic;
   font-weight: normal;
-  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.5); /* Adjust the shadow values and color here */
+  /* text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.5);  */
+  word-spacing: 3px;
 }
 
 

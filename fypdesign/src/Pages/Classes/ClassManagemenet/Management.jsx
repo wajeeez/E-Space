@@ -129,40 +129,61 @@ function Management() {
         toast.error('Error removing student from the class');
       }
     };
-
+    const row_color = {
+        backgroundColor: 'transparent',
+        color: 'black',
+    
+      }
+      const head_color ={
+        backgroundColor: 'transparent',
+        color: 'black',
+        fontWeight:'500',
+      }
 
     return (
         <>
             <ToastContainer />
-            <div style={{ background: "white", padding: "3px" }}>
-                <h1 style={{ color: 'black', textAlign: 'center' }}>Class Management</h1>
-            </div>
-            <div style={{ padding: "3px", margin: '2px' }}>
+            <div className="container-fluid" style={{  
+      textAlign: 'center', marginTop: '10px', }}>
+      <center> 
+            <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           CLASS MANAGEMENT</h1>
+
+            {/* <div style={{ padding: "3px", margin: '2px' }}>
                 <a onClick={handleAddStudents} className='btn btn-primary' style={{ background: 'black', margin: '0px' }}>
                     <i className='bx bx-edit'></i>
                     <span style={{ color: 'white' }} className="link_name"> Add Students</span>
                 </a>
-            </div>
+            </div> */}
+            <Button
+            className={`btn-success`}
+            onClick={handleAddStudents}
+            style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'
+                    ,  boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
+            >
+            <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px', marginTop:'0px'}}> </i> 
+            Add Students
+            </Button>
 
-            <table className="table " style={{ border: '1px solid white', marginTop: '1px' }}>
-                <thead style={{ border: '1px solid black', padding: '3px' }} >
-                    <tr >
-                        <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
-                        <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Student</th>
-                        <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Email</th>
-                        <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Action</th>
+            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
+                <thead style={{border:'1px solid silver', padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+                        <tr >
+                        <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
+                        <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Name</th>
+                        <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Email</th>
+                        <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
                     {students.map((student, index) => (
                         <React.Fragment key={student.i}>
 
-                            <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' }}>
-                                <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                <td>
+                            <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' , border:'1px solid silver'}}>
+                                <td style={{...row_color , textAlign: 'center' }}>{index + 1}</td>
+                                <td style={{...row_color , textAlign: 'center' }}>
                                     {student.stdName}
                                 </td>
-                                <td>
+                                <td style={{...row_color , textAlign: 'center' }}>
                                     <p
                                         style={{ margin: '0px' }}
                                     >
@@ -171,11 +192,13 @@ function Management() {
                                 </td>
 
 
-                                <td>
-                                    <button
-                                        type="button"
+                                <td style={{...row_color , textAlign: 'center' }}>
+                                    <Button
+                                        className="btn btn-danger "
                                         onClick={() => handleRemove(student._id,student.stdEmail)}
-                                    >Remove</button>
+                                        style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: '400',marginTop:'0px' }}
+                                    > Remove
+                                    </Button>
                                 </td>
 
 
@@ -183,9 +206,9 @@ function Management() {
 
                             {index < students.length - 1 && (
                                 <tr style={{ padding: '1px' }}>
-                                    <td colSpan="8" style={{ height: '0px' }}>
+                                    {/* <td colSpan="8" style={{ height: '0px' }}>
                                         <hr />
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )}
 
@@ -232,6 +255,9 @@ function Management() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      </center>
+      </div>
         </>
     );
 }

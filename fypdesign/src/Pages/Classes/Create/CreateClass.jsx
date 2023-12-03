@@ -118,7 +118,7 @@ function CreateClass() {
   console.log(values.students);
 
 
-
+  // background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)' ,
   return (
    
     <>
@@ -127,16 +127,16 @@ function CreateClass() {
         <Loader /> // Display the loader while loading
       ) : (
 
-        <div className="container-fluid" style={{background:'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)' , marginTop: '10px', 
+        <div className="container-fluid" style={{background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)' , marginTop: '10px', 
         overflow:'hidden', padding:'20px' , display: 'flex', justifyContent: 'center'
         , alignItems: 'center', minHeight: '100vh',marginTop:'0px' }}>
          <center>
 
-         <div className="container-fluid class" style={{background:'white', 
-         padding: '50px',margin:'10px' , minWidth:'350px',maxWidth:'600px', border:'', 
-         borderRadius:'30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'}}>
+         <div className="container-fluid classc" style={{background:'white', 
+         padding: '5rem 3rem' , minWidth:'350px',maxWidth:'600px', border:'2px solid silver', 
+         borderRadius:'30px', boxShadow: '10px 10px 20px  rgba(0, 0, 0, 0.4)'}}>
 
-         <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', marginBottom:'40px', fontWeight:'bold'}}>
+         <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', marginBottom:'40px', fontWeight:'400',}}>
             Create A New Class</h1>
                 <Form.Group controlId="subjectName" >
                   
@@ -146,8 +146,9 @@ function CreateClass() {
                     name="subjectName"
                     onChange={handleChange}
                     placeholder="Class Name"
-                    style={{maxWidth:'400px', textAlign:'center',
-                     fontSize:'22px', height:'50px' , borderRadius:'16px', marginBottom:'30px'}}
+                    style={{maxWidth:'350px', textAlign:'center',
+                     fontSize:'22px', height:'50px' , borderRadius:'16px', marginBottom:'30px'
+                    ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                   />
                   
                   <Form.Text className="text-danger">{errors.subjectName}</Form.Text>
@@ -160,29 +161,31 @@ function CreateClass() {
                     onChange={changeHandler}
                     accept=".csv"
                     label="Choose CSV file"
-                    style={{maxWidth:'400px', textAlign:'center',
-                     fontSize:'16px',padding:'10px' , borderRadius:'16px'}}
+                    style={{maxWidth:'350px', textAlign:'center',
+                     fontSize:'16px',padding:'10px' , borderRadius:'16px',boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                   />
                 </Form.Group>
 
-                <h5 style={{marginTop:'30px',color:'red'}}>
+                <h6 style={{marginTop:'30px',color:'red'}}>
                   "Only CSV File is accepted!!!
                  <br/> First column contains only Student Emails
-                </h5>
+                </h6>
 
                 <Form.Group>
                   {error !== "" && <p className={styles.errorMessage}>{error}</p>}
                 </Form.Group>
 
                 <Button variant="success" onClick={handleReg}
-                style={{marginTop:'20px',marginBottom:'20px', fontSize:'24px'}}>
-                  Create Class
+                  style={{ marginTop:'20px', color: 'white' , fontSize:'22px' , width:'180px', height:'50px', borderRadius:'30px'
+                  , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}} 
+                  >
+                  Create
                 </Button>
                 <br/>
-                <Button variant="danger" onClick={() => navigate('/TDashboard')}
+                {/* <Button variant="danger" onClick={() => navigate('/TDashboard')}
                  style={{ fontSize:'18px'}}>
                 Cancel
-                </Button>
+                </Button> */}
               
 
 

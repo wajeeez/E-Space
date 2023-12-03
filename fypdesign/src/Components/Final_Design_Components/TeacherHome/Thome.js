@@ -37,7 +37,7 @@ function Thome() {
   
 
 
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getCurrentMonthYear = () => {
     const currentDate = new Date();
@@ -45,6 +45,7 @@ function Thome() {
     const year = currentDate.getFullYear();
     return `${month} ${year}`;
   };
+  
   const getDaysInMonth = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -133,7 +134,7 @@ function Thome() {
 
 
   return (
-    <div className="container-fluid" style={{ marginTop: '-8px', margin:'0px' ,background: bg}}>
+    <div className="container-fluid" style={{ marginTop: '0px', margin:'0px' ,background: bg}}>
       {/* First row covering full width */}
       <div className="row">
       
@@ -158,7 +159,7 @@ function Thome() {
               <img
                 src={headerimg} 
                 alt="Right Image"
-                style={{ verticalAlign: 'middle',height:'204px', maxwidth:'250px' }}
+                style={{ verticalAlign: 'middle',height:'227px', maxwidth:'250px' }}
               />
             </div>
           </div>

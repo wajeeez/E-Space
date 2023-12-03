@@ -6,6 +6,8 @@ import { useParams } from 'react-router';
 import jwt_decode from "jwt-decode";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { InputGroup, FormControl } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+
 function TList() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
@@ -217,6 +219,7 @@ function TList() {
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
+    fontWeight:'500',
   }
 
   return (
@@ -224,17 +227,17 @@ function TList() {
 
     <div classname="container-fluid" style={{ background: '' }}>
       <center>
-        <h1 style={{background:'' , padding:'5px' , color : 'black' }}>
-            Student Submissions</h1>
+      <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           STUDENT SUBMISSIONS</h1>
             <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
   <div className="col-md-3">
-    <label className="text-center" style={{ fontSize: 'large', fontWeight: 'bold', 
-    marginTop: '0px' ,marginRight:'-60px'}}>Select Assignment : </label>
+    <h4 className="text-center" style={{ fontSize: '', fontWeight: '600', 
+    marginTop: '3px' ,marginRight:'-20px'}}>Select Assignment : </h4>
   </div>
   <div className="col-md-3">
     <select
       className="form-select text-center"
-      style={{ maxWidth: '200px' ,marginLeft:'-60px'}}
+      style={{ maxWidth: '250px' ,marginLeft:'-70px' , boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.4)',borderRadius:'20px'}}
       value={selectedAssignment}
       onChange={handleAssignmentChange}
     >
@@ -248,12 +251,69 @@ function TList() {
       ))}
     </select>
   </div>
-
-  <h3 style={{ marginTop: '30px', fontSize:'25px',fontWeight:'bolder' }}>
-  {selectedAssignment && `Total Submissions: ${submissions.length}`}
-</h3>
-
 </div>
+
+
+  {selectedAssignment && (
+    <>
+      {/* <Card style={{fontFamily:'poppins', width: '20rem', marginTop: '20px', margin: '20px',padding:'0px',
+        background: 'linear-gradient(to right, rgba(133, 57, 209, 0.7) 20%, rgba(252, 16, 242, 0.7) 100%)'
+        , borderRadius: '20px' }}>
+        <Card.Body>
+          <h4 style={{ fontWeight: 'bolder', textAlign: 'center', textShadow: 'none', color: 'white' }}>
+            {selectedAssignment && `Total Submissions: ${submissions.length}`}
+          </h4>
+        </Card.Body>
+      </Card>
+
+      <Card style={{fontFamily:'poppins', width: '20rem', marginTop: '20px', margin: '20px',
+        background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)', borderRadius: '40px' }}>
+        <Card.Body>
+          <h5 style={{ fontWeight: 'bolder', textAlign: 'center', textShadow: 'none', color: 'white' }}>
+            {selectedAssignment && `Total Students: ${submissions.length}`}
+          </h5>
+        </Card.Body>
+      </Card> */}
+ <div>
+     <Button
+        style={{
+          fontFamily: 'poppins',
+          width: '15rem',
+          marginTop: '20px',
+          margin: '20px',
+          background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)',
+          borderRadius: '40px',
+          boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.4), inset -5px -5px 10px rgba(0, 0, 0, 0.4)', // Add box shadow
+          fontWeight:'800', fontSize:'large', padding:'10px',
+          border:'1px solid white',cursor:'default'
+
+        }}
+      >
+          {selectedAssignment && `Total Submissions: ${submissions.length}`}
+
+      </Button>
+
+      <Button
+        style={{
+          fontFamily: 'poppins',
+          width: '15rem',
+          marginTop: '20px',
+          margin: '20px',
+          background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)',
+          borderRadius: '40px',
+          boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.4), inset -5px -5px 10px rgba(0, 0, 0, 0.4)', // Add box shadow
+          fontWeight:'800', fontSize:'large', padding:'10px',
+          border:'1px solid white', cursor:'default'
+        }}
+      >
+          {selectedAssignment && `Total Students: ${submissions.length}`}
+
+      </Button>
+    </div>
+
+    </>
+  )}
+
 
 
 
@@ -262,14 +322,33 @@ function TList() {
 
           {submissions.length === 0 ? ( 
 
-            <h3 style={{ margin: '0px', fontSize:'25px',fontWeight:'bolder' ,color:'red'}} >
-             " No Submissions till now "</h3>
+          <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
+            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+          background:''}} >
+            <tr>
+              <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>File</th>
+              
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Marks</th>
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Remarks</th>
+              
+              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Edit Marks / Remarks</th>
+            </tr>
+            </thead>
+            <tbody style={{textAlign:'center'}}>
+
+            </tbody>
+            </table>
 
 
           ) : (
-        <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
-                <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle',
-              textAlign:'center'}} >
+            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
+            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+          background:''}} >
                 <tr>
                   <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
@@ -282,21 +361,22 @@ function TList() {
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Edit Marks / Remarks</th>
                 </tr>
               </thead>
-              <tbody style={{textAlign:'center'}}>
+              <tbody style={{textAlign:'center',}}>
 
 
                 {submissions.map((submission,index) => (
 
                   <>
 
-                    <tr className={styles.tr} key={submission._id}>
+                    <tr className={styles.tr} key={submission._id} style={{border:'1px solid silver'}}>
                       <td style={{...row_color }}>{index+1}</td>
                       <td style={{...row_color }}>{submission.Email}</td>
                       <td style={{...row_color }}>{submission.submissionDate}</td>
                       <td style={{...row_color }}>
                         
                         <button
-                          className="btn btn-primary " style={{margin: '2px', fontSize: 'large'}}
+                          className="btn btn-primary "             
+                          style={{ marginTop: '0px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
                           onClick={ViewSubmission.bind(null, submission.submissionFileURL)}
                         >
                           View Submission
@@ -316,7 +396,7 @@ function TList() {
                       <td style={{...row_color }}>
                         
                         <button
-                          className="btn btn-primary " style={{margin: '2px', fontSize: 'large'}}
+                          className="btn btn-primary " style={{margin: '2px', fontSize: 'medium',fontWeight: '400'}}
                           onClick={openDialog.bind(null, submission.submissionFileURL,submission.Email,submission.classId)}
                         >
                            Update

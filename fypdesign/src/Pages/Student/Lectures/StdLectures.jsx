@@ -401,29 +401,28 @@ useEffect(() => {
 const row_color = {
   backgroundColor: 'transparent',
   color: 'black',
-  paddingTop:'10px',
-  paddingBottom:'10px',
+
 }
 const head_color ={
   backgroundColor: 'transparent',
   color: 'black',
+  fontWeight:'500',
 }
-
 
   return (
     <div className="container-fluid" style={{  
       textAlign: 'center', marginTop: '10px', }}>
       <center>
 
-      <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px'}}>
-           Lectures</h1>
+      <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           LECTURES</h1>
 
         {/* <p style={{margin:'20px'}} className={styles.intro}>
           Student Name : {StudentName} | Email :{stdEmail}
         </p> */}
 
-        <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle'}}>
-        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+      <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
@@ -438,7 +437,7 @@ const head_color ={
            
 ( 
         <tbody style={{textAlign:'center', verticalAlign: 'middle', padding: '15px'}}>
-        <tr key={lecture.fileURL} >
+        <tr key={lecture.fileURL} style={{boder:'1px solid silver', color: 'black', textAlign: 'center' }}>
 
         <td style={{...row_color , marginTop:'5px'}}>
         <p style={{fontSize:'large', fontWeight:''}}>
@@ -466,7 +465,7 @@ const head_color ={
   
             <button
               className="btn btn-primary"
-              style={{ marginTop: '-10px', fontSize: 'large' }}
+              style={{ marginTop: '-10px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
               onClick={openFileInBrowser.bind(null, lecture.fileURL)}
             >
               View Lecture

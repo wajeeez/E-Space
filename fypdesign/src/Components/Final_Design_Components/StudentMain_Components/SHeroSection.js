@@ -173,8 +173,7 @@ function SHeroSection() {
     navigate('/', { replace: true }); // Use the replace option to replace the current entry in the history stack
   };
 
-
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getCurrentMonthYear = () => {
     const currentDate = new Date();
@@ -182,6 +181,7 @@ function SHeroSection() {
     const year = currentDate.getFullYear();
     return `${month} ${year}`;
   };
+  
   const getDaysInMonth = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();

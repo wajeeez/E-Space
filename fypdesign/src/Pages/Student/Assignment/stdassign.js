@@ -418,6 +418,7 @@ const StdTable = () => {
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
+    fontWeight:'500',
   }
 
 
@@ -627,7 +628,7 @@ const StdTable = () => {
     }}>
       <center>
 
-        <button
+      {/* <button
           className="btn btn-primary"
           style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
           // onClick={handleRefresh}
@@ -635,46 +636,45 @@ const StdTable = () => {
 
         >
           <FontAwesomeIcon icon={faSync} />
-
-        </button>
-
-        <h1 style={{ background: '', padding: '5px', color: 'black', borderRadius: '20px' }}>
-          Assignments</h1>
+          
+        </button> */}
+  <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
+           ASSIGNMENTS</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
     </p> */}
 
-        <table className="table custom-std-table" style={{ border: '1px solid white', verticalAlign: 'middle', textAlign: 'center' }}>
-          <thead style={{ border: '3px solid black', padding: '15px', verticalAlign: 'middle' }} >
-            <tr >
-              <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
-              <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Title</th>
-              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Assignment</th>
-              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Remarks</th>
-              <th style={{ ...head_color, width: '9%', fontSize: 'large' }}>Marks Obtained</th>
-              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Submission</th>
-              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Deadline</th>
-              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Action</th>
-            </tr>
-          </thead>
-          <tbody style={{}}>
-            {assignments.map((assignment, index) => (
-              <tr key={index} >
-                <td style={{ ...row_color }}>{index + 1}</td>
-                <td style={{ ...row_color }}>
-                  {/* Content */}
-                </td>
+      <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,textAlign: 'center', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
+        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle'}} >
+          <tr >
+            <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
+            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
+            <th style={{ ...head_color,width: '9%', fontSize:'large'  }}>Marks Obtained</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+          </tr>
+        </thead>
+        <tbody style={{}}>
+          {assignments.map((assignment, index) => (
+            <tr key={index} style={{border:'1px solid silver'}}>
+              <td style={{...row_color }}>{index + 1}</td>
+              <td style={{...row_color }}>
+                {/* Content */}
+              </td>
 
-                <td style={{ ...row_color }}>
-                  <>
-                    <button
-                      className="btn btn-primary " style={{ margin: '2px', fontSize: 'small' }}
-                      onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                    >
-                      Assignment
-                    </button>
-
-                    {/* <button
+              <td  style={{...row_color }}>
+               <>
+                <button
+                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small',backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
+                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                >
+                  Assignment
+                </button>
+                
+                {/* <button
                   className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                 >
