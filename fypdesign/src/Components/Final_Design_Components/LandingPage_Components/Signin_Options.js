@@ -90,8 +90,8 @@
 
 
 
-import tea from '../../../Assets/images/t1.png';
-import std from '../../../Assets/images/w1.png';
+import tea from '../../../Assets/images/t6.png';
+import std from '../../../Assets/images/s8.png';
 import './Signin_Opt.css';
 import React from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
@@ -99,9 +99,9 @@ import { Link } from 'react-router-dom'; // Assuming you're using React Router f
 const titleStyle = {
   fontSize: '30px',
   fontWeight: 'bold',
-  fontFamily: 'Raleway',
+  fontFamily: 'Poppins',
   
-  letterSpacing: '1px',
+  letterSpacing: '3px',
 
 };
 
@@ -114,8 +114,8 @@ const centerStyle = {
 const header = {
   fontSize: '60px',
   fontWeight: 'bold',
-  fontFamily: 'Raleway',
-  marginBottom: '-10px',
+  fontFamily: 'Poppins',
+  marginBottom: '-20px',
   letterSpacing: '1px',
   color : 'white',
   textShadow: '2px 2px 4px rgba(0, 0, 0, 1)',
@@ -130,7 +130,7 @@ const containerStyle = {
 const SigninOptions = () => {
   return (
     <div style={containerStyle}  className="container">
-      <h1 style={header} className="text-center mt-4">Sign In As</h1>
+      <h1 style={header} className="text-center mt-4">SIGN IN AS</h1>
       <div style={centerStyle} className="row mt-4">
         <div className="col-md-5">
           <Link to="/teacher/login" className="text-decoration-none">

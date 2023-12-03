@@ -6,14 +6,14 @@
   
   .custom-scard:hover {
     transform: scale(1.05);
-    border: 5px solid black;
+    border: 5px solid #e5abc6
   }
 
   @media (max-width: 760px) {
    
     .custom-scard:hover {
         transform: scale(1.02);
-        border: 5px solid black;
+        border: 5px solid #e5abc6
       }
   }
 
@@ -21,6 +21,6 @@
   @media (max-width: 550px) {
     .custom-scard {
       
-      border: 5px solid black;
+      border: 5px solid #e5abc6;
     }
 }

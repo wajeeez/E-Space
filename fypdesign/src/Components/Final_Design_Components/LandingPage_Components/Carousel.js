@@ -38,8 +38,8 @@ const cardData = [
     backgroundColor: '#1b1a56',
   },
   {
-    iconClass: 'fas fa-chalkboard fa-shake',
-    imgSrc: analysis,
+    iconClass: 'fas fa-bell fa-shake',
+        imgSrc: analysis,
     title: 'Never Miss A Deadline',
     description: 'Real time Notification enabale you to always submit assignments on time',
     link: '/card5',
