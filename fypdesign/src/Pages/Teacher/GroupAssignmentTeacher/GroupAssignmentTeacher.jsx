@@ -10,8 +10,16 @@ import { boolean } from 'yup';
 // import StdTable from '../Assignment/stdassign';
 // import StudentListDialog from './StudentListDialog';
 
+import styles from '../Assignment/Assignment.module.css'
+import { Form, Button } from 'react-bootstrap';
+import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const GroupAssignmentTeacher = () => {
 
@@ -20,7 +28,7 @@ const GroupAssignmentTeacher = () => {
     const [getFileURL, setFileURL] = useState(null)
     const currentDate = new Date(); // Get the current date
     const [selectedFile, setSelectedFile] = useState(null);
-    const [groups,setGroups]=useState(null);
+    const [groups, setGroups] = useState(null);
     const [assignments, setAssignments] = useState([]);
     const [teacherName, setTeacherName] = useState([]);
     const [subjectName, setsubjectName] = useState([]);
@@ -33,6 +41,19 @@ const GroupAssignmentTeacher = () => {
     const [StudentName, setStudentName] = useState();
     const [Subbtn, setSubbtn] = useState(false);
     const [selectedStudents, setSelectedStudents] = useState([]);
+    const [GroupId, setGroupId] = useState("")
+    const [deadline, setDeadline] = useState('');
+
+
+
+
+    function getCurrentDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Add 1 because months are 0-based
+        const day = String(now.getDate()).padStart(2, '0');
+    
+      }
 
     const handleCheckboxChange = (studentId) => {
         // Check if the studentId is already in the selectedStudents array
@@ -67,21 +88,21 @@ const GroupAssignmentTeacher = () => {
     useEffect(() => {
 
         axios
-        .get(baseURL + `/students/getAllGroups/${_id}`)
-        .then((response) => {
-            if (response.data) {
-                //  fileURLs = response.data.reduce((accumulator, item, index) => {
-                //   accumulator[index] = item.fileURL;
-                //   return accumulator;
-                // }, {});
-                setStudents(response.data);
+            .get(baseURL + `/students/getAllGroups/${_id}`)
+            .then((response) => {
+                if (response.data) {
+                    //  fileURLs = response.data.reduce((accumulator, item, index) => {
+                    //   accumulator[index] = item.fileURL;
+                    //   return accumulator;
+                    // }, {});
+                    setStudents(response.data);
 
 
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     }, [_id])
 
@@ -89,8 +110,8 @@ const GroupAssignmentTeacher = () => {
 
 
     //SUbmission
-    const [dialogMessage,setDialogMessage] = useState();
-    
+    const [dialogMessage, setDialogMessage] = useState();
+
 
 
 
@@ -476,7 +497,8 @@ const GroupAssignmentTeacher = () => {
         setFileURL(assignmentFileURL)
         openDialog()
 
-    };
+    }
+        ;
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -486,219 +508,266 @@ const GroupAssignmentTeacher = () => {
 
 
 
+    const [showModal, setShowModal] = useState(false);
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+    const handleTeacherUpload = (GroupId) => {
+        console.log(`Clicked on assignment: ${GroupId}`);
+        setGroupId(GroupId);
+        openModal();
+    };
+
+    const handleDeadlineChange = (event) => {
+        setDeadline(event.target.value);
+    };
+
+
+    const submitTeacherAssignment = async () => {
+        setShowModal(false); // Close the modal
+
+        if (selectedFile) {
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('groupId', GroupId);
+            formData.append('classId', _id);
+            formData.append('deadline', deadline);
+
+            console.log(selectedFile,GroupId,deadline)
+
+            axios.post(baseURL+'/teacher/groupAssignment/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+                .then(response => {
+
+                    if (response.status == 200) {
+                        toast.success("Successfully Uploaded Assignment")
+
+                        if (fileInputRef.current) {
+                            fileInputRef.current.value = ''; // Reset the input field
+                        }
+                    } else {
+                        toast.error("Failed to Upload Assignment")
+                    }
+                    // Handle the success response
+                })
+                .catch(error => {
+                    console.error('Error uploading group assignment:', error);
+                    // Handle the error
+                });
+
+            //   if (response.status === 201 || response.status === 200) {
+            //     setMessage("Successful");
+            //     console.log("Successful");
+
+            //     if (fileInputRef.current) {
+            //       fileInputRef.current.value = ''; // Reset the input field
+            //     }  
+
+
+            //   } else if (response.code === "ERR_BAD_REQUEST") {
+            //     console.log("BAD REQUEST");
+
+            //     if (response.response.status === 500) {
+            //       console.log("500 BAD REQUEST ");
+            //     }
+
+            //     if (response.response.status === 401) {
+            //       setMessage(response.response.data.message);
+            //       console.log("401");
+            //     }
+            //   }
+        } else {
+            console.log(selectedFile + " ERROR");
+        }
+    }
+
+
     return (
-        <div className="container" style={{
-            marginLeft: '-20px',
-            textAlign: 'center', padding: '12px', marginTop: '-60px',
-        }}>
-            <div className="text-center mt-5">
-                <h1 style={{ padding: '5px', color: 'black', borderRadius: '20px' }}>
 
-                    Group Assignment</h1>
-                {/* <p>
-          Student Name: {StudentName} | Email: {stdEmail}
-        </p> */}
+        <>
 
 
+            <div className="container" style={{
+                marginLeft: '-20px',
+                textAlign: 'center', padding: '12px', marginTop: '-60px',
+            }}>
+                <div className="text-center mt-5">
+                    <h1 style={{ padding: '5px', color: 'black', borderRadius: '20px' }}>
 
-                <div style={{ textAlign: "start", padding: '5px' }}>
-
-
-                    {/* <a className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleOpenDialog}>
-                        <i class='bx bx-edit'></i>
-                        <span style={{ color: 'white' }} class="link_name"> Create a Group</span>
-                    </a> */}
-
-                    {/* {dialogOpen === true ? (
-                        // <StudentListDialog></StudentListDialog>
-
-                        <Dialog open={dialogOpen} maxWidth="md" fullWidth>
-                            <DialogContent>
-
-                                <div style={{ background: "black", padding: "3px" }}><h4 style={{ color: 'white', textAlign: 'center' }}>Select Students</h4></div>
-                                <table className="table " style={{ border: '1px solid white', marginTop: '1px' }}>
-                                    <thead style={{ border: '1px solid black', padding: '3px' }} >
-                                        <tr >
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Student</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Email</th>
-                                            <th style={{ width: '5%', fontSize: 'large', textAlign: 'center' }}>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {students.map((student, index) => (
-                                            <React.Fragment key={student.i}>
-
-                                                <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' }}>
-                                                    <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                                    <td>
-                                                        {student.stdName}
-                                                    </td>
-                                                    <td>
-                                                        <p
-                                                            style={{ margin: '0px' }}
-                                                        >
-                                                            {student.stdEmail}
-                                                        </p>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <input
-                                                            type="checkbox"
-                                                            onClick={() => handleCheckboxChange(student._id)}
-                                                        />
-                                                    </td>
-
-
-                                                </tr>
-
-                                                {index < students.length - 1 && (
-                                                    <tr style={{ padding: '1px' }}>
-                                                        <td colSpan="8" style={{ height: '0px' }}>
-                                                            <hr />
-                                                        </td>
-                                                    </tr>
-                                                )}
-
-
-                                            </React.Fragment>
-                                        ))}
-                                    </tbody>
-                                </table>
+                        Group Assignment</h1>
+              
 
 
 
+                    <div style={{ textAlign: "start", padding: '5px' }}>
 
 
+                         </div>
 
-
-                                <div style={{ textAlign: "center" }}>
-
-
-                                    <a disabled={true} className='btn btn-primary' style={{ background: 'black', margin: '0px' }} onClick={handleCreate}>
-                                        <i class='bx bx-edit'></i>
-                                        <span style={{ color: 'white' }} class="link_name"> Create a Group</span>
-                                    </a>
-                                    <div className="text-center">
-                                        {dialogMessage !== '' && <p className="text-danger">{dialogMessage}</p>}
-                                    </div>
-
-                                </div>
-
-
-                            </DialogContent>
-                        </Dialog>
-
-                    ) : ("")} */}
 
 
                 </div>
 
+                <table className="table " style={{ border: '1px solid white' }}>
+                    <thead style={{ border: '1px solid black', padding: '3px' }} >
+                        <tr >
+                            <th style={{ width: '5%', fontSize: 'large' }}>Sr#</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Title</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Assignment File</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Remarks</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Marks Obtained</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Submission</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Deadline</th>
+                            <th style={{ width: '5%', fontSize: 'large' }}>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {students.map((student, index) => (
+                            <React.Fragment key={index}>
 
-
-            </div>
-
-            <table className="table " style={{ border: '1px solid white' }}>
-                <thead style={{ border: '1px solid black', padding: '3px' }} >
-                    <tr >
-                        <th style={{ width: '5%', fontSize: 'large' }}>Sr#</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Title</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Assignment File</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Remarks</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Marks Obtained</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Submission</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Deadline</th>
-                        <th style={{ width: '5%', fontSize: 'large' }}>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {students.map((student, index) => (
-                        <React.Fragment key={index}>
-
-                            <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
-                                <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                <td>
-                                    Group {index+1}
-                                </td>
-                                <td>
-                                   {student.fileURL!="" ?  <button
-                                        className="btn btn-primary " style={{ margin: '0px' }}
-                                        onClick={openFileInBrowser.bind(null, student.fileURL)}
-                                    >
-                                        Assignment Uploaded
-                                    </button>
-                                    :
-                                    <button
-                                    className="btn btn-secondary " style={{ margin: '0px' }}
-                                    onClick={openFileInBrowser.bind(null, student.fileURL)}
-                                >
-                                    Upload Assignment
-                                </button>
-
-                                   }
-
-                                </td>
-                                <td>
-                                    {remarksMapping[submissionMapping[student.fileURL]]
-                                        ? remarksMapping[submissionMapping[student.fileURL]]
-                                        : ' --- '}
-                                </td>
-                                <td>
-                                    {marksMapping[submissionMapping[student.fileURL]]
-                                        ? marksMapping[submissionMapping[student.fileURL]]
-                                        : 'Not marked yet'}
-                                </td>
-                                <td>
-                                    {submissionMapping[student.fileURL] ? (
-                                        <button
-                                            className="btn btn-secondary"
-                                            onClick={openFile.bind(null, student.submissionURL)}
-                                        >
-                                            Submission File
-                                        </button>
-                                    ) : (
-                                        'No Submission'
-                                    )}
-                                </td>
-                                <td>
-                                  {student.deadline != null ?
-                                    <FormattedDate rawDate={student.deadline} />
-                                    : "Not Available"
-                                  }
-                                </td>
-                                <td>
-                                    {currentDate <= new Date(student.deadline) ? (
-                                        <button className="btn btn-success" onClick={() => handleSubmissionClick(student.fileURL)}>
-                                            SUBMIT
-                                        </button>
-                                    ) : (
-                                        <button className="btn" disabled>
-                                            Time's up
-                                        </button>
-                                    )}
-                                </td>
-
-
-                            </tr>
-
-                            {index < students.length - 1 && (
-                                <tr style={{ padding: '1px' }}>
-                                    <td colSpan="8" style={{ height: '0px' }}>
-                                        <hr />
+                                <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
+                                    <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                                    <td>
+                                        Group {index + 1}
                                     </td>
+                                    <td>
+                                        {student.fileURL != "" ? <button
+                                            className="btn btn-primary " style={{ margin: '0px' }}
+                                            onClick={openFileInBrowser.bind(null, student.fileURL)}
+                                        >
+                                            Assignment Uploaded
+                                        </button>
+                                            :
+                                            <button
+                                                className="btn btn-secondary " style={{ margin: '0px' }}
+                                                onClick={handleTeacherUpload.bind(null,student._id)}
+                                            >
+                                                Upload Assignment
+                                            </button>
+
+                                        }
+
+                                    </td>
+                                    <td>
+                                        {remarksMapping[submissionMapping[student.fileURL]]
+                                            ? remarksMapping[submissionMapping[student.fileURL]]
+                                            : ' --- '}
+                                    </td>
+                                    <td>
+                                        {marksMapping[submissionMapping[student.fileURL]]
+                                            ? marksMapping[submissionMapping[student.fileURL]]
+                                            : 'Not marked yet'}
+                                    </td>
+                                    <td>
+                                        { student.submissionURL != "" ? (
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={openFileInBrowser.bind(null, student.submissionURL)}
+                                            >
+                                                Submission File
+                                            </button>
+                                        ) : (
+                                            'No Submission'
+                                        )}
+                                    </td>
+                                    <td>
+                                        {student.deadline != null ?
+                                            <FormattedDate rawDate={student.deadline} />
+                                            : "Not Available"
+                                        }
+                                    </td>
+                                    <td>
+                                        {currentDate <= new Date(student.deadline) ? (
+                                            <button className="btn btn-success" onClick={handleTeacherUpload.bind(null,student._id)}>
+                                               Edit 
+                                            </button>
+                                        ) : (
+                                            <button className="btn" disabled>
+                                               Not Available
+                                            </button>
+                                        )}
+                                    </td>
+
+
                                 </tr>
-                            )}
+
+                                {index < students.length - 1 && (
+                                    <tr style={{ padding: '1px' }}>
+                                        <td colSpan="8" style={{ height: '0px' }}>
+                                            <hr />
+                                        </td>
+                                    </tr>
+                                )}
 
 
-                        </React.Fragment>
-                    ))}
-                </tbody>
-            </table>
-            <div className="text-center">
-                {message !== '' && <p className="text-danger">{message}</p>}
+                            </React.Fragment>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="text-center">
+                    {message !== '' && <p className="text-danger">{message}</p>}
+                </div>
+
+
             </div>
-        </div>
+
+            <Modal show={showModal} onHide={closeModal} centered
+                style={{ background: 'transparent', }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Submit Assignment</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h5>Max 15mb File</h5>
+                    <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
+                    {/* <input
+            className="form-control"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />  */}
+                    <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+                        <Form.Control
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            className={`custom-file-input`}
+                            style={{ background: 'grey', color: 'white' }}
+                        />
+                    </Form.Group>
+
+                    <h5>Deadline</h5>
+                    <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
+                        <Form.Control
+                            type="date"
+                            value={deadline}
+                            onChange={handleDeadlineChange}
+                            ref={fileInputRef}
+                            min={getCurrentDate}
+                            className={styles.assignmentButton}
+                            style={{ color: '' }}
+                        />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer className="justify-content-center align-items-center d-flex">
+                    <Button type="button" className="btn btn-primary" onClick={submitTeacherAssignment}
+                        style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+                        Submit
+                    </Button>
+                    <Button type="button" variant="secondary" onClick={closeModal}
+                        style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 
 };

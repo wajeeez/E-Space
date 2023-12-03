@@ -13,6 +13,14 @@ import StudentListDialog from './StudentListDialog';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 
+import styles from '../Assignment/stdAssignment.module.css'
+import { Form, Button } from 'react-bootstrap';
+import { Modal, InputGroup, FormControl } from 'react-bootstrap';
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const GroupAssignment = () => {
 
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
@@ -32,6 +40,9 @@ const GroupAssignment = () => {
     const [StudentName, setStudentName] = useState();
     const [Subbtn, setSubbtn] = useState(false);
     const [selectedStudents, setSelectedStudents] = useState([]);
+
+    const [deadline,setdeadline] =  useState("");
+    const [groupId,setgroupId ] =  useState("");
 
     const handleCheckboxChange = (studentId) => {
         // Check if the studentId is already in the selectedStudents array
@@ -511,10 +522,11 @@ const GroupAssignment = () => {
     }, []);
 
 
-    const handleSubmissionClick = (assignmentFileURL) => {
+    const handleSubmissionClick = (groupId,deadline) => {
         // Handle the submission for the specific assignment
-        console.log(`Clicked on assignment: ${assignmentFileURL}`);
-        setFileURL(assignmentFileURL)
+        console.log(`Clicked on groupId: ${groupId}`);
+        setgroupId(groupId)
+        setdeadline(deadline)
         openDialog()
 
     };
@@ -527,7 +539,81 @@ const GroupAssignment = () => {
 
 
 
+
+    const submissionUpload = async () => {
+        // Close the modal
+
+        
+
+        if (selectedFile && groupId && _id) {
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('groupId', groupId);
+            formData.append('classId', _id);
+          
+
+            console.log(selectedFile,groupId,deadline)
+
+            axios.post(baseURL+'/student/groupAssignment/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+                .then(response => {
+
+                    if (response.status == 200) {
+                        toast.success("Successfully Uploaded Assignment")
+                        setDialogVisible(false);
+                        if (fileInputRef.current) {
+                            fileInputRef.current.value = ''; // Reset the input field
+                        }
+                    } else {
+                        toast.error("Failed to Upload Assignment")
+                        setDialogVisible(false);
+                    }
+                    // Handle the success response
+                })
+                .catch(error => {
+                    console.error('Error uploading group assignment:', error);
+                    toast.error("Failed to Upload Assignment")
+                
+                    // Handle the error
+                });
+
+            //   if (response.status === 201 || response.status === 200) {
+            //     setMessage("Successful");
+            //     console.log("Successful");
+
+            //     if (fileInputRef.current) {
+            //       fileInputRef.current.value = ''; // Reset the input field
+            //     }  
+
+
+            //   } else if (response.code === "ERR_BAD_REQUEST") {
+            //     console.log("BAD REQUEST");
+
+            //     if (response.response.status === 500) {
+            //       console.log("500 BAD REQUEST ");
+            //     }
+
+            //     if (response.response.status === 401) {
+            //       setMessage(response.response.data.message);
+            //       console.log("401");
+            //     }
+            //   }
+        } else {
+            console.log(selectedFile + " ERROR");
+        }
+
+    }
+
     return (
+
+
+        <>
+        
+        
         <div className="container" style={{
             marginTop: '10px',
             textAlign: 'center', padding: '2px',
@@ -691,8 +777,25 @@ const GroupAssignment = () => {
                                         ? marksMapping[submissionMapping[assignment.fileURL]]
                                         : 'Not marked yet'}
                                 </td>
+
+
                                 <td>
-                                    {submissionMapping[assignment.fileURL] ? (
+                                    {assignment.submissionURL != "" ? <button
+                                        className="btn btn-primary " style={{ margin: '0px' }}
+                                        onClick={openFileInBrowser.bind(null, assignment.submissionURL)}
+                                    >
+                                        Submission File
+                                    </button>
+                                        :(
+                                      
+                                            "Not Submitted yet"
+                                            )
+
+                                    }
+
+                                </td>
+                                {/* <td>
+                                    {submissionMapping[assignment.submissionFileURL] ? (
                                         <button
                                             className="btn btn-secondary"
                                             onClick={openFile.bind(null, assignment.submissionURL)}
@@ -702,7 +805,7 @@ const GroupAssignment = () => {
                                     ) : (
                                         'No Submission'
                                     )}
-                                </td>
+                                </td> */}
                                 <td>
                                     {assignment.deadline != null ?
                                         <FormattedDate rawDate={assignment.deadline} />
@@ -711,14 +814,16 @@ const GroupAssignment = () => {
                                 </td>
                                 <td>
                                     {currentDate <= new Date(assignment.deadline) ? (
-                                        <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
-                                            SUBMIT
+                                        <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id,assignment.deadline)}>
+                                            SUBMIT 
                                         </button>
                                     ) : (
                                         <button className="btn" disabled>
-                                            Time's up
+                                           Time's Up 
                                         </button>
                                     )}
+
+                                    
                                 </td>
 
 
@@ -741,6 +846,42 @@ const GroupAssignment = () => {
                 {message !== '' && <p className="text-danger">{message}</p>}
             </div>
         </div>
+
+
+        <Modal show={dialogVisible} onHide={closeDialog} centered
+                style={{ background: 'transparent', }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Submit Assignment</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h5>Max 15mb File</h5>
+                    <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
+                                
+                    <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+                        <Form.Control
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            className={`custom-file-input`}
+                            style={{ background: 'grey', color: 'white' }}
+                        />
+                    </Form.Group>
+
+                </Modal.Body>
+                <Modal.Footer className="justify-content-center align-items-center d-flex">
+                    <Button type="button" className="btn btn-primary" onClick={()=>{submissionUpload()}}
+                        style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+                        Submit
+                    </Button>
+                    <Button type="button" variant="secondary" onClick={closeDialog}
+                        style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <ToastContainer/>
+        </>
+
     );
 
 };

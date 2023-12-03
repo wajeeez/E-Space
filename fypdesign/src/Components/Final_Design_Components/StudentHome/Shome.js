@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import headerimg from '../../../Assets/images/Business.png';
 import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
-
+import { Link } from "react-router-dom";
 function Shome() {
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const navigate = useNavigate()
@@ -17,7 +17,32 @@ function Shome() {
     const [classes, setClasses] = useState([]);
     const { _id } = useParams()
     const [subjectName, setSubjectName] = useState(null);
-   
+
+    const [notify,setnotify]  = useState([]);
+
+    const NotificationCard = ({ deadline }) => {
+      return (
+        <div className="card mt-3 border-primary shadow">
+          <div className="card-body">
+            <h6 className="card-title" style={{ fontSize: '1.2rem', fontFamily: 'Poppins, sans-serif' }}>
+              Assignment Uploaded
+            </h6>
+           
+            <p
+              className="card-text text-muted"
+              style={{
+                position: 'absolute',
+                bottom:0,
+                fontSize: '0.8rem',
+                fontFamily: 'Poppins, sans-serif',
+              }}
+            >
+              Deadline: {deadline}
+            </p>
+          </div>
+        </div>
+      );
+    };
 
     useEffect(() => {
         const authToken = localStorage.getItem("StdToken");
@@ -50,6 +75,33 @@ function Shome() {
             console.log(error);
           });
       }, []);
+
+
+
+      useEffect(() => {
+        axios
+          .post(baseURL + `/notification/assignment/upload/${_id}`)
+          .then((response) => {
+
+            if (response.data) {
+
+              console.log(response.data)
+              setnotify(response.data);
+
+            
+             
+
+
+          }
+
+          
+            
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, []);
+
 
   const handleRedirect = () => {
     // Redirect to the third-party URL
@@ -190,9 +242,11 @@ function Shome() {
       <div className="col-md-3 p-2" >
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
+          <Link to={`https://sfu.mirotalk.com/join/${_id}`} target="_blank" style={{textDecoration:'none'}}>
             <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px',color:'black' }}>Meeting</h4>
             <img src={ijoin} alt="Meeting Image" className="img-fluid" style={{ marginTop: '3px', marginBottom: '3px' }} />
             <p className="card-text" style={{ fontFamily: 'Helvetica, sans-serif', margin: '0px' ,color:'black'}}>Start</p>
+            </Link>
           </div>
         </div>
       </div>
@@ -242,33 +296,18 @@ function Shome() {
     </div>
   </div>
 
-  <div className="col-md-3 p-2" style={{ maxHeight: '400px', padding: '5px' , marginTop:'15px'}}>
-    <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
+  <div className="col-md-3 p-2" style={{ maxHeight: '100vh', padding: '5px' , marginTop:'15px'}}>
+    <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 7px rgba(0, 0, 0, 0.2)',minHeight:'60vh'}}>
       <div className="card-header sticky-top" style={{ fontSize: '30px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
       <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>
-        {/* Notification Rows */}
-        <div className="alert alert-primary mb-1" style={{background:bg,border:'none', borderBottom: '2px solid #000' ,borderRadius:'0px'}}>
-          Notification 1
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 2
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 3
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 4
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 5
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 6
-        </div>
+      
+      {notify.map((notification, index) => (
+        <NotificationCard deadline={notification.deadline} key={index} />
+      ))}
 
-        {/* Add more notifications as needed */}
+
       </div>
     </div>
   </div>

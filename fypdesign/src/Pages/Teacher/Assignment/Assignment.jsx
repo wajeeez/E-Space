@@ -110,6 +110,8 @@ const AssignmentPage = () => {
     setTotalMarks(event.target.value);
   };
 
+
+
   const teacherAssignmentUpload = async () => {
 
 
@@ -125,10 +127,12 @@ const AssignmentPage = () => {
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('classId', _id);
+      formData.append('fileName', title);
       formData.append('teacherID', teacherID);
       formData.append('subjectName', subjectName);
       formData.append('deadline', deadline); // Append the deadline value
-
+      formData.append('title', title); 
+      formData.append('totalMarks', totalMarks); 
 
 
       const response = await TeacherAssignmentUpload(formData);
@@ -321,12 +325,7 @@ const AssignmentPage = () => {
 
 
   
-  // const [refreshKey, setRefreshKey] = useState(0);
-
-  // const handleRefresh = () => {
-    
-  //   setRefreshKey((prevKey) => prevKey + 1);
-  // };
+  
 
   useEffect(() => {
     axios
@@ -525,7 +524,7 @@ const AssignmentPage = () => {
         <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
       </td>
       <td style={{ ...row_color }}>
-        <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.name}</p>
+        <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
       </td>
       <td style={{ ...row_color }}>
         <>

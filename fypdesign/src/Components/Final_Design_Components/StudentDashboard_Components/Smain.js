@@ -26,6 +26,7 @@ import './Smain.css';
 import StdLectures from '../../../Pages/Student/Lectures/StdLectures';
 import GroupAssignment from '../../../Pages/Student/GroupAssignment/GroupAssigment'
 import StdSettings from '../../../Pages/Student/User/AccSetting';
+import SQuiz from '../../../Pages/Teacher/Quiz/SQuiz';
 
 function Smain() {
     const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
@@ -187,7 +188,7 @@ function Smain() {
       </li>
       
       <li>
-        <Link href="#">
+        <Link  onClick={() => handlePageChange('7')}>
         <i class='bx bx-timer' ></i>
           <span class="link_name">Quiz</span>
         </Link>
@@ -227,7 +228,7 @@ function Smain() {
         {currentPage === 'lectures' && <StdLectures/>}
         {currentPage === 'assignment' && <StdAssignment />}
         {currentPage === 'groupAssignment' && <GroupAssignment/>}
-        {currentPage === 'quiz' && <div>quiz</div>}
+        {currentPage === 'quiz' && <SQuiz/>}
         {currentPage === 'account' && <StdSettings/>}
         {currentPage === 'class' && <div>class</div>}
         {currentPage === 'performance' && <div>performance</div>}

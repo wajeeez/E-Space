@@ -47,6 +47,7 @@ router.get('/student/studentData/:email',StudentAuth.getStudentData);
 router.post('/teacher/assignments/upload', UploadAssignment.UploadAssignment)
 router.post('/teacher/assignments/:fileURL', UploadAssignment.deleteAssignment)
 
+router.post('/student/delete/submission/:fileURL',UploadAssignment.deleteSubmission)
 
 
 router.get('/teacher/assignments/list/:class_id', getAllAssignments.getAllAssignments)
@@ -59,6 +60,7 @@ router.get('/student/allSubmissions',StudentAuth.getAllSubmission)
 
 
 router.post('/forgetpassword',StudentAuth.forgetpassword)
+router.post('/teacher/forgetpassword',TeacherAuthController.forgetpassword)
 
 
 
@@ -67,7 +69,8 @@ router.post('/forgetpassword',StudentAuth.forgetpassword)
 router.post("/teacher/submitLecture",UploadAssignment.UploadLecture)
 router.get("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
 //delete lecture
-router.post('/teacher/deleteLectures/:fileURL', UploadAssignment.deleteAssignment)
+router.post('/teacher/deleteLectures/:fileURL', UploadAssignment.DeleteLecture)
+router.post('/teacher/editLectures/:fileURL', UploadAssignment.EditLecture)
 
 //Group Assignments
 
@@ -76,10 +79,16 @@ router.post("/students/createGroup/:class_id",StudentAuth.creatGroup)
 router.get("/students/getAllGroups/:class_id",StudentAuth.getAllGroups)
 
 router.post('/teacher/groupAssignment/upload', UploadAssignment.UploadGroupAssignment)
-
+router.post('/student/groupAssignment/upload', UploadAssignment.UploadSubmission)
 //Marks Api
 
 router.post('/assignment/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)
+
+
+
+router.post('/notification/assignment/submission/:classId',UploadAssignment.getSubmissionNotification)
+router.post('/notification/assignment/upload/:classId',UploadAssignment.getAssignmentNotification)
+
 
 module.exports = router;
 

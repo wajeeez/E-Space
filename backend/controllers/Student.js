@@ -293,7 +293,7 @@ const StudentAuth ={
     } else {
     return res.status(403).json({ message: 'Email does not match stdEmail' });
   
-    }
+  }
   }catch (error) {
   console.error(error);
   return res.status(500).json({ message: 'Internal server error' });

@@ -1,43 +1,3 @@
-// // routes/assignments.js
-// const express = require('express');
-// const multer = require('multer');
-
-// const router = express.Router();
-
-// // Configure multer for file uploads
-// const upload = multer({ dest: 'uploads/' });
-
-// // Handle assignment upload
-// router.post('/upload', upload.single('file'), (req, res) => {
-//   // Save the assignment details to the database
-//   const { title, description, deadline } = req.body;
-//   const file = req.file;
-
-//   // Save the assignment details and file path to the database
-//   // ...
-
-//   res.status(200).json({ message: 'Assignment uploaded successfully' });
-// });
-
-// // Handle assignment submission
-// router.post('/submit', upload.single('file'), (req, res) => {
-//   // Save the submission details to the database
-//   const { assignmentId, studentId } = req.body;
-//   const file = req.file;
-
-//   // Save the submission details and file path to the database
-//   // ...
-
-//   res.status(200).json({ message: 'Assignment submitted successfully' });
-// });
-
-// // Get assignments
-// router.get('/', (req, res) => {
-//   // Fetch assignments from the database
-//   // ...
-
-//   res.status(200).json(assignments);
-// });
 
 // module.exports = router;
 const Assignment = require('./../models/assignmentTeacher'); // Import the Assignment model
@@ -50,8 +10,15 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const fileSchema = require("./../models/assignementFile");
 const Lecture = require('../models/Lecture');
+const Submissions = require('../models/stdassignmentFile')
 
+const NotificationUploadGroupAssignment = require('../models/NotificationUploadGroupAssignment');
+const NotificationAssignmentUpload = require('../models/NotificationUploadAssignment');
+const Group = require('../models/Groups');
+const NotificationSubmission = require('../models/NotificationSubmission');
 // Create a MongoMemoryServer instance f
+
+
 
 async function UploadAssignment(req, res, next) {
   try {
@@ -61,7 +28,7 @@ async function UploadAssignment(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, fileName, subjectName, deadline } = req.body;
+    const { classId, title, teacherID, fileName, subjectName, deadline, totalMarks } = req.body;
 
 
     const file = new fileSchema({
@@ -79,6 +46,8 @@ async function UploadAssignment(req, res, next) {
 
     const newAssignment = new Assignment({
       classId,
+      title,
+      totalMarks,
       teacherID,
       subjectName,
       fileName,
@@ -87,6 +56,15 @@ async function UploadAssignment(req, res, next) {
     });
 
     await newAssignment.save();
+
+    const notification = new NotificationAssignmentUpload({
+      classId: classId,
+      message: "New Assignment Uploaded",
+      deadline: deadline, // Save the deadline in the Assignment model
+    });
+
+    await notification.save();
+
 
 
     return res.status(201).json({ message: 'Assignment uploaded successfully' });
@@ -105,40 +83,106 @@ async function UploadGroupAssignment(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, fileName, subjectName, deadline } = req.body;
+    const { groupId, classId, deadline } = req.body;
 
 
-    const file = new fileSchema({
-      name: originalname,
-      data: buffer,
-      contentType: mimetype,
-    });
+    const group = await Group.findOne({ _id: groupId })
 
-    // Save the file document
-    const savedFile = await file.save();
-
-    // Access the _id field of the saved file
-    const fileURL = savedFile._id;
-    console.log(fileURL)
-
-    const newAssignment = new Assignment({
-      classId,
-      teacherID,
-      subjectName,
-      fileName,
-      fileURL,
-      deadline, // Save the deadline in the Assignment model
-    });
-
-    await newAssignment.save();
+    if (!group) {
+      return res.status(404)
+    } else {
 
 
-    return res.status(201).json({ message: 'Assignment uploaded successfully' });
+      const file = new fileSchema({
+        name: originalname,
+        data: buffer,
+        contentType: mimetype,
+      });
+
+      // Save the file document
+      const savedFile = await file.save();
+      console.log(savedFile._id)
+      const fileURL = savedFile._id;
+      group.fileURL = fileURL;
+      group.deadline = deadline;
+
+
+      await group.save();
+
+
+      const groupNotification = new NotificationUploadGroupAssignment({
+
+        classId: classId,
+        message: "New Assignment Uploaded",
+        deadline: deadline, // Save the deadline in the Assignment model
+      });
+
+      await groupNotification.save();
+
+
+      return res.status(200).json({ message: 'Assignment uploaded successfully' });
+
+    }
+
+
+
   } catch (err) {
     // Handle any errors that occurred during assignment upload
     return res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 };
+
+
+
+async function UploadSubmission(req, res, next) {
+  try {
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const { originalname, buffer, mimetype } = req.file;
+    const { groupId, classId } = req.body;
+
+
+    const group = await Group.findOne({ _id: groupId })
+
+    if (!group) {
+      return res.status(404)
+    } else {
+
+
+      const file = new fileSchema({
+        name: originalname,
+        data: buffer,
+        contentType: mimetype,
+      });
+
+      // Save the file document
+      const savedFile = await file.save();
+      console.log(savedFile._id)
+      const fileURL = savedFile._id;
+      group.submissionURL = fileURL;
+
+      await group.save();
+
+
+
+
+
+
+      return res.status(200).json({ message: 'Assignment uploaded successfully' });
+
+    }
+
+
+
+  } catch (err) {
+    // Handle any errors that occurred during assignment upload
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
 
 
 async function UploadLecture(req, res, next) {
@@ -149,7 +193,7 @@ async function UploadLecture(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, lectureName, lectureDesc, lectureLink,remarks} = req.body;
+    const { classId, teacherID, lectureName, lectureDesc, lectureLink, remarks } = req.body;
 
     const file = new fileSchema({
       name: originalname,
@@ -186,12 +230,66 @@ async function UploadLecture(req, res, next) {
 
 
 
+async function EditLecture(req, res, next) {
+  try {
+    const lectureId = req.params.fileURL;
+
+
+    const { originalname, buffer, mimetype } = req.file;
+    const { classId, teacherID, lectureName, lectureDesc, lectureLink, remarks } = req.body;
+    const existingLecture = await Lecture.findById(lectureId);
+
+    if (!existingLecture) {
+      return res.status(404).json({ message: 'Lecture not found' });
+    }
+
+    // Update file information if a new file is provided
+    if (req.file) {
+      // Remove the existing associated file
+      await fileSchema.findByIdAndRemove(existingLecture.fileURL);
+
+      // Create a new file document
+      const newFile = new fileSchema({
+        name: originalname,
+        data: buffer,
+        contentType: mimetype,
+      });
+
+      // Save the new file document
+      const savedFile = await newFile.save();
+
+      // Update the file URL in the existing lecture
+      existingLecture.fileURL = savedFile._id;
+    }
+
+    // Update other lecture information
+    existingLecture.classId = classId;
+    existingLecture.teacherID = teacherID;
+    existingLecture.lectureName = lectureName;
+    existingLecture.lectureDesc = lectureDesc;
+    existingLecture.lectureLink = lectureLink;
+    existingLecture.remarks = remarks;
+
+    // Save the updated lecture
+    await existingLecture.save();
+
+    return res.status(200).json({ message: 'Lecture updated successfully' });
+
+
+  } catch (err) {
+    // Handle any errors that occurred during assignment upload
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
+
+
+
 async function DeleteLecture(req, res, next) {
   try {
     const fileURL = req.params.fileURL;
 
     // Find the lecture by its ID
-    const existingLecture = await Lecture.findOne(fileURL);
+    const existingLecture = await Lecture.findOne({ fileURL: fileURL });
 
     if (!existingLecture) {
       return res.status(404).json({ message: 'Lecture not found' });
@@ -202,7 +300,7 @@ async function DeleteLecture(req, res, next) {
 
     // Delete the lecture
     await Lecture.deleteOne({ fileURL: fileURL });
-    await existingLecture.remove();
+
 
     return res.status(200).json({ message: 'Lecture deleted successfully' });
   } catch (err) {
@@ -231,7 +329,7 @@ async function deleteAssignment(req, res, next) {
     // Delete the assignment
     await Assignment.deleteOne({ fileURL: fileURL });
     await Submissions.deleteOne({ fileURL: fileURL });
-  
+
     return res.status(200).json({ message: 'Assignment deleted successfully' });
   } catch (err) {
     // Handle any errors that occurred during assignment deletion
@@ -240,5 +338,97 @@ async function deleteAssignment(req, res, next) {
   }
 };
 
+//Notification
 
-module.exports = {UploadAssignment,UploadLecture,UploadGroupAssignment,deleteAssignment};
+async function getAssignmentNotification(req, res, next) {
+  try {
+    const classId = req.params.classId;
+    const assignment = await NotificationAssignmentUpload.find({ classId: classId });
+
+    if (!assignment) {
+      return res.json([]);
+    }
+
+    console.log(assignment);
+
+    return res.status(200).json(assignment);;
+  } catch (err) {
+    // Handle any errors that occurred during assignment deletion
+    console.error(err);
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
+
+async function getSubmissionNotification(req, res, next) {
+  try {
+    const classId = req.params.classId;
+
+    // Find the assignment by fileURL
+    const assignment = await NotificationSubmission.find({ classId: classId });
+
+    if (!assignment) {
+      return res.json([]);
+    }
+
+
+    return res.status(200).json(assignment);;
+  } catch (err) {
+    // Handle any errors that occurred during assignment deletion
+    console.error(err);
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
+
+
+
+
+
+async function deleteSubmission(req, res, next) {
+  try {
+    const fileURL = req.params.fileURL;
+    const assignURL = req.body.assignURL;
+
+    // // Find the assignment by fileURL
+    // const assignment = await Assignment.findOne({fileURL: fileURL });
+    const submission = await Submissions.findById(fileURL);
+
+    if (!submission) {
+      return res.status(404).json({ message: 'Submission not found' });
+    }
+
+    console.log('File URL:', fileURL, typeof fileURL);
+    console.log('Assign URL:', assignURL, typeof assignURL);
+
+    // Update the assignment
+    const updateResult = await Assignment.updateOne(
+      { fileURL: assignURL.toString() },
+      {
+        $pull: { submissionURL: fileURL.toString() },
+      },
+      { new: true }
+    );
+
+    // Check if the assignment update was successful
+    if (updateResult.nModified === 0) {
+      // If no documents were modified, it means the assignment was not found or the value wasn't in the array
+      return res.status(404).json({ message: 'Assignment not found or submissionURL not in array' });
+    }
+
+    // Delete the submission
+    await Submissions.deleteOne({ _id: fileURL });
+
+    return res.status(200).json({ message: 'Assignment deleted successfully' });
+  } catch (err) {
+    // Handle any errors that occurred during assignment deletion
+    console.error(err);
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
+module.exports = {
+  UploadAssignment, UploadLecture, UploadGroupAssignment
+  , deleteAssignment, DeleteLecture, deleteSubmission,
+  EditLecture, UploadSubmission, getAssignmentNotification, getSubmissionNotification
+};

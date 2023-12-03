@@ -5,6 +5,8 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+
   teacherID: {
     type: String,
     required: true,
@@ -26,12 +28,21 @@ const assignmentSchema = new mongoose.Schema({
     required:true,
     default:""
   },
+  title:{
+    type:String,
+    required:true,
+    default:""
+  },
   submissionURL:{
     type:[String],
   },
   deadline: {
     type: Date,
     required: true,
+  },
+  totalMarks:{
+    type: String,
+    default:""
   },
   marks:{
     type: String,

@@ -11,11 +11,15 @@ import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const StdTable = () => {
 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
 
-  const [getFileURL,setFileURL] = useState(null)
+  const [getFileURL, setFileURL] = useState(null)
   const currentDate = new Date(); // Get the current date
   const [selectedFile, setSelectedFile] = useState(null);
   const [assignments, setAssignments] = useState([]);
@@ -26,68 +30,68 @@ const StdTable = () => {
   const [message, setMessage] = useState(null);
   const { _id } = useParams();
   const [fileURLsByIndex, setFileURLsByIndex] = useState([]);
-  const [stdEmail,setEmail]=useState()
-  const [StudentName,setStudentName] = useState();
-  const [Subbtn,setSubbtn] = useState(false);
-
-  
-   //SubmisionBTn 
-
-//getting submission files 
-const [submissionMapping, setSubmissionMapping] = useState({});
-const [marksMapping, setmarksMapping] = useState({});
-const [remarksMapping, setremarksMapping] = useState({});
-// Function to update the submission mapping
+  const [stdEmail, setEmail] = useState()
+  const [StudentName, setStudentName] = useState();
+  const [Subbtn, setSubbtn] = useState(false);
 
 
+  //SubmisionBTn 
+
+  //getting submission files 
+  const [submissionMapping, setSubmissionMapping] = useState({});
+  const [marksMapping, setmarksMapping] = useState({});
+  const [remarksMapping, setremarksMapping] = useState({});
+  // Function to update the submission mapping
 
 
 
 
-const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
-  setSubmissionMapping((prevMapping) => ({
-    ...prevMapping,
-    [assignmentFileURL]: submissionFileURL,
-  }));
-};
 
 
-const updateMarksMapping = (submissionFileURL, marks) => {
-  setmarksMapping((prevMapping) => ({
-    ...prevMapping,
-    [submissionFileURL]: marks,
-  }));
-};
+  const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
+    setSubmissionMapping((prevMapping) => ({
+      ...prevMapping,
+      [assignmentFileURL]: submissionFileURL,
+    }));
+  };
 
-const updateReMarksMapping = (submissionFileURL, remarks) => {
-  setremarksMapping((prevMapping) => ({
-    ...prevMapping,
-    [submissionFileURL]: remarks,
-  }));
-};
-  
-useEffect(() => {
-  const authToken = localStorage.getItem("StdToken");
-  if (authToken) {
-    const decodedToken = jwt_decode(authToken);
-    setEmail(decodedToken.email);
-  
 
-    // Fetch classes for the logged-in user from the server
-    axios
-      .get(baseURL+`/student/studentData/${decodedToken.email}`)
-      .then((response) => {
-        console.log(response.data.response);
-        setStudentName(response.data.response.stdName);
-      
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-}, []);
+  const updateMarksMapping = (submissionFileURL, marks) => {
+    setmarksMapping((prevMapping) => ({
+      ...prevMapping,
+      [submissionFileURL]: marks,
+    }));
+  };
 
- 
+  const updateReMarksMapping = (submissionFileURL, remarks) => {
+    setremarksMapping((prevMapping) => ({
+      ...prevMapping,
+      [submissionFileURL]: remarks,
+    }));
+  };
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("StdToken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setEmail(decodedToken.email);
+
+
+      // Fetch classes for the logged-in user from the server
+      axios
+        .get(baseURL + `/student/studentData/${decodedToken.email}`)
+        .then((response) => {
+          // console.log(response.data.response);
+          setStudentName(response.data.response.stdName);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+
 
 
 
@@ -96,14 +100,14 @@ useEffect(() => {
 
   let fileURLs = {};
   axios
-    .get(baseURL+`/teacher/assignments/list/${_id}`)
+    .get(baseURL + `/teacher/assignments/list/${_id}`)
     .then((response) => {
       if (response.data) {
         fileURLs = response.data.reduce((accumulator, item, index) => {
           accumulator[index] = item.fileURL;
           return accumulator;
         }, {});
-        console.log(fileURLs); // Log the updated value of fileURLs
+        // console.log(fileURLs); // Log the updated value of fileURLs
       }
     })
     .catch((error) => {
@@ -113,45 +117,47 @@ useEffect(() => {
 
 
 
-    //SUbmission
+  //SUbmission
 
-    const getSubmission=(fileURL)=>{
-      
-      const authToken = localStorage.getItem("StdToken");
-        if (authToken) {
-          const decodedToken = jwt_decode(authToken);
-          setEmail(decodedToken.email);
-  
-        
+  const getSubmission = (fileURL) => {
 
-         
-          axios
-            .get(baseURL+`/student/submitted`,{params:{
-              fileURL: fileURL,
-            }},{ responseType: 'blob' })
-            .then((response) => {
-              console.log(response);
-              
-             
-           
-              const blob = new Blob([response.data], { type: response.headers['content-type'] });
-              const blobURL = URL.createObjectURL(blob);
-              window.open(blobURL, '_blank');
-              URL.revokeObjectURL(blobURL);
-              
+    const authToken = localStorage.getItem("StdToken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setEmail(decodedToken.email);
 
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      
-    
+
+
+
+      axios
+        .get(baseURL + `/student/submitted`, {
+          params: {
+            fileURL: fileURL,
+          }
+        }, { responseType: 'blob' })
+        .then((response) => {
+          // console.log(response);
+
+
+
+          const blob = new Blob([response.data], { type: response.headers['content-type'] });
+          const blobURL = URL.createObjectURL(blob);
+          window.open(blobURL, '_blank');
+          URL.revokeObjectURL(blobURL);
+
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
-    //Submission
-    
-    
+
+  }
+
+  //Submission
+
+
 
 
 
@@ -161,7 +167,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(baseURL+`/teacher/class/${_id}`)
+      .get(baseURL + `/teacher/class/${_id}`)
       .then((response) => {
 
         setTeacherName(response.data.response.teacherName);
@@ -175,7 +181,7 @@ useEffect(() => {
 
   useEffect(() => {
     axios
-      .get(baseURL+`/teacher/assignments/list/${_id}`)
+      .get(baseURL + `/teacher/assignments/list/${_id}`)
       .then((response) => {
         if (response.data) {
           //  fileURLs = response.data.reduce((accumulator, item, index) => {
@@ -183,7 +189,7 @@ useEffect(() => {
           //   return accumulator;
           // }, {});
           setAssignments(response.data);
-         
+
 
         }
       })
@@ -193,7 +199,6 @@ useEffect(() => {
 
 
   }, [_id])
-  console.log(fileURLs)
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -211,7 +216,7 @@ useEffect(() => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      formData.append('Email',stdEmail)
+      formData.append('Email', stdEmail)
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL)
       formData.append('deadline', currentDate); // Append the deadline value
@@ -275,11 +280,11 @@ useEffect(() => {
     setDialogVisible(false);
   };
 
-//Submisision Btn
- 
+  //Submisision Btn
 
 
-  
+
+
 
 
   const openFileInBrowser = (fileURL) => {
@@ -287,22 +292,22 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(baseURL+`/files/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL + `/files/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
-       
-       
-       
-       
-       // console.log(response.data.response.name)
-        
 
-        
+
+
+
+        // console.log(response.data.response.name)
+
+
+
 
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
         console.log(blobURL)
         console.log(response.name)
-        
+
         window.open(blobURL, '_blank');
         URL.revokeObjectURL(blobURL);
       })
@@ -317,11 +322,11 @@ useEffect(() => {
     console.log(fileURL)
 
     axios
-      .get(baseURL+`/submission/${fileURL}`, { responseType: 'blob' })
+      .get(baseURL + `/submission/${fileURL}`, { responseType: 'blob' })
       .then((response) => {
 
-        
-        
+
+
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const blobURL = URL.createObjectURL(blob);
         window.open(blobURL, '_blank');
@@ -333,7 +338,7 @@ useEffect(() => {
   };
 
 
-  
+
 
 
   //CHECKING IF ANY ASSIGNMENT WAS UPLOADED BY STUDENT
@@ -342,22 +347,22 @@ useEffect(() => {
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
       const Email = decodedToken.email;
-      const classId=_id;
+      const classId = _id;
 
-      
+
       if (Email && classId) { // Check if both userEmail and _id are truthy
         const data = {
           classId,
           Email
         };
-  
+
         axios
-        .get(baseURL+'/student/getSubmitedFileURL', {
-          params: {
-            classId,
-            Email,
-          },
-        })
+          .get(baseURL + '/student/getSubmitedFileURL', {
+            params: {
+              classId,
+              Email,
+            },
+          })
           .then((response) => {
             if (response.data && response.data.response) {
 
@@ -369,31 +374,33 @@ useEffect(() => {
                 const marks = assignment.marks;
                 const remarks = assignment.remarks;
                 // Call updateSubmissionMapping for each assignment
+
+                console.log(assignmentFileURL,submissionFileURL)
                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
-                updateMarksMapping(submissionFileURL,marks)
-                updateReMarksMapping(submissionFileURL,remarks)
+                updateMarksMapping(submissionFileURL, marks)
+                updateReMarksMapping(submissionFileURL, remarks)
               });
 
-           
+
               // console.log(response.data.response.assignmentFileURL)
               // const submissionFileURL = response.data.response.submissionFileURL;
               // console.log(response.data)
               // updateSubmissionMapping(response.data.response.assignmentFileURL, submissionFileURL);
               console.log(submissionMapping);
-          
-  
 
-  
+
+
+
             }
           })
           .catch((error) => {
             console.log(error);
           });
-      }else{
+      } else {
         console.log("EMAIL OR CLASSID is not AVAILABLE")
       }
     }
-  
+
 
 
 
@@ -403,12 +410,12 @@ useEffect(() => {
 
 
 
-  
+
   const row_color = {
     backgroundColor: 'transparent',
     color: 'black',
   }
-  const head_color ={
+  const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
   }
@@ -419,14 +426,14 @@ useEffect(() => {
     console.log(`Clicked on assignment: ${assignmentFileURL}`);
     setFileURL(assignmentFileURL)
     openDialog()
-    
+
   };
 
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal(true);
   };
-  
+
   const closeModal = () => {
     setShowModal(false);
   };
@@ -435,10 +442,10 @@ useEffect(() => {
     setFileURL(assignmentFileURL);
     openModal();
   };
-  
+
   const submit_assignment = async () => {
     setShowModal(false); // Close the modal
-  
+
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -450,28 +457,28 @@ useEffect(() => {
         console.log(entry[0], entry[1]);
       }
       const response = await StudentSubmissions(formData);
-  
+
       if (response.status === 201 || response.status === 200) {
         setMessage("Successful");
         console.log("Successful");
-  
+
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
-        }  
+        }
 
         // setTimeout(() => {
-          
+
         //   window.location.reload(); 
 
         // }, 2000); 
 
       } else if (response.code === "ERR_BAD_REQUEST") {
         console.log("BAD REQUEST");
-  
+
         if (response.response.status === 500) {
           console.log("500 BAD REQUEST ");
         }
-  
+
         if (response.response.status === 401) {
           setMessage(response.response.data.message);
           console.log("401");
@@ -483,7 +490,7 @@ useEffect(() => {
   }
 
 
-  
+
 
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
@@ -535,7 +542,7 @@ useEffect(() => {
   // const openEModal = () => {
   //   setShowEModal(true);
   // };
-  
+
   // const closeEModal = () => {
   //   setShowEModal(false);
   // };
@@ -545,7 +552,7 @@ useEffect(() => {
   // };
   // const esubmit_assignment = async () => {
   //   setShowEModal(false); // Close the modal
-  
+
   //   if (selectedFile) {
   //     const formData = new FormData();
   //     formData.append('file', selectedFile);
@@ -553,13 +560,13 @@ useEffect(() => {
   //     formData.append('classId', _id);
   //     formData.append('assignmentFileURL', getFileURL);
   //     formData.append('deadline', currentDate);
-  
+
   //     const response = await StudentSubmissions(formData);
-  
+
   //     if (response.status === 201 || response.status === 200) {
   //       setMessage("Successful");
   //       console.log("Successful");
-  
+
   //       // Fetch and update the list of submitted assignments without reloading the page
   //       axios
   //         .get(baseURL + `/teacher/class/${_id}`)
@@ -570,17 +577,17 @@ useEffect(() => {
   //         .catch((error) => {
   //           console.log(error);
   //         });
-  
+
   //       if (fileInputRef.current) {
   //         fileInputRef.current.value = ''; // Reset the input field
   //       }
   //     } else if (response.code === "ERR_BAD_REQUEST") {
   //       console.log("BAD REQUEST");
-  
+
   //       if (response.response.status === 500) {
   //         console.log("500 BAD REQUEST ");
   //       }
-  
+
   //       if (response.response.status === 401) {
   //         setMessage(response.response.data.message);
   //         console.log("401");
@@ -592,69 +599,90 @@ useEffect(() => {
   // }
 
 
-  
+  const deleteSubmission = async (submissionURL,assignURL)=>{
+    try {
+      console.log(assignURL)
+      // Make the axios request to delete the submission
+      const response = await axios.post(baseURL+`/student/delete/submission/${submissionURL}`,{ assignURL });
+
+      if (response.status === 200) {
+        toast.success("Assignment Deleted successfully ")
+        console.log('Assignment deleted successfully');
+
+      
+        // Add additional logic as needed after successful deletion
+      }
+    } catch (error) {
+      console.error('Error deleting assignment:', error);
+      toast.error("Assignment Deleted successfully ")
+      // Handle errors, display a message, or perform other actions based on the error
+    }
+
+  }
+
 
   return (
-    <div className="container-fluid" style={{  
-    textAlign: 'center', marginTop: '0px', }}>
+    <div className="container-fluid" style={{
+      textAlign: 'center', marginTop: '0px',
+    }}>
       <center>
 
-      <button
+        <button
           className="btn btn-primary"
           style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
           // onClick={handleRefresh}
           title='Refresh Page'
-          
+
         >
           <FontAwesomeIcon icon={faSync} />
-          
+
         </button>
 
-        <h1 style={{background:'' , padding:'5px' , color : 'black', borderRadius: '20px'}}>
-            Assignments</h1>
+        <h1 style={{ background: '', padding: '5px', color: 'black', borderRadius: '20px' }}>
+          Assignments</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
     </p> */}
 
-      <table className="table custom-std-table" style={{border:'1px solid white', verticalAlign: 'middle' ,textAlign: 'center'}}>
-        <thead style={{border:'3px solid black' , padding: '15px', verticalAlign: 'middle'}} >
-          <tr >
-            <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
-            <th style={{ ...head_color,width: '9%', fontSize:'large'  }}>Marks Obtained</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
-          </tr>
-        </thead>
-        <tbody style={{}}>
-          {assignments.map((assignment, index) => (
-            <tr key={index} >
-              <td style={{...row_color }}>{index + 1}</td>
-              <td style={{...row_color }}>
-                {/* Content */}
-              </td>
+        <table className="table custom-std-table" style={{ border: '1px solid white', verticalAlign: 'middle', textAlign: 'center' }}>
+          <thead style={{ border: '3px solid black', padding: '15px', verticalAlign: 'middle' }} >
+            <tr >
+              <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
+              <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Title</th>
+              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Assignment</th>
+              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Remarks</th>
+              <th style={{ ...head_color, width: '9%', fontSize: 'large' }}>Marks Obtained</th>
+              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Submission</th>
+              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Deadline</th>
+              <th style={{ ...head_color, width: '10%', fontSize: 'large' }}>Action</th>
+            </tr>
+          </thead>
+          <tbody style={{}}>
+            {assignments.map((assignment, index) => (
+              <tr key={index} >
+                <td style={{ ...row_color }}>{index + 1}</td>
+                <td style={{ ...row_color }}>
+                  {/* Content */}
+                </td>
 
-              <td  style={{...row_color }}>
-               <>
-                <button
-                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small'}}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Assignment
-                </button>
-                
-                {/* <button
+                <td style={{ ...row_color }}>
+                  <>
+                    <button
+                      className="btn btn-primary " style={{ margin: '2px', fontSize: 'small' }}
+                      onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                    >
+                      Assignment
+                    </button>
+
+                    {/* <button
                   className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
                   onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                 >
                   Solution
                 </button> */}
-                </>
-              </td>
-              {/* <td  style={{...row_color }}>
+                  </>
+                </td>
+                {/* <td  style={{...row_color }}>
                <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <button
                   className="btn btn-primary " style={{margin: '2px', fontSize: 'small'}}
@@ -673,78 +701,44 @@ useEffect(() => {
               </td> */}
 
 
-              <td style={{...row_color }}>
-                {remarksMapping[submissionMapping[assignment.fileURL]]
-                  ? remarksMapping[submissionMapping[assignment.fileURL]]
-                  : ' --- '}
-              </td>
-              <td style={{...row_color }}>
-                {marksMapping[submissionMapping[assignment.fileURL]]
-                  ? marksMapping[submissionMapping[assignment.fileURL]]
-                  : 'Not marked yet'}
-              </td>
-              {/* <td style={{...row_color }}>
-                {submissionMapping[assignment.fileURL] ? (
-                  <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <button className="btn btn-primary" style={{ margin: '2px', fontSize: 'small' }} onClick={openFile.bind(null, assignment.submissionURL)}>
-                      Submission
-                    </button>
-                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }} onClick={() => deleteSubmission(assignment.submissionURL)}>
-                     &zwnj; Delete &zwnj;
-                    </button>
-                  </div>
-                ) : (
-                  'No Submission'
-                )}
-              </td> */}
-              <td style={row_color}>
-              
-                  
-              {/* <button
-              className={`btn ${submissionMapping[assignment.fileURL] ? 'btn-success' : 'btn-primary'}`}
-              style={{ margin: '2px', fontSize: 'small' }}
-              onClick={() => handleSubmissionClick(assignment.fileURL)}
-            >
-              {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
-            </button>
-            <button
-                className={`btn ${submissionMapping[assignment.fileURL] ? 'btn-success' : 'btn-primary'}`}
-                style={{ margin: '2px', fontSize: 'small' }}
-                onClick={() => {
-                  if (submissionMapping[assignment.fileURL]) {
-                    // If submission exists, open the file
-                    openFile(assignment.submissionURL);
-                  } else {
-                    // Handle the case when there is no submission, you might want to provide feedback to the user
-                    console.log('No submission available');
-                  }
-                }}
-              >
-                {submissionMapping[assignment.fileURL] ? 'View Submission' : 'Submission'}
-              </button> */}
+                <td style={{ ...row_color }}>
+                  {remarksMapping[submissionMapping[assignment.fileURL]]
+                    ? remarksMapping[submissionMapping[assignment.fileURL]]
+                    : ' --- '}
+                </td>
+                <td style={{ ...row_color }}>
+                  {marksMapping[submissionMapping[assignment.fileURL]]
+                    ? marksMapping[submissionMapping[assignment.fileURL]]
+                    : 'Not marked yet'}
+                </td>
+               
+                <td style={row_color}>
 
-<div style={{alignItems: 'center' }}>
-  {submissionMapping[assignment.fileURL] ? (
-    <div >
-      <button
-        className="btn btn-success"
-        style={{ margin: '2px', fontSize: 'small' }}
-        onClick={() => {
-          openFile(assignment.submissionURL);
-        }}
-      >
-        View Submission
-      </button >
-      {currentDate <= new Date(assignment.deadline) && (
-        <button
-          className="btn btn-danger"
-          style={{ margin: '2px', fontSize: 'small' }}
-          // onClick={() => deleteSubmission(assignment.submissionURL)}
-        >
-          Delete
-        </button>
-      )}
-      {/* {currentDate <= new Date(assignment.deadline) && (
+
+                 
+
+                  <div style={{ alignItems: 'center' }}>
+                    {assignment.submissionURL != "" ? (
+                      <div >
+                        <button
+                          className="btn btn-success"
+                          style={{ margin: '2px', fontSize: 'small' }}
+                          onClick={() => {
+                            openFile(assignment.submissionURL);
+                          }}
+                        >
+                          View Submission
+                        </button >
+                        {currentDate <= new Date(assignment.deadline) && (
+                          <button
+                            className="btn btn-danger"
+                            style={{ margin: '2px', fontSize: 'small' }}
+                          onClick={() => deleteSubmission(assignment.submissionURL,assignment.fileURL)}
+                          >
+                            Delete
+                          </button>
+                        )}
+                        {/* {currentDate <= new Date(assignment.deadline) && (
         <button
           className="btn btn-primary"
           style={{ margin: '2px', fontSize: 'small' }}
@@ -753,45 +747,45 @@ useEffect(() => {
           Edit
         </button>
       )} */}
-    </div>
-  ) : (
-    <span>
-      {currentDate > new Date(assignment.deadline) ? (
-        <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
-      ) : (
-        <button
-          className="btn btn-primary"
-          style={{ margin: '2px', fontSize: 'small' }}
-          onClick={() => handleSubmissionClick(assignment.fileURL)}
-          disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
-        >
-          Submission
-        </button>
-      )}
-    </span>
-  )}
-</div>
+                      </div>
+                    ) : (
+                      <span>
+                        {currentDate > new Date(assignment.deadline) ? (
+                          <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
+                        ) : (
+                          <button
+                            className="btn btn-primary"
+                            style={{ margin: '2px', fontSize: 'small' }}
+                            onClick={() => handleSubmissionClick(assignment.fileURL)}
+                            disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+                          >
+                            Submission
+                          </button>
+                        )}
+                      </span>
+                    )}
+                  </div>
 
 
 
 
 
-{/* <modalConetnt
+                  {/* <modalConetnt
         show={showModal}
         submit_assignment={submit_assignment}
         closeModal={closeModal}
       /> */}
 
-                
-              </td>
 
-              
+                </td>
 
-              <td style={{...row_color }}>
-                <FormattedDate rawDate={assignment.deadline} />
-              </td>
 
-              {/* <td>
+
+                <td style={{ ...row_color }}>
+                  <FormattedDate rawDate={assignment.deadline} />
+                </td>
+
+                {/* <td>
                 {currentDate <= new Date(assignment.deadline) ? (
                   <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
                     SUBMIT
@@ -802,127 +796,92 @@ useEffect(() => {
                   </button>
                 )}
               </td> */}
-              <td style={{...row_color }}>
-                {submissionMapping[assignment.fileURL] === undefined ? (
-                  currentDate > new Date(assignment.deadline) ? (
-                    <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
-                      Deadline Exceeded
-                    </button>
-                  ) : (
-                    <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
-                      Not Submitted
-                    </button>
-                  )
-                ) : currentDate <= new Date(assignment.deadline) ? (
-                  <>
-                  {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
+                <td style={{ ...row_color }}>
+                  {submissionMapping[assignment.fileURL] === undefined ? (
+                    currentDate > new Date(assignment.deadline) ? (
+                      <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
+                        Deadline Exceeded
+                      </button>
+                    ) : (
+                      <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
+                        Not Submitted
+                      </button>
+                    )
+                  ) : currentDate <= new Date(assignment.deadline) ? (
+                    <>
+                      {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
                     Submitted
                   </button> */}
-                
-                  <button
-                    className="btn btn-primary"
-                    style={{ margin: '2px', fontSize: 'medium' }}
-                    onClick={() => handleSubmissionClick(assignment.fileURL)}
-                  >
-                    Edit Submission
-                  </button>
 
-                  </>
-                        
-                ) : (
-                  <button className="btn btn-danger"  style={{ margin: '2px', fontSize: 'small' }}>
-                    Deadline Exceeded
-                  </button>
-                )}
-              </td>
+                      <button
+                        className="btn btn-primary"
+                        style={{ margin: '2px', fontSize: 'medium' }}
+                        onClick={() => handleSubmissionClick(assignment.fileURL)}
+                      >
+                        Edit Submission
+                      </button>
 
+                    </>
 
+                  ) : (
+                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
+                      Deadline Exceeded
+                    </button>
+                  )}
+                </td>
 
 
 
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      <Modal  show={showModal} onHide={closeModal} centered 
-  style={{background: 'transparent', }}>
-    <Modal.Header closeButton>
-      <Modal.Title>Submit Assignment</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-    <h5>Max 15mb File</h5>
-        <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
-      {/* <input
-        className="form-control"
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />  */}
-      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
-    <Form.Control
-      type="file"
-      ref={fileInputRef}
-      onChange={handleFileChange}
-      className={`custom-file-input`}
-      style={{ background: 'grey', color: 'white' }}
-    />
-  </Form.Group>
-    </Modal.Body>
-    <Modal.Footer className="justify-content-center align-items-center d-flex">
-    <Button type="button" className="btn btn-primary" onClick={submit_assignment}
-    style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
-      Submit
-    </Button>
-      <Button type="button" variant="secondary" onClick={closeModal}
-      style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
-        Cancel
-      </Button>
-    </Modal.Footer>
-  </Modal>
-{/* 
-  <Modal  show={showModal} onHide={closeModal} centered 
-  style={{background: 'transparent', }}>
-    <Modal.Header closeButton>
-      <Modal.Title>Update Submission</Modal.Title>
-    </Modal.Header>
-    <Modal.Body >
-    <h5>Max 15mb File</h5>
-        <h6 style={{ color: 'red', marginBottom: '30px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
-      <Form.Group className="mb-3" style={{ marginBottom: '20px',margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
-    <Form.Control
-      type="file"
-      ref={fileInputRef}
-      onChange={handleFileChange}
-      className={`custom-file-input`}
-      style={{ background: 'grey', color: 'white' }}
-    />
-  </Form.Group>
-    </Modal.Body>
-    <Modal.Footer className="justify-content-center align-items-center d-flex" >
-    <Button type="button" className="btn btn-primary" onClick={submit_assignment}
-    style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
-      Update
-    </Button>
-      <Button type="button" variant="secondary" onClick={closeModal}
-      style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
-        Cancel
-      </Button>
-    </Modal.Footer>
-  </Modal> */}
 
-      <div className="text-center">
-        {message !== '' && <p className="text-danger">{message}</p>}
-      </div>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <Modal show={showModal} onHide={closeModal} centered
+          style={{ background: 'transparent', }}>
+          <Modal.Header closeButton>
+            <Modal.Title>Submit Assignment</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>Max 15mb File</h5>
+            <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
+            
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
+              <Form.Control
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className={`custom-file-input`}
+                style={{ background: 'grey', color: 'white' }}
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer className="justify-content-center align-items-center d-flex">
+            <Button type="button" className="btn btn-primary" onClick={submit_assignment}
+              style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+              Submit
+            </Button>
+            <Button type="button" variant="secondary" onClick={closeModal}
+              style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <div className="text-center">
+          {message !== '' && <p className="text-danger">{message}</p>}
+        </div>
 
       </center>
 
     </div>
   );
-  
-  
-  
-  
+
+
+
+
 };
 
 export default StdTable;

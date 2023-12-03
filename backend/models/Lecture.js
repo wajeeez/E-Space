@@ -9,7 +9,7 @@ const lectureSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
+
   lectureDesc:{
     type: String,
     default: "Not Available",

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import headerimg from '../../../Assets/images/Business.png';
 import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
-
+import TChart from "./TChart";
 
 
 function Thome() {
@@ -91,16 +91,46 @@ function Thome() {
 
 
   const bg = 'white';
-  // const bg = '#e4e9f7';
 
 
+  const [notify,setnotify]  = useState([]);
 
-  // const meetingLink =()=>{
-  //   console.log("Meeting link clicked");
-  //     // Redirect to the third-party URL
-  //     window.open(`https://sfu.mirotalk.com/join/${_id}`, '_blank');
+  const NotificationCard = ({ deadline }) => {
+    return (
+      <div className="card mt-3 border-primary shadow">
+        <div className="card-body">
+          <h6 className="card-title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif' }}>
+            Assignment Submitted By Student
+          </h6>
+        </div>
+      </div>
+    );
+  };
 
-  // }
+  useEffect(() => {
+    axios
+      .post(baseURL + `/notification/assignment/submission/${_id}`)
+      .then((response) => {
+
+        if (response.data) {
+
+          console.log(response.data)
+          setnotify(response.data);
+
+        
+         
+
+
+      }
+
+      
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
 
   return (
     <div className="container-fluid" style={{ marginTop: '-8px', margin:'0px' ,background: bg}}>
@@ -230,36 +260,24 @@ function Thome() {
           </div>
         </div>
       </div>
+
+      <div>
+      <TChart value1={20} value2={80} />
+
+      </div>
+
     </div>
   </div>
 
-  <div className="col-md-3 p-2" style={{ maxHeight: '400px', padding: '5px' , marginTop:'15px'}}>
-    <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
+  <div className="col-md-3 p-2" style={{ minHeight: '65vh', padding: '5px' , marginTop:'15px'}}>
+    <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)',minHeight: '65vh'}}>
       <div className="card-header sticky-top" style={{ fontSize: '30px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
       <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>
-        {/* Notification Rows */}
-        <div className="alert alert-primary mb-1" style={{background:bg,border:'none', borderBottom: '2px solid #000' ,borderRadius:'0px'}}>
-          Notification 1
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 2
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 3
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 4
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 5
-        </div>
-        <div className="alert alert-primary mb-1"style={{background:bg,border:'none', borderBottom: '2px solid #000',borderRadius:'0px'}}>
-          Notification 6
-        </div>
-
-        {/* Add more notifications as needed */}
+      {notify.map((notification, index) => (
+        <NotificationCard deadline={notification.deadline} key={index} />
+      ))}
       </div>
     </div>
   </div>

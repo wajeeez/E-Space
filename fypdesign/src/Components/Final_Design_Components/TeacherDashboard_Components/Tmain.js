@@ -31,6 +31,7 @@ import Lectures from '../../../Pages/Teacher/Lectures/Lectures';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Quiz from '../../../Pages/Teacher/Quiz/TQuiz';
 function Tmain() {
   const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
 
@@ -340,7 +341,7 @@ function Tmain() {
           {currentPage === 'assignmentList' && <AssignmentList />}
           {currentPage === 'groupAssignment' && <GroupAssignmentTeacher />}
           
-          {currentPage === 'quiz' && <div>quiz</div>}
+          {currentPage === 'quiz' && <Quiz/>}
           {currentPage === 'account' && <div>user</div>}
           {currentPage === 'class' && <Management></Management>}
           {currentPage === 'performance' && <div>performance</div>}

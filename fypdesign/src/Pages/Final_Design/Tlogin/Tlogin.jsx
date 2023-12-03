@@ -14,7 +14,12 @@ import { setUser } from "../../../store/userSlice";
 import { useDispatch } from "react-redux";
 
 import Loader from "../../../Components/Loader/Loader";
+import { Link } from "react-router-dom";
 
+
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function  Tlogin() {
 
   const [loading, setLoading] = useState(false);
@@ -22,6 +27,9 @@ function  Tlogin() {
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
+
+  const baseURL = process.env.React_App_INTERNAL_API_PATH;
+
 
   const handleLogin = async () => {
     setLoading(true)
@@ -72,6 +80,45 @@ function  Tlogin() {
     validationSchema: loginSchema,
   });
 
+
+
+  const handleForgetPassword = () =>{
+
+    if(values.email!=""){
+
+      const requestData = {
+        email: values.email, // Replace with the user's email
+      };
+
+      axios.post(baseURL+`/teacher/forgetpassword`, requestData)
+      .then(response => {
+
+        if(response.status == 200){
+          toast.success("You will recieve an Email with Password to login")
+        }else{
+          toast.error("Something Went Wrong")
+        }
+
+      // Handle the response data
+      })
+      .catch(error => {
+        toast.error("Something Went Wrong") // Handle the error response
+      });
+
+   
+
+    }else{
+      toast.error("Please Enter Email Address")
+    }
+
+
+  }
+
+
+
+
+
+
   return (
     <div className={styles.App} style={{background:'linear-gradient(to right, #8539d1 30%, #fc10f2 100%)'}}>
     {loading ? (
@@ -115,7 +162,7 @@ function  Tlogin() {
 
       <label>
         {" "}
-        <a href="#" style={{fontSize:'18px', marginBottom:'20px'}}>Forgot password?</a>
+        <Link onClick={handleForgetPassword} style={{fontSize:'18px', marginBottom:'20px'}}>Forgot password?</Link>
       </label>
 
       <Button  onClick={handleLogin} variant='primary' 
@@ -136,6 +183,8 @@ function  Tlogin() {
       </label>
 
     </div>)}
+
+    <ToastContainer/>
     </div>
   );
 }
