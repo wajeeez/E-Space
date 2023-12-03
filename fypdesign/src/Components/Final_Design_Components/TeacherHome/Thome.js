@@ -254,25 +254,26 @@ function Thome() {
         </div>
       </div>
 
-      <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
+      <div className="col-md-12 p-2" style={{ marginTop: '10px', maxHeight: '200px' }}>
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
+            <TChart value1={10} value2={50} />
           </div>
         </div>
       </div>
 
-      <div>
+      {/* <div>
       <TChart value1={20} value2={80} />
 
-      </div>
+      </div> */}
 
     </div>
   </div>
 
   <div className="col-md-3 p-2" style={{ minHeight: '65vh', padding: '5px' , marginTop:'15px'}}>
     <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)',minHeight: '65vh'}}>
-      <div className="card-header sticky-top" style={{ fontSize: '30px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
+      <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
       <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>

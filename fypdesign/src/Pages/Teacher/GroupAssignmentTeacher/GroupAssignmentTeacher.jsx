@@ -812,7 +812,7 @@ const GroupAssignmentTeacher = () => {
                                                 </button>
                                             )}
                                         </td>
-                                  
+{/*                                   
                                     <td style={{ ...row_color, }}>
                                         {remarksMapping[submissionMapping[student.fileURL]]
                                             ? remarksMapping[submissionMapping[student.fileURL]]
@@ -855,16 +855,16 @@ const GroupAssignmentTeacher = () => {
                                                 Time's up
                                             </button>
                                         )}
-                                    </td>
+                                    </td> */}
 
 
                                     </tr>
 
                                     {index < students.length - 1 && (
                                         <tr style={{ padding: '1px' }}>
-                                            <td colSpan="8" style={{ height: '0px' }}>
+                                            {/* <td colSpan="8" style={{ height: '0px' }}>
                                                 <hr />
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     )}
 
