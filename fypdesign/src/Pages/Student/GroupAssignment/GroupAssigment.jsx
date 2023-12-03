@@ -673,7 +673,7 @@ const GroupAssignment = () => {
             </center>
 
             <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
-                <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+                <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
                     <tr >
                         <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
                         <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>

@@ -324,7 +324,7 @@ function TList() {
 
           <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
             boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-          <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
           background:''}} >
             <tr>
               <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>

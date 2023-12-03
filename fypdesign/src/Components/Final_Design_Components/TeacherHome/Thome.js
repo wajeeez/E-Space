@@ -104,7 +104,7 @@ function Thome() {
   // }
 
   return (
-    <div className="container-fluid" style={{ marginTop: '10px', margin:'0px' ,background: bg}}>
+    <div className="container-fluid" style={{ marginTop: '0px', margin:'0px' ,background: bg}}>
       {/* First row covering full width */}
       <div className="row">
       
@@ -236,7 +236,7 @@ function Thome() {
 
   <div className="col-md-3 p-2" style={{ maxHeight: '400px', padding: '5px' , marginTop:'15px'}}>
     <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
-      <div className="card-header sticky-top" style={{ fontSize: '30px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
+      <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
       <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>

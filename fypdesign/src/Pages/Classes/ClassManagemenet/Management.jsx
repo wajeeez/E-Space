@@ -165,8 +165,8 @@ function Management() {
             Add Students
             </Button>
 
-            <table className="table custom-std-table" style={{border:'0px solid black', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
-                <thead style={{border:'0px solid silver', padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
+                <thead style={{border:'1px solid silver', padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
                         <tr >
                         <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
                         <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Name</th>

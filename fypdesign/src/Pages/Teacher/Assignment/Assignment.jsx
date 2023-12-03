@@ -513,7 +513,7 @@ const AssignmentPage = () => {
 
 
            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+        <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
@@ -526,7 +526,7 @@ const AssignmentPage = () => {
         </thead>
         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
   {assignments.map((assignment, index) => (
-    <tr key={index} >
+    <tr key={index} style={{border:'1px solid silver' }} >
       <td style={{ ...row_color }}>
         <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
       </td>

@@ -94,11 +94,11 @@ function Treg() {
     , alignItems: 'center', minHeight: '100vh',marginTop:'0px' }}>
      <center>
      <div className="container-fluid class" style={{background:'white', 
-         padding: '2rem 4rem',margin:'0px' , minWidth:'300px',maxWidth:'700px', border:'2px solid black', 
-         borderRadius:'30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'}}>
+         padding: '2rem 4rem',margin:'0px' , minWidth:'300px',maxWidth:'700px', border:'2px solid silver', 
+         borderRadius:'30px', boxShadow: '10px 10px 20px  rgba(0, 0, 0, 0.4)'}}>
 
       <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
-      marginBottom:'20px', fontWeight:'bold',}}>Register as Teacher</h1>
+      marginBottom:'20px', fontWeight:'400',}}>Register as Teacher</h1>
 
 <FormGroup >
   <FormControl

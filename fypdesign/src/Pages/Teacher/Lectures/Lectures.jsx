@@ -277,7 +277,7 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
 
     {/* Upload Lecture */}
     <div className="row justify-content-center align-items-center d-flex" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+      <Form.Group className="mb-3" style={{border:'1 px solid purple', margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
         <Form.Control
           type="file"
           onChange={handleFileChange}
@@ -287,12 +287,12 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
         <Form.Control
           type="text"
           placeholder="Title"
           onChange={(e) => handleNameChange(e.target.value)}
-          style={{ textAlign: 'center' }}
+          style={{textAlign: 'center' }}
         />
       </Form.Group>
 
@@ -305,7 +305,7 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
         />
       </Form.Group> */}
 
-      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
         <Form.Control
           type="text"
           placeholder="Video Link"
@@ -314,7 +314,7 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+      <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
         <Form.Control
           type="text"
           placeholder="References"
@@ -337,7 +337,7 @@ const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handle
     </div>
 
            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
+        <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center'}} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>

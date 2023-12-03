@@ -122,10 +122,10 @@ function Slogin() {
         <Loader /> // Display the loader while loading
       ) : (
        <div className="container-fluid class" style={{background:'white', 
-     padding: '2rem 3rem',margin:'' ,minWidth:'300px',maxWidth:'600px', border:'2px solid black', 
-     borderRadius:'30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'}}>
+     padding: '4rem 3rem',margin:'' ,minWidth:'300px',maxWidth:'600px', border:'2px solid silver', 
+     borderRadius:'30px', boxShadow: '10px 10px 20px  rgba(0, 0, 0, 0.4)' }}>
        <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
-      marginBottom:'30px', fontWeight:'bold',}}>Student Login</h1>
+      marginBottom:'30px', fontWeight:'400',}}>Student Login</h1>
 
       <Form.Group >
         <Form.Control
@@ -164,10 +164,11 @@ function Slogin() {
         </label>
         <br/>
         <Button  onClick={handleLogin} variant='primary' 
-          style={{fontSize:'22px', letterSpacing:'3px',
-          fontFamily:'Poppins', padding:'10px', width:'150px', margin:'20px'
-          ,backgroundColor:'#8539d1', borderRadius:'16px'
-          }}>Login</Button>
+      style={{ marginTop:'20px', color: 'white' , fontSize:'22px' , width:'180px', height:'50px', borderRadius:'30px'
+      ,backgroundColor:'#8539d1', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+      , letterSpacing:'3px'}}
+          >
+            Login</Button>
         <div>
           <span>
             {error != "" ? <p className={styles.errorMessage}>{error}</p> : ""}

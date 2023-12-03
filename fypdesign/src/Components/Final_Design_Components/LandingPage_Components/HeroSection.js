@@ -168,14 +168,14 @@ function HeroSection() {
 
             <div className="container-fluid custom-container" style={{minWidth:'300px',maxWidth:'600px',}}>
 
-                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '20px', backgroundColor: '' 
+                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid silver', padding: '20px', backgroundColor: '' 
                       }}>
 
                     <center>
                       <i className="fa fa-times " onClick={toggleRegistrationCard} />
                       {/* <img className="custom-close-icon" onClick={toggleRegistrationCard} src={close}/> */}
                       <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
-                        marginBottom:'20px', fontWeight:'bold',}}>
+                        marginBottom:'20px', fontWeight:'400',}}>
                           Register as Teacher</h1>
                       <div className="form-group custom-form-group">
                         <input
