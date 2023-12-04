@@ -809,7 +809,7 @@ const StdTable = () => {
                       </button>
                     ) : (
                       <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', 
-                      fontSize: 'small',cursor:'default',
+                      fontSize: 'small',cursor:'default',border:'none',
                       boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)', }}
                       >
                         Not Submitted
