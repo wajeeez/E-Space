@@ -32,6 +32,10 @@ import Lectures from '../../../Pages/Teacher/Lectures/Lectures';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Quiz from '../../../Pages/Teacher/Quiz/TQuiz';
+import Analysis from '../../../Pages/Teacher/Analysis/Analysis';
+import Analysis2 from '../../../Pages/Teacher/Analysis/Analysis2';
+
+import Analysis3 from '../../../Pages/Teacher/Analysis/Analysis3';
 function Tmain() {
   const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
 
@@ -344,7 +348,7 @@ function Tmain() {
           {currentPage === 'quiz' && <Quiz/>}
           {currentPage === 'account' && <div>user</div>}
           {currentPage === 'class' && <Management></Management>}
-          {currentPage === 'performance' && <div>performance</div>}
+          {currentPage === 'performance' && <Analysis3></Analysis3>}
           {currentPage === 'return' && <div>home</div>}
           {currentPage === 'delete' && <div>delete</div>}
           
