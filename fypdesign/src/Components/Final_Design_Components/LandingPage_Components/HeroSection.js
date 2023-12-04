@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
@@ -99,15 +99,17 @@ function HeroSection() {
 
 
     <>
-      <div className="my-container">
-        <div className="text-div">
+      {/* <div className="my-container">
+        <div className="hcontent">
 
          
 
 
 
-          <h2>Welcome To E-SPACE</h2>
+          <h1 className='htitle'> Welcome To E&zwj;-&zwj;SPACE </h1>
+
           <Typewriter
+          className='hdescription'
             options={{
               strings: ['Empowering Education, Empowering You: Choose E-Space'],
               
@@ -117,11 +119,11 @@ function HeroSection() {
               wrapperClassName: 'typewriter-wrapper', // Add a class to the wrapper element
             }}
           />
-          {/* <p>Empowering Education, Empowering You: Choose E-Space</p> */}
-          <button className="hjoin-button" onClick={handleJoinNow} style={{ border: '2px solid black' }}>
+          
+          <button className="ljoin-button" onClick={handleJoinNow} >
             Join now
           </button>
-          <button className="hsign-button" onClick={handleSignIn} style={{ border: '2px solid black' }}>
+          <button className="lsign-button" onClick={handleSignIn} >
             Sign In
           </button>
         </div>
@@ -132,7 +134,44 @@ function HeroSection() {
             className="my-image"
           />
         </div>
+      </div> */}
+
+
+<div className="my-container">
+  <Row>
+    <Col md={6} className="d-flex align-items-center justify-content-center" >
+      <div className="hcontent">
+        <h1 className='htitle'> Welcome To E&zwj;-&zwj;SPACE </h1>
+        <Typewriter
+          
+          options={{
+            strings: ['Empowering Education, Empowering You : Choose E-Space'],
+            autoStart: true,
+            loop: true,
+            delay: 100,
+            wrapperClassName: 'typewriter-wrapper', // Add a class to the wrapper element
+          }}
+        />
+        <button className="ljoin-button" onClick={handleJoinNow}>
+          Join now
+        </button>
+        <button className="lsign-button" onClick={handleSignIn}>
+          Sign In
+        </button>
       </div>
+    </Col>
+    <Col md={6}>
+      <div className="image-div">
+        <img
+          src="/images/ill5.jpg"
+          alt="Your Image Alt Text"
+          className="my-image"
+        />
+      </div>
+    </Col>
+  </Row>
+</div>
+
 
 
 
@@ -144,10 +183,10 @@ function HeroSection() {
          
 
           {/* <Typewriter  className="hdescription" text="Empowering Education, Empowering You: Choose E-Space" speed={100}/> */}
-        {/* <button className="hjoin-button" onClick={handleJoinNow} style={{border: '2px solid black'}}>
+        {/* <button className="ljoin-button" onClick={handleJoinNow} style={{border: '2px solid black'}}>
               Join now
           </button>
-          <button className="hsign-button" onClick={handleSignIn} style={{border: '2px solid black'}}>
+          <button className="lsign-button" onClick={handleSignIn} style={{border: '2px solid black'}}>
               Sign In
           </button> */}
 
