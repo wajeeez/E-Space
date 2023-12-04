@@ -88,9 +88,13 @@
 width: 50%;
 border: 1px solid red;
 padding: '20px'
-
 }
 
+.image-div .my-image{
+  min-height: 200px;
+  min-width: 350px;
+
+}
 .image-div{
   margin-right: 20px;
 }
@@ -117,7 +121,7 @@ margin-left: 50px;
 
 .htitle {
   
-  white-space: wrap;
+ 
   font-size: 56px;
   font-family: 'Poppins',sans-serif;
   text-align: left;
@@ -164,7 +168,7 @@ margin-left: 50px;
   margin-top: 15px;
   border: 2px solid white;
   margin-right: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
  margin-top: 40px;
   
 }
@@ -180,7 +184,7 @@ margin-left: 50px;
   font-family: 'Raleway', sans-serif;
   width: 200px;
   font-size: 20px;
-  
+  margin-bottom: 20px;
 
 
 }
@@ -219,24 +223,27 @@ margin-left: 50px;
 
 
 /* Responsive styles for screens with a maximum width of 700px */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .htitle {
-    font-size: 48px; /* Adjust font size for screens up to 700px */
+    font-size: 46px; /* Adjust font size for screens up to 700px */
+    white-space: wrap;
   }
   .typewriter-wrapper {
     font-size: 18px; /* Adjust font size for screens up to 700px */
+    white-space: wrap;
   }
   .ljoin-button {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
   .lsign-button {
     font-size: 18px; /* Adjust font size for screens up to 700px */
-  }
-  .hcontent {
-    
-    margin-left: 20px;
     
   }
+
+  .hcontent{
+    text-align: center;
+  }
+
   .heroimg{
    width: 800px;
   
@@ -244,27 +251,54 @@ margin-left: 50px;
 }
 
 /* Responsive styles for screens with a maximum width of 500px */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 542px) {
   .htitle {
     font-size: 40px; /* Adjust font size for screens up to 500px */
-    word-wrap: normal;
+    white-space: wrap;
   }
   .typewriter-wrapper {
     font-size: 16px; /* Adjust font size for screens up to 500px */
+    padding: 20px;
+    white-space: wrap;
   }
   .ljoin-button {
     font-size: 16px; /* Adjust font size for screens up to 500px */
-    margin-left: 0px;
+    margin-right: 20px;
   }
   .lsign-button {
     font-size: 16px; /* Adjust font size for screens up to 700px */
-    margin-left: 0px;
+    margin-right: 20px;
   }
-  .hcontent {
-    margin-left: 0px;
-    
-    
+  .hcontent{
+    text-align: center;
   }
+
+
+}
+@media screen and (max-width: 360px) {
+  .htitle {
+    font-size: 36px; /* Adjust font size for screens up to 500px */
+    white-space: wrap;
+  }
+  .typewriter-wrapper {
+    font-size: 14px; /* Adjust font size for screens up to 500px */
+    white-space: wrap;
+  }
+  .ljoin-button {
+    font-size: 16px; /* Adjust font size for screens up to 500px */
+    
+    width:120px;
+  }
+  .lsign-button {
+    font-size: 16px; /* Adjust font size for screens up to 700px */
+    
+    width:120px;
+  }
+  .hcontent{
+    padding: 10px;
+    margin-left:50px;
+  }
+
 
 }
 
