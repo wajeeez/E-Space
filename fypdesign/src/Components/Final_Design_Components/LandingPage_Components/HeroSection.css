@@ -1,20 +1,20 @@
 
-.my-container {
+/* .my-container {
   display: flex;
   justify-content: space-between;
   max-width: 100%;
   margin: 0 auto;
   min-height: 82vh;
   padding: 20px;
-  /* border: 1px solid #ccc; */
   box-sizing: border-box;
-}
+
+} */
 
 .text-div {
   flex: 1;
   margin-top: 120px;
-  margin-right: 20px;
-  margin-left: 14px;
+  margin-right: 0px;
+  margin-left: 100px;
 }
 
 .text-div h2 {
@@ -22,22 +22,14 @@
   font-family: 'Poppins', sans-serif;
   text-align: left;
   color: #000; /* You can adjust the color as needed */
-  font-size: 60px; /* You can adjust the font size as needed */
-  margin-left: 5px;
+  font-size: 56px; /* You can adjust the font size as needed */
+  /* margin-left: 5px; */
   text-transform: uppercase; /* Optional: Convert text to uppercase */
   letter-spacing: 1px; /* Optional: Add letter spacing for a decorative effect */
-  
+
   white-space: nowrap; 
 }
 
-.typewriter-wrapper{
-  font-weight: bold;
-  font-family: 'Raleway', sans-serif;
-  text-align: left;
-  color: #000;
-  font-size: 20px;
-  margin-left: 5px;
-}
 
 
 .text-div p{
@@ -46,19 +38,23 @@
   text-align: left;
   color: #000;
   font-size: 20px;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   
 }
 
-.image-div {
+/* .image-div {
   flex: 1.5;
-}
+  position: relative;
+  overflow: hidden;
+} */
 
 .my-image {
   width: 100%;
   height: auto;
+  /* position: absolute; */
+  top: 0;
+  left: 0;
 }
-
 
 
 @media only screen and (max-width: 768px) {
@@ -94,59 +90,66 @@ border: 1px solid red;
 padding: '20px'
 
 }
-.heroimg img{
- 
+
+.image-div{
+  margin-right: 20px;
 }
 
+.my-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 84vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
 .hcontent {
-  border: 1px solid red;
-  padding-top:100px;
- 
+ /* margin-left: 100px;
+margin-top: 120px; 
+flex: 1.5; */
+text-align: left;
 
-  padding-left: 50px;
-
-  
+margin-left: 50px;
 }
-
-.hcontent h1{
-  padding-right:100px;
-  border: 1px solid red;
- 
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  text-align: left;
-  letter-spacing: 1px;
-  color: #000;
-  /* text-shadow: 2px 2px 4px rgba(93, 92, 92, 0.8);  */
-  margin-bottom: 10px;
-
-}
-
 
 .htitle {
-  padding-right:100px;
-  border: 1px solid red;
-  font-size: 80px;
+  
+  white-space: wrap;
+  font-size: 56px;
   font-family: 'Poppins',sans-serif;
   text-align: left;
   letter-spacing: 1px;
   color: #000;
-  /* text-shadow: 2px 2px 4px rgba(93, 92, 92, 0.8);  */
-  margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
-
-
-.hdescription {
+.typewriter-wrapper{
   font-weight: bold;
   font-family: 'Raleway', sans-serif;
   text-align: left;
   color: #000;
   font-size: 20px;
   margin-left: 5px;
-  
+  margin-bottom: 20px;
+  z-index: 0;
 }
 
-.hjoin-button {
+
+/* .hdescription {
+  font-weight: bold;
+  font-family: 'Raleway', sans-serif;
+  text-align: left;
+  color: #000;
+  font-size: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+} */
+
+.ljoin-button {
   background-color: black;
   color: white;
   border: none;
@@ -159,16 +162,16 @@ padding: '20px'
   width: 200px;
   font-size: 20px;
   margin-top: 15px;
-  
-  margin-right: 10px;
+  border: 2px solid white;
+  margin-right: 40px;
   margin-bottom: 10px;
- 
+ margin-top: 40px;
   
 }
-.hsign-button {
+.lsign-button {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
-  border: 2px black;
+  border: 2px solid black;
   border-radius: 30px;
   padding: 5px ;
   font-weight: 600;
@@ -178,21 +181,23 @@ padding: '20px'
   width: 200px;
   font-size: 20px;
   
-  margin-left: 10px;
-  margin-right: 10px;
+
+
 }
 
-.hsign-button:hover {
-  transform: scale(1.1);
-  background-color: rgb(0, 0, 0);
+.lsign-button:hover {
+  transform: scale(1.2);
+  background-color: #4aa5fd;
   color: azure;
+  border: 2px solid white;
 }
 
-.hjoin-button:hover {
-  transform: scale(1.1);
-  background-color: rgb(255, 255, 255);
+.ljoin-button:hover {
+  transform: scale(1.2);
+  background-color: #f6cf46;
   color: #000;
-  padding: 0.5rem 1rem;
+  
+  
 } 
 
 
@@ -218,13 +223,13 @@ padding: '20px'
   .htitle {
     font-size: 48px; /* Adjust font size for screens up to 700px */
   }
-  .hdescription {
+  .typewriter-wrapper {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
-  .hjoin-button {
+  .ljoin-button {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
-  .hsign-button {
+  .lsign-button {
     font-size: 18px; /* Adjust font size for screens up to 700px */
   }
   .hcontent {
@@ -242,15 +247,16 @@ padding: '20px'
 @media screen and (max-width: 500px) {
   .htitle {
     font-size: 40px; /* Adjust font size for screens up to 500px */
+    word-wrap: normal;
   }
-  .hdescription {
+  .typewriter-wrapper {
     font-size: 16px; /* Adjust font size for screens up to 500px */
   }
-  .hjoin-button {
+  .ljoin-button {
     font-size: 16px; /* Adjust font size for screens up to 500px */
     margin-left: 0px;
   }
-  .hsign-button {
+  .lsign-button {
     font-size: 16px; /* Adjust font size for screens up to 700px */
     margin-left: 0px;
   }

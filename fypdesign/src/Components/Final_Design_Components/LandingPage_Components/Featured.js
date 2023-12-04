@@ -1,6 +1,6 @@
 import React from 'react';
-import tea from '../../../Assets/images/t3.png';
-import std from '../../../Assets/images/s4.png';
+import tea from '../../../Assets/images/t6.png';
+import std from '../../../Assets/images/s8.png';
 import './Featured.css'; // Import the CSS file
 
 function Featured() {

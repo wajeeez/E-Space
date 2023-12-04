@@ -38,8 +38,8 @@ const cardData = [
     backgroundColor: '#1b1a56',
   },
   {
-    iconClass: 'fas fa-chalkboard fa-shake',
-    imgSrc: analysis,
+    iconClass: 'fas fa-bell fa-shake',
+        imgSrc: analysis,
     title: 'Never Miss A Deadline',
     description: 'Real time Notification enabale you to always submit assignments on time',
     link: '/card5',
@@ -92,6 +92,7 @@ const CardsCarousel = () => {
 
   return (
     <Container className='custom-carousel'>
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <Row className="mt-3">
         <Col>
           <Carousel activeIndex={activeRow} indicators={false} controls={false}>
@@ -114,17 +115,17 @@ const CardsCarousel = () => {
               onClick={() => handleRowChange(activeRow - 1)}
               disabled={activeRow === 0}
               className="btn-transition"
-              style={{backgroundColor:"black" ,border: 'none' }}
+              style={{background:"white" ,border: 'none' }}
             >
-              Prev
+            <i class='bx bxs-chevrons-left' style={{color: "#b23ac7", fontSize:'50px'}}></i>
             </Button>
             <Button
               onClick={() => handleRowChange(activeRow + 1)}
               disabled={activeRow === 1}
               className="btn-transition"
-              style={{backgroundColor:"black", border: 'none' }}
+              style={{background:"white", border: 'none' }}
             >
-             Next
+            <i class='bx bxs-chevrons-right' style={{color: "#b23ac7", fontSize:'50px'}}></i>
             </Button>
           </div>
         </Col>
