@@ -798,54 +798,63 @@ const StdTable = () => {
                   </button>
                 )}
               </td> */}
-                <td style={{ ...row_color }}>
-                  {submissionMapping[assignment.fileURL] === undefined ? (
-                    currentDate > new Date(assignment.deadline) ? (
-                      <button className="btn btn-danger" 
-                      style={{ margin: '2px', fontSize: 'small' ,cursor:'default',
-                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
-                      >
-                        Deadline Exceeded
-                      </button>
-                    ) : (
-                      <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', 
-                      fontSize: 'small',cursor:'default',border:'none',
-                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)', }}
-                      >
-                        Not Submitted
-                      </button>
-                    )
-                  ) : currentDate <= new Date(assignment.deadline) ? (
-                    <>
-                      {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
-                    Submitted
-                  </button> */}
 
-                      <button
-                        className="btn btn-primary"
-                        style={{ margin: '2px', fontSize: 'medium' ,cursor:'default',
-                        boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
-                        onClick={() => handleSubmissionClick(assignment.fileURL)}
-                        
-                      >
-                        Edit Submission
-                      </button>
-
-                    </>
-
-                  ) : (
-                    <button className="btn btn-danger" 
-                    style={{ margin: '2px', fontSize: 'small' ,cursor:'default',
-                    boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
-                      >
+              <td style={{ ...row_color }}>
+                {submissionMapping[assignment.fileURL] === undefined ? (
+                  currentDate > new Date(assignment.deadline) ? (
+                    <button className="btn btn-danger"
+                      style={{
+                        margin: '2px',
+                        fontSize: 'small',
+                        cursor: 'default',
+                        boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                        background:'#cc3035'
+                      }}>
                       Deadline Exceeded
                     </button>
-                  )}
-                </td>
-
-
-
-
+                  ) : (
+                    <button className="btn" style={{
+                      margin: '2px',
+                      backgroundColor: 'yellow',
+                      color: 'black',
+                      fontSize: 'small',
+                      cursor: 'default',
+                      border: 'none',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                      
+                    }}>
+                      Not Submitted
+                    </button>
+                  )
+                ) : currentDate <= new Date(assignment.deadline) ? (
+                  <>
+                    <button
+                      className="btn btn-success"
+                      style={{
+                        margin: '2px',
+                        fontSize: 'medium',
+                        cursor: 'default',
+                        boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                        background:'green',
+                        border:'none'
+                      }}
+                    >
+                      Submitted
+                    </button>
+                  </>
+                ) : (
+                  <button className="btn btn-danger" disabled
+                    style={{
+                      margin: '2px',
+                      fontSize: 'small',
+                      cursor: 'default',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                      background:'#cc3035'
+                    }}>
+                    Deadline Exceeded
+                  </button>
+                )}
+              </td>
 
               </tr>
             ))}
