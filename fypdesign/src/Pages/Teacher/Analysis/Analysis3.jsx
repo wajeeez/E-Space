@@ -1,12 +1,55 @@
 // Install required dependencies: npm install react-chartjs-2
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import './Analysis3.css'; // Import a CSS file for styling
 import LineChart from './LineChart';
 
+import { Form, Button, Row, Col } from 'react-bootstrap';
+
+
+
 const Analysis3 = () => {
   const [file, setFile] = useState(null);
   const [data, setData] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setFile(file);
+    
+  // };
+
+  // const analyzeData = async () => {
+  //   if (!file) {
+  //     alert('Please select a file first.');
+      
+  //     return;
+      
+  //   }
+
+  //   try {
+  //     const fileContent = await readFile(file);
+  //     const jsonData = JSON.parse(fileContent);
+  //     setData(jsonData);
+  //   } catch (error) {
+  //     console.error('Error reading or parsing the file:', error);
+  //   }
+  // };
+
+
+  // const readFile = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onload = (event) => resolve(event.target.result);
+  //     reader.onerror = (error) => reject(error);
+  //     reader.readAsText(file);
+  //   });
+  // };
+
+  useEffect(() => {
+    if (file) {
+      analyzeData();
+    }
+  }, [file]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -14,11 +57,6 @@ const Analysis3 = () => {
   };
 
   const analyzeData = async () => {
-    if (!file) {
-      alert('Please select a file first.');
-      return;
-    }
-
     try {
       const fileContent = await readFile(file);
       const jsonData = JSON.parse(fileContent);
@@ -36,7 +74,6 @@ const Analysis3 = () => {
       reader.readAsText(file);
     });
   };
-
 
   const getStudentJoinTimes = () => {
     if (!data) return [];
@@ -84,16 +121,62 @@ const generateChart = () => {
   };
 
   return (
-    <div>
-      <h1>Peer Analysis</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={analyzeData}>Analyze</button>
+    <div className="container-fluid" style={{ marginTop: '0px', margin:'0px' ,background:''}}>
+      <center>
+       
+              <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', letterSpacing:'3px'}}>
+           ANALYSIS</h1>
+
+      {/* <input type="file" onChange={handleFileChange} /> */}
+
+
+      <div style={{ display: '',justifyContent:'center',marginTop:'10px', marginBottom:'30px' }}>
+      <Form.Group className="mb-3" >
+        <Form.Control
+          type="file"
+          onChange={handleFileChange}
+          style={{ background: 'lightblue', color: 'black', 
+          maxWidth: '400px', minWidth: '250px',  }}
+        />
+      </Form.Group>
+
+      {/* <Button
+        className={`btn-primary`}
+        onClick={analyzeData}
+        style={{
+          background: '',
+          color: 'white',
+          fontSize: 'large',
+          width: '150px',
+          height: '40px',
+          borderRadius: '30px',
+          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+          marginRight:'40px',marginLeft:'40px',
+        }}
+      >
+        Analyze
+      </Button> */}
+    </div>
+
+
+
+      {/* <button onClick={analyzeData}>Analyze</button> */}
+
+
+
 
       {data && (
-        <div className="chart-container">
-          {/* Display charts based on your analysis */}
-          <div className="chart-item">
-            <h2>Role Distribution</h2>
+  // <div className="chart-container">
+  <div>
+    {/* First Row */}
+    <div className="row mb-3 ">
+      {/* Role Distribution */}
+      <div className="col-md-6">
+        <div className="card" style={{borderRadius: '16px' , border:'none', 
+        boxShadow: '0px 0px 10px rgba(5, 155, 255,0.4)', padding:'10px'}}>
+          <div className="card-body ">
+            <h4 className="card-title" style={{fontFamily: 'Poppins, sans-serif', fontWeight: '500',
+            color:'black', marginBottom:'-10px', marginTop:'-10px' }}>Role Distribution</h4>
             <Pie
               data={{
                 labels: ['Teacher/Presenter', 'Student'],
@@ -105,6 +188,8 @@ const generateChart = () => {
                     ],
                     backgroundColor: ['#FF6384', '#36A2EB'],
                     hoverBackgroundColor: ['#FF6384', '#36A2EB'],
+                    // backgroundColor: ['#ae236d', '#f6cf46'],
+                    // hoverBackgroundColor: ['#ae236d', '#f6cf46'],
                   },
                 ],
               }}
@@ -114,9 +199,16 @@ const generateChart = () => {
               }}
             />
           </div>
+        </div>
+      </div>
 
-          <div className="chart-item">
-            <h2>Browser Usage</h2>
+      {/* Browser Usage */}
+      <div className="col-md-6">
+        <div className="card" style={{borderRadius: '16px' , border:'none', 
+        boxShadow: '0px 0px 10px rgba(5, 155, 255,0.4)', padding:'10px'}}>
+          <div className="card-body">
+            <h4 className="card-title" style={{fontFamily: 'Poppins, sans-serif', fontWeight: '500',
+            color:'black', marginBottom:'-10px', marginTop:'-10px' }}>Browser Usage</h4>
             <Bar
               data={{
                 labels: ['Chrome'],
@@ -136,9 +228,19 @@ const generateChart = () => {
               }}
             />
           </div>
+        </div>
+      </div>
+    </div>
 
-          <div className="chart-item">
-            <h2>Audio and Video Preferences</h2>
+    {/* Second Row */}
+    <div className="row">
+      {/* Audio and Video Preferences */}
+      <div className="col-md-6">
+        <div className="card" style={{borderRadius: '16px' , border:'none', 
+        boxShadow: '0px 0px 10px rgba(5, 155, 255,0.4)', padding:'10px'}}>          
+        <div className="card-body">
+            <h4 className="card-title" style={{fontFamily: 'Poppins, sans-serif', fontWeight: '500',
+            color:'black', marginBottom:'-10px', marginTop:'-10px' }}>Audio and Video Preferences</h4>
             <Bar
               data={{
                 labels: ['Audio Enabled', 'Video Enabled'],
@@ -159,15 +261,26 @@ const generateChart = () => {
               }}
             />
           </div>
-          <div className="chart-item">
-
-          <LineChart data={data}/>
-            
-          </div>
-         
-   
         </div>
-      )}
+      </div>
+
+      {/* Line Chart */}
+      <div className="col-md-6">
+        <div className="card" style={{borderRadius: '16px' , border:'none', 
+        boxShadow: '0px 0px 10px rgba(5, 155, 255,0.4)', padding:'10px'}}>
+          <div className="card-body" >
+            <h4 className="card-title" style={{fontFamily: 'Poppins, sans-serif', fontWeight: '500',
+            color:'black', marginBottom:'-10px', marginTop:'-10px' }}>Total Students</h4>
+            <LineChart data={data} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+    </center>
     </div>
   );
 };

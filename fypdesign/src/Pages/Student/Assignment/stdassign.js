@@ -644,8 +644,10 @@ const StdTable = () => {
           Student Name: {StudentName} | Email: {stdEmail}
     </p> */}
 
-      <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,textAlign: 'center', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle'}} >
+      <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+        background:'' }} >
           <tr >
             <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
@@ -659,7 +661,7 @@ const StdTable = () => {
         </thead>
         <tbody style={{}}>
           {assignments.map((assignment, index) => (
-            <tr key={index} style={{border:'1px solid silver'}}>
+            <tr key={index} style={{textAlign:'center'}}>
               <td style={{...row_color }}>{index + 1}</td>
               <td style={{...row_color }}>
                 {/* Content */}
@@ -799,11 +801,17 @@ const StdTable = () => {
                 <td style={{ ...row_color }}>
                   {submissionMapping[assignment.fileURL] === undefined ? (
                     currentDate > new Date(assignment.deadline) ? (
-                      <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
+                      <button className="btn btn-danger" 
+                      style={{ margin: '2px', fontSize: 'small' ,cursor:'default',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
+                      >
                         Deadline Exceeded
                       </button>
                     ) : (
-                      <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
+                      <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', 
+                      fontSize: 'small',cursor:'default',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)', }}
+                      >
                         Not Submitted
                       </button>
                     )
@@ -815,8 +823,10 @@ const StdTable = () => {
 
                       <button
                         className="btn btn-primary"
-                        style={{ margin: '2px', fontSize: 'medium' }}
+                        style={{ margin: '2px', fontSize: 'medium' ,cursor:'default',
+                        boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
                         onClick={() => handleSubmissionClick(assignment.fileURL)}
+                        
                       >
                         Edit Submission
                       </button>
@@ -824,7 +834,10 @@ const StdTable = () => {
                     </>
 
                   ) : (
-                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
+                    <button className="btn btn-danger" 
+                    style={{ margin: '2px', fontSize: 'small' ,cursor:'default',
+                    boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',}}
+                      >
                       Deadline Exceeded
                     </button>
                   )}

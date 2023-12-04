@@ -322,11 +322,11 @@ function TList() {
 
           {submissions.length === 0 ? ( 
 
-          <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
-            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-          background:''}} >
-            <tr>
+        <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+            <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+            background:'' }} >
+            <tr >
               <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
               <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
               <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
@@ -345,11 +345,11 @@ function TList() {
 
 
           ) : (
-            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
-            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-          background:''}} >
-                <tr>
+            <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+              <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+              background:'' }} >
+                <tr >
                   <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
@@ -368,7 +368,7 @@ function TList() {
 
                   <>
 
-                    <tr className={styles.tr} key={submission._id} style={{border:'1px solid silver'}}>
+                    <tr className={styles.tr} key={submission._id} >
                       <td style={{...row_color }}>{index+1}</td>
                       <td style={{...row_color }}>{submission.Email}</td>
                       <td style={{...row_color }}>{submission.submissionDate}</td>

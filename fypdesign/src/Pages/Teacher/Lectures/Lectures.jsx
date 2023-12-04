@@ -148,15 +148,7 @@ const Lectures = () => {
 
 
 
-  const row_color = {
-    backgroundColor: 'transparent',
-    color: 'black',
-  }
-  const head_color = {
-    backgroundColor: 'transparent',
-    color: 'black',
-    fontWeight:'500',
-  }
+
 
 
 
@@ -453,7 +445,17 @@ formData.append('lectureName', lectureName);
   };
 
 
-
+  const row_color = {
+    backgroundColor: 'transparent',
+    color: 'black',
+    borderRadius:'16px',
+    
+  }
+  const head_color = {
+    backgroundColor: 'transparent',
+    color: 'black',
+    fontWeight:'500',
+  }
 
 
 
@@ -462,15 +464,16 @@ formData.append('lectureName', lectureName);
 
   return (
     <>
-      <div className="container-fluid" style={{ textAlign: 'center', marginTop: '10px' }}>
+      <div className="container-fluid" style={{ textAlign: 'center', marginTop: '0px' }}>
         <center>
-          <h1 className={styles.header}>Upload New Lecture</h1>
-          <br />
+        <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '20px', letterSpacing:'3px'}}>
+           LECTURES</h1>
+          
 
 
           {/* Upload Lecture */}
           <div className="row justify-content-center align-items-center d-flex" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="file"
                 onChange={handleFileChange}
@@ -480,7 +483,7 @@ formData.append('lectureName', lectureName);
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="text"
                 placeholder="Title"
@@ -490,7 +493,7 @@ formData.append('lectureName', lectureName);
             </Form.Group>
 
          
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="text"
                 placeholder="Video Link"
@@ -499,7 +502,7 @@ formData.append('lectureName', lectureName);
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="text"
                 placeholder="References"
@@ -512,26 +515,20 @@ formData.append('lectureName', lectureName);
               <Button
                 className={`${styles.assignmentButton} btn-success`}
                 onClick={teacherLectureUpload}
-                style={{ background: '', color: 'white', fontSize: 'large', width: '220px', height: '50px' }}
-              >
+                style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'
+                  , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)', marginTop:'10px'}}
+                >
                 Upload Lecture
               </Button>
               <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
             </div>
           </div>
 
-          <div style={{ background: 'black', height: '10px', width: '2000px' }}></div>
 
-          <h1 style={{
-            background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '0px'
-            , marginTop: '20px'
-          }}>
-            Uploaded Lectures</h1>
-          <br />
-
-
-          <table className="table custom-std-table" style={{ border: '1px solid white', verticalAlign: 'middle' }}>
-            <thead style={{ border: '3px solid black', padding: '15px', verticalAlign: 'middle', textAlign: 'center' }} >
+          <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+            <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+            background:'' }} >
               <tr >
                 <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr No.</th>
                 <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
@@ -539,7 +536,7 @@ formData.append('lectureName', lectureName);
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Description</th> */}
                 <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Video Link</th>
                 <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Remark</th>
-                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Action</th>
+                <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Action</th>
               </tr>
             </thead>
 
@@ -547,7 +544,7 @@ formData.append('lectureName', lectureName);
 
 
             (
-              <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px' }}>
+              <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px',borderRadius:'16px' ,}}>
                 <tr key={lecture.fileURL} >
 
                   <td style={{ ...row_color, marginTop: '5px' }}>
@@ -569,7 +566,7 @@ formData.append('lectureName', lectureName);
 
                     <button
                       className="btn btn-primary"
-                      style={{ marginTop: '-10px', fontSize: 'large' }}
+                      style={{ marginTop: '-5px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
                       onClick={openFileInBrowser.bind(null, lecture.fileURL)}
                     >
                       View Lecture
@@ -590,14 +587,14 @@ formData.append('lectureName', lectureName);
                       {lecture.lectureDesc}
                     </p>
                   </td>
-                  <td style={{ ...row_color }}>
+                  <td style={{ ...row_color , borderRadius:'20px'}}>
                     <button
                       className="btn btn-primary " style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
                       onClick={handleUpdateClick.bind(null, lecture.fileURL)}
                     >
                       Edit
                     </button>
-                    <br />
+                    
                     <button
                       className="btn btn-danger " style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
                       onClick={handleDeleteClick.bind(null, lecture.fileURL)}

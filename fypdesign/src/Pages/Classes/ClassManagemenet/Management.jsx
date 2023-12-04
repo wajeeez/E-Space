@@ -144,7 +144,7 @@ function Management() {
         <>
             <ToastContainer />
             <div className="container-fluid" style={{  
-      textAlign: 'center', marginTop: '10px', }}>
+      textAlign: 'center', marginTop: '0px', }}>
       <center> 
             <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
            CLASS MANAGEMENT</h1>
@@ -165,9 +165,11 @@ function Management() {
             Add Students
             </Button>
 
-            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
-                <thead style={{border:'1px solid silver', padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
-                        <tr >
+            <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+                <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+                background:'' }} >
+                    <tr >
                         <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
                         <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Name</th>
                         <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Email</th>
@@ -178,7 +180,7 @@ function Management() {
                     {students.map((student, index) => (
                         <React.Fragment key={student.i}>
 
-                            <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' , border:'1px solid silver'}}>
+                            <tr key={student.stdEmail} style={{ color: 'black', textAlign: 'center' }}>
                                 <td style={{...row_color , textAlign: 'center' }}>{index + 1}</td>
                                 <td style={{...row_color , textAlign: 'center' }}>
                                     {student.stdName}

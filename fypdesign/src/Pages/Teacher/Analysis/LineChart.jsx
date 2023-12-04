@@ -42,7 +42,7 @@ const LineChart = ({ data }) => {
 
   return (
     <div className="chart-item">
-      <h2>Total Students</h2>
+      {/* <h2>Total Students</h2> */}
       <Line data={chartData} options={chartOptions} />
     </div>
   );

@@ -609,7 +609,7 @@ const GroupAssignmentTeacher = () => {
 
             <div style={{ textAlign: "start", padding: '5px' }}>
                 <div className="container-fluid" style={{
-                    textAlign: 'center', marginTop: '10px',
+                    textAlign: 'center', marginTop: '0px',
                 }}>
                     <center>
 
@@ -731,8 +731,10 @@ const GroupAssignmentTeacher = () => {
                                 <tbody>
                                     {students.map((student, index) => ( */}
                     {/* <React.Fragment key={index}> */}
-                    <table className="table custom-std-table" style={{ border: '1px solid silver', verticalAlign: 'middle', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)' }}>
-                        <thead style={{ border: '0px solid black', padding: '15px', verticalAlign: 'middle', textAlign: 'center', background: '' }} >
+                    <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+                        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+                        background:'' }} >
                             <tr >
                                 <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
                                 <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
@@ -748,7 +750,7 @@ const GroupAssignmentTeacher = () => {
                             {students.map((student, index) => (
                                 <React.Fragment key={index}>
 
-                                    <tr key={student.fileURL} style={{ boder: '1px solid silver', color: 'black', textAlign: 'center' }}>
+                                    <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
                                         <td>
                                             Group {index + 1}
