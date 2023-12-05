@@ -322,11 +322,11 @@ function TList() {
 
           {submissions.length === 0 ? ( 
 
-          <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
-            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-          background:''}} >
-            <tr>
+        <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+            <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+            background:'' }} >
+            <tr >
               <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
               <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
               <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
@@ -345,11 +345,11 @@ function TList() {
 
 
           ) : (
-            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,
-            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-          <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-          background:''}} >
-                <tr>
+            <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+              <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+              background:'' }} >
+                <tr >
                   <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
                   <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
@@ -363,12 +363,50 @@ function TList() {
               </thead>
               <tbody style={{textAlign:'center',}}>
 
+              {submissions.map((submission, index) => (
+  // Check if submission.submissionFileURL is not an empty string
+  submission.submissionFileURL !== "" && (
+    <React.Fragment key={submission._id}>
+      <tr className={styles.tr}>
+        <td style={{...row_color }}>{index+1}</td>
+        <td style={{...row_color }}>{submission.Email}</td>
+        <td style={{...row_color }}>{submission.submissionDate}</td>
+        <td style={{...row_color }}>
+          <button
+            className="btn btn-primary"
+            style={{ marginTop: '0px', fontSize: 'medium', backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
+            onClick={ViewSubmission.bind(null, submission.submissionFileURL)}
+          >
+            View Submission
+          </button>
+        </td>
+        <td style={{...row_color }}>
+          {submission.marks || 'Not Submitted'}
+        </td>
+        <td style={{...row_color }}>
+          {submission.remarks || 'Not Submitted'}
+        </td>
+        <td style={{...row_color }}>
+          <button
+            className="btn btn-primary"
+            style={{ margin: '2px', fontSize: 'medium', fontWeight: '400'}}
+            onClick={openDialog.bind(null, submission.submissionFileURL, submission.Email, submission.classId)}
+          >
+            Update
+          </button>
+        </td>
+      </tr>
+    </React.Fragment>
+  )
+))}
 
+
+{/* 
                 {submissions.map((submission,index) => (
 
                   <>
 
-                    <tr className={styles.tr} key={submission._id} style={{border:'1px solid silver'}}>
+                    <tr className={styles.tr} key={submission._id} >
                       <td style={{...row_color }}>{index+1}</td>
                       <td style={{...row_color }}>{submission.Email}</td>
                       <td style={{...row_color }}>{submission.submissionDate}</td>
@@ -406,56 +444,9 @@ function TList() {
                     </tr>
 
 
-                    {/* {dialogVisible && (
-  <div className="modal fade show d-flex align-items-center" style={{ display: 'block', justifyContent: 'center'
-  ,position:'absolute' , top:'-40px' }} tabIndex="-1" role="dialog">
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h3 className="modal-title text-center">Update Marks & Remarks</h3>
-          
-        </div>
-        <div className="modal-body text-center">
-          <div className="mb-3">
-            <label htmlFor="marksInput" style={{ margin: '5px', fontSize: 'large',fontWeight:'bold' }} className="form-label">Enter Marks:</label>
-            <input style={{marginTop:'10px'}}
-              type="number"
-              className="form-control"
-              id="marksInput"
-              name="marks"
-              placeholder="---"
-              value={formData.marks}
-              onChange={handleInputChange}
-              onKeyPress={(e) => isNumberKey(e)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="remarksInput" style={{ margin: '5px', fontSize: 'large' ,fontWeight:'bold' }} className="form-label">Enter Remarks:</label>
-            <input style={{marginTop:'10px'}}
-              type="text"
-              className="form-control"
-              id="remarksInput"
-              name="remarks"
-              placeholder="---"
-              value={formData.remarks}
-              onChange={handleInputChange}
-            />
-          </div>
-          <span>{message}</span>
-        </div>
-        <div className="modal-footer justify-content-center">
-          <button type="button" className="btn btn-primary" style={{ margin: '10px', fontSize: 'large' , width: '120px'}} onClick={submitMarks}>Submit</button>
-          <button type="button" className="btn btn-secondary" style={{ margin: '10px', fontSize: 'large' , width: '120px'}}onClick={closeDialog}>Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-)} */}
-
-
-
+            
                   </>
-                ))}
+                ))} */}
 
 
               </tbody>

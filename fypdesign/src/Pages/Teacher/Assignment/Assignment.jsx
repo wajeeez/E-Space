@@ -389,7 +389,7 @@ const AssignmentPage = () => {
       <ToastContainer />
    
     <div className="container-fluid" style={{  
-      textAlign: 'center', marginTop: '10px', }}>
+      textAlign: 'center', marginTop: '0px', }}>
       <center> 
       {/* <button
           className="btn btn-primary"
@@ -403,7 +403,7 @@ const AssignmentPage = () => {
         </button> */}
         
 
-        <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '30px', fontWeight:'100'}}>
+        <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '30px', letterSpacing:'3px'}}>
            ASSIGNMENT</h1>
         
         {/* <input type="file" style={{background:'grey', color:'white' , marginRight:'40px'}} 
@@ -511,9 +511,11 @@ const AssignmentPage = () => {
             </div> */}
 
 
-           <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'1px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
-          <tr >
+<table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+            <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+            background:'' }} >
+              <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
             <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Assignment File</th>
@@ -525,7 +527,7 @@ const AssignmentPage = () => {
         </thead>
         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
   {assignments.map((assignment, index) => (
-    <tr key={index} style={{border:'1px solid silver' }} >
+    <tr key={index} >
       <td style={{ ...row_color }}>
         <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
       </td>
@@ -536,7 +538,7 @@ const AssignmentPage = () => {
         <>
           <button
             className="btn btn-primary"
-            style={{ marginTop: '-10px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
+            style={{ marginTop: '-5px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
             onClick={openFileInBrowser.bind(null, assignment.fileURL)}
           >
             View File

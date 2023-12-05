@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.15",
@@ -28,6 +29,7 @@
     "peerjs": "^1.4.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-error-overlay": "6.0.9",
     "react-overlays": "^5.2.1",
@@ -70,6 +72,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
     "dotenv-webpack": "^8.0.1"
   }
 }

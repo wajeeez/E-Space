@@ -444,6 +444,45 @@ const StdTable = () => {
     openModal();
   };
 
+
+
+  const fetchData = () => {
+    // Fetch the updated data
+    axios
+      .get(baseURL + `/teacher/assignments/list/${_id}`)
+      .then((response) => {
+        if (response.data) {
+          const updatedAssignments = response.data;
+  
+          // Update the state with the new data
+          setAssignments(updatedAssignments);
+  
+          // Update submissionMapping, marksMapping, remarksMapping, etc.
+          const updatedSubmissionMapping = {};
+          const updatedMarksMapping = {};
+          const updatedRemarksMapping = {};
+  
+          updatedAssignments.forEach((assignment, index) => {
+            const assignmentFileURL = assignment.fileURL;
+            const submissionFileURL = assignment.submissionURL;
+            const marks = assignment.marks;
+            const remarks = assignment.remarks;
+  
+            updatedSubmissionMapping[assignmentFileURL] = submissionFileURL;
+            updatedMarksMapping[submissionFileURL] = marks;
+            updatedRemarksMapping[submissionFileURL] = remarks;
+          });
+  
+          setSubmissionMapping(updatedSubmissionMapping);
+          setmarksMapping(updatedMarksMapping);
+          setremarksMapping(updatedRemarksMapping);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  
   const submit_assignment = async () => {
     setShowModal(false); // Close the modal
 
@@ -454,45 +493,62 @@ const StdTable = () => {
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL);
       formData.append('deadline', currentDate);
-      for (const entry of formData.entries()) {
-        console.log(entry[0], entry[1]);
-      }
-      const response = await StudentSubmissions(formData);
-
-      if (response.status === 201 || response.status === 200) {
-        setMessage("Successful");
-        console.log("Successful");
-
-        if (fileInputRef.current) {
-          fileInputRef.current.value = ''; // Reset the input field
+      try {
+        const response = await StudentSubmissions(formData);
+  
+        if (response.status === 201 || response.status === 200) {
+          setMessage("Successful");
+  
+          // Update the state only for the specific assignment
+          setSubmissionMapping((prevMapping) => ({
+            ...prevMapping,
+            [getFileURL]: response.data.submissionURL,
+          }));
+  
+          // You can similarly update marksMapping and remarksMapping if needed
+  
+          // Reset the input field
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+  
+          // Fetch the updated data after a successful submission
+          fetchData();
+        } else if (response.code === "ERR_BAD_REQUEST") {
+          // Handle other cases
         }
-
-        // setTimeout(() => {
-
-        //   window.location.reload(); 
-
-        // }, 2000); 
-
-      } else if (response.code === "ERR_BAD_REQUEST") {
-        console.log("BAD REQUEST");
-
-        if (response.response.status === 500) {
-          console.log("500 BAD REQUEST ");
-        }
-
-        if (response.response.status === 401) {
-          setMessage(response.response.data.message);
-          console.log("401");
-        }
+      } catch (error) {
+        console.error('Error submitting assignment:', error);
       }
     } else {
       console.log(selectedFile + " ERROR");
     }
-  }
+  };
 
-
-
-
+  const deleteSubmission = async (submissionURL, assignURL) => {
+    try {
+      // Make the axios request to delete the submission
+      const response = await axios.post(baseURL + `/student/delete/submission/${submissionURL}`, { assignURL });
+  
+      if (response.status === 200) {
+        toast.success("Assignment Deleted successfully ");
+  
+        // Update the state only for the specific assignment
+        setSubmissionMapping((prevMapping) => ({
+          ...prevMapping,
+          [assignURL]: undefined, // Set to undefined or null based on your logic
+        }));
+  
+        // You can similarly update marksMapping and remarksMapping if needed
+  
+        // Fetch the updated data after a successful deletion
+        fetchData();
+      }
+    } catch (error) {
+      console.error('Error deleting assignment:', error);
+      toast.error("Assignment Deleted successfully ");
+    }
+  };
 
   // const modalContent = ({ show, submit_assignment, closeModal }) => {
   //   return(
@@ -600,26 +656,7 @@ const StdTable = () => {
   // }
 
 
-  const deleteSubmission = async (submissionURL,assignURL)=>{
-    try {
-      console.log(assignURL)
-      // Make the axios request to delete the submission
-      const response = await axios.post(baseURL+`/student/delete/submission/${submissionURL}`,{ assignURL });
 
-      if (response.status === 200) {
-        toast.success("Assignment Deleted successfully ")
-        console.log('Assignment deleted successfully');
-
-      
-        // Add additional logic as needed after successful deletion
-      }
-    } catch (error) {
-      console.error('Error deleting assignment:', error);
-      toast.error("Assignment Deleted successfully ")
-      // Handle errors, display a message, or perform other actions based on the error
-    }
-
-  }
 
 
   return (
@@ -644,8 +681,10 @@ const StdTable = () => {
           Student Name: {StudentName} | Email: {stdEmail}
     </p> */}
 
-      <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' ,textAlign: 'center', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle'}} >
+      <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+        background:'' }} >
           <tr >
             <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
             <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
@@ -659,7 +698,7 @@ const StdTable = () => {
         </thead>
         <tbody style={{}}>
           {assignments.map((assignment, index) => (
-            <tr key={index} style={{border:'1px solid silver'}}>
+            <tr key={index} style={{textAlign:'center'}}>
               <td style={{...row_color }}>{index + 1}</td>
               <td style={{...row_color }}>
                 {/* Content */}
@@ -738,15 +777,7 @@ const StdTable = () => {
                             Delete
                           </button>
                         )}
-                        {/* {currentDate <= new Date(assignment.deadline) && (
-        <button
-          className="btn btn-primary"
-          style={{ margin: '2px', fontSize: 'small' }}
-          onClick={() => handleSubmissionClick(assignment.fileURL)}
-        >
-          Edit
-        </button>
-      )} */}
+                        
                       </div>
                     ) : (
                       <span>
@@ -767,16 +798,6 @@ const StdTable = () => {
                   </div>
 
 
-
-
-
-                  {/* <modalConetnt
-        show={showModal}
-        submit_assignment={submit_assignment}
-        closeModal={closeModal}
-      /> */}
-
-
                 </td>
 
 
@@ -785,53 +806,90 @@ const StdTable = () => {
                   <FormattedDate rawDate={assignment.deadline} />
                 </td>
 
-                {/* <td>
-                {currentDate <= new Date(assignment.deadline) ? (
-                  <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment.fileURL)}>
-                    SUBMIT
-                  </button>
-                ) : (
-                  <button className="btn btn-danger" disabled>
-                    Deadline Exceeded
-                  </button>
-                )}
-              </td> */}
                 <td style={{ ...row_color }}>
-                  {submissionMapping[assignment.fileURL] === undefined ? (
-                    currentDate > new Date(assignment.deadline) ? (
-                      <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
-                        Deadline Exceeded
-                      </button>
+                    {submissionMapping[assignment.fileURL] ? (
+                      // Submission has been made
+                      currentDate <= new Date(assignment.deadline) ? (
+                        <></>
+                      ) : (
+                        // Submission made, but after the deadline
+                        <button
+                          className="btn btn-danger"
+                          disabled
+                          style={{
+                            margin: '2px',
+                            fontSize: 'small',
+                            cursor: 'default',
+                            boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                            background: '#cc3035',
+                          }}
+                        >
+                          Deadline Exceeded
+                        </button>
+                      )
                     ) : (
-                      <button className="btn" style={{ margin: '2px', backgroundColor: 'yellow', color: 'black', fontSize: 'small' }}>
-                        Not Submitted
-                      </button>
-                    )
-                  ) : currentDate <= new Date(assignment.deadline) ? (
-                    <>
-                      {/* <button className="btn" style={{ margin: '2px', backgroundColor: 'green', color: 'white' }}>
-                    Submitted
-                  </button> */}
+                      // No submission made
+                      currentDate > new Date(assignment.deadline) ? (
+                        // Deadline has exceeded, and no submission made
+                        <button
+                          className="btn btn-danger"
+                          style={{
+                            margin: '2px',
+                            fontSize: 'small',
+                            cursor: 'default',
+                            boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                            background: '#cc3035',
+                          }}
+                        >
+                          Deadline Exceeded
+                        </button>
+                      ) : (
+                        <></>
+                      )
+                    )}
 
-                      <button
-                        className="btn btn-primary"
-                        style={{ margin: '2px', fontSize: 'medium' }}
-                        onClick={() => handleSubmissionClick(assignment.fileURL)}
-                      >
-                        Edit Submission
-                      </button>
+                      {submissionMapping[assignment.fileURL] ? (
+                        // Both conditions are true (submission has been made for both assignment.id and assignment.fileURL)
+                        currentDate <= new Date(assignment.deadline) ? (
+                          <button
+                            className="btn btn-success"
+                            style={{
+                              margin: '2px',
+                              fontSize: 'medium',
+                              cursor: 'default',
+                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                              background: 'green',
+                              border: 'none',
+                            }}
+                          >
+                            Submitted
+                          </button>
+                        ) : (
+                          <></>
+                        )
+                      ) : (
+                        // One or both conditions are false
+                        currentDate > new Date(assignment.deadline) ? (
+                          <></>
+                        ) : (
+                          <button
+                            className="btn"
+                            style={{
+                              margin: '2px',
+                              backgroundColor: 'yellow',
+                              color: 'black',
+                              fontSize: 'small',
+                              cursor: 'default',
+                              border: 'none',
+                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                            }}
+                          >
+                            Not Submitted
+                          </button>
+                        )
+                      )}
 
-                    </>
-
-                  ) : (
-                    <button className="btn btn-danger" style={{ margin: '2px', fontSize: 'small' }}>
-                      Deadline Exceeded
-                    </button>
-                  )}
-                </td>
-
-
-
+                  </td>
 
 
               </tr>

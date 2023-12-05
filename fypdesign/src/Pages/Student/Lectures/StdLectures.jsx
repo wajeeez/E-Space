@@ -411,7 +411,7 @@ const head_color ={
 
   return (
     <div className="container-fluid" style={{  
-      textAlign: 'center', marginTop: '10px', }}>
+      textAlign: 'center', marginTop: '0px', }}>
       <center>
 
       <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
@@ -421,8 +421,10 @@ const head_color ={
           Student Name : {StudentName} | Email :{stdEmail}
         </p> */}
 
-      <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
-        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+    <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
+        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+        background:'' }} >
           <tr >
             <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr No.</th>
             <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Title</th>
@@ -437,7 +439,7 @@ const head_color ={
            
 ( 
         <tbody style={{textAlign:'center', verticalAlign: 'middle', padding: '15px'}}>
-        <tr key={lecture.fileURL} style={{boder:'1px solid silver', color: 'black', textAlign: 'center' }}>
+        <tr key={lecture.fileURL} style={{ color: 'black', textAlign: 'center' }}>
 
         <td style={{...row_color , marginTop:'5px'}}>
         <p style={{fontSize:'large', fontWeight:''}}>

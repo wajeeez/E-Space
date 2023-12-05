@@ -621,7 +621,7 @@ const GroupAssignment = () => {
 
         <>
         <div className="container-fluid" style={{  
-            textAlign: 'center', marginTop: '10px', }}> 
+            textAlign: 'center', marginTop: '0px', }}> 
             
             <center>
 
@@ -755,8 +755,10 @@ const GroupAssignment = () => {
 
             </center>
 
-            <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)', marginTop:'20px'}}>
-                <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
+            <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px', marginTop:'20px'}}>
+                <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
+                background:'' }} >
                     <tr >
                         <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
                         <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
@@ -772,7 +774,7 @@ const GroupAssignment = () => {
                     {assignments.map((assignment, index) => (
                         <React.Fragment key={assignment.fileURL}>
 
-                            <tr key={assignment.fileURL} style={{boder:'1px solid silver', color: 'black', textAlign: 'center' }}>
+                            <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                 <td style={{...row_color, textAlign: 'center' }}>{index + 1}</td>
                                 <td>
                                     Group {index + 1}
@@ -823,7 +825,7 @@ const GroupAssignment = () => {
                                     }
 
                                 </td>
-                                {/* <td>
+                                {/*
                                     {submissionMapping[assignment.submissionFileURL] ? (
                                 <td style={{...row_color, textAlign: 'center' }}>
                                     {submissionMapping[assignment.fileURL] ? (
@@ -837,8 +839,8 @@ const GroupAssignment = () => {
                                         'No Submission'
                                     )}
                                 </td> */}
-                                <td>
-                                </td>
+                                
+                                
                                 <td style={{...row_color, textAlign: 'center' }}>
                                     {assignment.deadline != null ?
                                         <FormattedDate rawDate={assignment.deadline} />

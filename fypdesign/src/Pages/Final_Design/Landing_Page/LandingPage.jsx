@@ -15,7 +15,7 @@ function LandingPage() {
     <>
       <Navbar />
       <HeroSection />
-      <MiddleImage/>
+      {/* <MiddleImage/> */}
       
       <Carousel/>
       <Featured/>

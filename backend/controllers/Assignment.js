@@ -11,6 +11,7 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const fileSchema = require("./../models/assignementFile");
 const Lecture = require('../models/Lecture');
 const Submissions = require('../models/stdassignmentFile')
+const SubmissionModel = require('../models/stdsubmissionFile')
 
 const NotificationUploadGroupAssignment = require('../models/NotificationUploadGroupAssignment');
 const NotificationAssignmentUpload = require('../models/NotificationUploadAssignment');
@@ -390,11 +391,13 @@ async function deleteSubmission(req, res, next) {
     const fileURL = req.params.fileURL;
     const assignURL = req.body.assignURL;
 
+
+    const submissionFileURL = fileURL
     // // Find the assignment by fileURL
     // const assignment = await Assignment.findOne({fileURL: fileURL });
     const submission = await Submissions.findById(fileURL);
-
-    if (!submission) {
+    const submitModel = await SubmissionModel.find({submissionFileURL:submissionFileURL})
+    if (!submission || !submitModel) {
       return res.status(404).json({ message: 'Submission not found' });
     }
 
@@ -418,6 +421,10 @@ async function deleteSubmission(req, res, next) {
 
     // Delete the submission
     await Submissions.deleteOne({ _id: fileURL });
+
+    await SubmissionModel.deleteOne({submissionFileURL:submissionFileURL})
+
+    
 
     return res.status(200).json({ message: 'Assignment deleted successfully' });
   } catch (err) {
