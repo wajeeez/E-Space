@@ -74,7 +74,7 @@ function Thome() {
           const cellStyle = {
             backgroundColor: isCurrentDay ? highlightColor : '',
             color: isCurrentDay ? 'white' : 'black',
-            fontSize: isCurrentDay ? '0.9rem' : '',
+            fontSize: isCurrentDay ? '0.7rem' : '',
           };
           row.push(
             <td key={j} style={cellStyle}>
@@ -221,11 +221,11 @@ function Thome() {
       {getCurrentMonthYear()}
     </div>
     <div className="card-body p-1" style={{ maxHeight: '220px' }}>
-      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
+      <table className="table table-sm" style={{  margin: '0' }}>
         <thead>
           <tr>
             {daysOfWeek.map((day, index) => (
-              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
+              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.6rem', padding: '0.1rem' }}>{day}</th>
             ))}
           </tr>
         </thead>

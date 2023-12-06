@@ -10,6 +10,8 @@ import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+
+
 function Shome() {
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const navigate = useNavigate()
@@ -39,7 +41,7 @@ function Shome() {
      
       <div className="card-body p-0" style={{ }}>
         <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
-          <span></span> Assignment Uploaded
+          Assignment Uploaded
         </h6>
   
         <p
@@ -163,7 +165,7 @@ function Shome() {
           const cellStyle = {
             backgroundColor: isCurrentDay ? highlightColor : '',
             color: isCurrentDay ? 'white' : 'black',
-            fontSize: isCurrentDay ? '0.9rem' : '',
+            fontSize: isCurrentDay ? '0.7rem' : '',
           };
           row.push(
             <td key={j} style={cellStyle}>
@@ -219,7 +221,6 @@ function Shome() {
         </div>
 
   
-
 {/* Right side (Calendar) */}
 <div className="col-md-3" style={{}}>
 
@@ -231,11 +232,11 @@ function Shome() {
       {getCurrentMonthYear()}
     </div>
     <div className="card-body p-1" style={{ maxHeight: '220px' }}>
-      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
+      <table className="table table-sm" style={{  margin: '0' }}>
         <thead>
           <tr>
             {daysOfWeek.map((day, index) => (
-              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
+              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.6rem', padding: '0.1rem' }}>{day}</th>
             ))}
           </tr>
         </thead>
@@ -246,7 +247,6 @@ function Shome() {
     </div>
   </div>
 </div>
-
   
 
 

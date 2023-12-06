@@ -749,9 +749,16 @@ const StdTable = () => {
                 </td>
                 <td style={{ ...row_color }}>
                   {marksMapping[submissionMapping[assignment.fileURL]]
-                    ? marksMapping[submissionMapping[assignment.fileURL]]
+                    ? `${marksMapping[submissionMapping[assignment.fileURL]]} / ${assignment.totalMarks}`
                     : 'Not marked yet'}
                 </td>
+                {/* <td style={{ ...row_color }}>
+                  {marksMapping[submissionMapping[assignment.fileURL]] !== undefined
+                    ? `${marksMapping[submissionMapping[assignment.fileURL]]}/${assignment.totalMarks}`
+                    : 'Not marked yet'}
+                </td> */}
+
+
                
                 <td style={{...row_color}}>
 

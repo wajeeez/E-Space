@@ -22,10 +22,10 @@
   
 }
 
-.name{
+/* .name{
   cursor:default;
   color: white;
-}
+} */
 .ps{
   font-size: 5px;
   opacity: 0;
@@ -197,7 +197,7 @@
 
 .sidebar lis p{
   
-  
+  font-size: 0px;
   text-align: center;
   background-color: var(--color-default);
  
@@ -214,6 +214,7 @@
   margin-right: 10px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
+  font-size: medium;
 }
 
 

@@ -215,7 +215,7 @@ function Tmain() {
     <lis>
         <img src={userIcon} alt="profile image" class='user_image'/>
         
-          <p class="name">{name}</p>
+          <p style={{cursor:'default',color:'white'}}>{name}</p>
         
       </lis> 
 

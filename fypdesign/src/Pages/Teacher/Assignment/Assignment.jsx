@@ -20,10 +20,11 @@ const AssignmentPage = () => {
   function getCurrentDate() {
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // Add 1 because months are 0-based
+    const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
-
+    return `${year}-${month}-${day}`;
   }
+  
 
   const assigList = [
     {
@@ -153,6 +154,7 @@ const AssignmentPage = () => {
         if (fileInputRef.current) {
           fileInputRef.current.value = '  '; // Reset the input field
         }
+        setRefreshData(true);
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
         console.log("BAD REQUEST")
@@ -170,22 +172,128 @@ const AssignmentPage = () => {
 
 
   }
+  const [refreshData, setRefreshData] = useState(false);
+  useEffect(() => {
+    // Fetch assignments data when refreshData is true
+    if (refreshData) {
+      axios
+        .get(baseURL + `/teacher/assignments/list/${_id}`)
+        .then((response) => {
+          if (response.data) {
+            setAssignments(response.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      // Reset the refreshData state
+      setRefreshData(false);
+    }
+  }, [refreshData, _id]);
 
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const handleUpdate = () => {
-      // Reset state values to clear the input fields
-  setTitle('');
-  setSelectedFile(null);
-  setDeadline('');
-  setTotalMarks('');
-    // Add your update logic here
+  // const handleUpdate = () => {
+  //     // Reset state values to clear the input fields
+  // setTitle('');
+  // setSelectedFile(null);
+  // setDeadline('');
+  // setTotalMarks('');
+  //   // Add your update logic here
+  //   setShowUpdateModal(false);
+  // };
+  
+  const handleUpdate = async () => {
+    // Validate the input fields
+    if (!updateSelectedFile || !teacherID || !subjectName || !updateDeadline || !updateTitle || !updateTotalMarks) {
+      toast.error('Data Missing: Please fill in all fields', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+      return; // Do not proceed with the update if validation fails
+    }
+  
+    const formData = new FormData();
+    formData.append('file', updateSelectedFile);
+    formData.append('classId', _id);
+    formData.append('fileName', updateTitle);
+    formData.append('teacherID', teacherID);
+    formData.append('subjectName', subjectName);
+    formData.append('deadline', updateDeadline);
+    formData.append('title', updateTitle);
+    formData.append('totalMarks', updateTotalMarks);
+  
+    const response = await TeacherAssignmentUpload(formData);
+  
+    if (response.status === 201 || response.status === 200) {
+      setMessage("Successfully Uploaded!!!");
+      console.log("Successful");
+  
+      // Reset Form controls
+      setUpdateTitle('');
+      setUpdateSelectedFile(null);
+      setUpdateDeadline('');
+      setUpdateTotalMarks('');
+  
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+  
+      setShowUpdateModal(false);
+      setRefreshData(true);
+    } else if (response.code === "ERR_BAD_REQUEST") {
+      console.log("BAD REQUEST");
+  
+      if (response.response.status === 401) {
+        setWMessage(response.response.data.message);
+        console.log("401");
+        setTimeout(() => {
+          setWMessage("");
+        }, 3000);
+      }
+    }
+  };
+  
+
+  const handleShowUpdateModal = () => setShowUpdateModal(true);
+  const handleCloseUpdateModal = () => {
+    // Reset state values to clear the input fields
+    setUpdateTitle('');
+    setUpdateSelectedFile(null);
+    setUpdateDeadline('');
+    setUpdateTotalMarks('');
+  
+    // Close the update modal
     setShowUpdateModal(false);
   };
-  const handleShowUpdateModal = () => setShowUpdateModal(true);
-  const handleCloseUpdateModal = () => setShowUpdateModal(false);
 
-  const UpdateAssignmentModal = ({ show, handleClose, handleFileChange, handleDeadlineChange, handleUpdate }) => {
+
+  const [updateTitle, setUpdateTitle] = useState('');
+  const [updateSelectedFile, setUpdateSelectedFile] = useState(null);
+  const [updateDeadline, setUpdateDeadline] = useState('');
+  const [updateTotalMarks, setUpdateTotalMarks] = useState('');
+  const handleUpdateTitleChange = (event) => {
+    setUpdateTitle(event.target.value);
+  };
+  
+  const handleUpdateFileChange = (event) => {
+    setUpdateSelectedFile(event.target.files[0]);
+  };
+  
+  const handleUpdateDeadlineChange = (event) => {
+    setUpdateDeadline(event.target.value);
+  };
+  
+  const handleUpdateTotalMarksChange = (event) => {
+    setUpdateTotalMarks(event.target.value);
+  };
+  
+
+
+
+  // handleUpdateTitleChange,handleUpdateTotalMarksChange,
+  const UpdateAssignmentModal = ({ show, handleClose,  handleUpdateFileChange, handleUpdateDeadlineChange , handleUpdate, }) => {
     return (
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -193,11 +301,11 @@ const AssignmentPage = () => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
-            <Form.Control
+          <Form.Control
               type="text"
               placeholder="Title"
-              value={title}  // Connect to state value
-              onChange={(e) => setTitle(e.target.value)}  // Update state on change
+              value={updateTitle}
+              onChange={handleUpdateTitleChange}
               style={{ textAlign: 'center' }}
             />
           </Form.Group>
@@ -205,7 +313,7 @@ const AssignmentPage = () => {
           <Form.Group className="mb-3">
             <Form.Control
               type="file"
-              onChange={handleFileChange}
+              onChange={handleUpdateFileChange}
               ref={fileInputRef}
               style={{ background: 'grey', color: 'white' }}
             />
@@ -214,9 +322,9 @@ const AssignmentPage = () => {
           <Form.Group className="mb-3">
             <Form.Control
               type="date"
-              value={deadline}
-              onChange={handleDeadlineChange}
-              ref={fileInputRef}
+              value={updateDeadline}
+              onChange={handleUpdateDeadlineChange}
+              ref={fileInputRef} 
               min={getCurrentDate}
               className={styles.assignmentButton}
               style={{ color: '' }}
@@ -227,8 +335,8 @@ const AssignmentPage = () => {
             <Form.Control
               type="number"
               placeholder="Total Marks"
-              value={totalMarks}  // Connect to state value
-              onChange={(e) => setTotalMarks(e.target.value)}  // Update state on change
+              value={updateTotalMarks}
+              onChange={handleUpdateTotalMarksChange}
               style={{ textAlign: 'center' }}
             />
           </Form.Group>
@@ -281,7 +389,7 @@ const AssignmentPage = () => {
   };
 
   const handleDeleteCancelled = () => {
-    // Handle cancel action
+
     setShowDeleteModal(false);
   };
   
@@ -540,7 +648,7 @@ const AssignmentPage = () => {
         <>
           <button
             className="btn btn-primary"
-            style={{ marginTop: '-5px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
+            style={{ marginTop: '0px', fontSize: 'medium' ,backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
             onClick={openFileInBrowser.bind(null, assignment.fileURL)}
           >
             View File
@@ -576,7 +684,16 @@ const AssignmentPage = () => {
     </tr>
   ))}
 </tbody>
-
+      {/* Update Assignment Modal */}
+      <UpdateAssignmentModal
+        show={showUpdateModal}
+        handleClose={handleCloseUpdateModal}
+        handleFileChange={handleFileChange}
+        handleDeadlineChange={handleDeadlineChange}
+        // handleTotalMarksChange={handleUpdateTotalMarksChange}
+        // handleTitleChange={handleUpdateTitleChange}
+        handleUpdate={handleUpdate}
+      />
         </table>
 
         {/* <Modal show={showUpdateModal} onHide={handleCloseUpdateModal} centered>
@@ -635,14 +752,7 @@ const AssignmentPage = () => {
       </Modal> */}
 
 
-      {/* Update Assignment Modal */}
-      <UpdateAssignmentModal
-        show={showUpdateModal}
-        handleClose={handleCloseUpdateModal}
-        handleFileChange={handleFileChange}
-        handleDeadlineChange={handleDeadlineChange}
-        handleUpdate={handleUpdate}
-      />
+
 
 
       {/* Delete Assignment Modal */}

@@ -145,8 +145,11 @@ function Smain() {
     <lis>
         <img src={userIcon} alt="profile image" class='user_image'/>
         
-          <p class="name">{std}</p>
-        
+        {/* {sidebarClass !== "ssidebar" && (
+            <p style={{cursor:'default',color:'white'}} >{std}</p>
+          )} */}
+        <p style={{cursor:'default',color:'white'}} >{std}</p>
+
       </lis>
 
       <li>
@@ -156,13 +159,13 @@ function Smain() {
         </Link>
         <span class="tooltip">Dashboard</span>
       </li>
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('performance')}>
         <i class='bx bx-bar-chart-alt-2'></i>
           <span class="link_name">Analysis</span>
         </Link>
         <span class="tooltip">Analysis</span>
-      </li>
+      </li> */}
       <li>
         <Link onClick={() => handlePageChange('lectures')}>
         <i class='bx bxs-slideshow'></i>
