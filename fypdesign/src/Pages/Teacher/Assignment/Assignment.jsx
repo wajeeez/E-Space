@@ -548,7 +548,7 @@ const AssignmentPage = () => {
         </>
       </td>
       <td style={{ ...row_color }}>
-        <p style={{ fontSize: 'large', fontWeight: 'bold' }}>{assignment.submissions}</p>
+        <p style={{ fontSize: 'large', fontWeight: '400' }}>{assignment.totalMarks}</p>
       </td>
       <td style={{ ...row_color }}>
         <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>

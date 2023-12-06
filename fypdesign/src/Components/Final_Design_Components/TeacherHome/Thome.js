@@ -276,20 +276,18 @@ function Thome() {
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
         
         <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Class Attendance</h4>
+          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '', marginTop: '',color:'black'}}>Total Students</h4>
 
           {/* Bootstrap row with two columns */}
-          <div className="row" style={{marginTop: '0px'}}>
+          <div className="row" style={{marginTop: '20px'}}>
             {/* Left column for present */}
             <div className="col" style={{marginRight: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>40</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'green',fontSize:'large' }}>Present</p>
+            <img src={iclass} alt="Class Image" className="img-fluid" style={{ marginTop: '0px', marginBottom: '0px' }} />
             </div>
             
             {/* Right column for absent */}
             <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>5</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'red' ,fontSize:'large'}}>Absent</p>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>40</h2>
             </div>
           </div>
           </div>

@@ -702,8 +702,8 @@ const StdTable = () => {
           {assignments.map((assignment, index) => (
             <tr key={index} style={{textAlign:'center'}}>
               <td style={{...row_color }}>{index + 1}</td>
-              <td style={{...row_color }}>
-                {/* Content */}
+              <td style={{ ...row_color }}>
+                <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
               </td>
 
               <td  style={{...row_color }}>
@@ -753,7 +753,7 @@ const StdTable = () => {
                     : 'Not marked yet'}
                 </td>
                
-                <td style={row_color}>
+                <td style={{...row_color}}>
 
 
                  
