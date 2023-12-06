@@ -145,7 +145,8 @@ const AccSetting = () => {
 
         <div className="row mb-4 justify-content-center ">
           <div className="col-md-2 d-flex align-items-center ">
-            <h4 style={{ marginRight: '20px', whiteSpace: 'nowrap' }}>Confirm Password :</h4>
+            <h4 style={{ marginRight: '60px', whiteSpace: 'wrap', textAlign:'left' }}>
+              Confirm Password :</h4>
           </div>
           <div className="col-md-4 d-flex align-items-center">
             <input

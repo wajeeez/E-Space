@@ -418,7 +418,9 @@ const StdTable = () => {
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'500',
+    fontWeight: '600',
+    fontFamily:'Poppins',
+    fontSize:'medium' ,
   }
 
 
@@ -686,14 +688,14 @@ const StdTable = () => {
         <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
         background:'' }} >
           <tr >
-            <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
-            <th style={{ ...head_color,width: '9%', fontSize:'large'  }}>Marks Obtained</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '2%'  }}>Sr#</th>
+            <th style={{ ...head_color,width: '7%'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%'  }}>Assignment</th>
+            <th style={{ ...head_color,width: '10%'  }}>Remarks</th>
+            <th style={{ ...head_color,width: '9%'  }}>Marks Obtained</th>
+            <th style={{ ...head_color,width: '10%' }}>Submission</th>
+            <th style={{ ...head_color,width: '10%'  }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%' }}>Action</th>
           </tr>
         </thead>
         <tbody style={{}}>

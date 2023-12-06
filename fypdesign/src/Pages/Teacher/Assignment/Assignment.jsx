@@ -378,7 +378,9 @@ const AssignmentPage = () => {
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'500',
+    fontWeight: '600',
+    fontFamily:'Poppins',
+    fontSize:'medium' ,
   }
 
   
@@ -516,13 +518,13 @@ const AssignmentPage = () => {
             <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
             background:'' }} >
               <tr >
-            <th style={{ ...head_color,width: '2%', fontSize:'large'  }}>Sr#</th>
-            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Assignment File</th>
+            <th style={{ ...head_color,width: '2%'  }}>Sr#</th>
+            <th style={{ ...head_color,width: '7%'  }}>Title</th>
+            <th style={{ ...head_color,width: '5%'  }}>Assignment File</th>
             {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
-            <th style={{ ...head_color,width: '5%', fontSize:'large'  }}>Total Marks</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '5%'  }}>Total Marks</th>
+            <th style={{ ...head_color,width: '5%' }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%' }}>Action</th>
           </tr>
         </thead>
         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>

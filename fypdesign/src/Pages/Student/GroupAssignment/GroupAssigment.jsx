@@ -545,7 +545,9 @@ const GroupAssignment = () => {
       const head_color ={
         backgroundColor: 'transparent',
         color: 'black',
-        fontWeight:'500',
+        fontWeight: '600',
+        fontFamily:'Poppins',
+        fontSize:'medium' ,
       }
 
 
@@ -657,10 +659,10 @@ const GroupAssignment = () => {
                                  <table className="table custom-std-table" style={{border:'1px solid silver', verticalAlign: 'middle' , boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)'}}>
                                     <thead style={{border:'0px solid black' , padding: '15px', verticalAlign: 'middle', textAlign:'center', background:''}} >
                                         <tr >
-                                            <th style={{...head_color, width: '2%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
-                                            <th style={{...head_color, width: '5%', fontSize: 'large', textAlign: 'center' }}>Student</th>
-                                            <th style={{...head_color, width: '5%', fontSize: 'large', textAlign: 'center' }}>Email</th>
-                                            <th style={{...head_color, width: '2%', fontSize: 'large', textAlign: 'center' }}>Action</th>
+                                            <th style={{...head_color, width: '2%', textAlign: 'center' }}>Sr#</th>
+                                            <th style={{...head_color, width: '5%', textAlign: 'center' }}>Student</th>
+                                            <th style={{...head_color, width: '5%', textAlign: 'center' }}>Email</th>
+                                            <th style={{...head_color, width: '2%', textAlign: 'center' }}>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -760,14 +762,14 @@ const GroupAssignment = () => {
                 <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
                 background:'' }} >
                     <tr >
-                        <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Assignment File</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Remarks</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Marks Obtained</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Submission</th>
-                        <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Deadline</th>
-                        <th style={{ ...head_color, width: '3%', fontSize: 'large' }}>Action</th>
+                        <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                        <th style={{ ...head_color, width: '5%'}}>Title</th>
+                        <th style={{ ...head_color, width: '5%'}}>Assignment File</th>
+                        <th style={{ ...head_color, width: '5%' }}>Remarks</th>
+                        <th style={{ ...head_color, width: '5%'}}>Marks Obtained</th>
+                        <th style={{ ...head_color, width: '5%'}}>Submission</th>
+                        <th style={{ ...head_color, width: '5%'}}>Deadline</th>
+                        <th style={{ ...head_color, width: '3%'}}>Action</th>
                     </tr>
                 </thead>
                 <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
