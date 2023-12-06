@@ -8,7 +8,7 @@ import headerimg from '../../../Assets/images/Business.png';
 import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
 import TChart from "./TChart";
-
+import { format } from 'date-fns';
 
 function Thome() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
@@ -97,20 +97,63 @@ function Thome() {
   const [notify,setnotify]  = useState([]);
 
   const NotificationCard = ({ deadline }) => {
+
+    const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
+  
     return (
-      <div className="card mt-3 border-primary shadow">
-        <div className="card-body">
-          <h6 className="card-title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif' }}>
-            Assignment Submitted By Student
-          </h6>
+      <div className="conatiner-fluid p-1" style={{ borderBottom: '1px solid silver', display: 'flex', alignItems: 'center', verticalAlign:'middle',}}>
+   
+      
+      {/* <i className='bx bxs-bell' style={{ fontSize: 'large'}}></i> */}
+      <i class='bx bx-notification' style={{ fontSize: '1.5rem',color:'#b23ac7', marginTop:'-2rem' }}></i>
+
+    <div className="card-body p-0" style={{ }}>
+      <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
+         Assignment Deadline
+      </h6>
+      <p
+          className="text "
+          style={{
+            fontSize: '0.8rem',
+            fontFamily: 'Poppins, sans-serif',
+            marginTop: '0rem',
+            marginBottom:'0.5rem'
+            // borderBottom: '1px solid silver',
+          }}
+        >
+         
+          Deadline: {formattedDeadline}
+        </p>
         </div>
       </div>
     );
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .post(baseURL + `/notification/assignment/submission/${_id}`)
+  //     .then((response) => {
+
+  //       if (response.data) {
+
+  //         console.log(response.data)
+  //         setnotify(response.data);
+
+      
+
+  //     }
+
+      
+        
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .post(baseURL + `/notification/assignment/submission/${_id}`)
+      .post(baseURL + `/notification/assignment/upload/${_id}`)
       .then((response) => {
 
         if (response.data) {
@@ -276,11 +319,10 @@ function Thome() {
       <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
-      <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>
       {notify.map((notification, index) => (
         <NotificationCard deadline={notification.deadline} key={index} />
       ))}
-      </div>
+
     </div>
   </div>
 </div>

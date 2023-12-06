@@ -850,7 +850,7 @@ const StdTable = () => {
                       )
                     )}
 
-                      {submissionMapping[assignment.fileURL] ? (
+                      {/* {submissionMapping[assignment.fileURL] ? (
                         // Both conditions are true (submission has been made for both assignment.id and assignment.fileURL)
                         currentDate <= new Date(assignment.deadline) ? (
                           <button
@@ -870,7 +870,7 @@ const StdTable = () => {
                           <></>
                         )
                       ) : (
-                        // One or both conditions are false
+                        
                         currentDate > new Date(assignment.deadline) ? (
                           <></>
                         ) : (
@@ -889,7 +889,7 @@ const StdTable = () => {
                             Not Submitted
                           </button>
                         )
-                      )}
+                      )} */}
 
                   </td>
 

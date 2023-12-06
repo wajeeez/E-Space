@@ -149,7 +149,6 @@ function Smain() {
         
       </lis>
 
-      <p className='pss'>x</p>
       <li>
         <Link onClick={() => { handlePageChange('dashboard');}}>
         <i class='bx bx-home-alt-2'></i>

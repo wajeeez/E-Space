@@ -218,8 +218,7 @@ function Tmain() {
           <p class="name">{name}</p>
         
       </lis> 
-      
-      <p className='ps'>x</p>
+
       <li>
         <Link onClick={() => { handlePageChange('dashboard');}}>
         {/* <img src={dashIcon} alt="Icon" className="button-icon" /> */}
