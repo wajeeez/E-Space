@@ -29,7 +29,10 @@ import StdSettings from '../../../Pages/Student/User/AccSetting';
 import SQuiz from '../../../Pages/Teacher/Quiz/SQuiz';
 
 function Smain() {
-    const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Use localStorage to get the last visited page or set a default value
+    return localStorage.getItem('lastVisitedPage') || 'dashboard';
+  });
 
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const navigate = useNavigate()
@@ -40,6 +43,9 @@ function Smain() {
   
     const handlePageChange = (pageName) => {
       setCurrentPage(pageName);
+  
+      // Save the current page to localStorage
+      localStorage.setItem('lastVisitedPage', pageName);
     };
 
     useEffect(() => {

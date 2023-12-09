@@ -283,7 +283,7 @@ function Shome() {
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
         
         <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Class Attendance</h4>
+          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Total Attendance Hours</h4>
 
           {/* Bootstrap row with two columns */}
           <div className="row" style={{marginTop: '0px'}}>
@@ -304,13 +304,13 @@ function Shome() {
         </div>
       </div>
 
-      <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
+      {/* <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
 

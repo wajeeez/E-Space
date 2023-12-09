@@ -96,36 +96,36 @@ function Thome() {
 
   const [notify,setnotify]  = useState([]);
 
-  const NotificationCard = ({ deadline }) => {
-
+  const NotificationCard = ({ deadline , index}) => {
     const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
+    const deadlineDate = new Date(deadline);
+    const currentDate = new Date();
+  
+    // Check if the deadline has exceeded
+    const isDeadlineExceeded = currentDate > deadlineDate;
   
     return (
-      <div className="conatiner-fluid p-1" style={{ borderBottom: '1px solid silver', display: 'flex', alignItems: 'center', verticalAlign:'middle',}}>
-   
-      
-      {/* <i className='bx bxs-bell' style={{ fontSize: 'large'}}></i> */}
-      <i class='bx bx-notification' style={{ fontSize: '1.5rem',color:'#b23ac7', marginTop:'-2rem' }}></i>
-
-    <div className="card-body p-0" style={{ }}>
-      <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
-         Assignment Deadline
-      </h6>
-      <p
-          className="text "
-          style={{
-            fontSize: '0.8rem',
-            fontFamily: 'Poppins, sans-serif',
-            marginTop: '0rem',
-            marginBottom:'0.5rem'
-            // borderBottom: '1px solid silver',
-          }}
-        >
-         
-          Deadline: {formattedDeadline}
-        </p>
+      isDeadlineExceeded && (
+        <div className="container-fluid p-1" style={{ borderBottom: '1px solid silver', display: 'flex', alignItems: 'center', verticalAlign: 'middle' }}>
+          <i class='bx bx-notification' style={{ fontSize: '1.5rem', color: '#b23ac7', marginTop: '-2rem' }}></i>
+          <div className="card-body p-0" style={{}}>
+            <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop: "0.4rem" }}>
+              Assignment {index + 1} Deadline
+            </h6>
+            <p
+              className="text "
+              style={{
+                fontSize: '0.8rem',
+                fontFamily: 'Poppins, sans-serif',
+                marginTop: '0rem',
+                marginBottom: '0.5rem'
+              }}
+            >
+              Deadline: {formattedDeadline}
+            </p>
+          </div>
         </div>
-      </div>
+      )
     );
   };
 
@@ -281,13 +281,13 @@ function Thome() {
           {/* Bootstrap row with two columns */}
           <div className="row" style={{marginTop: '20px'}}>
             {/* Left column for present */}
-            <div className="col" style={{marginRight: '30px'}}>
+            {/* <div className="col" style={{marginRight: '30px'}}>
             <img src={iclass} alt="Class Image" className="img-fluid" style={{ marginTop: '0px', marginBottom: '0px' }} />
-            </div>
+            </div> */}
             
             {/* Right column for absent */}
-            <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>40</h2>
+            <div className="col" style={{marginLeft: '0px'}}>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>40</h2>
             </div>
           </div>
           </div>
@@ -318,8 +318,8 @@ function Thome() {
         Notifications
       </div>
       {notify.map((notification, index) => (
-        <NotificationCard deadline={notification.deadline} key={index} />
-      ))}
+  <NotificationCard index={index} deadline={notification.deadline} key={index} />
+))}
 
     </div>
   </div>

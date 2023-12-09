@@ -21,6 +21,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 function  Tlogin() {
@@ -99,6 +101,7 @@ function  Tlogin() {
 
         if(response.status == 200){
           toast.success("You will recieve an Email with Password to login")
+          setShowModal(false)
         }else{
           toast.error("Something Went Wrong")
         }
@@ -120,7 +123,11 @@ function  Tlogin() {
 
 
 
-
+  
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+  
 
 
   return (
@@ -166,25 +173,25 @@ function  Tlogin() {
           fontSize:'18px', height:'50px' , borderRadius:'16px', marginBottom:'30px'
          ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
         />
-        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+        {/* <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback> */}
       </Form.Group>
 
       <label>
         {" "}
-        <Link onClick={handleForgetPassword} style={{fontSize:'18px', marginBottom:'20px'}}>Forgot password?</Link>
+        <Link onClick={handleShowModal} style={{fontSize:'18px', marginBottom:'20px'}}>Forgot password?</Link>
       </label>
       <br/>
 
-      <Button  onClick={handleLogin} variant='primary' 
+      <button  onClick={handleLogin}  className={styles.button_signin}
       // style={{fontSize:'22px', letterSpacing:'3px',
       // fontFamily:'Poppins', padding:'10px', width:'150px', margin:'20px'
       // ,backgroundColor:'#8539d1', borderRadius:'16px'
       // }}
-      style={{ marginTop:'20px', color: 'white' , fontSize:'22px' , width:'180px', height:'50px', borderRadius:'30px'
-      ,backgroundColor:'#8539d1', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
-      , letterSpacing:'3px'}}
+      // style={{ marginTop:'20px', color: 'white' , fontSize:'22px' , width:'180px', height:'50px', borderRadius:'30px'
+      // ,backgroundColor:'#8539d1', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+      // , letterSpacing:'3px'}}
       >
-        Login</Button>
+        Login</button>
       <div>
       <span>
           {error != "" ? <p className={styles.errorMessage}>{error}</p> : ""}
@@ -197,8 +204,31 @@ function  Tlogin() {
         <a href="/teacher/register" style={{fontSize:'18px', marginTop:'10px'}}>Register here</a>
       </label>
 
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Forgot Password</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <p style={{color:'red', fontSize:'1.5rem'}}>New password will be sent to your E-mail</p>
+  </Modal.Body>
+  <Modal.Footer className="justify-content-center">
+    <Button variant="success" onClick={handleForgetPassword} 
+    style={{width:'6rem', marginRight:'1rem',}}
+    >
+      Send
+    </Button>
+    <Button variant="danger" onClick={handleCloseModal}
+    style={{width:'6rem', marginLeft:'1rem',}}
+    >
+      Cancel
+    </Button>
+  </Modal.Footer>
+</Modal>
+
+
     </div>
     )}
+
     </center>
     </div>
 

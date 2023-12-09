@@ -1,0 +1,42 @@
+
+  
+  .tracker-box {
+    
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: red;
+    letter-spacing: 0.1em;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    cursor: default;
+    z-index: 5; 
+    font-family: 'Poppins';
+    border:1px solid #b23ac7;
+  }
+
+  
+  .tracker-box div{
+    margin: 5px 0;
+  }
+  
+  .tracker-box .validated{
+    color: #b23ac7;
+  }
+  
+  .list-icon{
+    margin-right: 0.5rem;
+  }
+  
+  .list-icon.green{
+    color: #0f0;
+  }
+
+  .bx-check-circle{
+    font-size: 1.2em;
+  }
+
+  .bx-x-circle{
+    font-size: 1.2em;
+  }
