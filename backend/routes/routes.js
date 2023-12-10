@@ -82,6 +82,7 @@ router.get("/students/getAllGroups/:class_id",StudentAuth.getAllGroups)
 
 router.post('/teacher/groupAssignment/upload', UploadAssignment.UploadGroupAssignment)
 router.post('/student/groupAssignment/upload', UploadAssignment.UploadSubmission)
+router.post('/assignment/group/updateStudentMarks',UploadAssignment.SubmitGroupMarks)
 //Marks Api
 
 router.post('/assignment/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)

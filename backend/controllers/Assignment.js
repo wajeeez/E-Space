@@ -281,6 +281,37 @@ async function EditLecture(req, res, next) {
     // Handle any errors that occurred during assignment upload
     return res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
+};
+
+async  function SubmitGroupMarks(req, res, next) {
+
+  try {
+      // Check if a marks was uploaded
+      const { _id, marks  , remarks} = req.body;
+
+
+     
+      const uploadMarks = await Group.findByIdAndUpdate(
+        _id,
+        {
+          marks: marks,
+          remarks: remarks,
+        },
+        { new: true }
+      );
+      if (!uploadMarks) {
+        return res.status(404).json({ message: `Failed to Update 1 ` });
+      }
+      
+  
+      return res.status(201).json({ message: 'Marks uploaded successfully' });
+    } catch (err) {
+      // Handle any errors that occurred during assignment upload
+      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+  
+
+  
 }
 
 
@@ -489,5 +520,5 @@ async function deleteSubmission(req, res, next) {
 module.exports = {
   UploadAssignment, UploadLecture, UploadGroupAssignment
   , deleteAssignment, DeleteLecture, deleteSubmission,
-  EditLecture, UploadSubmission, getAssignmentNotification,editTeacherAssignment, getSubmissionNotification
+  EditLecture, UploadSubmission,SubmitGroupMarks, getAssignmentNotification,editTeacherAssignment, getSubmissionNotification
 };
