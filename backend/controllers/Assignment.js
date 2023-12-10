@@ -284,6 +284,58 @@ async function EditLecture(req, res, next) {
 }
 
 
+async function editTeacherAssignment(req, res, next) {
+  try {
+    const assignmentId = req.params._id;
+    const { originalname, buffer, mimetype } = req.file;
+    const { classId, teacherID, fileName, title, remarks } = req.body;
+
+    const existingAssignment = await Assignment.findById(assignmentId);
+
+    if (!existingAssignment) {
+      return res.status(404).json({ message: 'Assignment not found' });
+    }
+
+    // Update file information if a new file is provided
+    if (req.file) {
+      // Remove the existing associated file
+      if (existingAssignment.fileURL) {
+        await fileSchema.findByIdAndRemove(existingAssignment.fileURL);
+      }
+
+      // Create a new file document
+      const newFile = new fileSchema({
+        name: originalname,
+        data: buffer,
+        contentType: mimetype,
+      });
+
+      // Save the new file document
+      const savedFile = await newFile.save();
+
+      // Update the file URL in the existing lecture
+      existingAssignment.fileURL = savedFile._id;
+    }
+
+    // Update other assignment information if provided
+    if (classId) existingAssignment.classId = classId;
+    if (teacherID) existingAssignment.teacherID = teacherID;
+    if (fileName) existingAssignment.fileName = fileName;
+    if (title) existingAssignment.title = title;
+    if (remarks) existingAssignment.remarks = remarks;
+
+    // Save the updated assignment
+    await existingAssignment.save();
+
+    return res.status(200).json({ message: 'Assignment updated successfully' });
+
+  } catch (err) {
+    // Handle any errors that occurred during assignment upload
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+}
+
+
 
 async function DeleteLecture(req, res, next) {
   try {
@@ -317,19 +369,19 @@ async function DeleteLecture(req, res, next) {
 
 async function deleteAssignment(req, res, next) {
   try {
-    const fileURL = req.params.fileURL;
+    const _id = req.params._id;
 
     // Find the assignment by fileURL
-    const assignment = await Assignment.findOne({ fileURL });
-    const submit = await Submissions.findOne({ fileURL });
+    const assignment = await Assignment.findOne({_id: _id });
+    // const submit = await Submissions.findOne({ _id:_id });
 
-    if (!assignment || !submit) {
+    if (!assignment ) {
       return res.status(404).json({ message: 'Assignment not found' });
     }
 
     // Delete the assignment
-    await Assignment.deleteOne({ fileURL: fileURL });
-    await Submissions.deleteOne({ fileURL: fileURL });
+    await Assignment.deleteOne({ _id: _id });
+    // await Submissions.deleteOne({ fileURL: fileURL });
 
     return res.status(200).json({ message: 'Assignment deleted successfully' });
   } catch (err) {
@@ -437,5 +489,5 @@ async function deleteSubmission(req, res, next) {
 module.exports = {
   UploadAssignment, UploadLecture, UploadGroupAssignment
   , deleteAssignment, DeleteLecture, deleteSubmission,
-  EditLecture, UploadSubmission, getAssignmentNotification, getSubmissionNotification
+  EditLecture, UploadSubmission, getAssignmentNotification,editTeacherAssignment, getSubmissionNotification
 };

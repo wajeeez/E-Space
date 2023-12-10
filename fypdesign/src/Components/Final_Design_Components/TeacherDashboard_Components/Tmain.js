@@ -36,6 +36,7 @@ import Analysis from '../../../Pages/Teacher/Analysis/Analysis';
 import Analysis2 from '../../../Pages/Teacher/Analysis/Analysis2';
 
 import Analysis3 from '../../../Pages/Teacher/Analysis/Analysis3';
+import TUserSetting from './TUserSetting';
 function Tmain() {
   const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
 
@@ -346,7 +347,7 @@ function Tmain() {
           {currentPage === 'groupAssignment' && <GroupAssignmentTeacher />}
           
           {currentPage === 'quiz' && <Quiz/>}
-          {currentPage === 'account' && <div>user</div>}
+        
           {currentPage === 'class' && <Management></Management>}
           {currentPage === 'performance' && <Analysis3></Analysis3>}
           {currentPage === 'return' && <div>home</div>}

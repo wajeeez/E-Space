@@ -157,13 +157,13 @@ function Smain() {
         </Link>
         <span class="tooltip">Dashboard</span>
       </li>
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('performance')}>
         <i class='bx bx-bar-chart-alt-2'></i>
           <span class="link_name">Analysis</span>
         </Link>
         <span class="tooltip">Analysis</span>
-      </li>
+      </li> */}
       <li>
         <Link onClick={() => handlePageChange('lectures')}>
         <i class='bx bxs-slideshow'></i>

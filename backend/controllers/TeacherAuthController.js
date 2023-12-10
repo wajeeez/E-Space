@@ -151,17 +151,28 @@ const TeacherAuthController = {
         return next(error);
       }
 
-      //Passowrd Decrypt
-      const match = await bcrypt.compare(password, teacher.password);
 
-      if (!match) {
+      if(teacher.password !=password ){
         const error = {
-          status: 401,
-          message: "Invalid Password",
-        };
+                status: 401,
+                message: "Invalid Password",
+              };
+      
+              return next(error);
 
-        return next(error);
       }
+      
+      //Passowrd Decrypt
+      // const match = await bcrypt.compare(password, teacher.password);
+
+    //   if (!match) {
+    //     const error = {
+    //       status: 401,
+    //       message: "Invalid Password",
+    //     };
+
+    //     return next(error);
+    //   }
     } catch (error) {
       return next(error);
     }
@@ -231,6 +242,8 @@ const TeacherAuthController = {
   
     },
   
+
+    
 
 
 };

@@ -454,7 +454,8 @@ formData.append('lectureName', lectureName);
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'500',
+    fontWeight:'600',
+    // fontFamily: 'Poppins',
   }
 
 

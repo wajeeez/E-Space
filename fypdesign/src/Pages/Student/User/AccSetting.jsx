@@ -22,6 +22,7 @@ const AccSetting = () => {
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
       setEmail(decodedToken.email);
+      setFullName(decodedToken.name)
     }
   }, []);
 

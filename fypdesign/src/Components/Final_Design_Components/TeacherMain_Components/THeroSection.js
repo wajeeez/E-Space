@@ -24,6 +24,7 @@ import Papa from "papaparse";
 import { createclass } from "../../../api/internal";
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import TUserSetting from '../TeacherDashboard_Components/TUserSetting';
 
 function THeroSection() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
@@ -44,7 +45,7 @@ function THeroSection() {
       const decodedToken = jwt_decode(authToken);
       setUserId(decodedToken.id);
       setEmail(decodedToken.email);
-      setName(decodedToken.name);
+      // setName(decodedToken.name);
 
       // Fetch classes for the logged-in user from the server
       axios
@@ -52,6 +53,7 @@ function THeroSection() {
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);
+          getName(classes)
           setLoading(false)
         })
         .catch((error) => {
@@ -62,6 +64,21 @@ function THeroSection() {
   }, [id]);
 
 
+  
+  const getName=(classess)=>{
+
+    for (const classObj of classess) {
+      // Assuming teacherName is the property you want to extract
+      
+      console.log(classObj.teacherName)
+      setName(classObj.teacherName)
+      break
+    }
+  }
+
+
+
+
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const getCurrentMonthYear = () => {
@@ -70,7 +87,7 @@ function THeroSection() {
     const year = currentDate.getFullYear();
     return `${month} ${year}`;
   };
-  
+
   const getDaysInMonth = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -111,7 +128,7 @@ function THeroSection() {
       }
       calendar.push(<tr key={i}>{row}</tr>);
     }
-  
+
     return calendar;
   };
 
@@ -127,7 +144,7 @@ function THeroSection() {
   };
   const renderCards = (start, end) => {
     const cards = classes.slice(start, end);
-  
+
     return (
       <Col md={12}>
         <Row>
@@ -147,8 +164,8 @@ function THeroSection() {
       </Col>
     );
   };
-  
-  
+
+
 
 
 
@@ -160,7 +177,7 @@ function THeroSection() {
 
 
 
-  
+
   const menuBtnChange = () => {
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
@@ -190,17 +207,17 @@ function THeroSection() {
   }, []); // Empty dependency array means this effect runs once after mounting
 
 
-    const handleSidebarToggle = () => {
-      const sidebar = document.querySelector(".sidebar");
-      const closeBtn = document.querySelector("#btn");
-  
+  const handleSidebarToggle = () => {
+    const sidebar = document.querySelector(".sidebar");
+    const closeBtn = document.querySelector("#btn");
 
-      sidebar.classList.toggle("open");
-      menuBtnChange();
 
-    };
+    sidebar.classList.toggle("open");
+    menuBtnChange();
 
-    
+  };
+
+
   // Call the setup function after the DOM is ready
   useEffect(() => {
     const closeBtn = document.querySelector("#btn");
@@ -256,7 +273,7 @@ function THeroSection() {
       const decodedToken = jwt_decode(authToken);
       setTid(decodedToken.id);
       setEmail(decodedToken.email);
-      setName(decodedToken.name);
+     
     }
 
   }, [tid]);
@@ -326,7 +343,7 @@ function THeroSection() {
   return (
     <>
 
-    {/* <div className='thero-container'>
+      {/* <div className='thero-container'>
       <div className='thero-heading'>
         <th>CLASSES</th>
       </div>
@@ -374,17 +391,17 @@ function THeroSection() {
     
         
       </div> */}
-            <div className="container-fluid tcmain" >
-        
+      <div className="container-fluid tcmain" >
+
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-        <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
-   <div class={sidebarClass}>
-   <div class="logo_details">
-     
-     <img src={logoImage} alt="Logo" class="logo_image"/>
-     <i class="bx bx-menu" id="btn"></i>
-   </div>
-   {/* <li class="profile">
+        <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous" />
+        <div class={sidebarClass}>
+          <div class="logo_details">
+
+            <img src={logoImage} alt="Logo" class="logo_image" />
+            <i class="bx bx-menu" id="btn"></i>
+          </div>
+          {/* <li class="profile">
        <div class="profile_details">
          <img src={userIcon} alt="profile image" class='user_image'/>
          <div class="profile_content">
@@ -395,25 +412,25 @@ function THeroSection() {
        </div>
        
      </li> */}
-   <ul class="nav-list">
-   <lis>
-       <img src={userIcon} alt="profile image" class='user_image'/>
-       
-         <p class="name">{name}</p>
-       
-     </lis> 
-     
-     <p className='ps'>x</p>
-     <li>
-       <Link onClick={() => handlePageChange('home')}>
-       {/* <img src={dashIcon} alt="Icon" className="button-icon" /> */}
-       <i class='bx bx-home-alt-2'></i>
-         <span class="link_name">Classes</span>
-       </Link>
-       <span class="tooltip">Classes</span>
-     </li>
+          <ul class="nav-list">
+            <lis>
+              <img src={userIcon} alt="profile image" class='user_image' />
 
-     {/* <li>
+              <p class="name">{name}</p>
+
+            </lis>
+
+            <p className='ps'>x</p>
+            <li>
+              <Link onClick={() => handlePageChange('home')}>
+                {/* <img src={dashIcon} alt="Icon" className="button-icon" /> */}
+                <i class='bx bx-home-alt-2'></i>
+                <span class="link_name">Classes</span>
+              </Link>
+              <span class="tooltip">Classes</span>
+            </li>
+
+            {/* <li>
        <Link onClick={() => handlePageChange('create')}>
 
        <i class='bx bx-add-to-queue'></i>
@@ -422,9 +439,9 @@ function THeroSection() {
        <span class="tooltip">New CLass</span>
      </li> */}
 
-     
 
-     {/* <li>
+
+            {/* <li>
      <Link onClick={() => handlePageChange('delete')} >
      {/* <img src={delIcon} alt="Icon" className="button-icon" /> 
      <i class='bx bx-x-circle'></i>
@@ -433,191 +450,195 @@ function THeroSection() {
      <span class="tooltip">Delete Class</span>
    </li> */}
 
-   <li>
-       <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
-       {/* <img src={perfIcon} alt="Icon" className="button-icon" /> */}
-       <i class='bx bx-add-to-queue'></i>
-         <span class="link_name">New Class</span>
-       </Link>
-       <span class="tooltip">New CLass</span>
-     </li>
+            <li>
+              <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
+                {/* <img src={perfIcon} alt="Icon" className="button-icon" /> */}
+                <i class='bx bx-add-to-queue'></i>
+                <span class="link_name">New Class</span>
+              </Link>
+              <span class="tooltip">New CLass</span>
+            </li>
 
 
-   <p className='ps'>x</p>
+            <p className='ps'>x</p>
 
-     <p className='ps'>x</p>
-     
-     <li>
-       <Link onClick={() => handlePageChange('create')} >
-       <i class='bx bxs-user-detail' ></i>
-         <span class="link_name">User Settings</span>
-       </Link>
-       <span class="tooltip">User Setting</span>
-     </li>
-     <li>
-       <Link onClick={handleLogout}>
-       {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
-       <i class='bx bx-arrow-to-left' ></i>
-         <span class="link_name">Logout</span>
-       </Link>
-       <span class="tooltip">Logout</span>
-     </li>
-     
+            <p className='ps'>x</p>
 
-     
-   </ul>
- </div>
- <section class="container-fluid tchome-section">
-   
+            <li>
+              <Link onClick={() => handlePageChange('UserSetting')} >
+                <i class='bx bxs-user-detail' ></i>
+                <span class="link_name">User Settings</span>
+              </Link>
+              <span class="tooltip">User Setting</span>
+            </li>
+            <li>
+              <Link onClick={handleLogout}>
+                {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
+                <i class='bx bx-arrow-to-left' ></i>
+                <span class="link_name">Logout</span>
+              </Link>
+              <span class="tooltip">Logout</span>
+            </li>
 
-{currentPage === 'home' && 
-         <div className="container-fluid" style={{ marginTop: '10px', overflow:'hidden'}}>
-      {/* First row covering full width */}
-      <div className="row">
-      
-        <div className="col-md-9">
-          <div
-            style={{
-              background: 'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)',
-              borderRadius: '20px',
-              border: '1px solid #8539d1',
-              boxShadow: '10px 10px 5px  rgba(0, 0, 0, 0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0px 20px 0px',
-              zIndex: '1',
-            }}
-          >
-            <div style={{ flex: '1' }}>
-              <h2 style={{ fontFamily:'Poppins',color: '#fff', marginBottom: '15px' }}>Hi, {name}</h2>
-              <h5 style={{fontFamily:'Poppins', color: '#fff', margin: '0 0 0' }}>Welcome Back!</h5>
-            </div>
-            <div style={{ flex: '1', textAlign: 'right' }}>
-              <img
-                src={headerimg} 
-                alt="Right Image"
-                style={{ verticalAlign: 'middle',height:'230px', maxwidth:'250px' }}
-              />
-            </div>
-          </div>
+
+
+          </ul>
         </div>
-
-  
-
-{/* Right side (Calendar) */}
-<div className="col-md-3" style={{}}>
-
-  {/* Calendar content goes here */}
-  {/* You can add a calendar component or any other content you want in this column */}
-
-  <div className="card" style={{ borderRadius: '12px', border:'1px solid #8539d1', boxShadow: '10px 10px 5px rgba(0, 0, 0, 0.2)' }}>
-    <div className="card-header" style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '1rem', fontWeight: 'bold' }}>
-      {getCurrentMonthYear()}
-    </div>
-    <div className="card-body p-1" style={{ maxHeight: '220px' }}>
-      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
-        <thead>
-          <tr>
-            {daysOfWeek.map((day, index) => (
-              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody style={{ textAlign: 'center', fontSize: '0.7rem', padding: '0.1rem' }}>
-          {renderCalendar()}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-</div>
+        <section class="container-fluid tchome-section">
 
 
+          {currentPage === 'home' &&
+            <div className="container-fluid" style={{ marginTop: '10px', overflow: 'hidden' }}>
+              {/* First row covering full width */}
+              <div className="row">
 
-{classes.length > 0 ? (
-              <>
-              {loading ? (
-               <Loader />
-             ) : ( 
-  <Container className='custom-carousel' style={{ marginTop: '5px'}}>
-    <Row className="mt-3">
-      <Col>
-        <Carousel activeIndex={activeRow} indicators={false} controls={false}>
-          {Array.from({ length: totalRows }).map((_, index) => (
-            <Carousel.Item key={index} style={{ height: '380px' }}>
-              <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
-            </Carousel.Item>
-          ))}
-        </Carousel>
-      </Col>
-    </Row>
-    <Row style={{ marginTop: '-30px' }}>
-      <Col className="d-flex justify-content-center">
-        <div className="custom-buttons-tc p-2">
-          <Button
-            onClick={() => handleRowChange(activeRow - 1)}
-            disabled={activeRow === 0}
-            className="btn-transition"
-            style={{background:'transparent' , border: 'none', padding: '10px', 
-            margin: '10px', 
-            fontWeight: 'bold' }}
- 
-          >
-            <i class='bx bxs-chevrons-left' style={{color: "#8539d1", fontSize:'50px'}}></i>
-          </Button>
-          <Button
-            onClick={() => handleRowChange(activeRow + 1)}
-            disabled={activeRow === totalRows - 1}
-            className="btn-transition"
-            style={{background:'transparent' , border: 'none', padding: '10px', 
-            margin: '10px', 
-            fontWeight: 'bold' }}
-          >
-            <i class='bx bxs-chevrons-right' style={{color: "#8539d1", fontSize:'50px'}}></i>
-          </Button>
-        </div>
-      </Col>
-    </Row>
-  </Container>
-          )}
-          </>
-  ) : (
-
-<div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
-<h1 style={{
-  fontFamily: 'Poppins', fontWeight: 'bold', textAlign: 'center',
-}}>
-  Create Your First Class
-</h1>
-
-<div className="row" style={{marginTop:'30px'}}>
-
-    <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-      <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
-        <div className="card-body" style={{ textAlign: 'center', padding: '10px', marginTop: '5px', position: 'relative', zIndex: '1' }}>
-          {/* <h4 className="card-title1" style={{ fontSize: '', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: 'black' }}>+ Create </h4> */}
-          <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: 'black' }}> New Class</h3>
-        </div>
-      </Link>
-    </div>
-
-</div>
-<h1 style={{
-  fontFamily: 'Poppins', fontWeight: 'bold', textAlign: 'center', margintop:'20px'
-  ,color:'white'
-}}>
-  Create Your First Class
-</h1>
-
-</div>
+                <div className="col-md-9">
+                  <div
+                    style={{
+                      background: 'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)',
+                      borderRadius: '20px',
+                      border: '1px solid #8539d1',
+                      boxShadow: '10px 10px 5px  rgba(0, 0, 0, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0px 20px 0px',
+                      zIndex: '1',
+                    }}
+                  >
+                    <div style={{ flex: '1' }}>
+                      <h2 style={{ fontFamily: 'Poppins', color: '#fff', marginBottom: '15px' }}>Hi, {name}</h2>
+                      <h5 style={{ fontFamily: 'Poppins', color: '#fff', margin: '0 0 0' }}>Welcome Back!</h5>
+                    </div>
+                    <div style={{ flex: '1', textAlign: 'right' }}>
+                      <img
+                        src={headerimg}
+                        alt="Right Image"
+                        style={{ verticalAlign: 'middle', height: '230px', maxwidth: '250px' }}
+                      />
+                    </div>
+                  </div>
+                </div>
 
 
-)}
+
+                {/* Right side (Calendar) */}
+                <div className="col-md-3" style={{}}>
+
+                  {/* Calendar content goes here */}
+                  {/* You can add a calendar component or any other content you want in this column */}
+
+                  <div className="card" style={{ borderRadius: '12px', border: '1px solid #8539d1', boxShadow: '10px 10px 5px rgba(0, 0, 0, 0.2)' }}>
+                    <div className="card-header" style={{ fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '1rem', fontWeight: 'bold' }}>
+                      {getCurrentMonthYear()}
+                    </div>
+                    <div className="card-body p-1" style={{ maxHeight: '220px' }}>
+                      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
+                        <thead>
+                          <tr>
+                            {daysOfWeek.map((day, index) => (
+                              <th key={index} style={{ fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody style={{ textAlign: 'center', fontSize: '0.7rem', padding: '0.1rem' }}>
+                          {renderCalendar()}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
 
 
-{/* <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+
+              {classes.length > 0 ? (
+                <>
+                  {loading ? (
+                    <Loader />
+                  ) : (
+                    <Container className='custom-carousel' style={{ marginTop: '5px' }}>
+                      <Row className="mt-3">
+                        <Col>
+                          <Carousel activeIndex={activeRow} indicators={false} controls={false}>
+                            {Array.from({ length: totalRows }).map((_, index) => (
+                              <Carousel.Item key={index} style={{ height: '380px' }}>
+                                <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
+                              </Carousel.Item>
+                            ))}
+                          </Carousel>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: '-30px' }}>
+                        <Col className="d-flex justify-content-center">
+                          <div className="custom-buttons-tc p-2">
+                            <Button
+                              onClick={() => handleRowChange(activeRow - 1)}
+                              disabled={activeRow === 0}
+                              className="btn-transition"
+                              style={{
+                                background: 'transparent', border: 'none', padding: '10px',
+                                margin: '10px',
+                                fontWeight: 'bold'
+                              }}
+
+                            >
+                              <i class='bx bxs-chevrons-left' style={{ color: "#8539d1", fontSize: '50px' }}></i>
+                            </Button>
+                            <Button
+                              onClick={() => handleRowChange(activeRow + 1)}
+                              disabled={activeRow === totalRows - 1}
+                              className="btn-transition"
+                              style={{
+                                background: 'transparent', border: 'none', padding: '10px',
+                                margin: '10px',
+                                fontWeight: 'bold'
+                              }}
+                            >
+                              <i class='bx bxs-chevrons-right' style={{ color: "#8539d1", fontSize: '50px' }}></i>
+                            </Button>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Container>
+                  )}
+                </>
+              ) : (
+
+                <div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                  <h1 style={{
+                    fontFamily: 'Poppins', fontWeight: 'bold', textAlign: 'center',
+                  }}>
+                    Create Your First Class
+                  </h1>
+
+                  <div className="row" style={{ marginTop: '30px' }}>
+
+                    <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                      <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
+                        <div className="card-body" style={{ textAlign: 'center', padding: '10px', marginTop: '5px', position: 'relative', zIndex: '1' }}>
+                          {/* <h4 className="card-title1" style={{ fontSize: '', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: 'black' }}>+ Create </h4> */}
+                          <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: 'black' }}> New Class</h3>
+                        </div>
+                      </Link>
+                    </div>
+
+                  </div>
+                  <h1 style={{
+                    fontFamily: 'Poppins', fontWeight: 'bold', textAlign: 'center', margintop: '20px'
+                    , color: 'white'
+                  }}>
+                    Create Your First Class
+                  </h1>
+
+                </div>
+
+
+              )}
+
+
+              {/* <div className="card h-100 text-white" style={{ background: 'lightgreen', borderRadius: '20px', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                   <Link to="/teacher/createclass" style={{ textDecoration: 'none' }}>
                     <div className="card-body" style={{ textAlign: 'center', padding: '10px', marginTop: '5px', position: 'relative', zIndex: '1' }}>
                       <h4 className="card-title1" style={{ fontSize: '', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: 'black' }}>+ Create </h4>
@@ -629,7 +650,7 @@ function THeroSection() {
 
 
 
-{/* <div className="row justify-content-center align-items-center p-0" style={{ marginTop: '15px' }}>
+              {/* <div className="row justify-content-center align-items-center p-0" style={{ marginTop: '15px' }}>
   
   <div className="col-md-3">
     <div className="card text-white" style={{ background: '#f25757', borderRadius: '20px', border: '1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)',  }}>
@@ -643,97 +664,107 @@ function THeroSection() {
 </div> */}
 
 
-</div>
-}
-
-
-{currentPage === 'create' &&     <>
-
-{   loading ? (
-        <Loader /> // Display the loader while loading
-      ) : (
-
-        <div className="container-fluid" style={{background:'white' , marginTop: '10px', 
-        overflow:'hidden', padding:'20px' , display: 'flex', justifyContent: 'center'
-        , alignItems: 'center', minHeight: '100vh',marginTop:'0px' }}>
-         <center>
-
-         <div className="container-fluid class" style={{background:'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)', 
-         padding: '50px',margin:'10px' , minWidth:'350px',maxWidth:'600px', border:'', 
-         borderRadius:'30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'}}>
-
-         <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'white', borderRadius: '20px', marginBottom:'40px', fontWeight:'bold'}}>
-            Create A New Class</h1>
-                <Form.Group controlId="subjectName" >
-                  
-                  <Form.Control
-                    type="text"
-                    value={values.subjectName}
-                    name="subjectName"
-                    onChange={handleChange}
-                    placeholder="Class Name"
-                    style={{maxWidth:'400px', textAlign:'center',
-                     fontSize:'22px', height:'50px' , borderRadius:'16px', marginBottom:'30px'}}
-                  />
-                  
-                  <Form.Text className="text-danger">{errors.subjectName}</Form.Text>
-                </Form.Group>
- 
-                <Form.Group>
-                  <Form.Control
-                    type="file"
-                    name="file"
-                    onChange={changeHandler}
-                    accept=".csv"
-                    label="Choose CSV file"
-                    style={{maxWidth:'400px', textAlign:'center',
-                     fontSize:'16px',padding:'10px' , borderRadius:'16px'}}
-                  />
-                </Form.Group>
-
-                <h5 style={{marginTop:'30px',color:'ivory'}}>
-                  "Only CSV File is accepted!!!
-                 <br/> First column contains only Student Emails
-                </h5>
-
-                <Form.Group>
-                  {error !== "" && <p >{error}</p>}
-                </Form.Group>
-
-                <Button variant="success" onClick={handleReg}
-                style={{marginTop:'20px',marginBottom:'20px', fontSize:'24px' , borderRadius:'16px'}}>
-                  Create Class
-                </Button>
-                <br/>
-                <Button variant="danger" onClick={() => navigate('/TDashboard')}
-                 style={{ fontSize:'18px', borderRadius:'16px'}}>
-                Cancel
-                </Button>
-              
-
-
             </div>
+          }
+
+
+          {currentPage === 'create' && <>
+
+            {loading ? (
+              <Loader /> // Display the loader while loading
+            ) : (
+
+              <div className="container-fluid" style={{
+                background: 'white', marginTop: '10px',
+                overflow: 'hidden', padding: '20px', display: 'flex', justifyContent: 'center'
+                , alignItems: 'center', minHeight: '100vh', marginTop: '0px'
+              }}>
+                <center>
+
+                  <div className="container-fluid class" style={{
+                    background: 'linear-gradient(to right, #8539d1 40%, #fc10f2 100%)',
+                    padding: '50px', margin: '10px', minWidth: '350px', maxWidth: '600px', border: '',
+                    borderRadius: '30px', boxShadow: '20px 20px 5px  rgba(0, 0, 0, 0.4)'
+                  }}>
+
+                    <h1 style={{ fontFamily: 'Poppins', padding: '5px', color: 'white', borderRadius: '20px', marginBottom: '40px', fontWeight: 'bold' }}>
+                      Create A New Class</h1>
+                    <Form.Group controlId="subjectName" >
+
+                      <Form.Control
+                        type="text"
+                        value={values.subjectName}
+                        name="subjectName"
+                        onChange={handleChange}
+                        placeholder="Class Name"
+                        style={{
+                          maxWidth: '400px', textAlign: 'center',
+                          fontSize: '22px', height: '50px', borderRadius: '16px', marginBottom: '30px'
+                        }}
+                      />
+
+                      <Form.Text className="text-danger">{errors.subjectName}</Form.Text>
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Control
+                        type="file"
+                        name="file"
+                        onChange={changeHandler}
+                        accept=".csv"
+                        label="Choose CSV file"
+                        style={{
+                          maxWidth: '400px', textAlign: 'center',
+                          fontSize: '16px', padding: '10px', borderRadius: '16px'
+                        }}
+                      />
+                    </Form.Group>
+
+                    <h5 style={{ marginTop: '30px', color: 'ivory' }}>
+                      "Only CSV File is accepted!!!
+                      <br /> First column contains only Student Emails
+                    </h5>
+
+                    <Form.Group>
+                      {error !== "" && <p >{error}</p>}
+                    </Form.Group>
+
+                    <Button variant="success" onClick={handleReg}
+                      style={{ marginTop: '20px', marginBottom: '20px', fontSize: '24px', borderRadius: '16px' }}>
+                      Create Class
+                    </Button>
+                    <br />
+                    <Button variant="danger" onClick={() => navigate('/TDashboard')}
+                      style={{ fontSize: '18px', borderRadius: '16px' }}>
+                      Cancel
+                    </Button>
 
 
 
-         </center>
+                  </div>
 
 
 
-        </div>
-      )}
-    </>}
+                </center>
 
 
 
-{currentPage === 'delete' && <div>delete</div>}
+              </div>
+            )}
+          </>}
 
 
 
- </section>
-       
-     </div>
-    
+          {currentPage === 'delete' && <div>delete</div>}
+
+
+          {currentPage === 'UserSetting' && <TUserSetting></TUserSetting>}
+
+
+        </section>
+
+      </div>
+
 
 
 

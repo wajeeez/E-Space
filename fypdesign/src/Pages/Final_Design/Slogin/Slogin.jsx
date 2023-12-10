@@ -178,7 +178,7 @@ function Slogin() {
       </div>
        )}
       </center>
-      
+      <ToastContainer></ToastContainer>
     </div>
 
   );

@@ -31,6 +31,7 @@ router.post('/teacher/logout', auth, TeacherAuthController.logout)
 
 router.get('/teacher/classes/:teacherId', TeacherCreateClass.fetchclass)
 router.get('/teacher/class/:_id', TeacherCreateClass.fetchsingleclass)
+router.post('/teacher/update',StudentAuth.updateTeacherData)
 
 
 //student
@@ -45,7 +46,7 @@ router.post('/student/update',StudentAuth.updateStudentData)
 
 router.get('/student/studentData/:email',StudentAuth.getStudentData);
 router.post('/teacher/assignments/upload', UploadAssignment.UploadAssignment)
-router.post('/teacher/assignments/:fileURL', UploadAssignment.deleteAssignment)
+router.post('/teacher/assignments/:_id', UploadAssignment.deleteAssignment)
 
 router.post('/student/delete/submission/:fileURL',UploadAssignment.deleteSubmission)
 
@@ -71,6 +72,7 @@ router.get("/students/getLecture/:class_id",getAllAssignments.getAllLecture)
 //delete lecture
 router.post('/teacher/deleteLectures/:fileURL', UploadAssignment.DeleteLecture)
 router.post('/teacher/editLectures/:fileURL', UploadAssignment.EditLecture)
+router.post('/teacher/editAssignment/:_id', UploadAssignment.editTeacherAssignment)
 
 //Group Assignments
 

@@ -215,11 +215,13 @@ function TList() {
   const row_color = {
     backgroundColor: 'transparent',
     color: 'black',
+    
   }
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'500',
+    fontWeight:'600',
+    fontFamily:'Poppins'
   }
 
   return (
@@ -231,17 +233,17 @@ function TList() {
            STUDENT SUBMISSIONS</h1>
             <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
   <div className="col-md-3">
-    <h4 className="text-center" style={{ fontSize: '', fontWeight: '600', 
-    marginTop: '3px' ,marginRight:'-20px'}}>Select Assignment : </h4>
+    <h4 className="text-center" style={{ fontFamily: 'Poppins', fontWeight: '600', 
+    marginTop: '5px' ,marginRight:'0px'}}>Select Assignment : </h4>
   </div>
   <div className="col-md-3">
     <select
       className="form-select text-center"
-      style={{ maxWidth: '250px' ,marginLeft:'-70px' , boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.4)',borderRadius:'20px'}}
+      style={{ maxWidth: '250px' ,marginLeft:'0px' , boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.4)',borderRadius:'20px'}}
       value={selectedAssignment}
       onChange={handleAssignmentChange}
     >
-      <option value="" disabled>
+      <option value="" disabled >
         Select an Assignment
       </option>
       {assignments.map((assignment, index) => (
@@ -279,7 +281,7 @@ function TList() {
         style={{
           fontFamily: 'poppins',
           width: '15rem',
-          marginTop: '20px',
+          marginTop: '0px',
           margin: '20px',
           background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)',
           borderRadius: '40px',
@@ -289,7 +291,7 @@ function TList() {
 
         }}
       >
-          {selectedAssignment && `Total Submissions: ${submissions.length}`}
+          {selectedAssignment && `Total Submissions : ${submissions.length}`}
 
       </Button>
 
@@ -297,7 +299,7 @@ function TList() {
         style={{
           fontFamily: 'poppins',
           width: '15rem',
-          marginTop: '20px',
+          marginTop: '0px',
           margin: '20px',
           background: 'linear-gradient(to right, rgba(252, 16, 242, 0.7)  30%, rgba(133, 57, 209, 0.7) 100%)',
           borderRadius: '40px',
@@ -306,7 +308,7 @@ function TList() {
           border:'1px solid white', cursor:'default'
         }}
       >
-          {selectedAssignment && `Total Students: ${submissions.length}`}
+          {selectedAssignment && `Total Students : ${submissions.length}`}
 
       </Button>
     </div>
