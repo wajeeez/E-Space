@@ -132,7 +132,7 @@ const SigninOptions = () => {
     <div style={containerStyle}  className="container">
       <h1 style={header} className="text-center mt-4">SIGN IN AS</h1>
       <div style={centerStyle} className="row mt-4">
-        <div className="col-md-5">
+        <div className="col-md-5 col-md-4">
           <Link to="/teacher/login" className="text-decoration-none">
             <div
               className="card custom-scard"
@@ -152,7 +152,7 @@ const SigninOptions = () => {
             </div>
           </Link>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-5 col-md-4">
           <Link to="/std/login" className="text-decoration-none">
             <div
               className="card custom-scard"

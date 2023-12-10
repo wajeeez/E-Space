@@ -454,8 +454,9 @@ formData.append('lectureName', lectureName);
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'600',
-    // fontFamily: 'Poppins',
+    fontWeight: '600',
+    fontFamily:'Poppins',
+    fontSize:'medium' ,
   }
 
 
@@ -531,13 +532,13 @@ formData.append('lectureName', lectureName);
             <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
             background:'' }} >
               <tr >
-                <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr No.</th>
-                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
-                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Lecture File</th>
+                <th style={{ ...head_color, width: '2%' }}>Sr No.</th>
+                <th style={{ ...head_color, width: '5%' }}>Title</th>
+                <th style={{ ...head_color, width: '5%' }}>Lecture File</th>
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Description</th> */}
-                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Video Link</th>
-                <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Remark</th>
-                <th style={{ ...head_color, width: '7%', fontSize: 'large' }}>Action</th>
+                <th style={{ ...head_color, width: '5%' }}>Video Link</th>
+                <th style={{ ...head_color, width: '7%' }}>Remark</th>
+                <th style={{ ...head_color, width: '7%' }}>Action</th>
               </tr>
             </thead>
 

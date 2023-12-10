@@ -220,8 +220,9 @@ function TList() {
   const head_color ={
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'600',
-    fontFamily:'Poppins'
+    fontWeight: '600',
+    fontFamily:'Poppins',
+    fontSize:'medium'  ,
   }
 
   return (
@@ -234,7 +235,7 @@ function TList() {
             <div className="row justify-content-center align-items-center" style={{padding:'20px'}}>
   <div className="col-md-3">
     <h4 className="text-center" style={{ fontFamily: 'Poppins', fontWeight: '600', 
-    marginTop: '5px' ,marginRight:'0px'}}>Select Assignment : </h4>
+    marginTop: '3px' ,marginRight:'-20px'}}>Select Assignment : </h4>
   </div>
   <div className="col-md-3">
     <select
@@ -329,15 +330,15 @@ function TList() {
             <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
             background:'' }} >
             <tr >
-              <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>File</th>
+              <th style={{ ...head_color,width: '2%' }}>Sr #</th>
+              <th style={{ ...head_color,width: '5%' }}>Student Email</th>
+              <th style={{ ...head_color,width: '5%' }}>Submission Date</th>
+              <th style={{ ...head_color,width: '5%' }}>File</th>
               
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Marks</th>
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Remarks</th>
+              <th style={{ ...head_color,width: '5%' }}>Marks</th>
+              <th style={{ ...head_color,width: '5%'  }}>Remarks</th>
               
-              <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Edit Marks / Remarks</th>
+              <th style={{ ...head_color,width: '5%' }}>Edit Marks / Remarks</th>
             </tr>
             </thead>
             <tbody style={{textAlign:'center'}}>
@@ -352,15 +353,15 @@ function TList() {
               <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
               background:'' }} >
                 <tr >
-                  <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr #</th>
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Student Email</th>
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Submission Date</th>
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>File</th>
+                  <th style={{ ...head_color,width: '2%' }}>Sr #</th>
+                  <th style={{ ...head_color,width: '5%' }}>Student Email</th>
+                  <th style={{ ...head_color,width: '5%'  }}>Submission Date</th>
+                  <th style={{ ...head_color,width: '5%'  }}>File</th>
                   
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Marks</th>
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Remarks</th>
+                  <th style={{ ...head_color,width: '5%'  }}>Marks</th>
+                  <th style={{ ...head_color,width: '5%' }}>Remarks</th>
                   
-                  <th style={{ ...head_color,width: '5%' , fontSize:'large' }}>Edit Marks / Remarks</th>
+                  <th style={{ ...head_color,width: '5%' }}>Edit Marks / Remarks</th>
                 </tr>
               </thead>
               <tbody style={{textAlign:'center',}}>

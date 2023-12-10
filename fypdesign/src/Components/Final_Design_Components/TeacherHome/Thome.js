@@ -8,7 +8,7 @@ import headerimg from '../../../Assets/images/Business.png';
 import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
 import TChart from "./TChart";
-
+import { format } from 'date-fns';
 
 function Thome() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
@@ -74,7 +74,7 @@ function Thome() {
           const cellStyle = {
             backgroundColor: isCurrentDay ? highlightColor : '',
             color: isCurrentDay ? 'white' : 'black',
-            fontSize: isCurrentDay ? '0.9rem' : '',
+            fontSize: isCurrentDay ? '0.7rem' : '',
           };
           row.push(
             <td key={j} style={cellStyle}>
@@ -96,21 +96,64 @@ function Thome() {
 
   const [notify,setnotify]  = useState([]);
 
-  const NotificationCard = ({ deadline }) => {
+  const NotificationCard = ({ deadline , index}) => {
+    const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
+    const deadlineDate = new Date(deadline);
+    const currentDate = new Date();
+  
+    // Check if the deadline has exceeded
+    const isDeadlineExceeded = currentDate > deadlineDate;
+  
     return (
-      <div className="card mt-3 border-primary shadow">
-        <div className="card-body">
-          <h6 className="card-title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif' }}>
-            Assignment Submitted By Student
-          </h6>
+      isDeadlineExceeded && (
+        <div className="container-fluid p-1" style={{ borderBottom: '1px solid silver', display: 'flex', alignItems: 'center', verticalAlign: 'middle' }}>
+          <i class='bx bx-notification' style={{ fontSize: '1.5rem', color: '#b23ac7', marginTop: '-2rem' }}></i>
+          <div className="card-body p-0" style={{}}>
+            <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop: "0.4rem" }}>
+              Assignment {index + 1} Deadline
+            </h6>
+            <p
+              className="text "
+              style={{
+                fontSize: '0.8rem',
+                fontFamily: 'Poppins, sans-serif',
+                marginTop: '0rem',
+                marginBottom: '0.5rem'
+              }}
+            >
+              Deadline: {formattedDeadline}
+            </p>
+          </div>
         </div>
-      </div>
+      )
     );
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .post(baseURL + `/notification/assignment/submission/${_id}`)
+  //     .then((response) => {
+
+  //       if (response.data) {
+
+  //         console.log(response.data)
+  //         setnotify(response.data);
+
+      
+
+  //     }
+
+      
+        
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .post(baseURL + `/notification/assignment/submission/${_id}`)
+      .post(baseURL + `/notification/assignment/upload/${_id}`)
       .then((response) => {
 
         if (response.data) {
@@ -178,11 +221,11 @@ function Thome() {
       {getCurrentMonthYear()}
     </div>
     <div className="card-body p-1" style={{ maxHeight: '220px' }}>
-      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
+      <table className="table table-sm" style={{  margin: '0' }}>
         <thead>
           <tr>
             {daysOfWeek.map((day, index) => (
-              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
+              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.6rem', padding: '0.1rem' }}>{day}</th>
             ))}
           </tr>
         </thead>
@@ -233,20 +276,18 @@ function Thome() {
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
         
         <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Class Attendance</h4>
+          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '', marginTop: '',color:'black'}}>Total Students</h4>
 
           {/* Bootstrap row with two columns */}
-          <div className="row" style={{marginTop: '0px'}}>
+          <div className="row" style={{marginTop: '20px'}}>
             {/* Left column for present */}
-            <div className="col" style={{marginRight: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>40</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'green',fontSize:'large' }}>Present</p>
-            </div>
+            {/* <div className="col" style={{marginRight: '30px'}}>
+            <img src={iclass} alt="Class Image" className="img-fluid" style={{ marginTop: '0px', marginBottom: '0px' }} />
+            </div> */}
             
             {/* Right column for absent */}
-            <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>5</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'red' ,fontSize:'large'}}>Absent</p>
+            <div className="col" style={{marginLeft: '0px'}}>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>40</h2>
             </div>
           </div>
           </div>
@@ -276,11 +317,10 @@ function Thome() {
       <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
-      <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>
       {notify.map((notification, index) => (
-        <NotificationCard deadline={notification.deadline} key={index} />
-      ))}
-      </div>
+  <NotificationCard index={index} deadline={notification.deadline} key={index} />
+))}
+
     </div>
   </div>
 </div>

@@ -15,6 +15,9 @@ import Register from './Register';
 import './HeroSection.css';
 import close from '../../../Assets/images/cross.png';
 import Typewriter from "typewriter-effect";
+import { FormGroup, FormControl, InputGroup, Button } from 'react-bootstrap';
+
+
 function HeroSection() {
   const [error, setError] = useState('');
 
@@ -90,7 +93,56 @@ function HeroSection() {
   };
 
 
+  const [type, setType] = useState('password');
 
+  // validated states
+  const [lowerValidated, setLowerValidated]=useState(false);
+  const [upperValidated, setUpperValidated]=useState(false);
+  const [numberValidated, setNumberValidated]=useState(false);
+  const [specialValidated, setSpecialValidated]=useState(false);
+  const [lengthValidated, setLengthValidated]=useState(false);
+
+  const handleChangeP=(value)=>{
+    const lower = new RegExp('(?=.*[a-z])');
+    const upper = new RegExp('(?=.*[A-Z])');
+    const number = new RegExp('(?=.*[0-9])');
+    const special = new RegExp('(?=.*[!@#\$%\^&\*])');
+    const length = new RegExp('(?=.{8,})')
+    if(lower.test(value)){
+      setLowerValidated(true);
+    }
+    else{
+      setLowerValidated(false);
+    }
+    if(upper.test(value)){
+      setUpperValidated(true);
+    }
+    else{
+      setUpperValidated(false);
+    }
+    if(number.test(value)){
+      setNumberValidated(true);
+    }
+    else{
+      setNumberValidated(false);
+    }
+    if(special.test(value)){
+      setSpecialValidated(true);
+    }
+    else{
+      setSpecialValidated(false);
+    }
+    if(length.test(value)){
+      setLengthValidated(true);
+    }
+    else{
+      setLengthValidated(false);
+    }
+  }
+
+  
+  const [newPasswordFocus, setNewPasswordFocus] = useState(false);
+  const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false);
 
 
 
@@ -176,31 +228,13 @@ function HeroSection() {
 
 
       <div className="hero-container">
-        {/* <div className="hero">
-      <div className="hcontent">
-          <h1> Welcome To E-SPACE</h1>
-          <p className="hdescription">Empowering Education, Empowering You: Choose E-Space</p>
-         
-
-          {/* <Typewriter  className="hdescription" text="Empowering Education, Empowering You: Choose E-Space" speed={100}/> */}
-        {/* <button className="ljoin-button" onClick={handleJoinNow} style={{border: '2px solid black'}}>
-              Join now
-          </button>
-          <button className="lsign-button" onClick={handleSignIn} style={{border: '2px solid black'}}>
-              Sign In
-          </button> */}
-
-        {/* </div>
-      <div className='heroimg'>
-      <img  src='/images/ill5.jpg' alt="My Image Description" />
-      </div>
-      </div> */}
         {showSigninOptions && (
           <div className="signin-options" onClick={toggleSigninOptions}>
             <Signin />
           </div>
         )}
 
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 {showRegistrationCard && !registrationComplete && (
           <div className="registration-card" >
             
@@ -231,20 +265,96 @@ function HeroSection() {
                         />
                       </div>
 
+
                       <div className="form-group custom-form-group">
                         <input
                           type="text"
-                          value={values.institute}
-                          name="institute"
+                          value={values.email}
+                          name="email"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           className="form-control"
-                          placeholder="Institute"
+                          placeholder="Email"
                           style={{maxWidth:'320px', minWidth:'220px'  ,
                           fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
                          ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
+
+                      {/* <div className="form-group custom-form-group">
+                        <input
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Password"
+                          style={{maxWidth:'320px', minWidth:'220px'  ,
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div> */}
+
+{newPasswordFocus && (
+    <div style={{marginTop:'-10rem', position:'sticky'}} >
+      <main className='tracker-box' style={{maxWidth: '320px',minWidth: '220px',fontSize:'0.9rem'}}>
+
+        <div className={`validation-item ${lowerValidated ? 'validated' : 'not-validated'}`}>
+          <span className={`list-icon ${lowerValidated ? 'green' : ''}`}>
+          {lowerValidated ? <i className='bx bx-check-circle'></i> : <i class='bx bx-x-circle' ></i>}          </span>
+          At least one lowercase letter
+        </div>
+
+        <div className={`validation-item ${upperValidated ? 'validated' : 'not-validated'}`}>
+          <span className={`list-icon ${upperValidated ? 'green' : ''}`}>
+          {upperValidated ? <i className='bx bx-check-circle'></i> : <i class='bx bx-x-circle' ></i>}          </span>
+          At least one uppercase letter
+        </div>
+        <div className={`validation-item ${numberValidated ? 'validated' : 'not-validated'}`}>
+          <span className={`list-icon ${numberValidated ? 'green' : ''}`}>
+          {numberValidated ? <i className='bx bx-check-circle'></i> : <i class='bx bx-x-circle' ></i>}          </span>
+          At least one number
+        </div>
+        <div className={`validation-item ${specialValidated ? 'validated' : 'not-validated'}`}>
+          <span className={`list-icon ${specialValidated ? 'green' : ''}`}>
+          {specialValidated ? <i className='bx bx-check-circle'></i> : <i class='bx bx-x-circle' ></i>}          </span>
+          At least one special character
+        </div>
+        <div className={`validation-item ${lengthValidated ? 'validated' : 'not-validated'}`}>
+          <span className={`list-icon ${lengthValidated ? 'green' : 'red'}`}>
+          {lengthValidated ? <i className='bx bx-check-circle'></i> : <i class='bx bx-x-circle' ></i>}          </span>
+          At least 8 characters
+        </div>
+
+      </main>
+    </div>
+
+)}
+
+                      <div className="form-group custom-form-group">
+                        <input
+                          type="password"
+                          name="password"
+                          className="form-control"
+                          value={values.password}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            setNewPasswordFocus(false);
+                          }}
+                          onChange={(e) => {
+                            handleChange(e);
+                            handleChangeP(e.target.value);
+                          }}
+                          onFocus={() => setNewPasswordFocus(true)}
+                          placeholder="Enter your password"
+                          errormessage={errors.password}
+                          style={{maxWidth:'320px', minWidth:'220px', 
+                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
+                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
+                        />
+                      </div>
+
 
                       <div className="form-group custom-form-group">
                         <input
@@ -264,32 +374,19 @@ function HeroSection() {
                       <div className="form-group custom-form-group">
                         <input
                           type="text"
-                          value={values.email}
-                          name="email"
+                          value={values.institute}
+                          name="institute"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           className="form-control"
-                          placeholder="Email"
+                          placeholder="Institute"
                           style={{maxWidth:'320px', minWidth:'220px'  ,
                           fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
                          ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
                         />
                       </div>
 
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="password"
-                          name="password"
-                          value={values.password}
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Password"
-                          style={{maxWidth:'320px', minWidth:'220px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
+
 
                       <button className="custom-button"
                         onClick={handleReg}
@@ -320,123 +417,6 @@ function HeroSection() {
 
         )}
 
-
-        {/* {showRegistrationCard && !registrationComplete && (
-          <div className="registration-card" >
-            
-
-            <div className="container mt-5 custom-container">
-              <div className="row justify-content-center">
-                <div className="col-md-6">
-                  <div className="custom-popup" style={{ borderRadius: '20px', border: '3px solid black', padding: '20px', backgroundColor: '' }}>
-                    <div className="card-body">
-                      
-                      <i className="fa fa-times " onClick={toggleRegistrationCard} />
-      
-                      <h1 style={{ fontFamily:'Poppins',padding:'5px' , color : 'black', borderRadius: '20px', 
-                        marginBottom:'20px', fontWeight:'bold',}}>
-                          Register as Teacher</h1>
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="text"
-                          value={values.tname}
-                          name="tname"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Teacher Name"
-                          style={{maxWidth:'400px', minWidth:'250px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
-
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="text"
-                          value={values.institute}
-                          name="institute"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Institute"
-                          style={{maxWidth:'400px', minWidth:'220px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
-
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="text"
-                          value={values.phone}
-                          name="phone"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Phone"
-                          style={{maxWidth:'400px', minWidth:'220px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
-
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="text"
-                          value={values.email}
-                          name="email"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Email"
-                          style={{maxWidth:'400px', minWidth:'220px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
-
-                      <div className="form-group custom-form-group">
-                        <input
-                          type="password"
-                          name="password"
-                          value={values.password}
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="Password"
-                          style={{maxWidth:'400px', minWidth:'220px'  ,
-                          fontSize:'16px', height:'50px' , borderRadius:'16px', marginBottom:'5px'
-                         ,boxShadow: '0px 5px 10px  rgba(0, 0, 0, 0.4)'}}
-                        />
-                      </div>
-
-                      <button className="custom-button"
-                        onClick={handleReg}
-                        style={{ fontFamily:'poppins',
-                        borderRadius: '20px', fontSize: '20px', 
-                        backgroundColor: '',letterSpacing:'2px',
-                        fontWeight:'bold', marginBottom:'10px' }}
-                      >
-                        Sign Up
-                      </button>
-
-                      {error !== '' ? (
-                        <div className="alert alert-danger mt-3">{error}</div>
-                      ) : null}
-
-                      <p className="text-center mt-3" style={{fontSize:'18px'}}>Already have an account?</p>
-                      <Link to="/teacher/login" style={{fontSize:'18px'}}>Login here</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-        )} */}
 
         {registrationComplete && (
           <div className="registration-complete" style={{ textAlign: 'center' }}>

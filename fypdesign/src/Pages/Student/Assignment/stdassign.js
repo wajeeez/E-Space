@@ -418,7 +418,9 @@ const StdTable = () => {
   const head_color = {
     backgroundColor: 'transparent',
     color: 'black',
-    fontWeight:'500',
+    fontWeight: '600',
+    fontFamily:'Poppins',
+    fontSize:'medium' ,
   }
 
 
@@ -511,7 +513,9 @@ const StdTable = () => {
           if (fileInputRef.current) {
             fileInputRef.current.value = '';
           }
-  
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
           // Fetch the updated data after a successful submission
           fetchData();
         } else if (response.code === "ERR_BAD_REQUEST") {
@@ -540,7 +544,9 @@ const StdTable = () => {
         }));
   
         // You can similarly update marksMapping and remarksMapping if needed
-  
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         // Fetch the updated data after a successful deletion
         fetchData();
       }
@@ -686,22 +692,22 @@ const StdTable = () => {
         <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
         background:'' }} >
           <tr >
-            <th style={{ ...head_color,width: '2%' , fontSize:'large' }}>Sr#</th>
-            <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Assignment</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Remarks</th>
-            <th style={{ ...head_color,width: '9%', fontSize:'large'  }}>Marks Obtained</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Submission</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%', fontSize:'large' }}>Action</th>
+            <th style={{ ...head_color,width: '2%'  }}>Sr#</th>
+            <th style={{ ...head_color,width: '7%'  }}>Title</th>
+            <th style={{ ...head_color,width: '10%'  }}>Assignment</th>
+            <th style={{ ...head_color,width: '10%'  }}>Remarks</th>
+            <th style={{ ...head_color,width: '9%'  }}>Marks Obtained</th>
+            <th style={{ ...head_color,width: '10%' }}>Submission</th>
+            <th style={{ ...head_color,width: '10%'  }}>Deadline</th>
+            <th style={{ ...head_color,width: '10%' }}>Action</th>
           </tr>
         </thead>
         <tbody style={{}}>
           {assignments.map((assignment, index) => (
             <tr key={index} style={{textAlign:'center'}}>
               <td style={{...row_color }}>{index + 1}</td>
-              <td style={{...row_color }}>
-                {/* Content */}
+              <td style={{ ...row_color }}>
+                <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
               </td>
 
               <td  style={{...row_color }}>
@@ -747,11 +753,18 @@ const StdTable = () => {
                 </td>
                 <td style={{ ...row_color }}>
                   {marksMapping[submissionMapping[assignment.fileURL]]
-                    ? marksMapping[submissionMapping[assignment.fileURL]]
+                    ? `${marksMapping[submissionMapping[assignment.fileURL]]} / ${assignment.totalMarks}`
                     : 'Not marked yet'}
                 </td>
+                {/* <td style={{ ...row_color }}>
+                  {marksMapping[submissionMapping[assignment.fileURL]] !== undefined
+                    ? `${marksMapping[submissionMapping[assignment.fileURL]]}/${assignment.totalMarks}`
+                    : 'Not marked yet'}
+                </td> */}
+
+
                
-                <td style={row_color}>
+                <td style={{...row_color}}>
 
 
                  
@@ -868,7 +881,7 @@ const StdTable = () => {
                           <></>
                         )
                       ) : (
-                        // One or both conditions are false
+                        
                         currentDate > new Date(assignment.deadline) ? (
                           <></>
                         ) : (

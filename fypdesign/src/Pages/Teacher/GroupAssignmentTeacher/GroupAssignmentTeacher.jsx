@@ -513,7 +513,9 @@ const GroupAssignmentTeacher = () => {
     const head_color = {
         backgroundColor: 'transparent',
         color: 'black',
-        fontWeight: '500',
+        fontWeight: '600',
+        fontFamily:'Poppins',
+        fontSize:'medium' ,
     }
 
     const [showModal, setShowModal] = useState(false);
@@ -736,14 +738,14 @@ const GroupAssignmentTeacher = () => {
                         <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
                         background:'' }} >
                             <tr >
-                                <th style={{ ...head_color, width: '2%', fontSize: 'large' }}>Sr#</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Title</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Assignment File</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Remarks</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Marks Obtained</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Submission</th>
-                                <th style={{ ...head_color, width: '5%', fontSize: 'large' }}>Deadline</th>
-                                <th style={{ ...head_color, width: '3%', fontSize: 'large' }}>Action</th>
+                                <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                                <th style={{ ...head_color, width: '5%' }}>Title</th>
+                                <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
+                                <th style={{ ...head_color, width: '5%' }}>Remarks</th>
+                                <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
+                                <th style={{ ...head_color, width: '5%' }}>Submission</th>
+                                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
+                                <th style={{ ...head_color, width: '3%' }}>Action</th>
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>

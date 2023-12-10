@@ -137,7 +137,9 @@ function Management() {
       const head_color ={
         backgroundColor: 'transparent',
         color: 'black',
-        fontWeight:'500',
+        fontWeight: '600',
+        fontFamily:'Poppins',
+        fontSize:'medium'  ,
       }
 
     return (
@@ -159,9 +161,9 @@ function Management() {
             className={`btn-success`}
             onClick={handleAddStudents}
             style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'
-                    ,  boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
+                    ,  boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)', marginBottom:'20px'}}
             >
-            <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px', marginTop:'0px'}}> </i> 
+            <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px'}}> </i> 
             Add Students
             </Button>
 
@@ -170,10 +172,10 @@ function Management() {
                 <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
                 background:'' }} >
                     <tr >
-                        <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Sr#</th>
-                        <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Name</th>
-                        <th style={{ ...head_color,width: '7%', fontSize: 'large', textAlign: 'center' }}>Student Email</th>
-                        <th style={{ ...head_color,width: '3%', fontSize: 'large', textAlign: 'center' }}>Action</th>
+                        <th style={{ ...head_color,width: '3%',  textAlign: 'center' }}>Sr#</th>
+                        <th style={{ ...head_color,width: '7%',  textAlign: 'center' }}>Student Name</th>
+                        <th style={{ ...head_color,width: '7%',  textAlign: 'center' }}>Student Email</th>
+                        <th style={{ ...head_color,width: '3%',  textAlign: 'center' }}>Action</th>
                     </tr>
                 </thead>
                 <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>

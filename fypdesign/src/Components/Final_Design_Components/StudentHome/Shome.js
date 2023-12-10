@@ -9,6 +9,9 @@ import headerimg from '../../../Assets/images/Business.png';
 import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
 import { Link } from "react-router-dom";
+import { format } from 'date-fns';
+
+
 function Shome() {
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const navigate = useNavigate()
@@ -21,27 +24,43 @@ function Shome() {
     const [notify,setnotify]  = useState([]);
 
     const NotificationCard = ({ deadline }) => {
-      return (
-        <div className="card mt-3 border-primary shadow">
-          <div className="card-body">
-            <h6 className="card-title" style={{ fontSize: '1.2rem', fontFamily: 'Poppins, sans-serif' }}>
-              Assignment Uploaded
-            </h6>
-           
-            <p
-              className="card-text text-muted"
-              style={{
-                position: 'absolute',
-                bottom:0,
-                fontSize: '0.8rem',
-                fontFamily: 'Poppins, sans-serif',
-              }}
-            >
-              Deadline: {deadline}
-            </p>
-          </div>
-        </div>
-      );
+
+  // Format the deadline date
+  const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
+  
+
+
+  return (
+    <div className="conatiner-fluid p-1" style={{ borderBottom: '1px solid silver', display: 'flex', alignItems: 'center', verticalAlign:'middle',}}>
+   
+      
+        {/* <i className='bx bxs-bell' style={{ fontSize: 'large'}}></i> */}
+        <i class='bx bx-notification' style={{ fontSize: '1.5rem',color:'#b23ac7', marginTop:'-2rem' }}></i>
+
+  
+     
+      <div className="card-body p-0" style={{ }}>
+        <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
+          Assignment Uploaded
+        </h6>
+  
+        <p
+          className="text "
+          style={{
+            fontSize: '0.8rem',
+            fontFamily: 'Poppins, sans-serif',
+            marginTop: '0rem',
+            marginBottom:'0.5rem'
+            // borderBottom: '1px solid silver',
+          }}
+        >
+         
+          Deadline: {formattedDeadline}
+        </p>
+      </div>
+    </div>
+  );
+  
     };
 
     useEffect(() => {
@@ -146,7 +165,7 @@ function Shome() {
           const cellStyle = {
             backgroundColor: isCurrentDay ? highlightColor : '',
             color: isCurrentDay ? 'white' : 'black',
-            fontSize: isCurrentDay ? '0.9rem' : '',
+            fontSize: isCurrentDay ? '0.7rem' : '',
           };
           row.push(
             <td key={j} style={cellStyle}>
@@ -171,6 +190,7 @@ function Shome() {
   return (
     <div className="container-fluid" style={{ marginTop: '10px', margin:'0px' ,background: bg}}>
       {/* First row covering full width */}
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <div className="row">
       
         <div className="col-md-9">
@@ -201,7 +221,6 @@ function Shome() {
         </div>
 
   
-
 {/* Right side (Calendar) */}
 <div className="col-md-3" style={{}}>
 
@@ -213,11 +232,11 @@ function Shome() {
       {getCurrentMonthYear()}
     </div>
     <div className="card-body p-1" style={{ maxHeight: '220px' }}>
-      <table className="table table-sm" style={{ fontSize: '0.8rem', margin: '0' }}>
+      <table className="table table-sm" style={{  margin: '0' }}>
         <thead>
           <tr>
             {daysOfWeek.map((day, index) => (
-              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.8rem', padding: '0.1rem' }}>{day}</th>
+              <th key={index} style={{fontFamily: 'Poppins, sans-serif', textAlign: 'center', fontSize: '0.6rem', padding: '0.1rem' }}>{day}</th>
             ))}
           </tr>
         </thead>
@@ -228,7 +247,6 @@ function Shome() {
     </div>
   </div>
 </div>
-
   
 
 
@@ -265,7 +283,7 @@ function Shome() {
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
         
         <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Class Attendance</h4>
+          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Total Attendance Hours</h4>
 
           {/* Bootstrap row with two columns */}
           <div className="row" style={{marginTop: '0px'}}>
@@ -286,29 +304,29 @@ function Shome() {
         </div>
       </div>
 
-      <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
+      {/* <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
 
   <div className="col-md-3 p-2" style={{ maxHeight: '100vh', padding: '5px' , marginTop:'15px'}}>
     <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 7px rgba(0, 0, 0, 0.2)',minHeight:'60vh'}}>
-      <div className="card-header sticky-top" style={{ fontSize: '30px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
+      <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
         Notifications
       </div>
-      <div className="card-body text-white" style={{ maxHeight: '400px', overflowY: 'auto', fontFamily: 'Helvetica, sans-serif', padding: '10px' }}>
+
       
       {notify.map((notification, index) => (
         <NotificationCard deadline={notification.deadline} key={index} />
       ))}
 
 
-      </div>
+
     </div>
   </div>
 </div>
