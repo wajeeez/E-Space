@@ -2,10 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router';
-const EditAssignment = ({ assignmentId }) => {
+const EditAssignment = ({ show,assignmentId }) => {
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const [teacherID, setteacherID] = useState('')
     const [subjectName, setSubjectName] = useState('')
+    
+    
+    const handleCloseModal = () => {
+     
+    };
 
     useEffect(() => {
 
@@ -51,7 +56,7 @@ const EditAssignment = ({ assignmentId }) => {
 
     const handleUpdateAssignment = async () => {
     
-      
+        
         const formData = new FormData();
           formData.append('file', fileSelected);
           formData.append('classId', _id);
@@ -124,6 +129,7 @@ const EditAssignment = ({ assignmentId }) => {
                         Update
                     </Button>
                     <Button
+                        onClick={handleCloseModal}
                         variant="danger"
                         style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
                     >

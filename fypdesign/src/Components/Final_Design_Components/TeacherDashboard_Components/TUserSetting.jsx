@@ -98,8 +98,11 @@ const TUserSetting = () => {
         if(response.status == 200){
 
           toast.success("Successfully Updated")
+          localStorage.setItem(email,name)
         }else{
           toast.error("Something Went Wrong")
+
+
         }
 
       // Handle the response data

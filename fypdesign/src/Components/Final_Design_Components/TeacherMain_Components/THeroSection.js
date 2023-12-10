@@ -27,6 +27,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import TUserSetting from '../TeacherDashboard_Components/TUserSetting';
 
 function THeroSection() {
+ 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ function THeroSection() {
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);
-          getName(classes)
+         
           setLoading(false)
         })
         .catch((error) => {
@@ -61,7 +62,7 @@ function THeroSection() {
           setLoading(false)
         });
     }
-  }, [id]);
+  }, []);
 
 
   
@@ -72,10 +73,10 @@ function THeroSection() {
       
       console.log(classObj.teacherName)
       setName(classObj.teacherName)
-      break
+    
     }
   }
-
+  
 
 
 
@@ -85,7 +86,9 @@ function THeroSection() {
     const currentDate = new Date();
     const month = currentDate.toLocaleString('default', { month: 'long' });
     const year = currentDate.getFullYear();
+    
     return `${month} ${year}`;
+    
   };
 
   const getDaysInMonth = () => {
@@ -93,6 +96,7 @@ function THeroSection() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const lastDay = new Date(year, month + 1, 0).getDate();
+    
     return lastDay;
   };
 
@@ -143,6 +147,7 @@ function THeroSection() {
     setActiveRow(newRow);
   };
   const renderCards = (start, end) => {
+  
     const cards = classes.slice(start, end);
 
     return (
