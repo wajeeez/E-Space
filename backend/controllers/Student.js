@@ -15,7 +15,8 @@ const GroupModel = require("../models/Groups")
 const Submission = require("../models/stdsubmissionFile");
 const stdAssignmentFile = require("../models/stdassignmentFile");
 const sendEmail = require("./email");
-const sendEmailUpdate = require("./email")
+const sendEmailUpdate = require("./email");
+const teachermodel = require("../models/teachermodel");
 const passwordPattern =
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~`\-={}[\]:;"'<>,.?/])(?!.*\s).{8,}$/;
 
@@ -378,7 +379,52 @@ const StudentAuth ={
 
     return res.status(200).json(groups)
 
+  },
+
+
+
+  async updateTeacherData(req,res,next){
+
+    try{
+    const {email,name,password}=req.body;
+
+
+    const teacherEmail =email;
+    const teacher = await teachermodel.findOne({email:email})
+   
+    if (!teacher) {
+      return res.status(404).json({ error: 'Teacher not found' });
+    }
+  
+    // Update name and password
+    if(name!="" || name != null){
+      teacher.tname = name;
+      const teacherClasses = await classes.updateMany(
+        { teacherEmail: teacherEmail },
+        { $set: { teacherName: name } }
+      );
+
+
+      if(teacherClasses.modifiedCount < 0){
+      return res.status(404).json({ error: 'Cant Update Name of Teacher', message: err.message });
+ 
+      }
+    }
+
+    teacher.password = password;
+
+    // Save the updated student data
+    await teacher.save();
+    
+
+    return res.status(200).json({ message: 'Teacher data updated successfully', teacher });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Internal Server Error', message: err.message });
   }
+},
 
 }
+
+
 module.exports = StudentAuth;

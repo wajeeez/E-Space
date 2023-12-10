@@ -236,7 +236,7 @@ const StdTable = () => {
 
         setTimeout(() => {
           window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-        }, 2000); // Adjust the delay (in milliseconds) as needed
+        }, 1000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
         console.log("BAD REQUES")
@@ -513,7 +513,9 @@ const StdTable = () => {
           if (fileInputRef.current) {
             fileInputRef.current.value = '';
           }
-  
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
           // Fetch the updated data after a successful submission
           fetchData();
         } else if (response.code === "ERR_BAD_REQUEST") {
@@ -542,7 +544,9 @@ const StdTable = () => {
         }));
   
         // You can similarly update marksMapping and remarksMapping if needed
-  
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         // Fetch the updated data after a successful deletion
         fetchData();
       }
@@ -857,7 +861,7 @@ const StdTable = () => {
                       )
                     )}
 
-                      {/* {submissionMapping[assignment.fileURL] ? (
+                      {submissionMapping[assignment.fileURL] ? (
                         // Both conditions are true (submission has been made for both assignment.id and assignment.fileURL)
                         currentDate <= new Date(assignment.deadline) ? (
                           <button
@@ -896,7 +900,7 @@ const StdTable = () => {
                             Not Submitted
                           </button>
                         )
-                      )} */}
+                      )}
 
                   </td>
 

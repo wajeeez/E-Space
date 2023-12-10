@@ -13,9 +13,10 @@ const LineChart = ({ data }) => {
         data: [totalAudioEnabled, totalVideoEnabled],
         borderColor: ['#FF6384', '#36A2EB'],
         borderWidth: 2,
-        pointBackgroundColor: ['#FF6384', '#36A2EB'],
+        pointbackgroundColor: ['#b93cbe', '#f3bf4a'],
         pointRadius: 6,
       },
+      
     ],
   };
 

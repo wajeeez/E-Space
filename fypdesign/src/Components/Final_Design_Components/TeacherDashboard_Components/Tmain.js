@@ -36,9 +36,12 @@ import Analysis from '../../../Pages/Teacher/Analysis/Analysis';
 import Analysis2 from '../../../Pages/Teacher/Analysis/Analysis2';
 
 import Analysis3 from '../../../Pages/Teacher/Analysis/Analysis3';
+import TUserSetting from './TUserSetting';
 function Tmain() {
-  const [currentPage, setCurrentPage] = useState('dashboard'); // Initial page
-
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Use localStorage to get the last visited page or set a default value
+    return localStorage.getItem('lastVisitedPage') || 'dashboard';
+  });
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const [name, setName] = useState(null);
   const navigate = useNavigate();
@@ -47,6 +50,9 @@ function Tmain() {
 
   const handlePageChange = (pageName) => {
     setCurrentPage(pageName);
+
+    // Save the current page to localStorage
+    localStorage.setItem('lastVisitedPage', pageName);
   };
 
   const menuBtnChange = () => {
@@ -345,7 +351,7 @@ function Tmain() {
           {currentPage === 'groupAssignment' && <GroupAssignmentTeacher />}
           
           {currentPage === 'quiz' && <Quiz/>}
-          {currentPage === 'account' && <div>user</div>}
+        
           {currentPage === 'class' && <Management></Management>}
           {currentPage === 'performance' && <Analysis3></Analysis3>}
           {currentPage === 'return' && <div>home</div>}

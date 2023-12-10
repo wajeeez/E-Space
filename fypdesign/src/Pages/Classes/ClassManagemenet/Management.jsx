@@ -83,6 +83,9 @@ function Management() {
 
                     if (response.data.message === 'Students added to the class successfully') {
                         toast.success("Students Added Successfully");
+                        setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
                     } else {
                         toast.success("Already Exits");
                     }
@@ -120,6 +123,9 @@ function Management() {
   
         if (response.data.message === 'Student removed from the class successfully') {
           toast.success('Student removed from the class successfully');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
           // Optionally, update the state or fetch the updated list of students
         } else {
           toast.error('Error removing student from the class');

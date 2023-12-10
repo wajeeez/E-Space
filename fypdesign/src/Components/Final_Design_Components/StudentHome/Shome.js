@@ -23,7 +23,7 @@ function Shome() {
 
     const [notify,setnotify]  = useState([]);
 
-    const NotificationCard = ({ deadline }) => {
+    const NotificationCard = ({ deadline, index }) => {
 
   // Format the deadline date
   const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
@@ -41,7 +41,7 @@ function Shome() {
      
       <div className="card-body p-0" style={{ }}>
         <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
-          Assignment Uploaded
+          Assignment {index+1} Uploaded
         </h6>
   
         <p
@@ -283,19 +283,19 @@ function Shome() {
         <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
         
         <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Class Attendance</h4>
+          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Total Attendance Hours</h4>
 
           {/* Bootstrap row with two columns */}
           <div className="row" style={{marginTop: '0px'}}>
             {/* Left column for present */}
             <div className="col" style={{marginRight: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>40</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>--</h2>
               <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'green',fontSize:'large' }}>Present</p>
             </div>
             
             {/* Right column for absent */}
             <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>5</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>--</h2>
               <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'red' ,fontSize:'large'}}>Absent</p>
             </div>
           </div>
@@ -304,13 +304,13 @@ function Shome() {
         </div>
       </div>
 
-      <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
+      {/* <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
 
@@ -322,7 +322,7 @@ function Shome() {
 
       
       {notify.map((notification, index) => (
-        <NotificationCard deadline={notification.deadline} key={index} />
+        <NotificationCard deadline={notification.deadline} key={index} index={index} />
       ))}
 
 

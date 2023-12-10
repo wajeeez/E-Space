@@ -44,6 +44,82 @@ const GroupAssignmentTeacher = () => {
     const [deadline, setDeadline] = useState('');
 
 
+    const [groupId , setgroupId] = useState();
+    const [ groupDialog,setGroupDialog] =useState();
+    const [classId , setClassId] = useState();
+    const [updateMarks, setUpdateMarks] = useState({
+        marks: '',
+        remarks: '',
+      });
+
+      const handleUpdateInput = (e) => {
+        const { name, value } = e.target;
+        setUpdateMarks({
+          ...updateMarks,
+          [name]: value,
+        });
+      };
+
+
+    const openGroupDialog = (_id) => {
+        console.log(_id)
+        setgroupId(_id)
+      
+        setGroupDialog(true);
+      };
+    
+      const closeGroupDialog = () => {
+        setGroupDialog(false);
+      };
+
+      const submitMarks = () => {
+        const data = {
+       
+          _id: groupId,
+          marks: updateMarks.marks,
+          remarks: updateMarks.remarks,
+        };
+      
+        axios
+          .post(baseURL + `/assignment/group/updateStudentMarks`, data)
+          .then((response) => {
+            if (response.status === 201 || response.status === 200) {
+              setMessage("Successful");
+              console.log("Successful");
+              setTimeout(() => {
+                window.location.reload();
+              }, 700);
+              toast.success("Successfully UPDATED Assignment")
+              setStudents((prevSubmissions) =>
+              prevSubmissions.map((studnet) =>
+              studnet._id === groupId
+                  ? { ...studnet, marks: updateMarks.marks, remarks: updateMarks.remarks }
+                  : studnet
+              )
+            );
+              
+            } else {
+              setMessage("Failed to Update Marks");
+              console.log("Failed to Update Marks");
+              toast.success("Failed to UPDATED Assignment")
+            }
+          })
+          .catch((error) => {
+            setMessage("Failed to Update Marks");
+            console.log(error);
+            toast.success("Something Went Assignment")
+          });
+      
+        setDialogVisible(false);
+      };
+
+
+      function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+        return true;
+      }
 
 
     function getCurrentDate() {
@@ -334,7 +410,7 @@ const GroupAssignmentTeacher = () => {
 
                 setTimeout(() => {
                     window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-                }, 2000); // Adjust the delay (in milliseconds) as needed
+                }, 700); // Adjust the delay (in milliseconds) as needed
             } else if (response.code === "ERR_BAD_REQUEST") {
                 // setError(response.response.mes);
                 console.log("BAD REQUES")
@@ -458,6 +534,7 @@ const GroupAssignmentTeacher = () => {
                                 const submissionFileURL = assignment.submissionFileURL;
                                 const marks = assignment.marks;
                                 const remarks = assignment.remarks;
+                                console.log(marks,remarks)
                                 // Call updateSubmissionMapping for each assignment
                                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
                                 updateMarksMapping(submissionFileURL, marks)
@@ -559,7 +636,9 @@ const GroupAssignmentTeacher = () => {
 
                     if (response.status == 200) {
                         toast.success("Successfully Uploaded Assignment")
-
+                        setTimeout(() => {
+                            window.location.reload();
+                          }, 700);
                         if (fileInputRef.current) {
                             fileInputRef.current.value = ''; // Reset the input field
                         }
@@ -738,14 +817,16 @@ const GroupAssignmentTeacher = () => {
                         <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
                         background:'' }} >
                             <tr >
-                                <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                                <th style={{ ...head_color, width: '1%' }}>Sr#</th>
                                 <th style={{ ...head_color, width: '5%' }}>Title</th>
-                                <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
-                                <th style={{ ...head_color, width: '5%' }}>Remarks</th>
-                                <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
-                                <th style={{ ...head_color, width: '5%' }}>Submission</th>
-                                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
-                                <th style={{ ...head_color, width: '3%' }}>Action</th>
+                                <th style={{ ...head_color, width: '3%' }}>Assignment</th>
+                                <th style={{ ...head_color, width: '3%' }}>Remarks</th>
+                                <th style={{ ...head_color, width: '3%' }}>Marks</th>
+                                <th style={{ ...head_color, width: '4%' }}>Submission</th>
+                                <th style={{ ...head_color, width: '4%' }}>Deadline</th>
+                                <th style={{ ...head_color, width: '2%' }}>Action</th>
+                                <th style={{ ...head_color, width: '3%' }}> Assessment</th>
+
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -754,7 +835,7 @@ const GroupAssignmentTeacher = () => {
 
                                     <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                        <td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
                                             Group {index + 1}
                                         </td>
                                         <td style={{ ...row_color, }}>
@@ -777,37 +858,37 @@ const GroupAssignmentTeacher = () => {
                                             }
 
                                         </td>
-                                        <td>
-                                            {remarksMapping[submissionMapping[student.fileURL]]
-                                                ? remarksMapping[submissionMapping[student.fileURL]]
-                                                : ' --- '}
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                        {student.remarks !== "" ? student.remarks : "--"}
+
                                         </td>
-                                        <td>
-                                            {marksMapping[submissionMapping[student.fileURL]]
-                                                ? marksMapping[submissionMapping[student.fileURL]]
-                                                : 'Not marked yet'}
+                                        <td style={{ ...row_color, textAlign: 'center' , margin:'0'}}>
+                                            
+                                            
+                                        {student.marks != "" ? student.marks : "Not marked yet"}
+                                        
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
                                             {student.submissionURL != "" ? (
                                                 <button
-                                                    className="btn btn-primary"
+                                                    className="btn btn-dark"
                                                     onClick={openFileInBrowser.bind(null, student.submissionURL)}
                                                 >
-                                                    Submission File
+                                                    Submitted File
                                                 </button>
                                             ) : (
                                                 'No Submission'
                                             )}
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
                                             {student.deadline != null ?
                                                 <FormattedDate rawDate={student.deadline} />
                                                 : "Not Available"
                                             }
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
                                             {currentDate <= new Date(student.deadline) ? (
-                                                <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)}>
+                                                <button className="btn btn-primary" onClick={handleTeacherUpload.bind(null, student._id)}>
                                                     Edit
                                                 </button>
                                             ) : (
@@ -816,52 +897,19 @@ const GroupAssignmentTeacher = () => {
                                                 </button>
                                             )}
                                         </td>
-{/*                                   
-                                    <td style={{ ...row_color, }}>
-                                        {remarksMapping[submissionMapping[student.fileURL]]
-                                            ? remarksMapping[submissionMapping[student.fileURL]]
-                                            : ' --- '}
-                                    </td>
-                                    <td style={{ ...row_color, }}>
-                                        {marksMapping[submissionMapping[student.fileURL]]
-                                            ? marksMapping[submissionMapping[student.fileURL]]
-                                            : 'Not marked yet'}
-                                    </td>
-                                    <td style={{ ...row_color, }}>
-                                        {submissionMapping[student.fileURL] ? (
-                                            <button
-                                                className="btn btn-secondary"
-                                                onClick={openFile.bind(null, student.submissionURL)}
-                                            >
-                                                Submission File
-                                            </button>
-                                        ) : (
-                                            'No Submission'
-                                        )}
-                                    </td>
-                                    <td style={{ ...row_color, }}>
-                                        {student.deadline != null ?
-                                            <FormattedDate rawDate={student.deadline} />
-                                            : "Not Available"
-                                        }
-                                    </td>
-                                    <td style={{ ...row_color, }}>
-                                        {currentDate <= new Date(student.deadline) ? (
-                                            <button className="btn btn-success"
-                                                onClick={() => handleSubmissionClick(student.fileURL)}
-                                                style={{ margin: '0px', fontSize: 'medium', width: '80px', fontWeight: '400', marginTop: '0px' }}>
-                                                SUBMIT
-                                            </button>
-                                        ) : (
-                                            <button className="btn btn-danger"
-                                                style={{ margin: '0px', fontSize: 'medium', width: '80px', fontWeight: '400', marginTop: '0px' }}
-                                                disabled>
-                                                Time's up
-                                            </button>
-                                        )}
-                                    </td> */}
 
-
+                                        
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                            {currentDate <= new Date(student.deadline) ? (
+                                                <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
+                                                    Grade
+                                                </button>
+                                            ) : (
+                                                <button className="btn" disabled>
+                                                    Not Available
+                                                </button>
+                                            )}
+                                        </td>
                                     </tr>
 
                                     {index < students.length - 1 && (
@@ -933,6 +981,51 @@ const GroupAssignmentTeacher = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+
+
+            <Modal show={groupDialog} onHide={closeGroupDialog} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Marks & Remarks</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="text-center justify-content-center align-items-center">
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Marks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="number"
+            id="marksInput"
+            name="marks"
+            placeholder="---"
+            value={updateMarks.marks}
+            onChange={handleUpdateInput}
+            onKeyPress={(e) => isNumberKey(e)}
+          />
+           </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Remarks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="text"
+            id="remarksInput"
+            name="remarks"
+            placeholder="---"
+            value={updateMarks.remarks}
+            onChange={handleUpdateInput}
+          />
+        </Form.Group>
+        <span>{message}</span>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
+          Submit
+        </Button>
+        <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeGroupDialog}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
         </>
     );
 

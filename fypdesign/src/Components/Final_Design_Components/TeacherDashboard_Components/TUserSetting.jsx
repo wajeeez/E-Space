@@ -3,13 +3,13 @@ import userIcon from '../../../Assets/images/user.png';
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './AccSetting.css'
+import './TUserSetting.css'
 
 import { FormGroup, FormControl, InputGroup, Button } from 'react-bootstrap';
 
 import axios from 'axios';
 // import { estimatedDocumentCount } from '../../../../../backend/models/teachermodel';
-const AccSetting = () => {
+const TUserSetting = () => {
   const passwordPattern =
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~`\-={}[\]:;"'<>,.?/])(?!.*\s).{8,}$/;
 
@@ -17,7 +17,7 @@ const AccSetting = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [email,setEmail] = useState('')
-
+  const [name,setName] = useState('')
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
 
   const [type, setType] = useState('password');
@@ -72,11 +72,12 @@ const AccSetting = () => {
   const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("StdToken");
+    const authToken = localStorage.getItem("authToken");
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
       setEmail(decodedToken.email);
       setFullName(decodedToken.name)
+      console.log(decodedToken.name)
     }
   }, []);
 
@@ -91,14 +92,17 @@ const AccSetting = () => {
     };
     
     // Make the Axios request
-    axios.post(baseURL+`/student/update`, requestData)
+    axios.post(baseURL+`/teacher/update`, requestData)
       .then(response => {
 
         if(response.status == 200){
 
           toast.success("Successfully Updated")
+          localStorage.setItem(email,name)
         }else{
           toast.error("Something Went Wrong")
+
+
         }
 
       // Handle the response data
@@ -126,7 +130,7 @@ const AccSetting = () => {
         updateSetting(email,fullName,newPassword)
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 5000);
 
       }else{
         toast.error("Password must meet the following criteria:\n- At least one digit\n- At least one lowercase letter\n- At least one uppercase letter\n- At least one special character\n- No whitespace characters\n- Minimum length of 8 characters");
@@ -414,4 +418,4 @@ const AccSetting = () => {
   );
 };
 
-export default AccSetting;
+export default TUserSetting;
