@@ -1,5 +1,5 @@
 
-/* .my-container {
+.my-container {
   display: flex;
   justify-content: space-between;
   max-width: 100%;
@@ -8,11 +8,19 @@
   padding: 20px;
   box-sizing: border-box;
 
-} */
+}
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  min-height: 82vh;
+
+
+}
 
 .text-div {
   flex: 1;
-  margin-top: 120px;
+  margin-top: 100px;
   margin-right: 0px;
   margin-left: 100px;
 }
@@ -93,30 +101,37 @@ padding: '20px'
 .image-div .my-image{
   min-height: 200px;
   min-width: 350px;
-
+border: 1px solid blue;
 }
 .image-div{
-  margin-right: 20px;
+  margin-right: 3rem;
 }
-
+/* 
 .my-container {
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 100%;
-  margin: 0 auto;
   min-height: 84vh;
-  padding: 20px;
   box-sizing: border-box;
+  margin-left: 5rem;
+  margin-right: 5rem;
+} */
+
+.maincont{
+  margin-left: 50px;
+  margin-right: 50px;
 }
+
 
 .hcontent {
  /* margin-left: 100px;
 margin-top: 120px; 
 flex: 1.5; */
 text-align: left;
-
-margin-left: 50px;
+margin-bottom: 5rem;
+margin-left: 3rem ;
+border:1px solid red;
 }
 
 .htitle {

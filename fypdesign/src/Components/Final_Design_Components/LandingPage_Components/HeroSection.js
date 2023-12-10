@@ -137,9 +137,9 @@ function HeroSection() {
       </div> */}
 
 
-<div className="my-container">
-  <Row>
-    <Col md={6} className="d-flex align-items-center justify-content-center" >
+<div className="container-fluid">
+  <Row style={{verticalAlign:'middle'}}>
+    <Col md={6} className="d-flex align-items-center justify-content-center"  >
       <div className="hcontent">
         <h1 className='htitle'> Welcome To E&zwj;-&zwj;SPACE </h1>
         <Typewriter
