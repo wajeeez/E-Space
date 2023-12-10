@@ -94,7 +94,7 @@ const Lectures = () => {
     console.log(Remarks)
 
     if (!selectedFile || !teacherID || !lectureName || !lectureLink || !Remarks) {
-      setMessage("Data Missing Please Select a File and Deadline")
+      setMessage("Data Missing Please Fill All Fields")
     } else {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -110,6 +110,9 @@ const Lectures = () => {
 
         toast.success("Uploaded Lecture successfully ")
         console.log("Successfull")
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         if (fileInputRef.current) {
           resetFileInput() // Reset the input field
         }
@@ -173,6 +176,9 @@ const Lectures = () => {
           if (response.status == 200) {
             toast.success("Successfully deleted Lecture ")
             setShowDeleteModal(false);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             toast.error("Failed to deleted Lecture ")
           }
@@ -225,7 +231,9 @@ const Lectures = () => {
 
       updateLecture()
 
-
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
 
     setShowUpdateModal(false);
   };
@@ -256,7 +264,9 @@ formData.append('lectureName', lectureName);
         if(response.status == 200){
           console.log(response.data.message);
           toast.success("Successfully Updated Lecture ")
-
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }else{
           toast.error("Error Updating Lecture ")
         }

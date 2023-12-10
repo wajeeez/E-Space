@@ -23,7 +23,7 @@ function Shome() {
 
     const [notify,setnotify]  = useState([]);
 
-    const NotificationCard = ({ deadline }) => {
+    const NotificationCard = ({ deadline, index }) => {
 
   // Format the deadline date
   const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
@@ -41,7 +41,7 @@ function Shome() {
      
       <div className="card-body p-0" style={{ }}>
         <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop:"0.4rem" }}>
-          Assignment Uploaded
+          Assignment {index+1} Uploaded
         </h6>
   
         <p
@@ -289,13 +289,13 @@ function Shome() {
           <div className="row" style={{marginTop: '0px'}}>
             {/* Left column for present */}
             <div className="col" style={{marginRight: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>40</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>--</h2>
               <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'green',fontSize:'large' }}>Present</p>
             </div>
             
             {/* Right column for absent */}
             <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>5</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>--</h2>
               <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'red' ,fontSize:'large'}}>Absent</p>
             </div>
           </div>
@@ -322,7 +322,7 @@ function Shome() {
 
       
       {notify.map((notification, index) => (
-        <NotificationCard deadline={notification.deadline} key={index} />
+        <NotificationCard deadline={notification.deadline} key={index} index={index} />
       ))}
 
 

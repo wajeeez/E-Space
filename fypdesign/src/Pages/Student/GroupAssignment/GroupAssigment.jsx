@@ -16,6 +16,8 @@ import DialogContent from '@mui/material/DialogContent';
 import styles from '../Assignment/stdAssignment.module.css'
 
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -349,6 +351,9 @@ const GroupAssignment = () => {
             if (response.status === 201 || response.status === 200) {
                 setMessage("Successfull")
                 console.log("Successfull")
+                setTimeout(() => {
+                    window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
+                  }, 1000);
                 if (fileInputRef.current) {
                     fileInputRef.current.value = ''; // Reset the input field
                 }
@@ -650,8 +655,16 @@ const GroupAssignment = () => {
                     {dialogOpen === true ? (
                         // <StudentListDialog></StudentListDialog>
 
-                        <Dialog open={dialogOpen} maxWidth="md" fullWidth>
-                            <DialogContent>
+                        <Dialog open={dialogOpen}  maxWidth="md" fullWidth>
+                                    <i class="bx bx-x"
+                                        onClick={() => setDialogOpen(false)} // Add a function to close the dialog
+                                        style={{ position: 'absolute', top: 10, right: 5 
+                                                 , fontSize:'2.5rem', cursor:'pointer'}}
+                                        aria-label='close'         
+                                    ></i>
+                                        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+                                    
+                            <DialogContent closeButton>
                                 <center>
 
                             <h3 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
@@ -732,11 +745,12 @@ const GroupAssignment = () => {
                                     </a> */}
                                     <Button
                                         className={`btn-success`}
-                                        onClick={handleOpenDialog}
-                                        style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', height:'50px', borderRadius:'30px'}}
-                                        >
+                                        onClick={handleCreate}
+                                        style={{ background: '', color: 'white' , fontSize:'large' , width:'220px', 
+                                                height:'50px', borderRadius:'30px', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'}}
+                                                >
                                         <i className='bx bx-edit' style={{fontSize:'22px', marginRight:'5px', marginTop:'0px'}}> </i> 
-                                        Create A Group
+                                        Create
                                         </Button>
                                     <div className="text-center">
                                         {dialogMessage !== '' && <p className="text-danger">{dialogMessage}</p>}

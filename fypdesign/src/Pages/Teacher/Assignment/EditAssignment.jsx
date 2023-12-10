@@ -91,8 +91,11 @@ const EditAssignment = ({ assignmentId }) => {
     return (
 
         <>
-            <Modal show={true} centered>
-                {/* Rest of your modal code */}
+            <Modal show={true}  centered>
+            <Modal.Header closeButton>
+          <Modal.Title>Update Assignment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
                 <Form.Group className="mb-3">
                     <Form.Control
                         type="text"
@@ -111,7 +114,7 @@ const EditAssignment = ({ assignmentId }) => {
                             style={{ background: 'grey', color: 'white' }}
                         />
                     </Form.Group>
-
+                    </Modal.Body>
                 <Modal.Footer className="justify-content-center align-items-center d-flex">
                     <Button
                         variant="success"

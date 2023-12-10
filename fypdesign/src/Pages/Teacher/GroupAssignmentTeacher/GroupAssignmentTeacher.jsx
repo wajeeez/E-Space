@@ -44,6 +44,79 @@ const GroupAssignmentTeacher = () => {
     const [deadline, setDeadline] = useState('');
 
 
+    const [groupId , setgroupId] = useState();
+    const [ groupDialog,setGroupDialog] =useState();
+    const [classId , setClassId] = useState();
+    const [updateMarks, setUpdateMarks] = useState({
+        marks: '',
+        remarks: '',
+      });
+
+      const handleUpdateInput = (e) => {
+        const { name, value } = e.target;
+        setUpdateMarks({
+          ...updateMarks,
+          [name]: value,
+        });
+      };
+
+
+    const openGroupDialog = (_id) => {
+        console.log(_id)
+        setgroupId(_id)
+      
+        setGroupDialog(true);
+      };
+    
+      const closeGroupDialog = () => {
+        setGroupDialog(false);
+      };
+
+      const submitMarks = () => {
+        const data = {
+       
+          _id: groupId,
+          marks: updateMarks.marks,
+          remarks: updateMarks.remarks,
+        };
+      
+        axios
+          .post(baseURL + `/assignment/group/updateStudentMarks`, data)
+          .then((response) => {
+            if (response.status === 201 || response.status === 200) {
+              setMessage("Successful");
+              console.log("Successful");
+              toast.success("Successfully UPDATED Assignment")
+              setStudents((prevSubmissions) =>
+              prevSubmissions.map((studnet) =>
+              studnet._id === groupId
+                  ? { ...studnet, marks: updateMarks.marks, remarks: updateMarks.remarks }
+                  : studnet
+              )
+            );
+              
+            } else {
+              setMessage("Failed to Update Marks");
+              console.log("Failed to Update Marks");
+              toast.success("Failed to UPDATED Assignment")
+            }
+          })
+          .catch((error) => {
+            setMessage("Failed to Update Marks");
+            console.log(error);
+            toast.success("Something Went Assignment")
+          });
+      
+        setDialogVisible(false);
+      };
+
+
+      function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+        return true;
+      }
 
 
     function getCurrentDate() {
@@ -458,6 +531,7 @@ const GroupAssignmentTeacher = () => {
                                 const submissionFileURL = assignment.submissionFileURL;
                                 const marks = assignment.marks;
                                 const remarks = assignment.remarks;
+                                console.log(marks,remarks)
                                 // Call updateSubmissionMapping for each assignment
                                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
                                 updateMarksMapping(submissionFileURL, marks)
@@ -746,6 +820,8 @@ const GroupAssignmentTeacher = () => {
                                 <th style={{ ...head_color, width: '5%' }}>Submission</th>
                                 <th style={{ ...head_color, width: '5%' }}>Deadline</th>
                                 <th style={{ ...head_color, width: '3%' }}>Action</th>
+                                <th style={{ ...head_color, width: '3%' }}> Marks/Remarks</th>
+
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -778,14 +854,17 @@ const GroupAssignmentTeacher = () => {
 
                                         </td>
                                         <td>
-                                            {remarksMapping[submissionMapping[student.fileURL]]
+
+                                            {student.remarks != "" ? (<p>{student.remarks}</p>) : "NOT SUBMITTED"}
+                                            {/* {remarksMapping[submissionMapping[student.fileURL]]
                                                 ? remarksMapping[submissionMapping[student.fileURL]]
-                                                : ' --- '}
+                                                : ' --- '} */}
                                         </td>
                                         <td>
-                                            {marksMapping[submissionMapping[student.fileURL]]
-                                                ? marksMapping[submissionMapping[student.fileURL]]
-                                                : 'Not marked yet'}
+                                            
+                                            
+                                        {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}
+                                        
                                         </td>
                                         <td>
                                             {student.submissionURL != "" ? (
@@ -816,6 +895,19 @@ const GroupAssignmentTeacher = () => {
                                                 </button>
                                             )}
                                         </td>
+
+                                        <td style={{ ...row_color, }}>
+                                            {currentDate <= new Date(student.deadline) ? (
+                                                <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
+                                                    Asssesment
+                                                </button>
+                                            ) : (
+                                                <button className="btn" disabled>
+                                                    Not Available
+                                                </button>
+                                            )}
+
+                                        </td>
 {/*                                   
                                     <td style={{ ...row_color, }}>
                                         {remarksMapping[submissionMapping[student.fileURL]]
@@ -933,6 +1025,51 @@ const GroupAssignmentTeacher = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+
+
+            <Modal show={groupDialog} onHide={closeGroupDialog} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Marks & Remarks</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="text-center justify-content-center align-items-center">
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Marks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="number"
+            id="marksInput"
+            name="marks"
+            placeholder="---"
+            value={updateMarks.marks}
+            onChange={handleUpdateInput}
+            onKeyPress={(e) => isNumberKey(e)}
+          />
+           </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Remarks:</Form.Label>
+          <Form.Control
+            style={{ marginTop: '10px',textAlign:'center' }}
+            type="text"
+            id="remarksInput"
+            name="remarks"
+            placeholder="---"
+            value={updateMarks.remarks}
+            onChange={handleUpdateInput}
+          />
+        </Form.Group>
+        <span>{message}</span>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
+          Submit
+        </Button>
+        <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeGroupDialog}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
         </>
     );
 

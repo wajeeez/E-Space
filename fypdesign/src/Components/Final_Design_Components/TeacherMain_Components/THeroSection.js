@@ -340,6 +340,7 @@ function THeroSection() {
   console.log(values.students);
 
 
+
   return (
     <>
 
@@ -416,8 +417,8 @@ function THeroSection() {
             <lis>
               <img src={userIcon} alt="profile image" class='user_image' />
 
-              <p class="name">{name}</p>
-
+              {/* <p class="name">{name}</p> */}
+              <p class="name">AbdulSamad</p>
             </lis>
 
             <p className='ps'>x</p>
@@ -506,7 +507,8 @@ function THeroSection() {
                     }}
                   >
                     <div style={{ flex: '1' }}>
-                      <h2 style={{ fontFamily: 'Poppins', color: '#fff', marginBottom: '15px' }}>Hi, {name}</h2>
+                      {/* <h2 style={{ fontFamily: 'Poppins', color: '#fff', marginBottom: '15px' }}>Hi, {name}</h2> */}
+                      <h2 style={{ fontFamily: 'Poppins', color: '#fff', marginBottom: '15px' }}>Hi, AbdulSamad</h2>
                       <h5 style={{ fontFamily: 'Poppins', color: '#fff', margin: '0 0 0' }}>Welcome Back!</h5>
                     </div>
                     <div style={{ flex: '1', textAlign: 'right' }}>

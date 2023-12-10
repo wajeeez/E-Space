@@ -462,7 +462,7 @@ function TList() {
 
         <Modal show={dialogVisible} onHide={closeDialog} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Update Marks & Remarks</Modal.Title>
+        <Modal.Title>Assessment</Modal.Title>
       </Modal.Header>
       <Modal.Body className="text-center justify-content-center align-items-center">
         <Form.Group className="mb-3">

@@ -287,7 +287,7 @@ function Thome() {
             
             {/* Right column for absent */}
             <div className="col" style={{marginLeft: '0px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>40</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>4</h2>
             </div>
           </div>
           </div>

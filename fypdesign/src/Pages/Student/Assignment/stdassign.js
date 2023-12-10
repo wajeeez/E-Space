@@ -236,7 +236,7 @@ const StdTable = () => {
 
         setTimeout(() => {
           window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-        }, 2000); // Adjust the delay (in milliseconds) as needed
+        }, 1000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
         console.log("BAD REQUES")
