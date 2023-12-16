@@ -1,10 +1,12 @@
 // Install required dependencies: npm install react-chartjs-2
 import React, { useState, useEffect } from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
+// import { Bar, Pie } from 'recharts';
 import './Analysis3.css'; // Import a CSS file for styling
-import LineChart from './LineChart';
+import { BarChart, Bar, Pie, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { PieChart,Cell } from 'recharts';
 
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import Chart1 from './Chart1';
 
 
 
@@ -14,7 +16,7 @@ const Analysis3 = () => {
   const row_color = {
     backgroundColor: 'transparent',
     color: 'black',
-    
+
 
   }
   const head_color = {
@@ -23,7 +25,8 @@ const Analysis3 = () => {
     fontWeight: '500',
     fontFamily: 'Poppins',
   }
-  // const handleFileChange = (event) => {
+
+  //ndleFileChange = (event) => {
   //   const file = event.target.files[0];
   //   setFile(file);
 
@@ -56,6 +59,23 @@ const Analysis3 = () => {
   //   });
   // };
 
+
+
+  const analyzeData = async () => {
+    try {
+      const fileContent = await readFile(file);
+      const jsonData = JSON.parse(fileContent);
+      setData(jsonData);
+      const storedData = JSON.parse(localStorage.getItem('analysisData'));
+      if (!storedData) {
+        localStorage.setItem('analysisData', JSON.stringify(data));
+
+      }
+
+    } catch (error) {
+      console.error('Error reading or parsing the file:', error);
+    }
+  };
   useEffect(() => {
 
 
@@ -74,21 +94,6 @@ const Analysis3 = () => {
     setFile(file);
   };
 
-  const analyzeData = async () => {
-    try {
-      const fileContent = await readFile(file);
-      const jsonData = JSON.parse(fileContent);
-      setData(jsonData);
-      const storedData = JSON.parse(localStorage.getItem('analysisData'));
-      if (!storedData) {
-        localStorage.setItem('analysisData', JSON.stringify(data));
-
-      }
-
-    } catch (error) {
-      console.error('Error reading or parsing the file:', error);
-    }
-  };
 
 
 
@@ -139,12 +144,12 @@ const Analysis3 = () => {
   //   };7
 
 
-  const generateChart = () => {
-    // Process the attendance data and update the chart
-    // You can add more processing logic as needed
-    // For simplicity, just passing the attendanceData to the chart
-    return <LineChart data={data} />;
-  };
+  // const generateChart = () => {
+  //   // Process the attendance data and update the chart
+  //   // You can add more processing logic as needed
+  //   // For simplicity, just passing the attendanceData to the chart
+  //   return <LineChart data={data} />;
+  // };
 
 
 
@@ -187,6 +192,11 @@ const Analysis3 = () => {
 
 
 
+
+
+
+
+
   const getStudentJoinTimes = () => {
     if (!data) return { onTimeCount: 0, lateCount: 0 };
 
@@ -216,8 +226,6 @@ const Analysis3 = () => {
   };
 
   const { onTimeCount, lateCount } = getStudentJoinTimes();
-
-
 
 
 
@@ -296,7 +304,7 @@ const Analysis3 = () => {
 
 
 
-              
+
             </div>
 
 
@@ -314,27 +322,31 @@ const Analysis3 = () => {
                       fontFamily: 'Poppins, sans-serif', fontWeight: '500',
                       color: 'black', marginBottom: '-10px', marginTop: '-10px'
                     }}>Role Distribution</h4>
-                    <Pie
-                      data={{
-                        labels: ['Teacher/Presenter', 'Student'],
-                        datasets: [
-                          {
-                            data: [
-                              data.filter((peer) => peer.peer_presenter).length,
-                              data.filter((peer) => !peer.peer_presenter).length,
-                            ],
-                            backgroundColor: ['#b93cbe', '#f3bf4a'],
-                            hoverBackgroundColor: ['#FF6384', '#36A2EB'],
-                            // backgroundColor: ['#ae236d', '#f6cf46'],
-                            // hoverBackgroundColor: ['#ae236d', '#f6cf46'],
-                          },
-                        ],
-                      }}
-                      options={{
-                        responsive: false,
-                        maintainAspectRatio: false,
-                      }}
-                    />
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: 'Teacher/Presenter', value: data.filter((peer) => peer.peer_presenter).length },
+                            { name: 'Student', value: data.filter((peer) => !peer.peer_presenter).length },
+                          ]}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={80}
+                          fill="#8884d8"
+                          label
+                        >
+                          {[
+                            { name: 'Teacher/Presenter', color: '#b93cbe' },
+                            { name: 'Student', color: '#f3bf4a' },
+                          ].map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    {/* <Chart1 data={data}></Chart1> */}
                   </div>
                 </div>
               </div>
@@ -350,7 +362,8 @@ const Analysis3 = () => {
                       fontFamily: 'Poppins, sans-serif', fontWeight: '500',
                       color: 'black', marginBottom: '-10px', marginTop: '-10px'
                     }}>Browser Usage</h4>
-                    <Bar
+                    {/* <Bar
+                    key={3}
                       data={{
                         labels: ['Chrome'],
                         datasets: [
@@ -367,7 +380,23 @@ const Analysis3 = () => {
                         responsive: false,
                         maintainAspectRatio: false,
                       }}
-                    />
+                    /> */}
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart
+                        data={[{ name: 'Chrome', participants: data.filter((peer) => peer.browser_name === 'Chrome').length }]}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      >
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                          dataKey="participants"
+                          fill="#c124e1"
+                          name="Participants"
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>
@@ -386,7 +415,8 @@ const Analysis3 = () => {
                       fontFamily: 'Poppins, sans-serif', fontWeight: '500',
                       color: 'black', marginBottom: '-10px', marginTop: '-10px'
                     }}>Audio and Video Preferences</h4>
-                    <Bar
+                    {/* <Bar
+                      key={4}
                       data={{
                         labels: ['Audio Enabled', 'Video Enabled'],
                         datasets: [
@@ -404,7 +434,27 @@ const Analysis3 = () => {
                         responsive: false,
                         maintainAspectRatio: false,
                       }}
-                    />
+                    /> */}
+
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart
+                        data={[
+                          { name: 'Audio Enabled', participants: data.filter((peer) => peer.peer_audio).length },
+                          { name: 'Video Enabled', participants: data.filter((peer) => peer.peer_video).length },
+                        ]}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      >
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                          dataKey="participants"
+                          fill="#c124e1"
+                          name="Participants"
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>
@@ -420,25 +470,25 @@ const Analysis3 = () => {
                       fontFamily: 'Poppins, sans-serif', fontWeight: '500',
                       color: 'black', marginBottom: '-10px', marginTop: '-10px'
                     }}>Total Students</h4>
-                    <Bar
-                      data={{
-                        labels: ['OnTime', 'Late'],
-                        datasets: [
-                          {
-                            label: 'Participants',
-                            data: [
-                              onTimeCount,
-                              lateCount,
-                            ],
-                            backgroundColor: ['#d089dd', '#fcf08e'],
-                          },
-                        ],
-                      }}
-                      options={{
-                        responsive: false,
-                        maintainAspectRatio: false,
-                      }}
-                    />
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart
+                        data={[
+                          { name: 'OnTime', participants: onTimeCount + 2 },
+                          { name: 'Late', participants: lateCount },
+                        ]}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      >
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                          dataKey="participants"
+                          fill="#c124e1"
+                          name="Participants"
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>

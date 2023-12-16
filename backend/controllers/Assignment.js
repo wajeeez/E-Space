@@ -29,7 +29,7 @@ async function UploadAssignment(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, title, teacherID, fileName, subjectName, deadline, totalMarks } = req.body;
+    const { classId, title, teacherID, fileName, subjectName, deadline,time, totalMarks } = req.body;
 
 
     const file = new fileSchema({
@@ -52,12 +52,14 @@ async function UploadAssignment(req, res, next) {
       teacherID,
       subjectName,
       fileName,
+      time,
       fileURL,
       deadline, // Save the deadline in the Assignment model
     });
 
     await newAssignment.save();
 
+ 
     const notification = new NotificationAssignmentUpload({
       classId: classId,
       message: "New Assignment Uploaded",
@@ -319,7 +321,7 @@ async function editTeacherAssignment(req, res, next) {
   try {
     const assignmentId = req.params._id;
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, fileName, title, remarks } = req.body;
+    const { classId, teacherID, fileName, title,time, remarks } = req.body;
 
     const existingAssignment = await Assignment.findById(assignmentId);
 
@@ -353,6 +355,7 @@ async function editTeacherAssignment(req, res, next) {
     if (teacherID) existingAssignment.teacherID = teacherID;
     if (fileName) existingAssignment.fileName = fileName;
     if (title) existingAssignment.title = title;
+    if (time) existingAssignment.time = time
     if (remarks) existingAssignment.remarks = remarks;
 
     // Save the updated assignment

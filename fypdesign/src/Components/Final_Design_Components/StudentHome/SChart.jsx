@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'rec
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-const TChart = () => {
+const SChart = () => {
     const [totalAssignments, settotalAssignments] = useState(null);
     const [submittedAssignments, setsubmittedAssignments] = useState(null);
     const [totalGroupAssignment, settotalGroupAssignment] = useState(null);
@@ -73,9 +73,9 @@ const TChart = () => {
             <Tooltip />
             <Legend />
             <Bar dataKey="total" fill="#c124e1" barSize={50} name="Total" />
-            
+            <Bar dataKey="submitted" fill="#07BC0C" barSize={50} name="Submitted" />
         </BarChart>
     );
 };
 
-export default TChart;
+export default SChart;

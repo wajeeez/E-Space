@@ -299,7 +299,7 @@ function Thome() {
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
-            <TChart value1={10} value2={50} />
+            <TChart  />
           </div>
         </div>
       </div>

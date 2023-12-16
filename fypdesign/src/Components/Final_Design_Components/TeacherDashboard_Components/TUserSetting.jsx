@@ -101,8 +101,6 @@ const TUserSetting = () => {
           localStorage.setItem(email,name)
         }else{
           toast.error("Something Went Wrong")
-
-
         }
 
       // Handle the response data

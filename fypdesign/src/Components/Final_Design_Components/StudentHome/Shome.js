@@ -10,6 +10,7 @@ import ijoin from '../../../Assets/images/startmeet1.png';
 import iclass from '../../../Assets/images/audience1.png';
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+import SChart from "./SChart";
 
 
 function Shome() {
@@ -304,13 +305,16 @@ function Shome() {
         </div>
       </div>
 
-      {/* <div className="col-md-12 p-2" style={{ marginTop: '20px', maxHeight: '200px' }}>
+
+      <div className="col-md-12 p-2" style={{ marginTop: '10px', maxHeight: '200px' }}>
         <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
+            <SChart />
           </div>
         </div>
-      </div> */}
+      </div>
+
     </div>
   </div>
 

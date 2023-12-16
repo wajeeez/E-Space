@@ -47,7 +47,6 @@ const StdTable = () => {
 
 
 
-
   const updateSubmissionMapping = (assignmentFileURL, submissionFileURL) => {
     setSubmissionMapping((prevMapping) => ({
       ...prevMapping,
@@ -375,17 +374,12 @@ const StdTable = () => {
                 const remarks = assignment.remarks;
                 // Call updateSubmissionMapping for each assignment
 
-                console.log(assignmentFileURL,submissionFileURL)
+                console.log(assignmentFileURL, submissionFileURL)
                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
                 updateMarksMapping(submissionFileURL, marks)
                 updateReMarksMapping(submissionFileURL, remarks)
               });
 
-
-              // console.log(response.data.response.assignmentFileURL)
-              // const submissionFileURL = response.data.response.submissionFileURL;
-              // console.log(response.data)
-              // updateSubmissionMapping(response.data.response.assignmentFileURL, submissionFileURL);
               console.log(submissionMapping);
 
 
@@ -419,8 +413,8 @@ const StdTable = () => {
     backgroundColor: 'transparent',
     color: 'black',
     fontWeight: '600',
-    fontFamily:'Poppins',
-    fontSize:'medium' ,
+    fontFamily: 'Poppins',
+    fontSize: 'medium',
   }
 
 
@@ -455,26 +449,26 @@ const StdTable = () => {
       .then((response) => {
         if (response.data) {
           const updatedAssignments = response.data;
-  
+
           // Update the state with the new data
           setAssignments(updatedAssignments);
-  
+
           // Update submissionMapping, marksMapping, remarksMapping, etc.
           const updatedSubmissionMapping = {};
           const updatedMarksMapping = {};
           const updatedRemarksMapping = {};
-  
+
           updatedAssignments.forEach((assignment, index) => {
             const assignmentFileURL = assignment.fileURL;
             const submissionFileURL = assignment.submissionURL;
             const marks = assignment.marks;
             const remarks = assignment.remarks;
-  
+
             updatedSubmissionMapping[assignmentFileURL] = submissionFileURL;
             updatedMarksMapping[submissionFileURL] = marks;
             updatedRemarksMapping[submissionFileURL] = remarks;
           });
-  
+
           setSubmissionMapping(updatedSubmissionMapping);
           setmarksMapping(updatedMarksMapping);
           setremarksMapping(updatedRemarksMapping);
@@ -484,7 +478,7 @@ const StdTable = () => {
         console.log(error);
       });
   };
-  
+
   const submit_assignment = async () => {
     setShowModal(false); // Close the modal
 
@@ -497,18 +491,18 @@ const StdTable = () => {
       formData.append('deadline', currentDate);
       try {
         const response = await StudentSubmissions(formData);
-  
+
         if (response.status === 201 || response.status === 200) {
           setMessage("Successful");
-  
+
           // Update the state only for the specific assignment
           setSubmissionMapping((prevMapping) => ({
             ...prevMapping,
             [getFileURL]: response.data.submissionURL,
           }));
-  
+
           // You can similarly update marksMapping and remarksMapping if needed
-  
+
           // Reset the input field
           if (fileInputRef.current) {
             fileInputRef.current.value = '';
@@ -533,16 +527,16 @@ const StdTable = () => {
     try {
       // Make the axios request to delete the submission
       const response = await axios.post(baseURL + `/student/delete/submission/${submissionURL}`, { assignURL });
-  
+
       if (response.status === 200) {
         toast.success("Assignment Deleted successfully ");
-  
+
         // Update the state only for the specific assignment
         setSubmissionMapping((prevMapping) => ({
           ...prevMapping,
           [assignURL]: undefined, // Set to undefined or null based on your logic
         }));
-  
+
         // You can similarly update marksMapping and remarksMapping if needed
         setTimeout(() => {
           window.location.reload();
@@ -556,110 +550,7 @@ const StdTable = () => {
     }
   };
 
-  // const modalContent = ({ show, submit_assignment, closeModal }) => {
-  //   return(
-  //   <Modal show={show} onHide={closeModal} centered style={{ backgroundColor: 'transparent' }}>
-  //     <Modal.Header closeButton>
-  //       <Modal.Title>Submit Assignment</Modal.Title>
-  //     </Modal.Header>
-  //     <Modal.Body>
-  //       <h5>Max 15mb File</h5>
-  //       <h5 style={{ color: 'red', marginBottom: '10px', marginTop: '10px' }}>
-  //         only (.zip , .pdf , .docx )files
-  //       </h5>
-  //       <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
-  //         <Form.Control
-  //           type="file"
-  //           ref={fileInputRef}
-  //           onChange={handleFileChange}
-  //           className={`custom-file-input`}
-  //           style={{ background: 'grey', color: 'white' }}
-  //         />
-  //       </Form.Group>
-  //       </Modal.Body>
-  //     <Modal.Footer className="justify-content-center align-items-center d-flex">
-  //       <Button
-  //         type="button"
-  //         className="btn btn-primary"
-  //         onClick={submit_assignment}
-  //         style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-  //       >
-  //         Submit
-  //       </Button>
-  //       <Button
-  //         type="button"
-  //         variant="secondary"
-  //         onClick={closeModal}
-  //         style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-  //       >
-  //         Cancel
-  //       </Button>
-  //     </Modal.Footer>
-  //   </Modal>
-  // );
-  //   }
 
-
-
-  // const [showEModal, setShowEModal] = useState(false);
-  // const openEModal = () => {
-  //   setShowEModal(true);
-  // };
-
-  // const closeEModal = () => {
-  //   setShowEModal(false);
-  // };
-  // const handleEditClick = (assignmentFileURL) => {
-  //   setFileURL(assignmentFileURL);
-  //   openEModal();
-  // };
-  // const esubmit_assignment = async () => {
-  //   setShowEModal(false); // Close the modal
-
-  //   if (selectedFile) {
-  //     const formData = new FormData();
-  //     formData.append('file', selectedFile);
-  //     formData.append('Email', stdEmail);
-  //     formData.append('classId', _id);
-  //     formData.append('assignmentFileURL', getFileURL);
-  //     formData.append('deadline', currentDate);
-
-  //     const response = await StudentSubmissions(formData);
-
-  //     if (response.status === 201 || response.status === 200) {
-  //       setMessage("Successful");
-  //       console.log("Successful");
-
-  //       // Fetch and update the list of submitted assignments without reloading the page
-  //       axios
-  //         .get(baseURL + `/teacher/class/${_id}`)
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           // setUploadedAssignments(response.data.assignments);
-  //         })
-  //         .catch((error) => {
-  //           console.log(error);
-  //         });
-
-  //       if (fileInputRef.current) {
-  //         fileInputRef.current.value = ''; // Reset the input field
-  //       }
-  //     } else if (response.code === "ERR_BAD_REQUEST") {
-  //       console.log("BAD REQUEST");
-
-  //       if (response.response.status === 500) {
-  //         console.log("500 BAD REQUEST ");
-  //       }
-
-  //       if (response.response.status === 401) {
-  //         setMessage(response.response.data.message);
-  //         console.log("401");
-  //       }
-  //     }
-  //   } else {
-  //     console.log(selectedFile + " ERROR");
-  //   }
-  // }
 
 
 
@@ -671,7 +562,7 @@ const StdTable = () => {
     }}>
       <center>
 
-      {/* <button
+        {/* <button
           className="btn btn-primary"
           style={{ position: 'absolute', top: '10px', right: '10px', fontSize: 'large' }}
           // onClick={handleRefresh}
@@ -681,69 +572,67 @@ const StdTable = () => {
           <FontAwesomeIcon icon={faSync} />
           
         </button> */}
-  <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
-           ASSIGNMENTS</h1>
+        <h1 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '10px', fontWeight: '100', letterSpacing: '2px' }}>
+          ASSIGNMENTS</h1>
         {/* <p>
           Student Name: {StudentName} | Email: {stdEmail}
     </p> */}
 
-      <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
-      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
-        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-        background:'' }} >
-          <tr >
-            <th style={{ ...head_color,width: '2%'  }}>Sr#</th>
-            <th style={{ ...head_color,width: '7%'  }}>Title</th>
-            <th style={{ ...head_color,width: '10%'  }}>Assignment</th>
-            <th style={{ ...head_color,width: '10%'  }}>Remarks</th>
-            <th style={{ ...head_color,width: '9%'  }}>Marks Obtained</th>
-            <th style={{ ...head_color,width: '10%' }}>Submission</th>
-            <th style={{ ...head_color,width: '10%'  }}>Deadline</th>
-            <th style={{ ...head_color,width: '10%' }}>Action</th>
-          </tr>
-        </thead>
-        <tbody style={{}}>
-          {assignments.map((assignment, index) => (
-            <tr key={index} style={{textAlign:'center'}}>
-              <td style={{...row_color }}>{index + 1}</td>
-              <td style={{ ...row_color }}>
-                <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
-              </td>
+        <table className="table custom-std-table" style={{
+          border: '0px solid silver', verticalAlign: 'middle',
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', borderRadius: '5px'
+        }}>
+          <thead style={{
+            border: '0px solid silver', padding: '15px', verticalAlign: 'middle', textAlign: 'center',
+            background: ''
+          }} >
+            <tr >
+              <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+              <th style={{ ...head_color, width: '7%' }}>Title</th>
+              <th style={{ ...head_color, width: '10%' }}>Assignment</th>
+              <th style={{ ...head_color, width: '10%' }}>Remarks</th>
+              <th style={{ ...head_color, width: '9%' }}>Marks Obtained</th>
+              <th style={{ ...head_color, width: '10%' }}>Submission</th>
+              <th style={{ ...head_color, width: '10%' }}>Deadline</th>
+              <th style={{ ...head_color, width: '10%' }}>Action</th>
+            </tr>
+          </thead>
+          <tbody style={{}}>
+            {assignments.map((assignment, index) => {
 
-              <td  style={{...row_color }}>
-               <>
-                <button
-                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small',backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Assignment
-                </button>
-                
-                {/* <button
-                  className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Solution
-                </button> */}
+              const dateTime = new Date(assignment.deadline)
+           
+              if(assignment.time != null){
+                const [hours, minutes] = assignment.time.split(':');
+              
+                dateTime.setHours(hours,minutes,0)
+
+                console.log(dateTime)
+              }else{
+                dateTime.setHours(23,59,59)
+              }
+          
+              
+              
+              return (
+
+
+              <tr key={index} style={{ textAlign: 'center' }}>
+                <td style={{ ...row_color }}>{index + 1}</td>
+                <td style={{ ...row_color }}>
+                  <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
+                </td>
+                <td style={{ ...row_color }}>
+                  <>
+                    <button
+                      className="btn btn-primary " style={{ margin: '2px', fontSize: 'small', backgroundColor: 'rgba(0, 0, 255, 0.6)' }}
+                      onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                    >
+                      Assignment
+                    </button>
+
                   </>
                 </td>
-                {/* <td  style={{...row_color }}>
-               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <button
-                  className="btn btn-primary " style={{margin: '2px', fontSize: 'small'}}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Assignment
-                </button>
-              
-                <button
-                  className="btn btn-secondary" style={{margin: '2px', fontSize: 'small'}}
-                  onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                >
-                  Solution
-                </button>
-                </div>
-              </td> */}
 
 
                 <td style={{ ...row_color }}>
@@ -756,18 +645,11 @@ const StdTable = () => {
                     ? `${marksMapping[submissionMapping[assignment.fileURL]]} / ${assignment.totalMarks}`
                     : 'Not marked yet'}
                 </td>
-                {/* <td style={{ ...row_color }}>
-                  {marksMapping[submissionMapping[assignment.fileURL]] !== undefined
-                    ? `${marksMapping[submissionMapping[assignment.fileURL]]}/${assignment.totalMarks}`
-                    : 'Not marked yet'}
-                </td> */}
+
+                <td style={{ ...row_color }}>
 
 
-               
-                <td style={{...row_color}}>
 
-
-                 
 
                   <div style={{ alignItems: 'center' }}>
                     {assignment.submissionURL != "" ? (
@@ -781,29 +663,29 @@ const StdTable = () => {
                         >
                           View Submission
                         </button >
-                        {currentDate <= new Date(assignment.deadline) && (
+                        {currentDate < dateTime && (
                           <button
                             className="btn btn-danger"
                             style={{ margin: '2px', fontSize: 'small' }}
-                          onClick={() => deleteSubmission(assignment.submissionURL,assignment.fileURL)}
+                            onClick={() => deleteSubmission(assignment.submissionURL, assignment.fileURL)}
                           >
                             Delete
                           </button>
                         )}
-                        
+
                       </div>
                     ) : (
                       <span>
-                        {currentDate > new Date(assignment.deadline) ? (
+                        {currentDate > dateTime ? (
                           <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
                         ) : (
                           <button
                             className="btn btn-primary"
                             style={{ margin: '2px', fontSize: 'small' }}
                             onClick={() => handleSubmissionClick(assignment.fileURL)}
-                            disabled={currentDate > new Date(assignment.deadline)} // Disable if deadline has exceeded
+                            disabled={currentDate > dateTime} // Disable if deadline has exceeded
                           >
-                            Submission
+                            Submit here
                           </button>
                         )}
                       </span>
@@ -813,100 +695,98 @@ const StdTable = () => {
 
                 </td>
 
-
-
                 <td style={{ ...row_color }}>
                   <FormattedDate rawDate={assignment.deadline} />
+                  <span style={{   fontFamily: 'Helvetica'}}> {assignment.time}</span>
                 </td>
-
                 <td style={{ ...row_color }}>
-                    {submissionMapping[assignment.fileURL] ? (
-                      // Submission has been made
-                      currentDate <= new Date(assignment.deadline) ? (
-                        <></>
-                      ) : (
-                        // Submission made, but after the deadline
-                        <button
-                          className="btn btn-danger"
-                          disabled
-                          style={{
-                            margin: '2px',
-                            fontSize: 'small',
-                            cursor: 'default',
-                            boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                            background: '#cc3035',
-                          }}
-                        >
-                          Deadline Exceeded
-                        </button>
-                      )
+                  {submissionMapping[assignment.fileURL] ? (
+                    // Submission has been made
+                    currentDate < dateTime ? (
+                      <></>
                     ) : (
-                      // No submission made
-                      currentDate > new Date(assignment.deadline) ? (
-                        // Deadline has exceeded, and no submission made
-                        <button
-                          className="btn btn-danger"
-                          style={{
-                            margin: '2px',
-                            fontSize: 'small',
-                            cursor: 'default',
-                            boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                            background: '#cc3035',
-                          }}
-                        >
-                          Deadline Exceeded
-                        </button>
-                      ) : (
-                        <></>
-                      )
-                    )}
-
-                      {submissionMapping[assignment.fileURL] ? (
-                        // Both conditions are true (submission has been made for both assignment.id and assignment.fileURL)
-                        currentDate <= new Date(assignment.deadline) ? (
-                          <button
-                            className="btn btn-success"
-                            style={{
-                              margin: '2px',
-                              fontSize: 'medium',
-                              cursor: 'default',
-                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                              background: 'green',
-                              border: 'none',
-                            }}
-                          >
-                            Submitted
-                          </button>
-                        ) : (
-                          <></>
-                        )
-                      ) : (
+                      // Submission made, but after the deadline
+                      <button
+                        className="btn btn-danger"
                         
-                        currentDate > new Date(assignment.deadline) ? (
-                          <></>
-                        ) : (
-                          <button
-                            className="btn"
-                            style={{
-                              margin: '2px',
-                              backgroundColor: 'yellow',
-                              color: 'black',
-                              fontSize: 'small',
-                              cursor: 'default',
-                              border: 'none',
-                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                            }}
-                          >
-                            Not Submitted
-                          </button>
-                        )
-                      )}
+                        style={{
+                          margin: '2px',
+                          fontSize: 'small',
+                          cursor: 'default',
+                          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                          background: '#cc3035',
+                        }}
+                      >
+                        Deadline Exceeded
+                      </button>
+                    )
+                  ) : (
+                    // No submission made
+                    currentDate > dateTime ? (
+                      // Deadline has exceeded, and no submission made
+                      <button
+                        className="btn btn-danger"
+                        style={{
+                          margin: '2px',
+                          fontSize: 'small',
+                          cursor: 'default',
+                          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                          background: '#cc3035',
+                        }}
+                      >
+                        Deadline Exceeded
+                      </button>
+                    ) : (
+                      <></>
+                    )
+                  )}
 
-                  </td>
+                  {submissionMapping[assignment.fileURL] ? (
+                    // Both conditions are true (submission has been made for both assignment.id and assignment.fileURL)
+                    currentDate < dateTime ? (
+                      <button
+                        className="btn btn-success"
+                        style={{
+                          margin: '2px',
+                          fontSize: 'medium',
+                          cursor: 'default',
+                          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                          background: 'green',
+                          border: 'none',
+                        }}
+                      >
+                        Submitted
+                      </button>
+                    ) : (
+                      <></>
+                    )
+                  ) : (
+
+                    currentDate > dateTime ? (
+                      <></>
+                    ) : (
+                      <button
+                        className="btn"
+                        style={{
+                          margin: '2px',
+                          backgroundColor: 'yellow',
+                          color: 'black',
+                          fontSize: 'small',
+                          cursor: 'default',
+                          border: 'none',
+                          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                        }}
+                      >
+                        Not Submitted
+                      </button>
+                    )
+                  )}
+
+                </td>
 
 
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
 
@@ -918,7 +798,7 @@ const StdTable = () => {
           <Modal.Body>
             <h5>Max 15mb File</h5>
             <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
-            
+
             <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
               <Form.Control
                 type="file"

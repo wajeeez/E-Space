@@ -1,3 +1,4 @@
+const { date } = require('joi');
 const mongoose = require('mongoose');
 
 const assignmentSchema = new mongoose.Schema({
@@ -38,6 +39,11 @@ const assignmentSchema = new mongoose.Schema({
   },
   deadline: {
     type: Date,
+    required: true,
+  },
+
+  time: {
+    type: String,
     required: true,
   },
   totalMarks:{

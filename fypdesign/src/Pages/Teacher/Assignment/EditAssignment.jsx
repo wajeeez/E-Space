@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router';
-const EditAssignment = ({ show,assignmentId }) => {
+const EditAssignment = ({ show,onhide,assignmentId }) => {
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const [teacherID, setteacherID] = useState('')
     const [subjectName, setSubjectName] = useState('')
     
     
-    const handleCloseModal = () => {
-     
-    };
+    // const handleCloseModal = () => {
+    //     onhide
+    // };
 
     useEffect(() => {
 

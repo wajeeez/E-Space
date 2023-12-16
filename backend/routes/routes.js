@@ -12,6 +12,7 @@ const getAllAssignments = require('../controllers/GetAllAssignment');
 const StdAssignmentUpload = require('../controllers/StdAssignmentUpload')
 const GetAllSubmissions = require('../controllers/GetAllSubmissions');
 const TeacherMarks_Remarks = require('../controllers/TeacherMarks_Remarks');
+const KPIS = require('../controllers/KPIS');
 
 router.get('/test', (req, res) => res.json({ msg: "Working Alright" }))
 
@@ -92,6 +93,11 @@ router.post('/assignment/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)
 router.post('/notification/assignment/submission/:classId',UploadAssignment.getSubmissionNotification)
 router.post('/notification/assignment/upload/:classId',UploadAssignment.getAssignmentNotification)
 
+
+//KPIS
+
+
+router.post('/getKPIS',KPIS.getAssignmentStatistics)
 
 module.exports = router;
 
