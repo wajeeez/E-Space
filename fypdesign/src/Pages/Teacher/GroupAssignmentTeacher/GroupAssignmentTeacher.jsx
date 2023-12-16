@@ -819,7 +819,7 @@ const GroupAssignmentTeacher = () => {
                                 <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
                                 <th style={{ ...head_color, width: '5%' }}>Submission</th>
                                 <th style={{ ...head_color, width: '5%' }}>Deadline</th>
-                                <th style={{ ...head_color, width: '3%' }}>Action</th>
+                                <th style={{ ...head_color, width: '4%' }}>Action</th>
                                 <th style={{ ...head_color, width: '3%' }}> Marks/Remarks</th>
 
                             </tr>
@@ -830,7 +830,7 @@ const GroupAssignmentTeacher = () => {
 
                                     <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
                                             Group {index + 1}
                                         </td>
                                         <td style={{ ...row_color, }}>
@@ -853,20 +853,20 @@ const GroupAssignmentTeacher = () => {
                                             }
 
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
 
-                                            {student.remarks != "" ? (<p>{student.remarks}</p>) : "NOT SUBMITTED"}
+                                            {student.remarks != "" ? student.remarks : "NOT SUBMITTED"}
                                             {/* {remarksMapping[submissionMapping[student.fileURL]]
                                                 ? remarksMapping[submissionMapping[student.fileURL]]
                                                 : ' --- '} */}
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
                                             
                                             
-                                        {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}
+                                        {student.marks != "" ? student.marks : "NOT SUBMITTED"}
                                         
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
                                             {student.submissionURL != "" ? (
                                                 <button
                                                     className="btn btn-primary"
@@ -878,13 +878,13 @@ const GroupAssignmentTeacher = () => {
                                                 'No Submission'
                                             )}
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
                                             {student.deadline != null ?
                                                 <FormattedDate rawDate={student.deadline} />
                                                 : "Not Available"
                                             }
                                         </td>
-                                        <td>
+                                        <td style={{ ...row_color, }}>
                                             {currentDate <= new Date(student.deadline) ? (
                                                 <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)}>
                                                     Edit
@@ -895,19 +895,19 @@ const GroupAssignmentTeacher = () => {
                                                 </button>
                                             )}
                                         </td>
-
                                         <td style={{ ...row_color, }}>
                                             {currentDate <= new Date(student.deadline) ? (
                                                 <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
-                                                    Asssesment
+                                                Asssesment
                                                 </button>
                                             ) : (
                                                 <button className="btn" disabled>
                                                     Not Available
                                                 </button>
                                             )}
+                                        </td>
 
-                                        </td>
+
 {/*                                   
                                     <td style={{ ...row_color, }}>
                                         {remarksMapping[submissionMapping[student.fileURL]]

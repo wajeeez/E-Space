@@ -550,8 +550,17 @@ const StdTable = () => {
     }
   };
 
-
-
+  const formatTime = (time) => {
+    if (!time) {
+      return ''; // or any default value you want to display for undefined time
+    }
+  
+    const date = new Date();
+    const [hours, minutes] = time.split(':');
+    date.setHours(hours, minutes, 0);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  };
+  
 
 
 
@@ -589,12 +598,12 @@ const StdTable = () => {
             <tr >
               <th style={{ ...head_color, width: '2%' }}>Sr#</th>
               <th style={{ ...head_color, width: '7%' }}>Title</th>
-              <th style={{ ...head_color, width: '10%' }}>Assignment</th>
+              <th style={{ ...head_color, width: '5%' }}>Assignment</th>
               <th style={{ ...head_color, width: '10%' }}>Remarks</th>
-              <th style={{ ...head_color, width: '9%' }}>Marks Obtained</th>
+              <th style={{ ...head_color, width: '8%' }}>Marks Obtained</th>
               <th style={{ ...head_color, width: '10%' }}>Submission</th>
-              <th style={{ ...head_color, width: '10%' }}>Deadline</th>
-              <th style={{ ...head_color, width: '10%' }}>Action</th>
+              <th style={{ ...head_color, width: '11%' }}>Deadline</th>
+              <th style={{ ...head_color, width: '9%' }}>Action</th>
             </tr>
           </thead>
           <tbody style={{}}>
@@ -648,9 +657,6 @@ const StdTable = () => {
 
                 <td style={{ ...row_color }}>
 
-
-
-
                   <div style={{ alignItems: 'center' }}>
                     {assignment.submissionURL != "" ? (
                       <div >
@@ -675,9 +681,24 @@ const StdTable = () => {
 
                       </div>
                     ) : (
-                      <span>
+                      <>
                         {currentDate > dateTime ? (
-                          <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6>
+                          <>
+                          {/* <h6 style={{ fontSize: '', color: 'red', textAlign: 'center' }}>No Submission</h6> */}
+                          <button
+                            className="btn btn-danger"
+                            disabled
+                            style={{
+                              margin: '2px',
+                              fontSize: 'small',
+                              cursor: 'default',
+                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                              background: '#cc3035',
+                            }}
+                          >
+                            No Submission
+                          </button>
+                          </>
                         ) : (
                           <button
                             className="btn btn-primary"
@@ -688,17 +709,32 @@ const StdTable = () => {
                             Submit here
                           </button>
                         )}
-                      </span>
+                      </>
                     )}
                   </div>
 
 
                 </td>
 
-                <td style={{ ...row_color }}>
+                {/* <td style={{ ...row_color , fontWeight:'500', color:'black'}}>
                   <FormattedDate rawDate={assignment.deadline} />
                   <span style={{   fontFamily: 'Helvetica'}}> {assignment.time}</span>
+                </td> */}
+
+                <td style={{ ...row_color }}>
+                  <button
+                    className="btn btn-secondary"
+                    style={{fontSize: 'medium', fontWeight:'500', color:'white' ,cursor: 'default',
+                    boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                    background: 'grey',}}
+                  >
+                    <FormattedDate rawDate={assignment.deadline} />
+                    {/* <br/> */}
+                    <span> </span>
+                    {formatTime(assignment.time)}
+                  </button>
                 </td>
+
                 <td style={{ ...row_color }}>
                   {submissionMapping[assignment.fileURL] ? (
                     // Submission has been made

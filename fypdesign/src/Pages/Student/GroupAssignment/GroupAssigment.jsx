@@ -654,11 +654,19 @@ const GroupAssignment = () => {
                             // <StudentListDialog></StudentListDialog>
 
                             <Dialog open={dialogOpen} maxWidth="md" fullWidth>
+                                <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+                                 
                                 <DialogContent>
+                                <i className='bx bx-x' style={{ position: 'absolute', top: '5px', right: '10px', fontWeight: 'bold', fontSize: '2.5rem', cursor:'pointer' }}
+                                 onClick={handleCloseDialog}></i>
                                     <center>
-
+                                    
+                                    
                                         <h3 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '10px', fontWeight: '100', letterSpacing: '2px' }}>
                                             Select Students</h3>
+
+                                           
+
                                         <table className="table custom-std-table" style={{ border: '1px solid silver', verticalAlign: 'middle', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)' }}>
                                             <thead style={{ border: '0px solid black', padding: '15px', verticalAlign: 'middle', textAlign: 'center', background: '' }} >
                                                 <tr >
@@ -735,11 +743,14 @@ const GroupAssignment = () => {
                                     </a> */}
                                             <Button
                                                 className={`btn-success`}
-                                                onClick={handleOpenDialog}
-                                                style={{ background: '', color: 'white', fontSize: 'large', width: '220px', height: '50px', borderRadius: '30px' }}
+                                                onClick={handleCreate}
+                                                style={{
+                                                    background: '', color: 'white', fontSize: 'large', width: '220px',
+                                                    height: '50px', borderRadius: '30px', boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                                                }}
                                             >
                                                 <i className='bx bx-edit' style={{ fontSize: '22px', marginRight: '5px', marginTop: '0px' }}> </i>
-                                                Create A Group
+                                                Create
                                             </Button>
                                             <div className="text-center">
                                                 {dialogMessage !== '' && <p className="text-danger">{dialogMessage}</p>}
@@ -785,7 +796,7 @@ const GroupAssignment = () => {
 
                                 <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                     <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                    <td>
+                                    <td style={{ ...row_color, textAlign: 'center' }}>
                                         Group {index + 1}
                                     </td>
                                     <td style={{ ...row_color, textAlign: 'center' }}>
@@ -807,21 +818,21 @@ const GroupAssignment = () => {
                                         }
 
                                     </td >
-                                    <td>
+                                    <td style={{ ...row_color, textAlign: 'center' }}>
 
-                                        {assignment.remarks != "" ? (<p>{assignment.remarks}</p>) : "NOT SUBMITTED"}
+                                        {assignment.remarks != "" ? assignment.remarks : "NOT SUBMITTED"}
                                         {/* {remarksMapping[submissionMapping[student.fileURL]]
     ? remarksMapping[submissionMapping[student.fileURL]]
     : ' --- '} */}
                                     </td>
-                                    <td>
+                                    <td style={{ ...row_color, textAlign: 'center' }}>
 
 
-                                        {assignment.marks != "" ? (<p>{assignment.marks}</p>) : "NOT SUBMITTED"}
+                                        {assignment.marks != "" ? assignment.marks : "NOT SUBMITTED"}
 
                                     </td>
 
-                                    <td>
+                                    <td style={{ ...row_color, textAlign: 'center' }}>
                                         {assignment.submissionURL != "" ? <button
                                             className="btn btn-primary " style={{ margin: '0px' }}
                                             onClick={openFileInBrowser.bind(null, assignment.submissionURL)}

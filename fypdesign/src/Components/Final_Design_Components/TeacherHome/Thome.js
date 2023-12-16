@@ -295,12 +295,15 @@ function Thome() {
         </div>
       </div>
 
-      <div className="col-md-12 p-2" style={{ marginTop: '10px', maxHeight: '200px' }}>
-        <div className="card h-300 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
-          <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
-            <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Data</h3>
-            <TChart  />
-          </div>
+      <div className="col-md-12 p-2" style={{ marginTop: '0px', maxHeight: '200px' }}>
+        <div className="container-fluid " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'
+             , overflow:'auto', margin:'0px', padding:'0px'}}>
+          <center>
+            <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Statistics</h3>
+          </center>
+
+          <TChart  />
+           
         </div>
       </div>
 
@@ -312,17 +315,26 @@ function Thome() {
     </div>
   </div>
 
-  <div className="col-md-3 p-2" style={{ minHeight: '65vh', padding: '5px' , marginTop:'15px'}}>
-    <div className="p-2 text-black " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)',minHeight: '65vh'}}>
-      <div className="card-header sticky-top" style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px' }}>
-        Notifications
-      </div>
-      {notify.map((notification, index) => (
-  <NotificationCard index={index} deadline={notification.deadline} key={index} />
-))}
+  <div className="col-md-3 p-2" style={{padding: '5px' , marginTop:'15px'}}>
+  <div className="card" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
+          <div className="card-body" style={{ textAlign: 'center', padding: '5px' }}>
+            <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '10px', marginTop: '5px',color:'black'}}>Notifactions</h4>       
+            <div className="container-fluid " style={{height:'54vh', overflowY:'scroll' }}>
+            {/* {notify.map((notification, index) => (
+            <NotificationCard deadline={notification.deadline} key={index} index={index} />
+            ))} */}
 
-    </div>
+            {notify
+                .sort((a, b) => new Date(b.deadline) - new Date(a.deadline))
+                .map((notification, index) => (
+                  <NotificationCard deadline={notification.deadline} key={index} index={notify.length - index} />
+                ))}
+
+              </div>
+          </div>
+        </div>
   </div>
+
 </div>
 
 
