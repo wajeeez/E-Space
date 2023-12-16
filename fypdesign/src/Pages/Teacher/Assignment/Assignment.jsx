@@ -914,8 +914,8 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color }}>
                     <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
+                  <td style={{ ...row_color ,fontSize: 'large'}}>
+                    {assignment.title}
                   </td>
                   <td style={{ ...row_color }}>
                     <>
@@ -928,15 +928,15 @@ const handleDeadlineChange_edt = (event) => {
                       </button>
                     </>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '400' }}>{assignment.totalMarks}</p>
+                  <td style={{ ...row_color,fontSize: 'large', fontWeight: '400' }}>
+                    {assignment.totalMarks}
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '500', letterSpacing: '1px', color: 'green' }}>
+                  <td style={{ ...row_color ,fontSize: 'large', fontWeight: '500', letterSpacing: '1px', color: 'green'}}>
+                    
                       {new Date(assignment.deadline).toLocaleDateString('en-GB')}
                       <span> </span>
                       {formatTime(assignment.time)}
-                    </p>
+                    
                     {/* <button
                       className="btn btn-secondary"
                       style={{fontSize: 'medium', fontWeight:'500', color:'white' ,cursor: 'default',

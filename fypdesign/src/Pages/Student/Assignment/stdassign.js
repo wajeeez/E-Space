@@ -628,8 +628,8 @@ const StdTable = () => {
 
               <tr key={index} style={{ textAlign: 'center' }}>
                 <td style={{ ...row_color }}>{index + 1}</td>
-                <td style={{ ...row_color }}>
-                  <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
+                <td style={{ ...row_color ,fontSize: 'large'}}>
+                  {assignment.title}
                 </td>
                 <td style={{ ...row_color }}>
                   <>
