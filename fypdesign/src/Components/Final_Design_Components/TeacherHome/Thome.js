@@ -100,9 +100,16 @@ function Thome() {
     const formattedDeadline = format(new Date(deadline), 'dd-MM-yyyy');
     const deadlineDate = new Date(deadline);
     const currentDate = new Date();
-  
+
     // Check if the deadline has exceeded
     const isDeadlineExceeded = currentDate > deadlineDate;
+  
+    function getCurrentTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    }
   
     return (
       isDeadlineExceeded && (
@@ -110,7 +117,8 @@ function Thome() {
           <i class='bx bx-notification' style={{ fontSize: '1.5rem', color: '#b23ac7', marginTop: '-2rem' }}></i>
           <div className="card-body p-0" style={{}}>
             <h6 className="title" style={{ fontSize: '1rem', fontFamily: 'Poppins, sans-serif', color: '#b23ac7', fontWeight: '500', marginTop: "0.4rem" }}>
-              Assignment {index + 1} Deadline
+              {/* Assignment {index + 1} Deadline */}
+              Assignment Deadline
             </h6>
             <p
               className="text "
@@ -121,7 +129,9 @@ function Thome() {
                 marginBottom: '0.5rem'
               }}
             >
-              Deadline: {formattedDeadline}
+              Deadline: {formattedDeadline} 
+              
+
             </p>
           </div>
         </div>
