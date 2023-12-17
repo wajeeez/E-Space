@@ -208,7 +208,7 @@ function Tmain() {
       };
     
     return (
-      <div className="container-fluid tmain">
+      <div className="container-fluid tmain" style={{overflow:'auto',}}>
         
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
