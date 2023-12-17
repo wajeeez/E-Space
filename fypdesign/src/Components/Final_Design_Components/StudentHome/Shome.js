@@ -205,6 +205,8 @@ function Shome() {
               alignItems: 'center',
               padding: '0px 20px 0px',
               zIndex: '1',
+              overflow:'auto',
+              marginTop: '8px',
             }}
           >
             <div style={{ flex: '1' }}>
@@ -223,7 +225,7 @@ function Shome() {
 
   
 {/* Right side (Calendar) */}
-<div className="col-md-3" style={{}}>
+<div className="col-md-3" style={{marginTop:'10px'}}>
 
   {/* Calendar content goes here */}
   {/* You can add a calendar component or any other content you want in this column */}
@@ -306,9 +308,9 @@ function Shome() {
       </div>
 
 
-      <div className="col-md-12 p-2" style={{ marginTop: '0px', maxHeight: '200px' }}>
+      <div className="col-md-12 p-2" style={{ marginTop: '0px' }}>
         <div className="container-fluid " style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'
-             , overflow:'auto', margin:'0px', padding:'0px'}}>
+             , overflow:'auto', margin:'0px', padding:'0px', marginBottom:'-1.5rem'}}>
           <center>
             <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '5px', color:'black' }}>Class Statistics</h3>
           </center>
