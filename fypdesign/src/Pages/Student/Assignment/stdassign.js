@@ -716,11 +716,12 @@ const StdTable = () => {
 
                 </td>
 
-                {/* <td style={{ ...row_color , fontWeight:'500', color:'black'}}>
+                <td style={{ ...row_color , fontWeight:'500', color:'black'}}>
                   <FormattedDate rawDate={assignment.deadline} />
-                  <span style={{   fontFamily: 'Helvetica'}}> {assignment.time}</span>
-                </td> */}
-
+                  <span>  </span>
+                  {formatTime(assignment.time)}
+                </td>
+{/* 
                 <td style={{ ...row_color }}>
                   <button
                     className="btn btn-secondary"
@@ -729,11 +730,11 @@ const StdTable = () => {
                     background: 'grey',}}
                   >
                     <FormattedDate rawDate={assignment.deadline} />
-                    {/* <br/> */}
+                    
                     <span> </span>
                     {formatTime(assignment.time)}
                   </button>
-                </td>
+                </td> */}
 
                 <td style={{ ...row_color }}>
                   {submissionMapping[assignment.fileURL] ? (

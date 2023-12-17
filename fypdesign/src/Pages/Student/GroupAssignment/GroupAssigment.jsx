@@ -614,6 +614,19 @@ const GroupAssignment = () => {
 
     }
 
+    const formatTime = (time) => {
+        if (!time) {
+          return ''; // or any default value you want to display for undefined time
+        }
+      
+        const date = new Date();
+        const [hours, minutes] = time.split(':');
+        date.setHours(hours, minutes, 0);
+        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+      };
+      
+
+
     return (
 
         <>
@@ -775,13 +788,13 @@ const GroupAssignment = () => {
                         background: ''
                     }} >
                         <tr >
-                            <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                            <th style={{ ...head_color, width: '1%' }}>Sr#</th>
                             <th style={{ ...head_color, width: '5%' }}>Title</th>
                             <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
                             <th style={{ ...head_color, width: '5%' }}>Remarks</th>
                             <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
                             <th style={{ ...head_color, width: '5%' }}>Submission</th>
-                            <th style={{ ...head_color, width: '5%' }}>Deadline</th>
+                            <th style={{ ...head_color, width: '7%' }}>Deadline</th>
                             <th style={{ ...head_color, width: '3%' }}>Action</th>
                         </tr>
                     </thead>
@@ -820,7 +833,7 @@ const GroupAssignment = () => {
                                                 className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
                                                 onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                             >
-                                               No file Uploaded yet
+                                               Not Uploaded yet
                                             </button>
 
                                         }
@@ -828,13 +841,13 @@ const GroupAssignment = () => {
                                     </td >
                                     <td style={{ ...row_color, textAlign: 'center' }}>
 
-                                        {assignment.remarks != "" ? (<p>{assignment.remarks}</p>) : "NOT SUBMITTED"}
+                                        {assignment.remarks != "" ? assignment.remarks : "---"}
                                 
                                     </td>
                                     <td style={{ ...row_color, textAlign: 'center' }}>
 
 
-                                        {assignment.marks != "" ? assignment.marks : "NOT SUBMITTED"}
+                                        {assignment.marks != "" ? assignment.marks : "Not marked yet"}
 
                                     </td>
 
@@ -843,21 +856,23 @@ const GroupAssignment = () => {
                                             className="btn btn-primary " style={{ margin: '0px' }}
                                             onClick={openFileInBrowser.bind(null, assignment.submissionURL)}
                                         >
-                                            Submission File
+                                            View File
                                         </button>
                                             : (
-                                                "Not Submitted yet"
+                                                "No Submission"
                                             )
                                         }
                                     </td>
                                    
 
 
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
+                                    <td style={{ ...row_color , fontWeight:'500'}}>
                                         {assignment.deadline != null ?
-                                        <>   <FormattedDate rawDate={assignment.deadline} />
-                                            <span style={{   fontFamily: 'Helvetica'}}> {assignment.time}</span></>
-                                            : "Not Available"
+                                        <>  <FormattedDate rawDate={assignment.deadline} />
+                                            <span>  </span>
+                                            {formatTime(assignment.time)}
+                                        </>
+                                            : "---"
                                         }
                                     </td>
                                     <td style={{ ...row_color, textAlign: 'center' }}>

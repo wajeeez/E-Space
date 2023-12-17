@@ -680,6 +680,18 @@ const GroupAssignmentTeacher = () => {
     }
 
 
+    const formatTime = (time) => {
+        if (!time) {
+          return ''; // or any default value you want to display for undefined time
+        }
+      
+        const date = new Date();
+        const [hours, minutes] = time.split(':');
+        date.setHours(hours, minutes, 0);
+        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+      };
+      
+
     return (
 
 
@@ -822,14 +834,14 @@ const GroupAssignmentTeacher = () => {
                             background: ''
                         }} >
                             <tr >
-                                <th style={{ ...head_color, width: '2%' }}>Sr#</th>
-                                <th style={{ ...head_color, width: '5%' }}>Title</th>
-                                <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
+                                <th style={{ ...head_color, width: '1%' }}>Sr#</th>
+                                <th style={{ ...head_color, width: '4%' }}>Title</th>
+                                <th style={{ ...head_color, width: '4%' }}>Assignment File</th>
                                 <th style={{ ...head_color, width: '5%' }}>Remarks</th>
                                 <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
                                 <th style={{ ...head_color, width: '5%' }}>Submission</th>
-                                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
-                                <th style={{ ...head_color, width: '4%' }}>Action</th>
+                                <th style={{ ...head_color, width: '8%' }}>Deadline</th>
+                                <th style={{ ...head_color, width: '2%' }}>Action</th>
                                 <th style={{ ...head_color, width: '3%' }}> Marks/Remarks</th>
 
                             </tr>
@@ -846,7 +858,7 @@ const GroupAssignmentTeacher = () => {
                                         <td style={{ ...row_color, }}>
                                             {student.fileURL != "" ? <Button
                                                 className="btn btn-primary "
-                                                style={{ marginTop: '0px', fontSize: 'medium', backgroundColor: 'rgba(0, 0, 255, 0.6)' }}
+                                                style={{ marginTop: '0px', fontSize: 'small', backgroundColor: 'rgba(0, 0, 255, 0.6)' }}
                                                 onClick={openFileInBrowser.bind(null, student.fileURL)}
                                             >
                                                 Uploaded File
@@ -854,7 +866,7 @@ const GroupAssignmentTeacher = () => {
                                                 :
                                                 <button
                                                     className="btn btn-primary "
-                                                    style={{ marginTop: '0px', fontSize: 'medium' }}
+                                                    style={{ marginTop: '0px', fontSize: 'small' }}
                                                     onClick={handleTeacherUpload.bind(null, student._id)}
                                                 >
                                                     Upload File
@@ -865,18 +877,18 @@ const GroupAssignmentTeacher = () => {
                                         </td>
                                         <td style={{ ...row_color, }}>
 
-                                            {student.remarks != "" ? student.remarks : "NOT SUBMITTED"}
+                                            {student.remarks != "" ? student.remarks : "---"}
                                             {/* {remarksMapping[submissionMapping[student.fileURL]]
                                                 ? remarksMapping[submissionMapping[student.fileURL]]
                                                 : ' --- '} */}
                                         </td>
 
-                                        <td style={{ ...row_color, }}>
+                                      
            
-                                        <td>
+                                        <td style={{ ...row_color, }}>
 
 
-                                            {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}
+                                            {student.marks != "" ? student.marks: "Not Marked yet"}
 
                                         </td>
                                         <td style={{ ...row_color, }}>
@@ -884,26 +896,28 @@ const GroupAssignmentTeacher = () => {
                                                 <button
                                                     className="btn btn-primary"
                                                     onClick={openFileInBrowser.bind(null, student.submissionURL)}
+                                                    style={{fontSize:'small'}}
                                                 >
-                                                    Submission File
+                                                    View Submission
                                                 </button>
                                             ) : (
                                                 'No Submission'
                                             )}
                                         </td>
-                                        <td style={{ ...row_color, }}>
+                                        <td style={{ ...row_color, fontWeight:'500'}}>
                                             {student.deadline != null ?
-                                                <>
-                                                    <FormattedDate rawDate={student.deadline} />
-                                                    <span> {student.time} </span> </>
-                                                : "Not Available"
+                                                <>  <FormattedDate rawDate={student.deadline} />
+                                                <span>  </span>
+                                                {formatTime(student.time)}
+                                            </>
+                                                : "---"
                                             }
                                         </td>
 
-                                        <td style={{ ...row_color, }}>
+                                        <td style={{ ...row_color, fontSize:'small' }}>
                                       
 
-                                            <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)}>
+                                            <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)} >
                                                 Edit
                                             </button>
 
