@@ -617,7 +617,7 @@ const GroupAssignmentTeacher = () => {
     const submitTeacherAssignment = async () => {
         setShowModal(false); // Close the modal
 
-        if (selectedFile) {
+        if (selectedFile || !deadline) {
 
             const formData = new FormData();
             formData.append('file', selectedFile);
@@ -648,6 +648,8 @@ const GroupAssignmentTeacher = () => {
                 })
                 .catch(error => {
                     console.error('Error uploading group assignment:', error);
+                    toast.error("Failed to Upload Assignment")
+
                     // Handle the error
                 });
 
