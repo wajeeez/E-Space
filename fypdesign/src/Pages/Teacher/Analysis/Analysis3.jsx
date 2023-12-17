@@ -156,7 +156,7 @@ const Analysis3 = () => {
 
   const AttendanceTable = ({ attendanceData }) => {
     return (
-      <div className='container-fluid text-center' style={{ marginTop: '10px' }}>
+      <div className='container-fluid text-center' style={{ marginTop: '10px' ,overflow:'auto',}}>
 
         <table className="table custom-std-table" style={{
           border: '1px solid silver', verticalAlign: 'middle',
@@ -231,7 +231,7 @@ const Analysis3 = () => {
 
 
   return (
-    <div className="container-fluid" style={{ marginTop: '0px', margin: '0px', background: '' }}>
+    <div className="container-fluid" style={{ marginTop: '0px', margin: '0px', background: '',overflow:'auto', }}>
       <center>
 
         <h1 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '10px', letterSpacing: '3px' }}>

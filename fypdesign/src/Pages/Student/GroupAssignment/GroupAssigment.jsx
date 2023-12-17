@@ -656,7 +656,7 @@ const GroupAssignment = () => {
         <>
         <ToastContainer></ToastContainer>
             <div className="container-fluid" style={{
-                textAlign: 'center', marginTop: '0px',
+                textAlign: 'center', marginTop: '0px', overflow:'auto',
             }}>
 
                 <center>

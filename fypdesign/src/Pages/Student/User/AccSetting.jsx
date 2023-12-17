@@ -144,7 +144,7 @@ const AccSetting = () => {
   
   return (
     
-    <div className="container-fluid" style={{ textAlign: 'center', marginTop: '0px' }}>
+    <div className="container-fluid" style={{ textAlign: 'center', marginTop: '0px' ,overflow:'auto',}}>
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
       <center>

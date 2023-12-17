@@ -2,7 +2,7 @@ import React from 'react';
 
 const SQuiz = () => {
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' ,overflow:'auto',}}>
       <h1>QUIZ</h1>
       <iframe
         title="Google Form"

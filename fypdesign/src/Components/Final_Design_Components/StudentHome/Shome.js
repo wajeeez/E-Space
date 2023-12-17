@@ -189,7 +189,7 @@ function Shome() {
 
 
   return (
-    <div className="container-fluid" style={{ marginTop: '10px', margin:'0px' ,background: bg}}>
+    <div className="container-fluid" style={{ marginTop: '10px', margin:'0px' ,background: bg ,overflow:'auto',}}>
       {/* First row covering full width */}
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <div className="row">
