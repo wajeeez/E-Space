@@ -103,7 +103,7 @@ const GroupAssignment = () => {
     const handleCreate = () => {
         // Check if the studentId is already in the selectedStudents array
         console.log(selectedStudents);
-    
+
         if (selectedStudents && selectedStudents.length >= 2) {
             axios
                 .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents })
@@ -117,13 +117,13 @@ const GroupAssignment = () => {
                 .catch((error) => {
                     console.log(error);
                 });
-                setSelectedStudents([]);
+            setSelectedStudents([]);
 
             toast.success("Group Created Successfully", {
                 autoClose: 1000,
                 position: toast.POSITION.TOP_RIGHT,
             });
-    
+
             setDialogOpen(false);
         } else {
             toast.error("Please Select 2 or more Students", {
@@ -132,7 +132,7 @@ const GroupAssignment = () => {
             });
         }
     };
-    
+
 
 
 
@@ -549,15 +549,15 @@ const GroupAssignment = () => {
 
     const submissionUpload = async () => {
         // Close the modal
-    
+
         if (selectedFile && groupId && _id) {
             const formData = new FormData();
             formData.append('file', selectedFile);
             formData.append('groupId', groupId);
             formData.append('classId', _id);
-    
+
             console.log(selectedFile, groupId, deadline);
-    
+
             axios.post(baseURL + '/student/groupAssignment/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -599,62 +599,62 @@ const GroupAssignment = () => {
             console.log("File not selected");
         }
     }
-    
+
 
     const formatTime = (time) => {
         if (!time) {
-          return ''; // or any default value you want to display for undefined time
+            return ''; // or any default value you want to display for undefined time
         }
-      
+
         const date = new Date();
         const [hours, minutes] = time.split(':');
         date.setHours(hours, minutes, 0);
         return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-      };
-      
-      const [showDeleteModal, setShowDeleteModal] = useState(false);
-      const handleDeleteConfirmed = () => {
-    
+    };
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const handleDeleteConfirmed = () => {
+
         setShowDeleteModal(false);
-      };
-    
-      const handleDeleteCancelled = () => {
+    };
+
+    const handleDeleteCancelled = () => {
         // Handle cancel action
         setShowDeleteModal(false);
-      };
-      const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+    };
+    const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
         return (
-          <Modal show={show} onHide={handleDeleteCancelled} centered>
-            <Modal.Header closeButton>
-              <Modal.Title>Delete Class</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h5>Are you sure you want to Permanently Delete this Class?</h5>
-            </Modal.Body>
-            <Modal.Footer className="justify-content-center align-items-center d-flex">
-              <Button
-                variant="danger"
-                onClick={handleDeleteConfirmed}
-                style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-              >
-                Yes
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={handleDeleteCancelled}
-                style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-              >
-                Cancel
-              </Button>
-            </Modal.Footer>
-          </Modal>
-            );
-          };
+            <Modal show={show} onHide={handleDeleteCancelled} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Class</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h5>Are you sure you want to Permanently Delete this Class?</h5>
+                </Modal.Body>
+                <Modal.Footer className="justify-content-center align-items-center d-flex">
+                    <Button
+                        variant="danger"
+                        onClick={handleDeleteConfirmed}
+                        style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+                    >
+                        Yes
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleDeleteCancelled}
+                        style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+                    >
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    };
 
     return (
 
         <>
-        <ToastContainer></ToastContainer>
+            <ToastContainer></ToastContainer>
             <div className="container-fluid" style={{
                 textAlign: 'center', marginTop: '0px',
             }}>
@@ -685,20 +685,20 @@ const GroupAssignment = () => {
 
                         {dialogOpen === true ? (
                             // <StudentListDialog></StudentListDialog>
-                            
+
                             <Dialog open={dialogOpen} maxWidth="md" fullWidth>
                                 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
                                 <ToastContainer></ToastContainer>
                                 <DialogContent>
-                                <i className='bx bx-x' style={{ position: 'absolute', top: '5px', right: '10px', fontWeight: 'bold', fontSize: '2.5rem', cursor:'pointer' }}
-                                 onClick={handleCloseDialog}></i>
+                                    <i className='bx bx-x' style={{ position: 'absolute', top: '5px', right: '10px', fontWeight: 'bold', fontSize: '2.5rem', cursor: 'pointer' }}
+                                        onClick={handleCloseDialog}></i>
                                     <center>
-                                    
-                                    
+
+
                                         <h3 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '10px', fontWeight: '100', letterSpacing: '2px' }}>
                                             Select Students</h3>
 
-                                           
+
 
                                         <table className="table custom-std-table" style={{ border: '1px solid silver', verticalAlign: 'middle', boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.3)' }}>
                                             <thead style={{ border: '0px solid black', padding: '15px', verticalAlign: 'middle', textAlign: 'center', background: '' }} >
@@ -821,122 +821,122 @@ const GroupAssignment = () => {
                     <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
                         {assignments.map((assignment, index) => {
 
-                            const dateTime = new Date(assignment.deadline)             
-                            if(assignment.time != null){
+                            const dateTime = new Date(assignment.deadline)
+                            if (assignment.time != null) {
                                 const [hours, minutes] = assignment.time.split(':');
-                                dateTime.setHours(hours,minutes,0)
+                                dateTime.setHours(hours, minutes, 0)
                                 console.log(dateTime)
-                            }else{
-                                dateTime.setHours(23,59,59)
+                            } else {
+                                dateTime.setHours(23, 59, 59)
                             }
 
 
                             return (
 
-                            <React.Fragment key={assignment.fileURL}>
+                                <React.Fragment key={assignment.fileURL}>
 
-                                <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
-                                    <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-                                        Group {index + 1}
-                                    </td>
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-                                        {assignment.fileURL != "" ? <button
-                                            className="btn btn-primary "
-                                            style={{ marginTop: '0px', fontSize: 'medium', backgroundColor: 'rgba(0, 0, 255, 0.6)' }}
-                                            onClick={openFileInBrowser.bind(null, assignment.fileURL)}
-                                        >
-                                            Assignment
-                                        </button>
-                                            :
-                                            <button
-                                                className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
-                                                onClick={openFileInBrowser.bind(null, assignment.fileURL)} disabled
+                                    <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                            Group {index + 1}
+                                        </td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                            {assignment.fileURL != "" ? <button
+                                                className="btn btn-primary "
+                                                style={{ marginTop: '0px', fontSize: 'medium', backgroundColor: 'rgba(0, 0, 255, 0.6)' }}
+                                                onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                             >
-                                               Not Uploaded yet
+                                                Assignment
                                             </button>
-
-                                        }
-
-                                    </td >
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-
-                                        {assignment.remarks != "" ? assignment.remarks : "---"}
-                                
-                                    </td>
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-
-
-                                        {assignment.marks != "" ? assignment.marks : "Not marked yet"}
-
-                                    </td>
-
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-                                        {assignment.submissionURL != "" ? <button
-                                            className="btn btn-primary " style={{ margin: '0px' }}
-                                            onClick={openFileInBrowser.bind(null, assignment.submissionURL)}
-                                        >
-                                            View File
-                                        </button>
-                                            : (
-                                                "No Submission"
-                                            )
-                                        }
-                                    </td>
-                                   
-
-
-                                    <td style={{ ...row_color , fontWeight:'500'}}>
-                                        {assignment.deadline != null ?
-                                        <>  <FormattedDate rawDate={assignment.deadline} />
-                                            <span>  </span>
-                                            {formatTime(assignment.time)}
-                                        </>
-                                            : "---"
-                                        }
-                                    </td>
-                                    <td style={{ ...row_color, textAlign: 'center' }}>
-                                        {currentDate > dateTime && assignment.fileURL ? (
-                                            <button
-                                            className="btn btn-danger"
-                                            style={{
-                                              margin: '2px',
-                                              fontSize: 'small',
-                                              cursor: 'default',
-                                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                                              background: '#cc3035',
-                                            }}
-                                          >
-                                            Deadline Exceeded
-                                          </button>
-                                        ) :currentDate < dateTime && assignment.submissionURL ? (
-                                            <>
-                                                <button className="btn btn-warning" style={{ fontSize: 'small', margin: '4px' }} onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
-                                                    Re-Submit
+                                                :
+                                                <button
+                                                    className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
+                                                    onClick={openFileInBrowser.bind(null, assignment.fileURL)} disabled
+                                                >
+                                                    Not Uploaded yet
                                                 </button>
-                                                <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
-                                                    Delete Group
+
+                                            }
+
+                                        </td >
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+
+                                            {assignment.remarks != "" ? assignment.remarks : "---"}
+
+                                        </td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+
+
+                                            {assignment.marks != "" ? assignment.marks : "Not marked yet"}
+
+                                        </td>
+
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                            {assignment.submissionURL != "" ? <button
+                                                className="btn btn-primary " style={{ margin: '0px' }}
+                                                onClick={openFileInBrowser.bind(null, assignment.submissionURL)}
+                                            >
+                                                View File
+                                            </button>
+                                                : (
+                                                    "No Submission"
+                                                )
+                                            }
+                                        </td>
+
+
+
+                                        <td style={{ ...row_color, fontWeight: '500' }}>
+                                            {assignment.deadline != null ?
+                                                <>  <FormattedDate rawDate={assignment.deadline} />
+                                                    <span>  </span>
+                                                    {formatTime(assignment.time)}
+                                                </>
+                                                : "---"
+                                            }
+                                        </td>
+                                        <td style={{ ...row_color, textAlign: 'center' }}>
+                                            {currentDate > dateTime && assignment.fileURL ? (
+                                                <button
+                                                    className="btn btn-danger"
+                                                    style={{
+                                                        margin: '2px',
+                                                        fontSize: 'small',
+                                                        cursor: 'default',
+                                                        boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                                                        background: '#cc3035',
+                                                    }}
+                                                >
+                                                    Deadline Exceeded
                                                 </button>
-                                            </>
-                                        ) : currentDate <= dateTime && assignment.fileURL ? (
-                                            <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
-                                                SUBMIT
-                                            </button>
-                                        ) : (
-                                            // This case handles when currentDate <= dateTime && assignment.fileURL is null
-                                            <>
-                                            {/* <button className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'small' }} disabled>
-                                                Not Available
-                                            </button> */}
+                                            ) : currentDate < dateTime && assignment.submissionURL ? (
+                                                <>
+                                                    <button className="btn btn-warning" style={{ fontSize: 'small', margin: '4px' }} onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
+                                                        Re-Submit
+                                                    </button>
 
-                                            <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
-                                                Delete Group
-                                            </button>
+                                                </>
+                                           
 
-                                            </>
-                                            
-                                        )}
-                                    </td>
+
+
+                                            ) : currentDate < dateTime && assignment.fileURL ? (
+                                                <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
+                                                    SUBMIT
+                                                </button>
+                                            ) : assignment.fileURL==="" ?(
+                                                <>
+                                                    
+
+                                                    <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
+                                                        Delete Group
+                                                    </button>
+
+                                                </>
+
+                                            ):
+                                            <></>}
+                                        </td>
 
 
 
@@ -951,35 +951,36 @@ const GroupAssignment = () => {
                                                 Delete Group
                                             </button>
                                         </> */}
- 
 
 
 
 
 
 
-                                </tr>
 
-                                {index < assignments.length - 1 && (
-                                    <tr style={{ padding: '1px' }}>
-                                        {/* <td colSpan="8" style={{ height: '0px' }}>
+                                    </tr>
+
+                                    {index < assignments.length - 1 && (
+                                        <tr style={{ padding: '1px' }}>
+                                            {/* <td colSpan="8" style={{ height: '0px' }}>
                                         <hr />
                                     </td> */}
-                                    </tr>
-                                )}
+                                        </tr>
+                                    )}
 
 
-                            </React.Fragment>
-                        )})}
+                                </React.Fragment>
+                            )
+                        })}
                     </tbody>
                 </table>
 
 
                 <DeleteModal
-        show={showDeleteModal}
-        handleDeleteConfirmed={handleDeleteConfirmed}
-        handleDeleteCancelled={handleDeleteCancelled}
-      />
+                    show={showDeleteModal}
+                    handleDeleteConfirmed={handleDeleteConfirmed}
+                    handleDeleteCancelled={handleDeleteCancelled}
+                />
 
                 <div className="text-center">
                     {message !== '' && <p className="text-danger">{message}</p>}
