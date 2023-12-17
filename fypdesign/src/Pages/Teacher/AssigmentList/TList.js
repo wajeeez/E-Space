@@ -8,6 +8,9 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function TList() {
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
@@ -186,7 +189,11 @@ function TList() {
       .post(baseURL + `/assignment/updateStudentMarks`, data)
       .then((response) => {
         if (response.status === 201 || response.status === 200) {
-          setMessage("Successful");
+          // setMessage("Successful");
+          toast.success("Successfull ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
           console.log("Successful");
   
           // Update the state with the new data
@@ -198,13 +205,21 @@ function TList() {
             )
           );
         } else {
-          setMessage("Failed to Update Marks");
+          // setMessage("Failed to Update Marks");
+          toast.error("Failed to Update Marks ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
           console.log("Failed to Update Marks");
         }
       })
       .catch((error) => {
-        setMessage("Failed to Update Marks");
+        // setMessage("Failed to Update Marks");
         console.log(error);
+        toast.error("Failed to Update Marks ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        })
       });
   
     setDialogVisible(false);
