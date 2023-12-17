@@ -396,7 +396,7 @@ function THeroSection() {
     
         
       </div> */}
-      <div className="container-fluid tcmain" >
+      <div className="container-fluid tcmain" style={{overflow:'auto'}}>
 
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous" />
@@ -493,7 +493,7 @@ function THeroSection() {
 
 
           {currentPage === 'home' &&
-            <div className="container-fluid" style={{ marginTop: '10px', overflow: 'hidden' }}>
+            <div className="container-fluid" style={{ marginTop: '0px',}}>
               {/* First row covering full width */}
               <div className="row">
 
@@ -508,6 +508,8 @@ function THeroSection() {
                       alignItems: 'center',
                       padding: '0px 20px 0px',
                       zIndex: '1',
+                      overflow:'auto',
+                      marginTop: '8px',
                     }}
                   >
                     <div style={{ flex: '1' }}>
@@ -518,7 +520,7 @@ function THeroSection() {
                       <img
                         src={headerimg}
                         alt="Right Image"
-                        style={{ verticalAlign: 'middle', height: '230px', maxwidth: '250px' }}
+                        style={{ verticalAlign: 'middle', height: '230px', maxwidth: '250px' , overflow:'auto',}}
                       />
                     </div>
                   </div>
@@ -527,7 +529,7 @@ function THeroSection() {
 
 
                 {/* Right side (Calendar) */}
-                <div className="col-md-3" style={{}}>
+                <div className="col-md-3" style={{marginTop:'10px'}}>
 
                   {/* Calendar content goes here */}
                   {/* You can add a calendar component or any other content you want in this column */}
@@ -562,12 +564,13 @@ function THeroSection() {
                   {loading ? (
                     <Loader />
                   ) : (
-                    <Container className='custom-carousel' style={{ marginTop: '5px' }}>
+
+                    <Container className='conatiner-fluid' style={{ marginTop: '5px' ,overflow:'auto'}}>
                       <Row className="mt-3">
                         <Col>
                           <Carousel activeIndex={activeRow} indicators={false} controls={false}>
                             {Array.from({ length: totalRows }).map((_, index) => (
-                              <Carousel.Item key={index} style={{ height: '380px' }}>
+                              <Carousel.Item key={index} style={{ height: '380px' ,overflowY:'auto' , overflowX:'hidden'}}>
                                 <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
                               </Carousel.Item>
                             ))}
@@ -610,7 +613,7 @@ function THeroSection() {
                 </>
               ) : (
 
-                <div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="container-fluid" style={{ marginTop: '50px', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center' ,overflow:'auto'}}>
 
                   <h1 style={{
                     fontFamily: 'Poppins', fontWeight: 'bold', textAlign: 'center',

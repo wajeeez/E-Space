@@ -262,7 +262,7 @@ function SHeroSection() {
   return (
     <>
 
-<div className="container-fluid scmain">
+<div className="container-fluid scmain" style={{overflow:'auto'}}>
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
         <div class={sidebarClass}>
@@ -318,11 +318,11 @@ function SHeroSection() {
       
     </ul>
   </div>
-  <div class="container-fluid schome-section">
+  <div class="container-fluid schome-section" >
 
         {currentPage === 'home' && 
 
-                 <div className="container-fluid" style={{ marginTop: '10px', overflow:'hidden'}}>
+                 <div className="container-fluid" style={{ marginTop: '0px'}}>
                  {/* First row covering full width */}
                  <div className="row">
                  
@@ -337,6 +337,8 @@ function SHeroSection() {
                          alignItems: 'center',
                          padding: '0px 20px 0px',
                          zIndex: '1',
+                         marginTop: '8px',
+                         overflow:'auto'
                        }}
                      >
                        <div style={{ flex: '1' }}>
@@ -356,7 +358,7 @@ function SHeroSection() {
              
            
            {/* Right side (Calendar) */}
-           <div className="col-md-3" style={{}}>
+           <div className="col-md-3" style={{marginTop:'10px'}}>
            
              {/* Calendar content goes here */}
              {/* You can add a calendar component or any other content you want in this column */}
@@ -391,12 +393,12 @@ function SHeroSection() {
            {loading ? (
             <Loader />
           ) : ( 
-            <Container className='custom-carousel' style={{ marginTop: '5px'}}>
+            <Container className='container-fluid' style={{ marginTop: '5px', overflow:'auto'}}>
             <Row className="mt-3">
               <Col>
                 <Carousel activeIndex={activeRow} indicators={false} controls={false}>
                   {Array.from({ length: totalRows }).map((_, index) => (
-                    <Carousel.Item key={index} style={{ height: '380px' }}>
+                    <Carousel.Item key={index} style={{ height: '380px' ,overflowY:'auto' , overflowX:'hidden'}}>
                       <Row>{renderCards(index * cardsPerRow, ((index + 1) * cardsPerRow))}</Row>
                     </Carousel.Item>
                   ))}

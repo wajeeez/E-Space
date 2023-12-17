@@ -66,7 +66,7 @@ const TChart = () => {
         { label: 'Lectures', total: totalLectures },
       ];
     return (
-        <BarChart width={900} height={220} data={data}
+        <BarChart width={900} height={210} data={data}
         style={{marginTop:'10px', marginRight:'1rem', marginLeft:'-1rem'}}>
             <CartesianGrid />
             <XAxis dataKey="label"  style={{fontFamily:'Poppins', fontWeight:'500'}} />
