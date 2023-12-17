@@ -493,7 +493,7 @@ const StdTable = () => {
         const response = await StudentSubmissions(formData);
 
         if (response.status === 201 || response.status === 200) {
-          setMessage("Successful");
+          toast.success("Successful");
 
           // Update the state only for the specific assignment
           setSubmissionMapping((prevMapping) => ({
@@ -529,7 +529,10 @@ const StdTable = () => {
       const response = await axios.post(baseURL + `/student/delete/submission/${submissionURL}`, { assignURL });
 
       if (response.status === 200) {
-        toast.success("Assignment Deleted successfully ");
+        toast.success("Assignment Deleted successfully ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
 
         // Update the state only for the specific assignment
         setSubmissionMapping((prevMapping) => ({

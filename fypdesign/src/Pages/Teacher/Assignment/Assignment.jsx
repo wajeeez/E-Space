@@ -157,7 +157,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline ', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
+        autoClose: 1000, // Close the toast after 3 seconds
       });
       // setMessage("Data Missing Please Select a File and Deadline")
     } else {
@@ -176,7 +176,10 @@ const handleDeadlineChange_edt = (event) => {
       const response = await TeacherAssignmentUpload(formData);
 
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfully Uploaded!!!")
+        toast.success("Succesfully Uploaded!!! ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
         console.log("Successfull")
 
         // Reset Form controls
@@ -187,8 +190,8 @@ const handleDeadlineChange_edt = (event) => {
         setTotalMarks('');
 
         setTimeout(() => {
-          setMessage("");
-        }, 3000);
+          window.location.reload();
+        }, 1000);
         if (fileInputRef.current) {
           fileInputRef.current.value = '  '; // Reset the input field
         }
@@ -198,11 +201,15 @@ const handleDeadlineChange_edt = (event) => {
         console.log("BAD REQUEST")
 
         if (response.response.status === 401) {
-          setWMessage(response.response.data.message);
+          // setWMessage(response.response.data.message);
+          toast.error(response.response.data.message, {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
           console.log("401")
           setTimeout(() => {
             setWMessage("");
-          }, 3000);
+          }, 1000);
         }
       }
     }
@@ -240,7 +247,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
+        autoClose: 1000, // Close the toast after 3 seconds
       });
       return
     }
@@ -260,16 +267,28 @@ const handleDeadlineChange_edt = (event) => {
       .then(response => {
         if (response == 200) {
 
-          toast.success("SUCCESSFULLY UPDATED")
+          toast.success("SUCCESSFULLY UPDATED" , {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, // Close the toast after 3 seconds
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
 
         } else {
 
-          toast.error("ERROR UPDATED")
+          toast.error("ERROR UPDATED" ,{
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, // Close the toast after 3 seconds
+          })
         }
       })
       .catch(error => {
         // Handle the error
-        toast.error("ERROR UPDATED")
+        toast.error("ERROR UPDATED" ,{
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Close the toast after 3 seconds
+        })
       });
 
 
@@ -492,7 +511,7 @@ const handleDeadlineChange_edt = (event) => {
 
         toast.error('Assignment File is required ', {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, // Close the toast after 3 seconds
+          autoClose: 1000, 
         });
         return
       }
@@ -513,15 +532,23 @@ const handleDeadlineChange_edt = (event) => {
         .then(response => {
           if (response.status == 200) {
   
-            toast.success("SUCCESSFULLY UPDATED")
-            window.location.reload()
+            toast.success("SUCCESSFULLY UPDATED",  {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 1000, 
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
             handleClose()
             
           } 
         })
         .catch(error => {
           // Handle the error
-          toast.error("ERROR UPDATED")
+          toast.error("ERROR UPDATED", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, 
+          })
         });
   
   
@@ -900,7 +927,7 @@ const handleDeadlineChange_edt = (event) => {
             }} >
               <tr >
                 <th style={{ ...head_color, width: '2%' }}>Sr#</th>
-                <th style={{ ...head_color, width: '7%' }}>Title</th>
+                <th style={{ ...head_color, width: '5%' }}>Title</th>
                 <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
                 <th style={{ ...head_color, width: '5%' }}>Total Marks</th>
