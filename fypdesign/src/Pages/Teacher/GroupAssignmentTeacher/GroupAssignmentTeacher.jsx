@@ -873,7 +873,7 @@ const GroupAssignmentTeacher = () => {
 
                                         <td style={{ ...row_color, }}>
            
-                                        <td>
+                                      
 
 
                                             {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}

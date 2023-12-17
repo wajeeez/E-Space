@@ -34,6 +34,24 @@ function Thome() {
       });
   }, []);
 
+  const [totalStudents,setTotalStudents] = useState("")
+  useEffect(() => {
+    axios
+      .post(baseURL + `/getTotalStudentCount/${_id}`)
+      .then((response) => {
+        if(response.status == 200){
+          setTotalStudents(response.data.totalStudents)
+          localStorage.setItem( _id,response.data.totalStudents)
+        }
+      })
+      .catch((error) => {
+        setTotalStudents(0)
+        console.log(error);
+      });
+  }, []);
+
+
+
   
 
 
@@ -297,7 +315,7 @@ function Thome() {
             
             {/* Right column for absent */}
             <div className="col" style={{marginLeft: '0px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>40</h2>
+              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold',  }}>{totalStudents}</h2>
             </div>
           </div>
           </div>

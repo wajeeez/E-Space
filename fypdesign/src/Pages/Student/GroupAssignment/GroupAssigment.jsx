@@ -866,8 +866,8 @@ const GroupAssignment = () => {
                                                 SUBMIT
                                             </button>
                                         ) : (
-                                            <button className="btn btn-danger" disabled>
-                                                Time's up
+                                            <button    className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }} disabled>
+                                                  Not Available
                                             </button>
                                         )}
                                     </td>

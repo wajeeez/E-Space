@@ -99,5 +99,7 @@ router.post('/notification/assignment/upload/:classId',UploadAssignment.getAssig
 
 router.post('/getKPIS',KPIS.getAssignmentStatistics)
 
+router.post('/getTotalStudentCount/:_id',KPIS.getTotalStudentsbyclassId)
+
 module.exports = router;
 

@@ -9,8 +9,11 @@ import { InputGroup, FormControl } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 
 function TList() {
+
+ 
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
+  const totalStudentsCount = localStorage.getItem(_id)
   const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState('');
   const [submissions, setSubmissions] = useState([]);
@@ -164,8 +167,6 @@ function TList() {
     setsuburl(fileURL)
     setEmail(stdEmail)
     setClassId(classId)
-    
-
     setDialogVisible(true);
   };
 
@@ -309,7 +310,7 @@ function TList() {
           border:'1px solid white', cursor:'default'
         }}
       >
-          {selectedAssignment && `Total Students : ${submissions.length}`}
+          {selectedAssignment && `Total Students : ${totalStudentsCount}`}
 
       </Button>
     </div>

@@ -16,7 +16,6 @@ const Groups = new mongoose.Schema({
       },
       fileName:{
         type:String,
-      
         default:""
       },
       submissionURL:{
@@ -29,7 +28,7 @@ const Groups = new mongoose.Schema({
       },
       time: {
         type: String,
-        required: true,
+        default:"",
       },
       marks:{
         type: String,
