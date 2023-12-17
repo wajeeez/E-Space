@@ -205,7 +205,7 @@ function Thome() {
 
 
   return (
-    <div className="container-fluid" style={{ marginTop: '0px', margin:'0px' ,background: bg}}>
+    <div className="container-fluid" style={{ marginTop: '0px', margin:'0px' ,background: bg, overflow:'auto',}}>
       {/* First row covering full width */}
       <div className="row">
       

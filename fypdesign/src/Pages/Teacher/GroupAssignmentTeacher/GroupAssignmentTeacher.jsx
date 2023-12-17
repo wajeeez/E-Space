@@ -777,7 +777,7 @@ const GroupAssignmentTeacher = () => {
 
             <div style={{ textAlign: "start", padding: '5px' }}>
                 <div className="container-fluid" style={{
-                    textAlign: 'center', marginTop: '0px',
+                    textAlign: 'center', marginTop: '0px',overflow:'auto',
                 }}>
                     <center>
 

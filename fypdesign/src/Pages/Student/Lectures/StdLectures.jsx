@@ -413,7 +413,7 @@ const head_color ={
 
   return (
     <div className="container-fluid" style={{  
-      textAlign: 'center', marginTop: '0px', }}>
+      textAlign: 'center', marginTop: '0px',overflow:'auto', }}>
       <center>
 
       <h1 style={{fontFamily:'Poppins',background:'' , padding:'5px' , color : 'black', borderRadius: '20px', marginBottom: '10px', fontWeight:'100', letterSpacing:'2px'}}>
