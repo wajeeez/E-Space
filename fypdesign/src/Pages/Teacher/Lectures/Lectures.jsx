@@ -599,7 +599,7 @@ const Lectures = () => {
             <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="text"
-                placeholder="References"
+                placeholder="Remark/References"
                 onChange={(e) => handleRemarksChange(e.target.value)}
                 style={{ textAlign: 'center' }}
               />
@@ -629,7 +629,7 @@ const Lectures = () => {
                 <th style={{ ...head_color, width: '5%' }}>Lecture File</th>
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Description</th> */}
                 <th style={{ ...head_color, width: '5%' }}>Video Link</th>
-                <th style={{ ...head_color, width: '7%' }}>Remark</th>
+                <th style={{ ...head_color, width: '5%' }}>Remark/References</th>
                 <th style={{ ...head_color, width: '7%' }}>Action</th>
               </tr>
             </thead>

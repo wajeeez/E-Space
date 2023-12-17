@@ -70,6 +70,10 @@ const GroupAssignmentTeacher = () => {
 
     const closeGroupDialog = () => {
         setGroupDialog(false);
+        setUpdateMarks({
+            marks: '',
+            remarks: '',
+        });
     };
 
     const submitMarks = () => {
@@ -84,9 +88,13 @@ const GroupAssignmentTeacher = () => {
             .post(baseURL + `/assignment/group/updateStudentMarks`, data)
             .then((response) => {
                 if (response.status === 201 || response.status === 200) {
-                    setMessage("Successful");
+                    // setMessage("Successful");
+                    toast.success("Successfull Marked", {
+                        autoClose: 1000,
+                        position: toast.POSITION.TOP_RIGHT,
+                      });
+  
                     console.log("Successful");
-                    toast.success("Successfully UPDATED Assignment")
                     setStudents((prevSubmissions) =>
                         prevSubmissions.map((studnet) =>
                             studnet._id === groupId
@@ -94,20 +102,29 @@ const GroupAssignmentTeacher = () => {
                                 : studnet
                         )
                     );
-
+                    setUpdateMarks({
+                        marks: '',
+                        remarks: '',
+                    });
                 } else {
-                    setMessage("Failed to Update Marks");
+                    // setMessage("Failed to Update Marks");
                     console.log("Failed to Update Marks");
-                    toast.success("Failed to UPDATED Assignment")
+                    toast.error("failed to update", {
+                        autoClose: 1000,
+                        position: toast.POSITION.TOP_RIGHT,
+                      });
                 }
             })
             .catch((error) => {
                 setMessage("Failed to Update Marks");
                 console.log(error);
-                toast.success("Something Went Assignment")
+                toast.error("failed to update", {
+                    autoClose: 1000,
+                    position: toast.POSITION.TOP_RIGHT,
+                  });
             });
 
-        setDialogVisible(false);
+            setGroupDialog(false);
     };
 
 
@@ -399,7 +416,10 @@ const GroupAssignmentTeacher = () => {
             const response = await StudentSubmissions(formData);
 
             if (response.status === 201 || response.status === 200) {
-                setMessage("Successfull")
+                toast.success("Successfull ", {
+                    autoClose: 1000,
+                    position: toast.POSITION.TOP_RIGHT,
+                  });
                 console.log("Successfull")
                 if (fileInputRef.current) {
                     fileInputRef.current.value = ''; // Reset the input field
@@ -407,7 +427,7 @@ const GroupAssignmentTeacher = () => {
 
                 setTimeout(() => {
                     window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-                }, 2000); // Adjust the delay (in milliseconds) as needed
+                }, 1000); // Adjust the delay (in milliseconds) as needed
             } else if (response.code === "ERR_BAD_REQUEST") {
                 // setError(response.response.mes);
                 console.log("BAD REQUES")
@@ -417,7 +437,11 @@ const GroupAssignmentTeacher = () => {
 
 
                 if (response.response.status === 401) {
-                    setMessage(response.response.data.message);
+                    // setMessage(response.response.data.message);
+                    toast.error(response.response.data.message, {
+                        autoClose: 1000,
+                        position: toast.POSITION.TOP_RIGHT,
+                      });
                     console.log("401")
 
                 }
@@ -615,7 +639,7 @@ const GroupAssignmentTeacher = () => {
 
 
     const submitTeacherAssignment = async () => {
-        setShowModal(false); // Close the modal
+        // Close the modal
 
         if (selectedFile || !deadline) {
 
@@ -636,19 +660,31 @@ const GroupAssignmentTeacher = () => {
                 .then(response => {
 
                     if (response.status == 200) {
-                        toast.success("Successfully Uploaded Assignment")
-
+                        toast.success("Successfully Uploaded Assignment", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          })
+                        setShowModal(false); 
+                        setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
                         if (fileInputRef.current) {
                             fileInputRef.current.value = ''; // Reset the input field
                         }
                     } else {
-                        toast.error("Failed to Upload Assignment")
+                        toast.error("Failed to Upload Assignment", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          })
                     }
                     // Handle the success response
                 })
                 .catch(error => {
                     console.error('Error uploading group assignment:', error);
-                    toast.error("Failed to Upload Assignment")
+                    toast.error("Failed to Upload Assignment", {
+                        autoClose: 1000,
+                        position: toast.POSITION.TOP_RIGHT,
+                      })
 
                     // Handle the error
                 });
@@ -691,6 +727,44 @@ const GroupAssignmentTeacher = () => {
         return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
       };
       
+      const [showDeleteModal, setShowDeleteModal] = useState(false);
+      const handleDeleteConfirmed = () => {
+    
+        setShowDeleteModal(false);
+      };
+    
+      const handleDeleteCancelled = () => {
+        // Handle cancel action
+        setShowDeleteModal(false);
+      };
+      const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+        return (
+          <Modal show={show} onHide={handleDeleteCancelled} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Delete Class</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h5>Are you sure you want to Permanently Delete this Class?</h5>
+            </Modal.Body>
+            <Modal.Footer className="justify-content-center align-items-center d-flex">
+              <Button
+                variant="danger"
+                onClick={handleDeleteConfirmed}
+                style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={handleDeleteCancelled}
+                style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+              >
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
+            );
+          };
 
     return (
 
@@ -923,12 +997,16 @@ const GroupAssignmentTeacher = () => {
 
 
                                         </td>
-                                          <td style={{ ...row_color, }}>
+                                        <td style={{ ...row_color, }}>
 
-                                            <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
+                                            <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}
+                                             disabled={student.submissionURL == "" } style={{fontSize: 'small',margin:'4px' }}>
                                                 Asssesment
                                             </button>
-
+                                            <button className="btn btn-danger" style={{fontSize: 'small',margin:'4px' }}
+                                            onClick={() => setShowDeleteModal(true)} >
+                                                Delete Group
+                                            </button>
 
                                         </td>
 
@@ -1005,7 +1083,11 @@ const GroupAssignmentTeacher = () => {
                         </tbody>
                     </table>
 
-
+                    <DeleteModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
                     <div className="text-center">
                         {message !== '' && <p className="text-danger">{message}</p>}
                     </div>
@@ -1066,6 +1148,7 @@ const GroupAssignmentTeacher = () => {
                         Cancel
                     </Button>
                 </Modal.Footer>
+                <ToastContainer></ToastContainer>
             </Modal>
 
 
@@ -1104,12 +1187,13 @@ const GroupAssignmentTeacher = () => {
                 </Modal.Body>
                 <Modal.Footer className="justify-content-center">
                     <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
-                        Submit
+                        Update
                     </Button>
                     <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeGroupDialog}>
                         Cancel
                     </Button>
                 </Modal.Footer>
+                <ToastContainer></ToastContainer>
             </Modal>
 
         </>

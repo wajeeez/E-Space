@@ -227,7 +227,11 @@ const StdTable = () => {
       const response = await StudentSubmissions(formData);
 
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfull")
+        // setMessage("Successfull")
+        toast.success("Successfull ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
         console.log("Successfull")
         if (fileInputRef.current) {
           fileInputRef.current.value = ''; // Reset the input field
@@ -235,17 +239,21 @@ const StdTable = () => {
 
         setTimeout(() => {
           window.location.reload(); // Reload the page after a delay (e.g., 2 seconds)
-        }, 2000); // Adjust the delay (in milliseconds) as needed
+        }, 1000); // Adjust the delay (in milliseconds) as needed
       } else if (response.code === "ERR_BAD_REQUEST") {
         // setError(response.response.mes);
-        console.log("BAD REQUES")
+        console.log("BAD REQUEST")
         if (response.response.status === 500) {
           console.log("500 BAD REQUEST ")
         }
 
 
         if (response.response.status === 401) {
-          setMessage(response.response.data.message);
+          // setMessage(response.response.data.message);
+          toast.error(response.response.data.message, {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
           console.log("401")
 
         }
@@ -480,8 +488,8 @@ const StdTable = () => {
   };
 
   const submit_assignment = async () => {
-    setShowModal(false); // Close the modal
-
+    // Close the modal
+  
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -489,20 +497,23 @@ const StdTable = () => {
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL);
       formData.append('deadline', currentDate);
+  
       try {
         const response = await StudentSubmissions(formData);
-
+  
         if (response.status === 201 || response.status === 200) {
-          toast.success("Successful");
-
+          toast.success("Successful", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
+  
           // Update the state only for the specific assignment
           setSubmissionMapping((prevMapping) => ({
             ...prevMapping,
             [getFileURL]: response.data.submissionURL,
           }));
-
-          // You can similarly update marksMapping and remarksMapping if needed
-
+          setShowModal(false);
+  
           // Reset the input field
           if (fileInputRef.current) {
             fileInputRef.current.value = '';
@@ -510,6 +521,7 @@ const StdTable = () => {
           setTimeout(() => {
             window.location.reload();
           }, 1000);
+  
           // Fetch the updated data after a successful submission
           fetchData();
         } else if (response.code === "ERR_BAD_REQUEST") {
@@ -519,9 +531,16 @@ const StdTable = () => {
         console.error('Error submitting assignment:', error);
       }
     } else {
+      // Display toast error when no file is selected
+      toast.error("Please select a file before submitting", {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_RIGHT,
+      });
+  
       console.log(selectedFile + " ERROR");
     }
   };
+  
 
   const deleteSubmission = async (submissionURL, assignURL) => {
     try {
@@ -569,6 +588,10 @@ const StdTable = () => {
 
 
   return (
+    <>
+    <ToastContainer></ToastContainer>
+
+
     <div className="container-fluid" style={{
       textAlign: 'center', marginTop: '0px',
     }}>
@@ -859,6 +882,7 @@ const StdTable = () => {
               Cancel
             </Button>
           </Modal.Footer>
+          <ToastContainer></ToastContainer>
         </Modal>
 
         <div className="text-center">
@@ -868,6 +892,8 @@ const StdTable = () => {
       </center>
 
     </div>
+
+    </>
   );
 
 

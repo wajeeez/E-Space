@@ -102,36 +102,37 @@ const GroupAssignment = () => {
     const [dialogMessage, setDialogMessage] = useState();
     const handleCreate = () => {
         // Check if the studentId is already in the selectedStudents array
-        console.log(selectedStudents)
-
-        if (selectedStudents && selectedStudents.length > 0) {
+        console.log(selectedStudents);
+    
+        if (selectedStudents && selectedStudents.length >= 2) {
             axios
                 .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents })
                 .then((response) => {
                     if (response.data) {
-
-
-                        console.log(response.data)
-                        setDialogMessage("Success")
-                        recheck()
-
+                        console.log(response.data);
+                        setDialogMessage("Success");
+                        recheck();
                     }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+                setSelectedStudents([]);
 
-
-            setDialogOpen(false)
-
+            toast.success("Group Created Successfully", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_RIGHT,
+            });
+    
+            setDialogOpen(false);
         } else {
-            setDialogMessage("Please Select Students")
+            toast.error("Please Select 2 or more Students", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
-
-
-
     };
-
+    
 
 
 
@@ -548,71 +549,57 @@ const GroupAssignment = () => {
 
     const submissionUpload = async () => {
         // Close the modal
-
-
-
+    
         if (selectedFile && groupId && _id) {
-
             const formData = new FormData();
             formData.append('file', selectedFile);
             formData.append('groupId', groupId);
             formData.append('classId', _id);
-
-
-            console.log(selectedFile, groupId, deadline)
-
+    
+            console.log(selectedFile, groupId, deadline);
+    
             axios.post(baseURL + '/student/groupAssignment/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
                 .then(response => {
-
-                    if (response.status == 200) {
-                        toast.success("Successfully Uploaded Assignment")
+                    if (response.status === 200) {
+                        toast.success("Successfully Uploaded Submission", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
                         setDialogVisible(false);
                         if (fileInputRef.current) {
                             fileInputRef.current.value = ''; // Reset the input field
                         }
                     } else {
-                        toast.error("Failed to Upload Assignment")
+                        toast.error("Failed to Upload Submission", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
                         setDialogVisible(false);
                     }
-                    // Handle the success response
                 })
                 .catch(error => {
-                    console.error('Error uploading group assignment:', error);
-                    toast.error("Failed to Upload Assignment")
-
-                    // Handle the error
+                    console.error('Error uploading group Submission:', error);
+                    toast.error("Failed to Upload Submission", {
+                        autoClose: 1000,
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
                 });
-
-            //   if (response.status === 201 || response.status === 200) {
-            //     setMessage("Successful");
-            //     console.log("Successful");
-
-            //     if (fileInputRef.current) {
-            //       fileInputRef.current.value = ''; // Reset the input field
-            //     }  
-
-
-            //   } else if (response.code === "ERR_BAD_REQUEST") {
-            //     console.log("BAD REQUEST");
-
-            //     if (response.response.status === 500) {
-            //       console.log("500 BAD REQUEST ");
-            //     }
-
-            //     if (response.response.status === 401) {
-            //       setMessage(response.response.data.message);
-            //       console.log("401");
-            //     }
-            //   }
         } else {
-            console.log(selectedFile + " ERROR");
+            toast.error("Choose A File", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            console.log("File not selected");
         }
-
     }
+    
 
     const formatTime = (time) => {
         if (!time) {
@@ -625,11 +612,49 @@ const GroupAssignment = () => {
         return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
       };
       
-
+      const [showDeleteModal, setShowDeleteModal] = useState(false);
+      const handleDeleteConfirmed = () => {
+    
+        setShowDeleteModal(false);
+      };
+    
+      const handleDeleteCancelled = () => {
+        // Handle cancel action
+        setShowDeleteModal(false);
+      };
+      const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+        return (
+          <Modal show={show} onHide={handleDeleteCancelled} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Delete Class</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h5>Are you sure you want to Permanently Delete this Class?</h5>
+            </Modal.Body>
+            <Modal.Footer className="justify-content-center align-items-center d-flex">
+              <Button
+                variant="danger"
+                onClick={handleDeleteConfirmed}
+                style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={handleDeleteCancelled}
+                style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+              >
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
+            );
+          };
 
     return (
 
         <>
+        <ToastContainer></ToastContainer>
             <div className="container-fluid" style={{
                 textAlign: 'center', marginTop: '0px',
             }}>
@@ -660,10 +685,10 @@ const GroupAssignment = () => {
 
                         {dialogOpen === true ? (
                             // <StudentListDialog></StudentListDialog>
-
+                            
                             <Dialog open={dialogOpen} maxWidth="md" fullWidth>
                                 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-                                 
+                                <ToastContainer></ToastContainer>
                                 <DialogContent>
                                 <i className='bx bx-x' style={{ position: 'absolute', top: '5px', right: '10px', fontWeight: 'bold', fontSize: '2.5rem', cursor:'pointer' }}
                                  onClick={handleCloseDialog}></i>
@@ -705,6 +730,7 @@ const GroupAssignment = () => {
                                                             <td style={{ ...row_color, textAlign: 'center' }}>
                                                                 <input
                                                                     type="checkbox"
+                                                                    checked={selectedStudents.includes(student._id)}
                                                                     onClick={() => handleCheckboxChange(student._id)}
                                                                     size="large"
                                                                 />
@@ -736,12 +762,6 @@ const GroupAssignment = () => {
                                             </tbody>
                                         </table>
 
-
-
-
-
-
-
                                         <div style={{ textAlign: "center" }}>
 
 
@@ -760,9 +780,9 @@ const GroupAssignment = () => {
                                                 <i className='bx bx-edit' style={{ fontSize: '22px', marginRight: '5px', marginTop: '0px' }}> </i>
                                                 Create
                                             </Button>
-                                            <div className="text-center">
+                                            {/* <div className="text-center">
                                                 {dialogMessage !== '' && <p className="text-danger">{dialogMessage}</p>}
-                                            </div>
+                                            </div> */}
 
                                         </div>
 
@@ -795,7 +815,7 @@ const GroupAssignment = () => {
                             <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
                             <th style={{ ...head_color, width: '5%' }}>Submission</th>
                             <th style={{ ...head_color, width: '7%' }}>Deadline</th>
-                            <th style={{ ...head_color, width: '3%' }}>Action</th>
+                            <th style={{ ...head_color, width: '5%' }}>Action</th>
                         </tr>
                     </thead>
                     <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -831,7 +851,7 @@ const GroupAssignment = () => {
                                             :
                                             <button
                                                 className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
-                                                onClick={openFileInBrowser.bind(null, assignment.fileURL)}
+                                                onClick={openFileInBrowser.bind(null, assignment.fileURL)} disabled
                                             >
                                                Not Uploaded yet
                                             </button>
@@ -876,16 +896,66 @@ const GroupAssignment = () => {
                                         }
                                     </td>
                                     <td style={{ ...row_color, textAlign: 'center' }}>
-                                        {currentDate < dateTime ? (
+                                        {currentDate > dateTime && assignment.fileURL ? (
+                                            <button
+                                            className="btn btn-danger"
+                                            style={{
+                                              margin: '2px',
+                                              fontSize: 'small',
+                                              cursor: 'default',
+                                              boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                                              background: '#cc3035',
+                                            }}
+                                          >
+                                            Deadline Exceeded
+                                          </button>
+                                        ) :currentDate < dateTime && assignment.submissionURL ? (
+                                            <>
+                                                <button className="btn btn-warning" style={{ fontSize: 'small', margin: '4px' }} onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
+                                                    Re-Submit
+                                                </button>
+                                                <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
+                                                    Delete Group
+                                                </button>
+                                            </>
+                                        ) : currentDate <= dateTime && assignment.fileURL ? (
                                             <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
                                                 SUBMIT
                                             </button>
                                         ) : (
-                                            <button    className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }} disabled>
-                                                  Not Available
+                                            // This case handles when currentDate <= dateTime && assignment.fileURL is null
+                                            <>
+                                            {/* <button className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'small' }} disabled>
+                                                Not Available
+                                            </button> */}
+
+                                            <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
+                                                Delete Group
                                             </button>
+
+                                            </>
+                                            
                                         )}
                                     </td>
+
+
+
+
+
+
+                                        {/* <>
+                                            <button className="btn btn-warning" style={{ fontSize: 'small', margin: '4px' }}>
+                                                Re-Submit
+                                            </button>
+                                            <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
+                                                Delete Group
+                                            </button>
+                                        </> */}
+ 
+
+
+
+
 
 
                                 </tr>
@@ -903,6 +973,14 @@ const GroupAssignment = () => {
                         )})}
                     </tbody>
                 </table>
+
+
+                <DeleteModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
+
                 <div className="text-center">
                     {message !== '' && <p className="text-danger">{message}</p>}
                 </div>
@@ -939,6 +1017,7 @@ const GroupAssignment = () => {
                         Cancel
                     </Button>
                 </Modal.Footer>
+                <ToastContainer></ToastContainer>
             </Modal>
             <ToastContainer />
         </>

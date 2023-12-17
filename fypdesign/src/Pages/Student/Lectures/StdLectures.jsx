@@ -429,11 +429,11 @@ const head_color ={
         background:'' }} >
           <tr >
             <th style={{ ...head_color,width: '2%'}}>Sr No.</th>
-            <th style={{ ...head_color,width: '10%'  }}>Title</th>
+            <th style={{ ...head_color,width: '5%'  }}>Title</th>
             {/* <th style={{ ...head_color,width: '10%', fontSize:'large'  }}>Description</th> */}
             <th style={{ ...head_color,width: '5%' }}>Lecture File</th>
             <th style={{ ...head_color,width: '5%' }}>Video Link</th>
-            <th style={{ ...head_color,width: '10%' }}>Remarks</th>
+            <th style={{ ...head_color,width: '5%' }}>Remarks/Refrences</th>
           </tr>
         </thead>
         {lectures.map((lecture, index) =>
@@ -485,7 +485,7 @@ const head_color ={
 
         <td style={{...row_color }}>
       <p style={{fontSize:'large', fontWeight:''}}>
-      {lecture.remarks}
+      {lecture.lectureDesc}
       </p>
         </td>
         
