@@ -774,6 +774,16 @@ const handleDeadlineChange_edt = (event) => {
     setEditAssignmentVisible(false);
   };
 
+  const formatTime = (time) => {
+    if (!time) {
+      return ''; // or any default value you want to display for undefined time
+    }
+  
+    const date = new Date();
+    const [hours, minutes] = time.split(':');
+    date.setHours(hours, minutes, 0);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  };
 
   return (
 
@@ -894,8 +904,8 @@ const handleDeadlineChange_edt = (event) => {
                 <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
                 <th style={{ ...head_color, width: '5%' }}>Total Marks</th>
-                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
-                <th style={{ ...head_color, width: '10%' }}>Action</th>
+                <th style={{ ...head_color, width: '7%' }}>Deadline</th>
+                <th style={{ ...head_color, width: '7%' }}>Action</th>
               </tr>
             </thead>
             <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -904,8 +914,8 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color }}>
                     <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
+                  <td style={{ ...row_color ,fontSize: 'large'}}>
+                    {assignment.title}
                   </td>
                   <td style={{ ...row_color }}>
                     <>
@@ -918,13 +928,25 @@ const handleDeadlineChange_edt = (event) => {
                       </button>
                     </>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '400' }}>{assignment.totalMarks}</p>
+                  <td style={{ ...row_color,fontSize: 'large', fontWeight: '400' }}>
+                    {assignment.totalMarks}
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>
+                  <td style={{ ...row_color ,fontSize: 'large', fontWeight: '500', letterSpacing: '1px', color: 'green'}}>
+                    
                       {new Date(assignment.deadline).toLocaleDateString('en-GB')}
-                    </p>
+                      <span> </span>
+                      {formatTime(assignment.time)}
+                    
+                    {/* <button
+                      className="btn btn-secondary"
+                      style={{fontSize: 'medium', fontWeight:'500', color:'white' ,cursor: 'default',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                      background: 'grey',}}
+                    >
+                      {new Date(assignment.deadline).toLocaleDateString('en-GB')}
+                      <span> </span>
+                      {formatTime(assignment.time)}
+                    </button> */}
                   </td>
                   <td style={{ ...row_color }}>
                     <button

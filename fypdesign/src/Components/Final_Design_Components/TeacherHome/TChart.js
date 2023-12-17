@@ -66,13 +66,14 @@ const TChart = () => {
         { label: 'Lectures', total: totalLectures },
       ];
     return (
-        <BarChart width={1000} height={270} data={data}>
+        <BarChart width={900} height={220} data={data}
+        style={{marginTop:'10px', marginRight:'1rem', marginLeft:'-1rem'}}>
             <CartesianGrid />
-            <XAxis dataKey="label" />
+            <XAxis dataKey="label"  style={{fontFamily:'Poppins', fontWeight:'500'}} />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#c124e1" barSize={50} name="Total" />
+            <Bar dataKey="total" fill="#c124e1" barSize={50} name="Uploaded" />
             
         </BarChart>
     );
