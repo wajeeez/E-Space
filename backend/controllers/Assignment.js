@@ -64,6 +64,7 @@ async function UploadAssignment(req, res, next) {
       classId: classId,
       message: "New Assignment Uploaded",
       deadline: deadline, // Save the deadline in the Assignment model
+      time:time,
     });
 
     await notification.save();
@@ -86,7 +87,7 @@ async function UploadGroupAssignment(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { groupId, classId, deadline } = req.body;
+    const { groupId, classId, deadline ,time} = req.body;
 
 
     const group = await Group.findOne({ _id: groupId })
@@ -108,6 +109,7 @@ async function UploadGroupAssignment(req, res, next) {
       const fileURL = savedFile._id;
       group.fileURL = fileURL;
       group.deadline = deadline;
+      group.time =time;
 
 
       await group.save();
@@ -117,7 +119,8 @@ async function UploadGroupAssignment(req, res, next) {
 
         classId: classId,
         message: "New Assignment Uploaded",
-        deadline: deadline, // Save the deadline in the Assignment model
+        deadline: deadline, 
+        time:time,// Save the deadline in the Assignment model
       });
 
       await groupNotification.save();
@@ -345,8 +348,6 @@ async function editTeacherAssignment(req, res, next) {
 
       // Save the new file document
       const savedFile = await newFile.save();
-
-      // Update the file URL in the existing lecture
       existingAssignment.fileURL = savedFile._id;
     }
 

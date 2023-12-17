@@ -44,79 +44,79 @@ const GroupAssignmentTeacher = () => {
     const [deadline, setDeadline] = useState('');
 
 
-    const [groupId , setgroupId] = useState();
-    const [ groupDialog,setGroupDialog] =useState();
-    const [classId , setClassId] = useState();
+    const [groupId, setgroupId] = useState();
+    const [groupDialog, setGroupDialog] = useState();
+    const [classId, setClassId] = useState();
     const [updateMarks, setUpdateMarks] = useState({
         marks: '',
         remarks: '',
-      });
+    });
 
-      const handleUpdateInput = (e) => {
+    const handleUpdateInput = (e) => {
         const { name, value } = e.target;
         setUpdateMarks({
-          ...updateMarks,
-          [name]: value,
+            ...updateMarks,
+            [name]: value,
         });
-      };
+    };
 
 
     const openGroupDialog = (_id) => {
         console.log(_id)
         setgroupId(_id)
-      
+
         setGroupDialog(true);
-      };
-    
-      const closeGroupDialog = () => {
+    };
+
+    const closeGroupDialog = () => {
         setGroupDialog(false);
-      };
+    };
 
-      const submitMarks = () => {
+    const submitMarks = () => {
         const data = {
-       
-          _id: groupId,
-          marks: updateMarks.marks,
-          remarks: updateMarks.remarks,
+
+            _id: groupId,
+            marks: updateMarks.marks,
+            remarks: updateMarks.remarks,
         };
-      
+
         axios
-          .post(baseURL + `/assignment/group/updateStudentMarks`, data)
-          .then((response) => {
-            if (response.status === 201 || response.status === 200) {
-              setMessage("Successful");
-              console.log("Successful");
-              toast.success("Successfully UPDATED Assignment")
-              setStudents((prevSubmissions) =>
-              prevSubmissions.map((studnet) =>
-              studnet._id === groupId
-                  ? { ...studnet, marks: updateMarks.marks, remarks: updateMarks.remarks }
-                  : studnet
-              )
-            );
-              
-            } else {
-              setMessage("Failed to Update Marks");
-              console.log("Failed to Update Marks");
-              toast.success("Failed to UPDATED Assignment")
-            }
-          })
-          .catch((error) => {
-            setMessage("Failed to Update Marks");
-            console.log(error);
-            toast.success("Something Went Assignment")
-          });
-      
+            .post(baseURL + `/assignment/group/updateStudentMarks`, data)
+            .then((response) => {
+                if (response.status === 201 || response.status === 200) {
+                    setMessage("Successful");
+                    console.log("Successful");
+                    toast.success("Successfully UPDATED Assignment")
+                    setStudents((prevSubmissions) =>
+                        prevSubmissions.map((studnet) =>
+                            studnet._id === groupId
+                                ? { ...studnet, marks: updateMarks.marks, remarks: updateMarks.remarks }
+                                : studnet
+                        )
+                    );
+
+                } else {
+                    setMessage("Failed to Update Marks");
+                    console.log("Failed to Update Marks");
+                    toast.success("Failed to UPDATED Assignment")
+                }
+            })
+            .catch((error) => {
+                setMessage("Failed to Update Marks");
+                console.log(error);
+                toast.success("Something Went Assignment")
+            });
+
         setDialogVisible(false);
-      };
+    };
 
 
-      function isNumberKey(evt) {
+    function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode
         if (charCode > 31 && (charCode < 48 || charCode > 57))
-          return false;
+            return false;
         return true;
-      }
+    }
 
 
     function getCurrentDate() {
@@ -531,7 +531,7 @@ const GroupAssignmentTeacher = () => {
                                 const submissionFileURL = assignment.submissionFileURL;
                                 const marks = assignment.marks;
                                 const remarks = assignment.remarks;
-                                console.log(marks,remarks)
+                                console.log(marks, remarks)
                                 // Call updateSubmissionMapping for each assignment
                                 updateSubmissionMapping(assignmentFileURL, submissionFileURL);
                                 updateMarksMapping(submissionFileURL, marks)
@@ -574,7 +574,7 @@ const GroupAssignmentTeacher = () => {
         ;
 
     const [dialogOpen, setDialogOpen] = useState(false);
-
+    const [time, setTime] = useState('');
     const handleOpenDialog = () => {
         setDialogOpen(true);
     };
@@ -588,8 +588,8 @@ const GroupAssignmentTeacher = () => {
         backgroundColor: 'transparent',
         color: 'black',
         fontWeight: '600',
-        fontFamily:'Poppins',
-        fontSize:'medium' ,
+        fontFamily: 'Poppins',
+        fontSize: 'medium',
     }
 
     const [showModal, setShowModal] = useState(false);
@@ -609,6 +609,9 @@ const GroupAssignmentTeacher = () => {
     const handleDeadlineChange = (event) => {
         setDeadline(event.target.value);
     };
+     const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  };
 
 
     const submitTeacherAssignment = async () => {
@@ -621,8 +624,9 @@ const GroupAssignmentTeacher = () => {
             formData.append('groupId', GroupId);
             formData.append('classId', _id);
             formData.append('deadline', deadline);
+            formData.append('time', time);
 
-            console.log(selectedFile, GroupId, deadline)
+            console.log(selectedFile, GroupId, deadline,time)
 
             axios.post(baseURL + '/teacher/groupAssignment/upload', formData, {
                 headers: {
@@ -807,10 +811,14 @@ const GroupAssignmentTeacher = () => {
                                 <tbody>
                                     {students.map((student, index) => ( */}
                     {/* <React.Fragment key={index}> */}
-                    <table className="table custom-std-table" style={{border:'0px solid silver', verticalAlign: 'middle' , 
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',borderRadius:'5px'}}>
-                        <thead style={{border:'0px solid silver' , padding: '15px', verticalAlign: 'middle', textAlign:'center', 
-                        background:'' }} >
+                    <table className="table custom-std-table" style={{
+                        border: '0px solid silver', verticalAlign: 'middle',
+                        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', borderRadius: '5px'
+                    }}>
+                        <thead style={{
+                            border: '0px solid silver', padding: '15px', verticalAlign: 'middle', textAlign: 'center',
+                            background: ''
+                        }} >
                             <tr >
                                 <th style={{ ...head_color, width: '2%' }}>Sr#</th>
                                 <th style={{ ...head_color, width: '5%' }}>Title</th>
@@ -861,10 +869,10 @@ const GroupAssignmentTeacher = () => {
                                                 : ' --- '} */}
                                         </td>
                                         <td>
-                                            
-                                            
-                                        {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}
-                                        
+
+
+                                            {student.marks != "" ? (<p>{student.marks}</p>) : "NOT SUBMITTED"}
+
                                         </td>
                                         <td>
                                             {student.submissionURL != "" ? (
@@ -880,35 +888,29 @@ const GroupAssignmentTeacher = () => {
                                         </td>
                                         <td>
                                             {student.deadline != null ?
-                                                <FormattedDate rawDate={student.deadline} />
+                                                <>
+                                                    <FormattedDate rawDate={student.deadline} />
+                                                    <span> {student.time} </span> </>
                                                 : "Not Available"
                                             }
                                         </td>
                                         <td>
-                                            {currentDate <= new Date(student.deadline) ? (
-                                                <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)}>
-                                                    Edit
-                                                </button>
-                                            ) : (
-                                                <button className="btn" disabled>
-                                                    Not Available
-                                                </button>
-                                            )}
+
+                                            <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)}>
+                                                Edit
+                                            </button>
+
                                         </td>
 
                                         <td style={{ ...row_color, }}>
-                                            {currentDate <= new Date(student.deadline) ? (
-                                                <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
-                                                    Asssesment
-                                                </button>
-                                            ) : (
-                                                <button className="btn" disabled>
-                                                    Not Available
-                                                </button>
-                                            )}
 
-                                        </td>
-{/*                                   
+                                            <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
+                                                Asssesment
+                                            </button>
+
+
+                                        </td>
+                                        {/*                                   
                                     <td style={{ ...row_color, }}>
                                         {remarksMapping[submissionMapping[student.fileURL]]
                                             ? remarksMapping[submissionMapping[student.fileURL]]
@@ -985,12 +987,7 @@ const GroupAssignmentTeacher = () => {
                 <Modal.Body>
                     <h5>Max 15mb File</h5>
                     <h6 style={{ color: 'red', marginBottom: '20px', marginTop: '10px' }}>only (.zip , .pdf , .docx )files</h6>
-                    {/* <input
-            className="form-control"
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-          />  */}
+
                     <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '' }}>
                         <Form.Control
                             type="file"
@@ -1013,6 +1010,18 @@ const GroupAssignmentTeacher = () => {
                             style={{ color: '' }}
                         />
                     </Form.Group>
+                    <h5>Deadline Time</h5>                  
+                    <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
+                        <Form.Control
+
+                            type="time"
+                            value={time}
+                            onChange={handleTimeChange}
+                            className={styles.assignmentButton}
+                        />
+                    </Form.Group>
+
+
                 </Modal.Body>
                 <Modal.Footer className="justify-content-center align-items-center d-flex">
                     <Button type="button" className="btn btn-primary" onClick={submitTeacherAssignment}
@@ -1029,46 +1038,46 @@ const GroupAssignmentTeacher = () => {
 
 
             <Modal show={groupDialog} onHide={closeGroupDialog} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Update Marks & Remarks</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="text-center justify-content-center align-items-center">
-        <Form.Group className="mb-3">
-          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Marks:</Form.Label>
-          <Form.Control
-            style={{ marginTop: '10px',textAlign:'center' }}
-            type="number"
-            id="marksInput"
-            name="marks"
-            placeholder="---"
-            value={updateMarks.marks}
-            onChange={handleUpdateInput}
-            onKeyPress={(e) => isNumberKey(e)}
-          />
-           </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Remarks:</Form.Label>
-          <Form.Control
-            style={{ marginTop: '10px',textAlign:'center' }}
-            type="text"
-            id="remarksInput"
-            name="remarks"
-            placeholder="---"
-            value={updateMarks.remarks}
-            onChange={handleUpdateInput}
-          />
-        </Form.Group>
-        <span>{message}</span>
-      </Modal.Body>
-      <Modal.Footer className="justify-content-center">
-        <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
-          Submit
-        </Button>
-        <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeGroupDialog}>
-          Cancel
-        </Button>
-      </Modal.Footer>
-    </Modal>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Marks & Remarks</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-center justify-content-center align-items-center">
+                    <Form.Group className="mb-3">
+                        <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Marks:</Form.Label>
+                        <Form.Control
+                            style={{ marginTop: '10px', textAlign: 'center' }}
+                            type="number"
+                            id="marksInput"
+                            name="marks"
+                            placeholder="---"
+                            value={updateMarks.marks}
+                            onChange={handleUpdateInput}
+                            onKeyPress={(e) => isNumberKey(e)}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label style={{ margin: '5px', fontSize: 'large', fontWeight: 'bold' }}>Enter Remarks:</Form.Label>
+                        <Form.Control
+                            style={{ marginTop: '10px', textAlign: 'center' }}
+                            type="text"
+                            id="remarksInput"
+                            name="remarks"
+                            placeholder="---"
+                            value={updateMarks.remarks}
+                            onChange={handleUpdateInput}
+                        />
+                    </Form.Group>
+                    <span>{message}</span>
+                </Modal.Body>
+                <Modal.Footer className="justify-content-center">
+                    <Button type="button" className="btn btn-success" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={submitMarks}>
+                        Submit
+                    </Button>
+                    <Button type="button" className="btn btn-danger" style={{ margin: '10px', fontSize: 'large', width: '120px' }} onClick={closeGroupDialog}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </>
     );

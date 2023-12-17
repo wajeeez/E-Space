@@ -31,6 +31,7 @@ const GroupAssignment = () => {
     const [assignments, setAssignments] = useState([]);
     const [teacherName, setTeacherName] = useState([]);
     const [subjectName, setsubjectName] = useState([]);
+    const [time, setTime] = useState('');
     const [dialogVisible, setDialogVisible] = useState(false);
     const fileInputRef = useRef(null);
     const [message, setMessage] = useState(null);
@@ -302,13 +303,7 @@ const GroupAssignment = () => {
             .get(baseURL + `/students/getAllGroups/${_id}`)
             .then((response) => {
                 if (response.data) {
-                    //  fileURLs = response.data.reduce((accumulator, item, index) => {
-                    //   accumulator[index] = item.fileURL;
-                    //   return accumulator;
-                    // }, {});
                     setAssignments(response.data);
-
-
                 }
             })
             .catch((error) => {
@@ -780,7 +775,20 @@ const GroupAssignment = () => {
                         </tr>
                     </thead>
                     <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
-                        {assignments.map((assignment, index) => (
+                        {assignments.map((assignment, index) => {
+
+                            const dateTime = new Date(assignment.deadline)             
+                            if(assignment.time != null){
+                                const [hours, minutes] = assignment.time.split(':');
+                                dateTime.setHours(hours,minutes,0)
+                                console.log(dateTime)
+                            }else{
+                                dateTime.setHours(23,59,59)
+                            }
+
+
+                            return (
+
                             <React.Fragment key={assignment.fileURL}>
 
                                 <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
@@ -801,7 +809,7 @@ const GroupAssignment = () => {
                                                 className="btn btn-secondary " style={{ marginTop: '0px', fontSize: 'medium' }}
                                                 onClick={openFileInBrowser.bind(null, assignment.fileURL)}
                                             >
-                                                No file Uploaded yet
+                                               No file Uploaded yet
                                             </button>
 
                                         }
@@ -810,9 +818,7 @@ const GroupAssignment = () => {
                                     <td>
 
                                         {assignment.remarks != "" ? (<p>{assignment.remarks}</p>) : "NOT SUBMITTED"}
-                                        {/* {remarksMapping[submissionMapping[student.fileURL]]
-    ? remarksMapping[submissionMapping[student.fileURL]]
-    : ' --- '} */}
+                                     
                                     </td>
                                     <td>
 
@@ -829,37 +835,22 @@ const GroupAssignment = () => {
                                             Submission File
                                         </button>
                                             : (
-
                                                 "Not Submitted yet"
                                             )
-
                                         }
-
                                     </td>
-                                    {/*
-                                    {submissionMapping[assignment.submissionFileURL] ? (
-                                <td style={{...row_color, textAlign: 'center' }}>
-                                    {submissionMapping[assignment.fileURL] ? (
-                                        <button
-                                            className="btn btn-secondary"
-                                            onClick={openFile.bind(null, assignment.submissionURL)}
-                                        >
-                                            Submission File
-                                        </button>
-                                    ) : (
-                                        'No Submission'
-                                    )}
-                                </td> */}
+                                   
 
 
                                     <td style={{ ...row_color, textAlign: 'center' }}>
                                         {assignment.deadline != null ?
-                                            <FormattedDate rawDate={assignment.deadline} />
+                                        <>   <FormattedDate rawDate={assignment.deadline} />
+                                            <span style={{   fontFamily: 'Helvetica'}}> {assignment.time}</span></>
                                             : "Not Available"
                                         }
                                     </td>
                                     <td style={{ ...row_color, textAlign: 'center' }}>
-                                        {currentDate <= new Date(assignment.deadline) ? (
+                                        {currentDate < dateTime ? (
                                             <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
                                                 SUBMIT
                                             </button>
@@ -868,8 +859,6 @@ const GroupAssignment = () => {
                                                 Time's up
                                             </button>
                                         )}
-
-
                                     </td>
 
 
@@ -885,7 +874,7 @@ const GroupAssignment = () => {
 
 
                             </React.Fragment>
-                        ))}
+                        )})}
                     </tbody>
                 </table>
                 <div className="text-center">
