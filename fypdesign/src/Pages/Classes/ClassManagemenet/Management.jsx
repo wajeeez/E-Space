@@ -26,7 +26,7 @@ function Management() {
             .get(baseURL + `/students/getAllStudents/${_id}`)
             .then((response) => {
                 if (isMounted && check === false && response.data.length === 0) {
-                    toast.info('No students found.', { position: 'bottom-right' });
+                    toast.info('No students found.', { position: 'bottom-right',autoClose: 1000, });
                     setCheck(true);
                 } else {
                     console.log("Requesting");
@@ -75,24 +75,42 @@ function Management() {
     const handleReg = async () => {
           setShowModal(false);
         if (emails == null || emails.length === 0) {
-            toast.error("Please provide valid emails");
+            toast.error("Please provide valid emails" , {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_RIGHT,
+              });
         } else {
             axios.post(baseURL + `/teacher/addstudents/${_id}`, { students: emails })
                 .then(response => {
                     console.log(response.data);
 
                     if (response.data.message === 'Students added to the class successfully') {
-                        toast.success("Students Added Successfully");
+                        toast.success("Students Added Successfully", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          });
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 1000);
                     } else {
-                        toast.success("Already Exits");
+                        toast.success("Already Exits", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          });
                     }
                 })
                 .catch(error => {
                     console.error(error);
                     if (error.response && error.response.status === 404) {
-                        toast.error("Class not found");
+                        toast.error("Class not found", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          });
                     } else {
-                        toast.error("Error adding students");
+                        toast.error("Error adding students", {
+                            autoClose: 1000,
+                            position: toast.POSITION.TOP_RIGHT,
+                          });
                     }
                 });
         }
@@ -119,14 +137,26 @@ function Management() {
         });
   
         if (response.data.message === 'Student removed from the class successfully') {
-          toast.success('Student removed from the class successfully');
+          toast.success('Student removed from the class successfully', {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
           // Optionally, update the state or fetch the updated list of students
         } else {
-          toast.error('Error removing student from the class');
+          toast.error('Error removing student from the class', {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
         }
       } catch (error) {
         console.error(error);
-        toast.error('Error removing student from the class');
+        toast.error('Error removing student from the class', {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
       }
     };
     const row_color = {

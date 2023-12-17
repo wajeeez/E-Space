@@ -93,14 +93,23 @@ const Lectures = () => {
     console.log(lectureLink)
     console.log(Remarks)
 
-    if (!selectedFile || !teacherID || !lectureName || !lectureLink || !Remarks) {
-      setMessage("Data Missing Please Select a File and Deadline")
+    // if (!selectedFile || !teacherID || !lectureName || !lectureLink || !Remarks) {
+      const sanitizedLectureLink = lectureLink.trim() || '-';
+      const sanitizedRemarks = Remarks.trim() || '-';
+    
+      if (!selectedFile || !teacherID || !lectureName) {
+      toast.error("Data Missing Please Select a File and Deadline", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_RIGHT,
+      })
     } else {
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('classId', _id);
-      formData.append('lectureDesc', Remarks);
-      formData.append('lectureLink', lectureLink);
+      // formData.append('lectureDesc', Remarks);
+      // formData.append('lectureLink', lectureLink);
+      formData.append('lectureDesc', sanitizedRemarks);
+      formData.append('lectureLink', sanitizedLectureLink)
       formData.append('teacherID', teacherID);
       formData.append('lectureName', lectureName);
       // Append the deadline value
@@ -108,8 +117,14 @@ const Lectures = () => {
 
       if (response.status === 201 || response.status === 200) {
 
-        toast.success("Uploaded Lecture successfully ")
+        toast.success("Uploaded Lecture successfully ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        })
         console.log("Successfull")
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         if (fileInputRef.current) {
           resetFileInput() // Reset the input field
         }
@@ -118,7 +133,10 @@ const Lectures = () => {
         console.log("BAD REQUES")
 
         if (response.response.status === 401) {
-          toast.success("Error Uploading Lecture ")
+          toast.error("Error Uploading Lecture ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          })
           console.log("401")
 
         }
@@ -171,14 +189,26 @@ const Lectures = () => {
         .then(response => {
 
           if (response.status == 200) {
-            toast.success("Successfully deleted Lecture ")
+            toast.success("Successfully deleted Lecture ", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_RIGHT,
+            })
             setShowDeleteModal(false);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
-            toast.error("Failed to deleted Lecture ")
+            toast.error("Failed to deleted Lecture ", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_RIGHT,
+            })
           }
         })
         .catch(error => {
-          toast.error("Failed to deleted Lecture ")
+          toast.error("Failed to deleted Lecture ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          })
         });
 
    
@@ -227,48 +257,110 @@ const Lectures = () => {
 
 
 
-    setShowUpdateModal(false);
+   
   };
 
 
 
-  const updateLecture = () =>{
+//   const updateLecture = () =>{
 
-const formData = new FormData();
-
-
-formData.append('file', selectedFile);
-formData.append('classId', _id);
-formData.append('lectureDesc', Remarks);
-formData.append('lectureLink', lectureLink);
-formData.append('teacherID', teacherID);
-formData.append('lectureName', lectureName);
+// const formData = new FormData();
 
 
+// formData.append('file', selectedFile);
+// formData.append('classId', _id);
+// formData.append('lectureDesc', Remarks);
+// formData.append('lectureLink', lectureLink);
+// formData.append('teacherID', teacherID);
+// formData.append('lectureName', lectureName);
 
-    axios.post(`/teacher/editLectures/${lectureURL}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then(response => {
 
-        if(response.status == 200){
-          console.log(response.data.message);
-          toast.success("Successfully Updated Lecture ")
 
-        }else{
-          toast.error("Error Updating Lecture ")
-        }
+//     axios.post(`/teacher/editLectures/${lectureURL}`, formData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     })
+//       .then(response => {
+
+//         if(response.status == 200){
+//           console.log(response.data.message);
+//           toast.success("Successfully Updated Lecture ", {
+//             autoClose: 1000,
+//             position: toast.POSITION.TOP_RIGHT,
+//           })
+//           setShowUpdateModal(false);
+
+//         }else{
+//           toast.error("Error Updating Lecture ", {
+//             autoClose: 1000,
+//             position: toast.POSITION.TOP_RIGHT,
+//           })
+//         }
       
-        // Handle success
+//         // Handle success
+//       })
+//       .catch(error => {
+//         console.error(error);
+//         toast.error("Error Updating Lecture ", {
+//           autoClose: 1000,
+//           position: toast.POSITION.TOP_RIGHT,
+//         })
+//         // Handle error
+//       });
+//   }
+
+  const updateLecture = () => {
+    const formData = new FormData();
+  
+    // Check if lectureLink or Remarks are empty and set default values
+    const sanitizedLectureLink = lectureLink.trim() || '-';
+    const sanitizedRemarks = Remarks.trim() || '-';
+  
+    formData.append('file', selectedFile);
+    formData.append('classId', _id);
+    formData.append('lectureDesc', sanitizedRemarks);
+    formData.append('lectureLink', sanitizedLectureLink);
+    formData.append('teacherID', teacherID);
+    formData.append('lectureName', lectureName);
+  
+    // Check if any required field is empty
+    if (!selectedFile || !teacherID || !lectureName) {
+      toast.error("Data Missing Please Select a File and Title", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      axios.post(`/teacher/editLectures/${lectureURL}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          console.log(response.data.message);
+          toast.success("Successfully Updated Lecture ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setShowUpdateModal(false);
+        } else {
+          toast.error("Error Updating Lecture ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       })
       .catch(error => {
         console.error(error);
-        toast.error("Error Updating Lecture ")
-        // Handle error
+        toast.error("Error Updating Lecture ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
-  }
+    }
+  };
+  
 
   const handleShowUpdateModal = () => setShowUpdateModal(true);
   const handleCloseUpdateModal = () => setShowUpdateModal(false);

@@ -12,8 +12,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function TList() {
+
+  const [std, setStd] = useState([]);
   const baseURL = process.env.React_App_INTERNAL_API_PATH;
   const { _id } = useParams();
+  const totalStudentsCount = localStorage.getItem(_id)
   const [assignments, setAssignments] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState('');
   const [submissions, setSubmissions] = useState([]);
@@ -25,6 +28,7 @@ function TList() {
   // const [assignmentFileURL,]
 
   const [data, setData] = useState({
+    std: null,
     Email: null,
     classId: null,
     submissionFileURL: null,
@@ -162,18 +166,21 @@ function TList() {
       });
   }
 
-  const openDialog = (fileURL,stdEmail,classId,) => {
+  const openDialog = (fileURL,stdEmail,classId) => {
 
     setsuburl(fileURL)
     setEmail(stdEmail)
     setClassId(classId)
-    
-
     setDialogVisible(true);
   };
 
   const closeDialog = () => {
     setDialogVisible(false);
+    // Reset form data when the dialog is closed
+    setFormData({
+      marks: '',
+      remarks: '',
+    });
   };
 
   const submitMarks = () => {
@@ -195,7 +202,11 @@ function TList() {
             position: toast.POSITION.TOP_RIGHT,
           });
           console.log("Successful");
-  
+          setDialogVisible(false);
+          setFormData({
+            marks: '',
+            remarks: '',
+          });
           // Update the state with the new data
           setSubmissions((prevSubmissions) =>
             prevSubmissions.map((submission) =>
@@ -222,7 +233,7 @@ function TList() {
         })
       });
   
-    setDialogVisible(false);
+   
   };
   
 
@@ -239,6 +250,22 @@ function TList() {
     fontFamily:'Poppins',
     fontSize:'medium'  ,
   }
+
+
+  // Function to format submission date
+const formatSubmissionDate = (dateString) => {
+  const options = {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const formattedDate = new Date(dateString).toLocaleString(undefined, options);
+  return formattedDate;
+};
 
   return (
    <>
@@ -324,7 +351,7 @@ function TList() {
           border:'1px solid white', cursor:'default'
         }}
       >
-          {selectedAssignment && `Total Students : ${submissions.length}`}
+          {selectedAssignment && `Total Students : ${totalStudentsCount}`}
 
       </Button>
     </div>
@@ -369,7 +396,7 @@ function TList() {
               background:'' }} >
                 <tr >
                   <th style={{ ...head_color,width: '2%' }}>Sr #</th>
-                  <th style={{ ...head_color,width: '5%' }}>Student Email</th>
+                  <th style={{ ...head_color,width: '5%' }}>Student Name</th>
                   <th style={{ ...head_color,width: '5%'  }}>Submission Date</th>
                   <th style={{ ...head_color,width: '5%'  }}>File</th>
                   
@@ -388,11 +415,13 @@ function TList() {
       <tr className={styles.tr}>
         <td style={{...row_color }}>{index+1}</td>
         <td style={{...row_color }}>{submission.Email}</td>
-        <td style={{...row_color }}>{submission.submissionDate}</td>
+        {/* <td style={{...row_color }}>{submission.submissionDate}</td> */}
+        <td style={{ ...row_color, letterSpacing:'1px' }}>{formatSubmissionDate(submission.submissionDate)}</td>
+
         <td style={{...row_color }}>
           <button
             className="btn btn-primary"
-            style={{ marginTop: '0px', fontSize: 'medium', backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
+            style={{ marginTop: '0px', fontSize: 'small', backgroundColor: 'rgba(0, 0, 255, 0.6)'}}
             onClick={ViewSubmission.bind(null, submission.submissionFileURL)}
           >
             View Submission

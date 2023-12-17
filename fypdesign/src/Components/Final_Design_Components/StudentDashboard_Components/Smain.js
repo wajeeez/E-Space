@@ -116,11 +116,13 @@ function Smain() {
 
   const handleLogout = async () => {
     localStorage.removeItem("StdToken");
+    localStorage.removeItem('lastVisitedPage');
     navigate('/', { replace: true }); // Use the replace option to replace the current entry in the history stack
   };
 
   const handleLeaveClass = async () => {
     navigate('/std/dashboard');
+    localStorage.removeItem('lastVisitedPage');
   };
 
 

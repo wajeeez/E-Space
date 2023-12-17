@@ -116,11 +116,13 @@ function Tmain() {
 
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem('lastVisitedPage');
     navigate('/', { replace: true });
   };
 
   const handleLeaveClass = async () => {
     navigate('/TDashboard');
+    localStorage.removeItem('lastVisitedPage');
   };
 
 
@@ -136,22 +138,32 @@ function Tmain() {
 
       if (response.status === 200) {
         console.log(response.data);
-        toast.success("Class Deleted Successfully")
+        toast.success("Class Deleted Successfully", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        })
         
         
         setTimeout(() => {
           navigate("/TDashboard");
-        }, 1500);
+          localStorage.removeItem('lastVisitedPage');
+        }, 1000);
        
       } else {
         console.error('Unexpected status code:', response.status);
-        toast.error("Something went wrong")
+        toast.error("Something went wrong", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        })
         // Handle unexpected status code, e.g., show an error message
       }
      
     } catch (error) {
       console.error(error.response.data);
-      toast.error("Something went wrong")
+      toast.error("Something went wrong", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_RIGHT,
+      })
     }
   }
 
