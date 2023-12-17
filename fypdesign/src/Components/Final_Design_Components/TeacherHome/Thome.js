@@ -262,7 +262,7 @@ function Thome() {
       <div className="col-md-3 p-2" >
         <div  className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
           <div  className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <Link to={`https://sfu.mirotalk.com/join/${_id}`} target="_blank" style={{textDecoration:'none'}}>
+          <Link to={`https://sfu.mirotalk.com/join?room=${_id}&roomPassword=${_id}&name=${name}&audio=0&video=0&screen=0&hide=0&notify=0 `   } target="_blank" style={{textDecoration:'none'}}>
             <h4 className="card-title1" style={{fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px',color:'black' }}>Meeting</h4>
             <img src={ijoin} alt="Meeting Image" className="img-fluid" style={{ marginTop: '3px', marginBottom: '3px' }} />
             <p className="card-text" style={{ fontFamily: 'Helvetica, sans-serif', margin: '0px' ,color:'black'}}>Start</p>

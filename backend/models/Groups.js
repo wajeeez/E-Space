@@ -27,6 +27,10 @@ const Groups = new mongoose.Schema({
         type: Date,
         default:""
       },
+      time: {
+        type: String,
+        required: true,
+      },
       marks:{
         type: String,
         default:""
