@@ -95,7 +95,7 @@ router.post('/notification/assignment/upload/:classId',UploadAssignment.getAssig
 
 
 //KPIS
-
+router.post("/delete/group/:groupId",UploadAssignment.deleteGroup)
 
 router.post('/getKPIS',KPIS.getAssignmentStatistics)
 

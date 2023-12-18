@@ -16,6 +16,11 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const stdAssignmentFile =require("./models/stdassignmentFile")
 
+const admin = require('firebase-admin');
+
+
+
+
 // const upload = multer({ dest: 'uploads/' });
 
 // const corsOptions ={
@@ -24,6 +29,12 @@ const stdAssignmentFile =require("./models/stdassignmentFile")
 // }
 
 const app = express();
+
+
+const serviceAccount = require('./config/servicekey.json');
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+});
 
 const corsOptions = {
 
@@ -69,6 +80,10 @@ app.get('/files/:id', async (req, res) => {
     res.status(500).json({ message: 'Error retrieving file' });
   }
 });
+
+
+// Endpoint to send push notifications
+
 
 
 app.get('/submission/:id', async (req, res) => {

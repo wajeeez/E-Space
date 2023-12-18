@@ -92,8 +92,8 @@ const GroupAssignmentTeacher = () => {
                     toast.success("Successfull Marked", {
                         autoClose: 1000,
                         position: toast.POSITION.TOP_RIGHT,
-                      });
-  
+                    });
+
                     console.log("Successful");
                     setStudents((prevSubmissions) =>
                         prevSubmissions.map((studnet) =>
@@ -112,7 +112,7 @@ const GroupAssignmentTeacher = () => {
                     toast.error("failed to update", {
                         autoClose: 1000,
                         position: toast.POSITION.TOP_RIGHT,
-                      });
+                    });
                 }
             })
             .catch((error) => {
@@ -121,10 +121,10 @@ const GroupAssignmentTeacher = () => {
                 toast.error("failed to update", {
                     autoClose: 1000,
                     position: toast.POSITION.TOP_RIGHT,
-                  });
+                });
             });
 
-            setGroupDialog(false);
+        setGroupDialog(false);
     };
 
 
@@ -419,7 +419,7 @@ const GroupAssignmentTeacher = () => {
                 toast.success("Successfull ", {
                     autoClose: 1000,
                     position: toast.POSITION.TOP_RIGHT,
-                  });
+                });
                 console.log("Successfull")
                 if (fileInputRef.current) {
                     fileInputRef.current.value = ''; // Reset the input field
@@ -441,7 +441,7 @@ const GroupAssignmentTeacher = () => {
                     toast.error(response.response.data.message, {
                         autoClose: 1000,
                         position: toast.POSITION.TOP_RIGHT,
-                      });
+                    });
                     console.log("401")
 
                 }
@@ -633,9 +633,9 @@ const GroupAssignmentTeacher = () => {
     const handleDeadlineChange = (event) => {
         setDeadline(event.target.value);
     };
-     const handleTimeChange = (event) => {
-    setTime(event.target.value);
-  };
+    const handleTimeChange = (event) => {
+        setTime(event.target.value);
+    };
 
 
     const submitTeacherAssignment = async () => {
@@ -650,7 +650,7 @@ const GroupAssignmentTeacher = () => {
             formData.append('deadline', deadline);
             formData.append('time', time);
 
-            console.log(selectedFile, GroupId, deadline,time)
+            console.log(selectedFile, GroupId, deadline, time)
 
             axios.post(baseURL + '/teacher/groupAssignment/upload', formData, {
                 headers: {
@@ -663,11 +663,11 @@ const GroupAssignmentTeacher = () => {
                         toast.success("Successfully Uploaded Assignment", {
                             autoClose: 1000,
                             position: toast.POSITION.TOP_RIGHT,
-                          })
-                        setShowModal(false); 
+                        })
+                        setShowModal(false);
                         setTimeout(() => {
                             window.location.reload();
-                          }, 1000);
+                        }, 1000);
                         if (fileInputRef.current) {
                             fileInputRef.current.value = ''; // Reset the input field
                         }
@@ -675,7 +675,7 @@ const GroupAssignmentTeacher = () => {
                         toast.error("Failed to Upload Assignment", {
                             autoClose: 1000,
                             position: toast.POSITION.TOP_RIGHT,
-                          })
+                        })
                     }
                     // Handle the success response
                 })
@@ -684,7 +684,7 @@ const GroupAssignmentTeacher = () => {
                     toast.error("Failed to Upload Assignment", {
                         autoClose: 1000,
                         position: toast.POSITION.TOP_RIGHT,
-                      })
+                    })
 
                     // Handle the error
                 });
@@ -718,53 +718,97 @@ const GroupAssignmentTeacher = () => {
 
     const formatTime = (time) => {
         if (!time) {
-          return ''; // or any default value you want to display for undefined time
+            return ''; // or any default value you want to display for undefined time
         }
-      
+
         const date = new Date();
         const [hours, minutes] = time.split(':');
         date.setHours(hours, minutes, 0);
         return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-      };
+    };
+
+    const [sgroupId,setsgroupId] = useState("")
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const handleDeleteConfirmed =  async () => {
+        try {
+            const response = await axios.post(baseURL+`/delete/group/${sgroupId}`, {
+          
+            });
       
-      const [showDeleteModal, setShowDeleteModal] = useState(false);
-      const handleDeleteConfirmed = () => {
-    
+            if (!response.ok) {
+              // Handle non-successful responses here
+              toast.success("Successfull Deleted Group", {
+                  autoClose: 1000,
+                  position: toast.POSITION.TOP_RIGHT,
+              });
+              console.error('Failed to delete group:', response.statusText);
+              // You may want to throw an error or handle the error in a different way
+              return;
+            }
+      
+            // Group deleted successfully
+            console.log('Group deleted successfully');
+          } catch (error) {
+           toast.error("Failed to delete Group", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+        });
+            console.error('Error during delete group request:', error.message);
+            // Handle the error (e.g., display an error message to the user)
+          }
+
+
+
+
         setShowDeleteModal(false);
-      };
-    
-      const handleDeleteCancelled = () => {
+    };
+
+    const handledeleteClicked = (e) => {
+        // Handle cancel action
+        setsgroupId(e)
+        setShowDeleteModal(true);
+    };
+
+
+    const handleDeleteCancelled = () => {
         // Handle cancel action
         setShowDeleteModal(false);
-      };
-      const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+    };
+    const DeleteModal = ({ show, handleDeleteConfirmed, handleDeleteCancelled }) => {
+
+        
+
+
+
+
         return (
-          <Modal show={show} onHide={handleDeleteCancelled} centered>
-            <Modal.Header closeButton>
-              <Modal.Title>Delete Class</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h5>Are you sure you want to Permanently Delete this Class?</h5>
-            </Modal.Body>
-            <Modal.Footer className="justify-content-center align-items-center d-flex">
-              <Button
-                variant="danger"
-                onClick={handleDeleteConfirmed}
-                style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-              >
-                Yes
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={handleDeleteCancelled}
-                style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-              >
-                Cancel
-              </Button>
-            </Modal.Footer>
-          </Modal>
-            );
-          };
+            <Modal show={show} onHide={handleDeleteCancelled} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Class</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h5>Are you sure you want to Permanently Delete this Class?</h5>
+                </Modal.Body>
+                <Modal.Footer className="justify-content-center align-items-center d-flex">
+                    <Button
+                        variant="danger"
+                        onClick={handleDeleteConfirmed}
+                        style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+                    >
+                        Yes
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleDeleteCancelled}
+                        style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
+                    >
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    };
 
     return (
 
@@ -777,7 +821,7 @@ const GroupAssignmentTeacher = () => {
 
             <div style={{ textAlign: "start", padding: '5px' }}>
                 <div className="container-fluid" style={{
-                    textAlign: 'center', marginTop: '0px',overflow:'auto',
+                    textAlign: 'center', marginTop: '0px', overflow: 'auto',
                 }}>
                     <center>
 
@@ -957,12 +1001,12 @@ const GroupAssignmentTeacher = () => {
                                                 : ' --- '} */}
                                         </td>
 
-                                      
-           
+
+
                                         <td style={{ ...row_color, }}>
 
 
-                                            {student.marks != "" ? student.marks: "Not Marked yet"}
+                                            {student.marks != "" ? student.marks : "Not Marked yet"}
 
                                         </td>
                                         <td style={{ ...row_color, }}>
@@ -970,7 +1014,7 @@ const GroupAssignmentTeacher = () => {
                                                 <button
                                                     className="btn btn-primary"
                                                     onClick={openFileInBrowser.bind(null, student.submissionURL)}
-                                                    style={{fontSize:'small'}}
+                                                    style={{ fontSize: 'small' }}
                                                 >
                                                     View Submission
                                                 </button>
@@ -978,18 +1022,18 @@ const GroupAssignmentTeacher = () => {
                                                 'No Submission'
                                             )}
                                         </td>
-                                        <td style={{ ...row_color, fontWeight:'500'}}>
+                                        <td style={{ ...row_color, fontWeight: '500' }}>
                                             {student.deadline != null ?
                                                 <>  <FormattedDate rawDate={student.deadline} />
-                                                <span>  </span>
-                                                {formatTime(student.time)}
-                                            </>
+                                                    <span>  </span>
+                                                    {formatTime(student.time)}
+                                                </>
                                                 : "---"
                                             }
                                         </td>
 
-                                        <td style={{ ...row_color, fontSize:'small' }}>
-                                      
+                                        <td style={{ ...row_color, fontSize: 'small' }}>
+
 
                                             <button className="btn btn-success" onClick={handleTeacherUpload.bind(null, student._id)} >
                                                 Edit
@@ -1000,18 +1044,18 @@ const GroupAssignmentTeacher = () => {
                                         <td style={{ ...row_color, }}>
 
                                             <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}
-                                             disabled={student.submissionURL == "" } style={{fontSize: 'small',margin:'4px' }}>
+                                                disabled={student.submissionURL == ""} style={{ fontSize: 'small', margin: '4px' }}>
                                                 Asssesment
                                             </button>
-                                            <button className="btn btn-danger" style={{fontSize: 'small',margin:'4px' }}
-                                            onClick={() => setShowDeleteModal(true)} >
+                                            <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }}
+                                                onClick={() => handledeleteClicked(student._id)} >
                                                 Delete Group
                                             </button>
 
                                         </td>
 
 
-{/*                                   
+                                        {/*                                   
 =======
 
                                             <button className="btn btn-success" onClick={openGroupDialog.bind(null, student._id)}>
@@ -1084,10 +1128,10 @@ const GroupAssignmentTeacher = () => {
                     </table>
 
                     <DeleteModal
-        show={showDeleteModal}
-        handleDeleteConfirmed={handleDeleteConfirmed}
-        handleDeleteCancelled={handleDeleteCancelled}
-      />
+                        show={showDeleteModal}
+                        handleDeleteConfirmed={handleDeleteConfirmed}
+                        handleDeleteCancelled={handleDeleteCancelled}
+                    />
                     <div className="text-center">
                         {message !== '' && <p className="text-danger">{message}</p>}
                     </div>
@@ -1125,7 +1169,7 @@ const GroupAssignmentTeacher = () => {
                             style={{ color: '' }}
                         />
                     </Form.Group>
-                    <h5>Deadline Time</h5>                  
+                    <h5>Deadline Time</h5>
                     <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
                         <Form.Control
 

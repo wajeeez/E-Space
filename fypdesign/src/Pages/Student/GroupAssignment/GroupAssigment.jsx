@@ -613,8 +613,45 @@ const GroupAssignment = () => {
     };
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const handleDeleteConfirmed = () => {
+    const [sgroupId, setsgroupId] = useState(false);
+    const handleDelete=(e)=>{
 
+        setsgroupId(e)
+        setShowDeleteModal(true)
+
+    }
+
+
+
+    const handleDeleteConfirmed = async() => {
+
+
+        try {
+            const response = await axios.post(baseURL+`/delete/group/${sgroupId}`, {
+          
+            });
+      
+            if (!response.ok) {
+              // Handle non-successful responses here
+              toast.success("Successfull Deleted Group", {
+                  autoClose: 1000,
+                  position: toast.POSITION.TOP_RIGHT,
+              });
+              console.error('Failed to delete group:', response.statusText);
+              // You may want to throw an error or handle the error in a different way
+              return;
+            }
+      
+            // Group deleted successfully
+            console.log('Group deleted successfully');
+          } catch (error) {
+           toast.error("Failed to delete Group", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+        });
+            console.error('Error during delete group request:', error.message);
+            // Handle the error (e.g., display an error message to the user)
+          }
         setShowDeleteModal(false);
     };
 
@@ -884,8 +921,6 @@ const GroupAssignment = () => {
                                             }
                                         </td>
 
-
-
                                         <td style={{ ...row_color, fontWeight: '500' }}>
                                             {assignment.deadline != null ?
                                                 <>  <FormattedDate rawDate={assignment.deadline} />
@@ -916,10 +951,7 @@ const GroupAssignment = () => {
                                                     </button>
 
                                                 </>
-                                           
-
-
-
+                                        
                                             ) : currentDate < dateTime && assignment.fileURL ? (
                                                 <button className="btn btn-success" onClick={() => handleSubmissionClick(assignment._id, assignment.deadline)}>
                                                     SUBMIT
@@ -927,15 +959,14 @@ const GroupAssignment = () => {
                                             ) : assignment.fileURL==="" ?(
                                                 <>
                                                     
-
-                                                    <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => setShowDeleteModal(true)}>
+                                                    <button className="btn btn-danger" style={{ fontSize: 'small', margin: '4px' }} onClick={() => handleDelete(assignment._id)}>
                                                         Delete Group
                                                     </button>
 
                                                 </>
 
                                             ):
-                                            <></>}
+                                            <>Completed</>}
                                         </td>
 
 

@@ -365,7 +365,90 @@ const Lectures = () => {
   const handleShowUpdateModal = () => setShowUpdateModal(true);
   const handleCloseUpdateModal = () => setShowUpdateModal(false);
 
-  const UpdateModal = ({ show, handleClose, handleUpdate, handleFileChange, handleDeadlineChange, getCurrentDate, fileInputRef, message }) => {
+  const UpdateModal = ({ show, handleClose }) => {
+   
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [link, setLink] = useState(null);
+    const [remarks, setRemarks] = useState(null);
+   
+    const fileInputRef = useRef(null)
+
+
+    const handleLink = (event) => {
+      setLink(event)
+    };
+
+   
+    const handleRemark = (event) => {
+      setRemarks(event)
+    };
+   
+    const handleTitle = (event) => {
+      setTitle(event)
+    };
+   
+   
+    const handleFile = (event) => {
+      setSelectedFile(event.target.files[0]);
+      console.log(selectedFile)
+    };
+   
+
+
+    const updateLecture = () => {
+      const formData = new FormData();
+    
+      // Check if lectureLink or Remarks are empty and set default values
+
+      formData.append('file', selectedFile);
+      formData.append('classId', _id);
+      formData.append('lectureDesc', remarks);
+      formData.append('lectureLink', link);
+      formData.append('teacherID', teacherID);
+      formData.append('lectureName', title);
+    
+      // Check if any required field is empty
+      if (!selectedFile || !teacherID || !title) {
+
+        console.log(teacherID)
+        console.log(selectedFile)
+        toast.error("Data Missing Please Select a File and Title", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        axios.post(baseURL+`/teacher/editLectures/${lectureURL}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response.data.message);
+            toast.success("Successfully Updated Lecture ", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_RIGHT,
+            });
+            setShowUpdateModal(false);
+          } else {
+            toast.error("Error Updating Lecture ", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_RIGHT,
+            });
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          toast.error("Error Updating Lecture ", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        });
+      }
+    };
+   
+   
     return (
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -376,6 +459,7 @@ const Lectures = () => {
             <Form.Control
               type="text"
               placeholder="Title"
+              onChange={(e) =>handleTitle(e.target.value)}
               style={{ textAlign: 'center' }}
             />
           </Form.Group>
@@ -383,7 +467,7 @@ const Lectures = () => {
           <Form.Group className="mb-3">
             <Form.Control
               type="file"
-              onChange={handleFileChange}
+              onChange={handleFile}
               ref={fileInputRef}
               className={`${styles.file} custom-file-input`}
               style={{ background: 'grey', color: 'white' }}
@@ -394,7 +478,7 @@ const Lectures = () => {
             <Form.Control
               type="text"
               placeholder="Video Link"
-              onChange={(e) => handleLinkChange(e.target.value)}
+              onChange={(e) =>handleLink(e.target.value)}
               style={{ textAlign: 'center' }}
             />
           </Form.Group>
@@ -403,14 +487,14 @@ const Lectures = () => {
             <Form.Control
               type="text"
               placeholder="References"
-              onChange={(e) => handleRemarksChange(e.target.value)}
+              onChange={(e) => handleRemark(e.target.value)}
               style={{ textAlign: 'center' }}
             />
           </Form.Group>
           <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>
         </Modal.Body>
         <Modal.Footer className="justify-content-center align-items-center d-flex">
-          <Button variant="success" onClick={handleUpdate} style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
+          <Button variant="success" onClick={updateLecture} style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
             Update
           </Button>
           <Button variant="danger" onClick={handleClose} style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}>
@@ -684,7 +768,7 @@ const Lectures = () => {
                   <td style={{ ...row_color , borderRadius:'20px'}}>
                     <button
                       className="btn btn-primary " style={{ margin: '5px', fontSize: 'medium', width: '100px', fontWeight: 'bold' }}
-                      onClick={handleUpdateClick.bind(null, lecture.fileURL)}
+                      onClick={handleUpdateClick.bind(null, lecture._id)}
                     >
                       Edit
                     </button>
@@ -708,12 +792,9 @@ const Lectures = () => {
           <UpdateModal
             show={showUpdateModal}
             handleClose={handleCloseUpdateModal}
-            handleUpdate={handleUpdate}
-            handleFileChange={handleFileChange}
-            handleDeadlineChange={handleDeadlineChange}
-            getCurrentDate={getCurrentDate}
-            fileInputRef={fileInputRef}
-            message={message}
+           
+          
+           
           />
 
           {/* Delete Confirmation Modal */}
