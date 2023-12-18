@@ -229,7 +229,7 @@ function HeroSection() {
 
       <div className="hero-container">
         {showSigninOptions && (
-          <div className="signin-options" onClick={toggleSigninOptions}>
+          <div className="signin-options" onClick={toggleSigninOptions} style={{overflow:'auto'}}>
             <Signin />
           </div>
         )}
