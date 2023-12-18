@@ -185,7 +185,21 @@ function Shome() {
 
   const bg = 'white';
   // const bg = '#e4e9f7';
-
+  const [totalStudents,setTotalStudents] = useState("")
+  useEffect(() => {
+    axios
+      .post(baseURL + `/getTotalStudentCount/${_id}`)
+      .then((response) => {
+        if(response.status == 200){
+          setTotalStudents(response.data.totalStudents)
+          localStorage.setItem( _id,response.data.totalStudents)
+        }
+      })
+      .catch((error) => {
+        setTotalStudents(0)
+        console.log(error);
+      });
+  }, []);
 
 
   return (
@@ -283,27 +297,11 @@ function Shome() {
       </div>
 
       <div className="col-md-6 p-2">
-        <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px' , border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)'}}>
-        
-        <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-          <h4 className="card-title1" style={{ fontSize:'',fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginBottom: '15px', marginTop: '0px',color:'black'}}>Total Attendance Hours</h4>
-
-          {/* Bootstrap row with two columns */}
-          <div className="row" style={{marginTop: '0px'}}>
-            {/* Left column for present */}
-            <div className="col" style={{marginRight: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'green', fontWeight: 'bold', }}>40</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'green',fontSize:'large' }}>Present</p>
-            </div>
-            
-            {/* Right column for absent */}
-            <div className="col" style={{marginLeft: '30px'}}>
-              <h2 style={{ fontFamily: 'Poppins, sans-serif', color: 'red', fontWeight: 'bold',  }}>5</h2>
-              <p style={{ fontFamily: 'Helvetica, sans-serif', margin: '0', color: 'red' ,fontSize:'large'}}>Absent</p>
-            </div>
+      <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px', border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)' }}>
+          <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
+            <h4 className="card-title1" style={{postion:'', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', marginBottom:'2rem',color:'black' }}>Total Students</h4>
+            <h2 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', marginTop: '', marginBottom:'1.5rem' ,color:'green', fontWeight:'bold'}}>{totalStudents}</h2>
           </div>
-          </div>
-          
         </div>
       </div>
 

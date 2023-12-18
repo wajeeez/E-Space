@@ -250,15 +250,15 @@ const Lectures = () => {
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  const handleUpdate = () => {
+  // const handleUpdate = () => {
 
 
-      updateLecture()
+  //     updateLecture()
 
 
 
    
-  };
+  // };
 
 
 
@@ -310,57 +310,7 @@ const Lectures = () => {
 //       });
 //   }
 
-  const updateLecture = () => {
-    const formData = new FormData();
-  
-    // Check if lectureLink or Remarks are empty and set default values
-    const sanitizedLectureLink = lectureLink.trim() || '-';
-    const sanitizedRemarks = Remarks.trim() || '-';
-  
-    formData.append('file', selectedFile);
-    formData.append('classId', _id);
-    formData.append('lectureDesc', sanitizedRemarks);
-    formData.append('lectureLink', sanitizedLectureLink);
-    formData.append('teacherID', teacherID);
-    formData.append('lectureName', lectureName);
-  
-    // Check if any required field is empty
-    if (!selectedFile || !teacherID || !lectureName) {
-      toast.error("Data Missing Please Select a File and Title", {
-        autoClose: 1000,
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else {
-      axios.post(`/teacher/editLectures/${lectureURL}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(response => {
-        if (response.status === 200) {
-          console.log(response.data.message);
-          toast.success("Successfully Updated Lecture ", {
-            autoClose: 1000,
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          setShowUpdateModal(false);
-        } else {
-          toast.error("Error Updating Lecture ", {
-            autoClose: 1000,
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        toast.error("Error Updating Lecture ", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      });
-    }
-  };
-  
+
 
   const handleShowUpdateModal = () => setShowUpdateModal(true);
   const handleCloseUpdateModal = () => setShowUpdateModal(false);
@@ -400,19 +350,20 @@ const Lectures = () => {
       const formData = new FormData();
     
       // Check if lectureLink or Remarks are empty and set default values
-
       formData.append('file', selectedFile);
       formData.append('classId', _id);
-      formData.append('lectureDesc', remarks);
-      formData.append('lectureLink', link);
+      
+      // Check if remarks is empty, insert dash ('-') if true, otherwise insert the provided value
+      formData.append('lectureDesc', remarks || '-');
+    
+      // Check if link is empty, insert dash ('-') if true, otherwise insert the provided value
+      formData.append('lectureLink', link || '-');
+    
       formData.append('teacherID', teacherID);
       formData.append('lectureName', title);
     
       // Check if any required field is empty
       if (!selectedFile || !teacherID || !title) {
-
-        console.log(teacherID)
-        console.log(selectedFile)
         toast.error("Data Missing Please Select a File and Title", {
           autoClose: 1000,
           position: toast.POSITION.TOP_RIGHT,
@@ -431,6 +382,9 @@ const Lectures = () => {
               position: toast.POSITION.TOP_RIGHT,
             });
             setShowUpdateModal(false);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             toast.error("Error Updating Lecture ", {
               autoClose: 1000,
@@ -447,6 +401,7 @@ const Lectures = () => {
         });
       }
     };
+    
    
    
     return (
@@ -461,6 +416,7 @@ const Lectures = () => {
               placeholder="Title"
               onChange={(e) =>handleTitle(e.target.value)}
               style={{ textAlign: 'center' }}
+              value={title} 
             />
           </Form.Group>
 
@@ -480,6 +436,7 @@ const Lectures = () => {
               placeholder="Video Link"
               onChange={(e) =>handleLink(e.target.value)}
               style={{ textAlign: 'center' }}
+              value={link} 
             />
           </Form.Group>
 
@@ -489,6 +446,7 @@ const Lectures = () => {
               placeholder="References"
               onChange={(e) => handleRemark(e.target.value)}
               style={{ textAlign: 'center' }}
+              value={remarks}
             />
           </Form.Group>
           <span>{message !== "" && <p className={styles.errorMessage}>{message}</p>}</span>

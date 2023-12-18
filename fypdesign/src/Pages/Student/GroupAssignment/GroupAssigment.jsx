@@ -637,6 +637,10 @@ const GroupAssignment = () => {
                   autoClose: 1000,
                   position: toast.POSITION.TOP_RIGHT,
               });
+              setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+            setShowDeleteModal(false);
               console.error('Failed to delete group:', response.statusText);
               // You may want to throw an error or handle the error in a different way
               return;
@@ -652,7 +656,7 @@ const GroupAssignment = () => {
             console.error('Error during delete group request:', error.message);
             // Handle the error (e.g., display an error message to the user)
           }
-        setShowDeleteModal(false);
+        
     };
 
     const handleDeleteCancelled = () => {

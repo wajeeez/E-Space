@@ -742,6 +742,10 @@ const GroupAssignmentTeacher = () => {
                   autoClose: 1000,
                   position: toast.POSITION.TOP_RIGHT,
               });
+              setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+            setShowDeleteModal(false);
               console.error('Failed to delete group:', response.statusText);
               // You may want to throw an error or handle the error in a different way
               return;
@@ -759,9 +763,6 @@ const GroupAssignmentTeacher = () => {
           }
 
 
-
-
-        setShowDeleteModal(false);
     };
 
     const handledeleteClicked = (e) => {
@@ -806,6 +807,7 @@ const GroupAssignmentTeacher = () => {
                         Cancel
                     </Button>
                 </Modal.Footer>
+                <ToastContainer></ToastContainer>
             </Modal>
         );
     };
