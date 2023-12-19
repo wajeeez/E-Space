@@ -886,7 +886,7 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color,fontSize: 'large', fontWeight: '400' }}>
                     {assignment.totalMarks}
                   </td>
-                  <td style={{ ...row_color ,fontSize: 'large', fontWeight: '500', letterSpacing: '1px', color: 'green'}}>
+                  <td style={{ ...row_color ,fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'green', fontFamily:'Arial'}}>
                     
                       {/* {new Date(assignment.deadline).toLocaleDateString('en-GB')}
                       <span> </span> */}

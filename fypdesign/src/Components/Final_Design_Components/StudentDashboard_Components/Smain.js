@@ -198,8 +198,8 @@ function Smain() {
       </li>
       
       <li>
-        <Link  onClick={() => handlePageChange('7')}>
-        <i class='bx bx-timer' ></i>
+        <Link  onClick={() => handlePageChange('quiz')}>
+        <i class='bx bxs-timer'></i>
           <span class="link_name">Quiz</span>
         </Link>
         <span class="tooltip">Quiz</span>
