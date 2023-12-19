@@ -16,7 +16,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const stdAssignmentFile =require("./models/stdassignmentFile")
 
-const admin = require('firebase-admin');
 
 
 
@@ -31,10 +30,7 @@ const admin = require('firebase-admin');
 const app = express();
 
 
-const serviceAccount = require('./config/servicekey.json');
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
+
 
 const corsOptions = {
 
