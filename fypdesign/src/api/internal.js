@@ -95,6 +95,19 @@ export const TeacherAssignmentUpload = async (data) => {
   return response;
 };
 
+export const TeacherQuizUpload = async (data) => {
+  let response;
+  try {
+    response = await axios.post(baseURL + '/teacher/quiz/upload', data)
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+  return response;
+};
+
+
+
 
 export const TeacherLectureUpload = async (data) => {
   let response;
@@ -117,6 +130,22 @@ export const StudentSubmissions = async (data) => {
   try {
 
     response = await axios.post(baseURL + '/student/assignments/upload', data)
+
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+
+  return response;
+}
+
+
+
+export const StudentQuiz = async (data) => {
+  let response;
+  try {
+
+    response = await axios.post(baseURL + '/student/quiz/upload', data)
 
   } catch (error) {
     console.log(error)

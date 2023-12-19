@@ -32,6 +32,7 @@ import Lectures from '../../../Pages/Teacher/Lectures/Lectures';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Quiz from '../../../Pages/Teacher/Quiz/TQuiz';
+import Qlist from '../../../Pages/Teacher/Quiz/Qlist.js';
 import Analysis from '../../../Pages/Teacher/Analysis/Analysis';
 import Analysis2 from '../../../Pages/Teacher/Analysis/Analysis2';
 
@@ -290,9 +291,9 @@ function Tmain() {
         <Link onClick={() => handlePageChange('assignmentList')}>
         {/* <img src={subIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-list-check' ></i>
-          <span class="link_name">Submissions</span>
+          <span class="link_name">Assign Submissions</span>
         </Link>
-        <span class="tooltip">Submissions</span>
+        <span class="tooltip"> Assign Submissions</span>
       </li>
       <li>
       <Link onClick={() => handlePageChange('quiz')}>
@@ -301,6 +302,14 @@ function Tmain() {
           <span class="link_name">Quiz</span>
         </Link>
         <span class="tooltip">Quiz</span>
+      </li>
+      <li>
+      <Link onClick={() => handlePageChange('qlist')}>
+        {/* <img src={quizIcon} alt="Icon" className="button-icon" /> */}
+        <i class='bx bx-timer' ></i>
+          <span class="link_name">Quiz Submissions</span>
+        </Link>
+        <span class="tooltip">Quiz Submissions</span>
       </li>
       <li>
       
@@ -330,7 +339,7 @@ function Tmain() {
         
         <span class="tooltip">Leave Class</span>
       </li>
-      <p className='ps'>x</p>
+      {/* <p className='ps'>x</p> */}
       
       <li>
         <Link onClick={() => handlePageChange('account')}>
@@ -361,9 +370,8 @@ function Tmain() {
           {currentPage === 'assignment' && <AssignmentPage />}
           {currentPage === 'assignmentList' && <AssignmentList />}
           {currentPage === 'groupAssignment' && <GroupAssignmentTeacher />}
-          
           {currentPage === 'quiz' && <Quiz/>}
-        
+          {currentPage === 'qlist' && <Qlist/>}
           {currentPage === 'class' && <Management></Management>}
           {currentPage === 'performance' && <Analysis3></Analysis3>}
           {currentPage === 'return' && <div>home</div>}

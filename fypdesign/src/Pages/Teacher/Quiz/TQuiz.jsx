@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { TeacherAssignmentUpload } from '../../../api/internal';
+import { TeacherAssignmentUpload, TeacherQuizUpload } from '../../../api/internal';
 import { useParams } from "react-router-dom";
-import styles from './Assignment.module.css'
-import AssignmentList from '../AssigmentList/AssignmentList';
+import styles from '../Assignment/Assignment.module.css'
+
 import { Form, Button } from 'react-bootstrap';
 import { Modal, InputGroup, FormControl } from 'react-bootstrap';
 
@@ -18,17 +18,7 @@ import 'react-datepicker/dist/react-datepicker.css'; // Import the styles
 
 
 
-const AssignmentPage = () => {
-
-  //Update Edit Modal Variables _edt 
-  // formData.append('file', selectedFile);
-  // formData.append('classId', _id);
-  // formData.append('fileName', title);
-  // formData.append('teacherID', teacherID);
-  // formData.append('subjectName', subjectName);
-  // formData.append('deadline', deadline); // Append the deadline value
-  // formData.append('title', title);
-  // formData.append('totalMarks', totalMarks);
+const Quiz = () => {
 
   const [assignmentID_edit,setassignmentID_edit] = useState('')
   const [deadline_edt,setDeadline_edt] = useState('')
@@ -36,12 +26,10 @@ const AssignmentPage = () => {
   const [totalMarks_edt,setTotalMarks_edt] = useState('')
   const [selectedFile_edt,setselectedFile_edt] = useState('')
 
-
   const handleTitleChange_edt = (event) => {
     settitle_edt(event.target.value);
   };
   
-
 
 const handleTotalMarks_edt = (event) => {
   setTotalMarks_edt(event.target.value);
@@ -157,7 +145,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline ', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
+        autoClose: 1000, // Close the toast after 3 seconds
       });
       // setMessage("Data Missing Please Select a File and Deadline")
     } else {
@@ -173,10 +161,13 @@ const handleDeadlineChange_edt = (event) => {
       formData.append('totalMarks', totalMarks);
 
 
-      const response = await TeacherAssignmentUpload(formData);
+      const response = await TeacherQuizUpload(formData);
 
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfully Uploaded!!!")
+        toast.success("Succesfully Uploaded!!! ", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_RIGHT,
+        });
         console.log("Successfull")
 
         // Reset Form controls
@@ -187,8 +178,8 @@ const handleDeadlineChange_edt = (event) => {
         setTotalMarks('');
 
         setTimeout(() => {
-          setMessage("");
-        }, 3000);
+          window.location.reload();
+        }, 1000);
         if (fileInputRef.current) {
           fileInputRef.current.value = '  '; // Reset the input field
         }
@@ -198,11 +189,15 @@ const handleDeadlineChange_edt = (event) => {
         console.log("BAD REQUEST")
 
         if (response.response.status === 401) {
-          setWMessage(response.response.data.message);
+          // setWMessage(response.response.data.message);
+          toast.error(response.response.data.message, {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+          });
           console.log("401")
           setTimeout(() => {
             setWMessage("");
-          }, 3000);
+          }, 1000);
         }
       }
     }
@@ -240,7 +235,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
+        autoClose: 1000, // Close the toast after 3 seconds
       });
       return
     }
@@ -260,16 +255,28 @@ const handleDeadlineChange_edt = (event) => {
       .then(response => {
         if (response == 200) {
 
-          toast.success("SUCCESSFULLY UPDATED")
+          toast.success("SUCCESSFULLY UPDATED" , {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, // Close the toast after 3 seconds
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
 
         } else {
 
-          toast.error("ERROR UPDATED")
+          toast.error("ERROR UPDATED" ,{
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, // Close the toast after 3 seconds
+          })
         }
       })
       .catch(error => {
         // Handle the error
-        toast.error("ERROR UPDATED")
+        toast.error("ERROR UPDATED" ,{
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Close the toast after 3 seconds
+        })
       });
 
 
@@ -343,107 +350,11 @@ const handleDeadlineChange_edt = (event) => {
   const [updateMessage, setUpdateMessage] = useState(null);
 
 
-
-
-
-  //New functions 
-
-
-
-
-
-
-
-
-
-  // handleUpdateTitleChange,handleUpdateTotalMarksChange,
-  // const UpdateAssignmentModal = ({
-  //   show,
-  //   handleClose,
-  //   handleFileChange_edt,
-  //   handleDeadlineChange_edt,
-  //   handleUpdate,
-  //   updateMessage,
-  //   handleTitleChange_edt,
-  //   handleTotalMarks_edt,
-  // }) => {
-
-  //   return (
-  //     <Modal show={show} onHide={handleClose} centered>
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Update Assignment</Modal.Title>
-  //       </Modal.Header>
-  //       <Modal.Body>
-  //         <Form.Group className="mb-3">
-  //           <Form.Control
-  //             type="text"
-  //             // placeholder="Title"
-  //             // value={updateAssignmentDetails.title}
-  //             value={title_edt}
-  //             onChange={handleTitleChange_edt}
-  //             style={{ textAlign: 'center' }}
-  //           />
-  //         </Form.Group>
-
-  //         <Form.Group className="mb-3">
-  //           <Form.Control
-  //             type="file"
-  //             onChange={handleFileChange_edt}
-  //             ref={fileInputRef}
-  //             className={`custom-file-input`}
-  //             style={{ background: 'grey', color: 'white' }}
-  //           />
-  //         </Form.Group>
-
-  //         <Form.Group className="mb-3">
-  //           <Form.Control
-  //             type="date"
-  //             // value={updateAssignmentDetails.deadline}
-  //             value={deadline_edt}
-  //             onChange={handleDeadlineChange_edt}
-  //             ref={fileInputRef}
-  //             min={getCurrentDate}
-  //             className={styles.assignmentButton}
-  //             style={{ color: '' }}
-  //           />
-  //         </Form.Group>
-
-  //         <Form.Group className="mb-3">
-  //           <Form.Control
-  //             type="number"
-  //             // placeholder="Total Marks"
-  //             // value={updateAssignmentDetails.totalMarks}
-  //             value={totalMarks_edt}
-  //             onChange={handleTotalMarks_edt}
-  //             style={{ textAlign: 'center' }}
-  //           />
-  //         </Form.Group>
-  //         <span>{updateMessage !== "" && <p className={styles.errorMessage}>{updateMessage}</p>}</span>
-  //       </Modal.Body>
-  //       <Modal.Footer className="justify-content-center align-items-center d-flex">
-  //         <Button
-  //           variant="success"
-  //           onClick={handleUpdate}
-  //           style={{ marginRight: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-  //         >
-  //           Update
-  //         </Button>
-  //         <Button
-  //           variant="danger"
-  //           onClick={handleClose}
-  //           style={{ marginLeft: '20px', width: '100px', maxWidth: '150px', fontSize: 'large' }}
-  //         >
-  //           Cancel
-  //         </Button>
-  //       </Modal.Footer>
-  //     </Modal>
-  //   );
-  // };
-
   const UpdateAssignmentModal = ({
     show,
     handleClose,
     
+   
 
     
   }) => {
@@ -489,9 +400,9 @@ const handleDeadlineChange_edt = (event) => {
 
       if (!file || !teacherID  ) {
 
-        toast.error('Assignment File is required ', {
+        toast.error('Quiz File is required ', {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, // Close the toast after 3 seconds
+          autoClose: 1000, 
         });
         return
       }
@@ -512,15 +423,23 @@ const handleDeadlineChange_edt = (event) => {
         .then(response => {
           if (response.status == 200) {
   
-            toast.success("SUCCESSFULLY UPDATED")
-            window.location.reload()
+            toast.success("SUCCESSFULLY UPDATED",  {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 1000, 
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
             handleClose()
             
           } 
         })
         .catch(error => {
           // Handle the error
-          toast.error("ERROR UPDATED")
+          toast.error("ERROR UPDATING", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, 
+          })
         });
   
   
@@ -538,7 +457,7 @@ const handleDeadlineChange_edt = (event) => {
     return (
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Update Assignment</Modal.Title>
+          <Modal.Title>Update Quiz</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
@@ -640,10 +559,10 @@ const handleDeadlineChange_edt = (event) => {
         // Close the delete modal
         setShowDeleteModal(false);
       } else {
-        console.error('Failed to delete assignment');
+        console.error('Failed to delete quiz');
       }
     } catch (error) {
-      console.error('Error while deleting assignment', error);
+      console.error('Error while deleting quiz', error);
     }
   };
 
@@ -656,10 +575,10 @@ const handleDeadlineChange_edt = (event) => {
     return (
       <Modal show={show} onHide={handleDeleteCancelled} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Assignment</Modal.Title>
+          <Modal.Title>Delete quiz</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Are you sure you want to delete this assignment?</h5>
+          <h5>Are you sure you want to delete this quiz?</h5>
         </Modal.Body>
         <Modal.Footer className="justify-content-center align-items-center d-flex">
           <Button
@@ -773,6 +692,16 @@ const handleDeadlineChange_edt = (event) => {
     setEditAssignmentVisible(false);
   };
 
+  const formatTime = (time) => {
+    if (!time) {
+      return ''; // or any default value you want to display for undefined time
+    }
+  
+    const date = new Date();
+    const [hours, minutes] = time.split(':');
+    date.setHours(hours, minutes, 0);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  };
 
   return (
 
@@ -781,18 +710,18 @@ const handleDeadlineChange_edt = (event) => {
       <ToastContainer />
 
       <div className="container-fluid" style={{
-        textAlign: 'center', marginTop: '0px',
+        textAlign: 'center', marginTop: '0px',overflow:'auto',
       }}>
         <center>
 
 
-          <h1 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '30px', letterSpacing: '3px' }}>
+          <h1 style={{ fontFamily: 'Poppins', background: '', padding: '5px', color: 'black', borderRadius: '20px', marginBottom: '20px', letterSpacing: '3px' }}>
             QUIZ</h1>
 
 
 
           <div className="row justify-content-center align-items-center d-flex" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '200px' }}>
               <Form.Control
                 type="text"
                 placeholder="Title"
@@ -802,7 +731,7 @@ const handleDeadlineChange_edt = (event) => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '400px' }}>
+            <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
               <Form.Control
                 type="file"
                 onChange={handleFileChange}
@@ -850,7 +779,7 @@ const handleDeadlineChange_edt = (event) => {
 
 
 
-            <div className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%' }}>
+            <div className="mb-3" style={{ width: '100%' }}>
               <Button
                 className={`${styles.assignmentButton} btn-success`}
                 onClick={() => {
@@ -859,12 +788,13 @@ const handleDeadlineChange_edt = (event) => {
                 }}
                 style={{
                   background: '', color: 'white', fontSize: 'large', width: '220px', height: '50px', borderRadius: '30px'
-                  , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)'
+                  , boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                  marginTop: '10px',marginBottom:'10px',
                 }}
               >
-                Upload Assignment
+                Upload Quiz
               </Button>
-
+{/* 
               <span>{message !== "" && <h5 style={{
                 marginTop: '20px', color: 'green',
                 fontFamily: 'Poppins', fontWeight: 'bold'
@@ -873,7 +803,7 @@ const handleDeadlineChange_edt = (event) => {
               <span>{message !== "" && <h5 style={{
                 marginTop: '20px', color: 'red',
                 fontFamily: 'Poppins', fontWeight: 'bold'
-              }}>{wmessage}</h5>}</span>
+              }}>{wmessage}</h5>}</span> */}
 
             </div>
           </div>
@@ -889,12 +819,11 @@ const handleDeadlineChange_edt = (event) => {
             }} >
               <tr >
                 <th style={{ ...head_color, width: '2%' }}>Sr#</th>
-                <th style={{ ...head_color, width: '7%' }}>Title</th>
-                <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
-                {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
+                <th style={{ ...head_color, width: '5%' }}>Title</th>
+                <th style={{ ...head_color, width: '5%' }}>Quiz File</th>
                 <th style={{ ...head_color, width: '5%' }}>Total Marks</th>
                 <th style={{ ...head_color, width: '5%' }}>Deadline</th>
-                <th style={{ ...head_color, width: '10%' }}>Action</th>
+                <th style={{ ...head_color, width: '7%' }}>Action</th>
               </tr>
             </thead>
             <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -903,8 +832,8 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color }}>
                     <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
+                  <td style={{ ...row_color ,fontSize: 'large'}}>
+                    {assignment.title}
                   </td>
                   <td style={{ ...row_color }}>
                     <>
@@ -917,13 +846,25 @@ const handleDeadlineChange_edt = (event) => {
                       </button>
                     </>
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: '400' }}>{assignment.totalMarks}</p>
+                  <td style={{ ...row_color,fontSize: 'large', fontWeight: '400' }}>
+                    {assignment.totalMarks}
                   </td>
-                  <td style={{ ...row_color }}>
-                    <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>
+                  <td style={{ ...row_color ,fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'green', fontFamily:'Arial'}}>
+                    
+                      {/* {new Date(assignment.deadline).toLocaleDateString('en-GB')}
+                      <span> </span> */}
+                      {formatTime(assignment.time)}
+                    
+                    {/* <button
+                      className="btn btn-secondary"
+                      style={{fontSize: 'medium', fontWeight:'500', color:'white' ,cursor: 'default',
+                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
+                      background: 'grey',}}
+                    >
                       {new Date(assignment.deadline).toLocaleDateString('en-GB')}
-                    </p>
+                      <span> </span>
+                      {formatTime(assignment.time)}
+                    </button> */}
                   </td>
                   <td style={{ ...row_color }}>
                     <button
@@ -959,6 +900,7 @@ const handleDeadlineChange_edt = (event) => {
           <UpdateAssignmentModal
             show={showUpdateModal}
             handleClose={handleCloseUpdateModal}
+           
           />
 
 
@@ -977,4 +919,4 @@ const handleDeadlineChange_edt = (event) => {
   );
 };
 
-export default AssignmentPage;
+export default Quiz;

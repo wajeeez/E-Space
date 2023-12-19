@@ -18,6 +18,7 @@ const NotificationAssignmentUpload = require('../models/NotificationUploadAssign
 const Group = require('../models/Groups');
 const NotificationSubmission = require('../models/NotificationSubmission');
 const Quiz = require('../models/Quiz');
+const quizSubmission = require('../models/QuizSubmissionFile');
 
 async function UploadAssignment(req, res, next) {
   try {
@@ -679,8 +680,57 @@ async function deleteSubmission(req, res, next) {
   }
 };
 
+
+async function deleteQuizSubmission(req, res, next) {
+  try {
+    const fileURL = req.params.fileURL;
+    const assignURL = req.body.assignURL;
+
+
+    const submissionFileURL = fileURL
+    // // Find the assignment by fileURL
+    // const assignment = await Assignment.findOne({fileURL: fileURL });
+    const submission = await Submissions.findById(fileURL);
+    const submitModel = await quizSubmission.find({submissionFileURL:submissionFileURL})
+    if (!submission || !submitModel) {
+      return res.status(404).json({ message: 'Submission not found' });
+    }
+
+    console.log('File URL:', fileURL, typeof fileURL);
+    console.log('Assign URL:', assignURL, typeof assignURL);
+
+    // Update the assignment
+    const updateResult = await Quiz.updateOne(
+      { fileURL: assignURL.toString() },
+      {
+        $pull: { submissionURL: fileURL.toString() },
+      },
+      { new: true }
+    );
+
+    // Check if the assignment update was successful
+    if (updateResult.nModified === 0) {
+      // If no documents were modified, it means the assignment was not found or the value wasn't in the array
+      return res.status(404).json({ message: 'Assignment not found or submissionURL not in array' });
+    }
+
+    // Delete the submission
+    await Submissions.deleteOne({ _id: fileURL });
+
+    await SubmissionModel.deleteOne({submissionFileURL:submissionFileURL})
+
+    
+
+    return res.status(200).json({ message: 'Assignment deleted successfully' });
+  } catch (err) {
+    // Handle any errors that occurred during assignment deletion
+    console.error(err);
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
+};
+
 module.exports = {
-  UploadAssignment, UploadLecture, UploadGroupAssignment
+  UploadAssignment, UploadLecture, UploadGroupAssignment,deleteQuizSubmission
   , deleteAssignment, DeleteLecture, deleteSubmission,deleteGroup,deleteQuiz,UploadQuiz,quizTeacherEdit,
   EditLecture, UploadSubmission,SubmitGroupMarks, getAssignmentNotification,editTeacherAssignment, getSubmissionNotification
 };

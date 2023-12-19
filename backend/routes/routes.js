@@ -111,7 +111,13 @@ router.post('/teacher/quiz/upload', UploadAssignment.UploadQuiz)
 router.post('/teacher/quizEdit/:_id', UploadAssignment.quizTeacherEdit)
 router.post('/teacher/deleteQuiz/:_id', UploadAssignment.deleteQuiz)
 router.get('/teacher/quiz/list/:class_id', getAllAssignments.getAllQuiz)
+router.post('/quiz/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)
+
+
 //Student Side Quiz
+
+
+
 
 router.post('/student/quiz/upload', QuizStdUpload)
 router.get('/student/quiz/submissionAll/:fileURL', GetAllSubmissions.GetALLQuizSubmission)
@@ -119,6 +125,9 @@ router.get('/student/quiz/submitted',StudentAuth.getQuizAssignment)
 router.get('/student/quiz/getSubmitedFileURL',StudentAuth.getQuizFileURL)
 router.get('/student/quiz/isSubmission',StudentAuth.CheckQuizSubmission)
 router.get('/student/quiz/allSubmissions',StudentAuth.getAllQuizSubmission)
+
+router.post('/student/quiz/delete/submission/:fileURL',UploadAssignment.deleteSubmission)
+
 
 
 

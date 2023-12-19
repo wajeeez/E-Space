@@ -11,6 +11,7 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const fileSchema = require("./../models/assignementFile");
 const Lecture = require('../models/Lecture');
+const Quiz = require('../models/Quiz');
 
 async  function getAllAssignments(req, res) {
     try {
