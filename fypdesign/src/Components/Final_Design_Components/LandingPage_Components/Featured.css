@@ -40,3 +40,14 @@
 
 
 
+  @media (max-width: 380px) {
+    .ftitle {
+      font-size: 2rem; 
+      
+    }
+  
+    .fdescription {
+      font-size: 1rem; 
+    }
+  }
+
