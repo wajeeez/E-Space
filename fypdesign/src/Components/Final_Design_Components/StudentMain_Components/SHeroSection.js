@@ -244,7 +244,7 @@ function SHeroSection() {
         <Row>
           {cards.map((card, index) => (
             <Col key={index} md={3} className="p-3">
-              <div className="card" style={{ background: '', borderRadius: '20px', border: '3px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', height: '140px' }}>
+              <div className="card" style={{ background: '', borderRadius: '20px', border: '3px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', height: '140px' , alignItems:'center'}}>
                 <Link to={`/student/class/${card._id}`} style={{ textDecoration: 'none' }}>
                   <div className="card-body" style={{ textAlign: 'center', padding: '5px', margin: '5px' }}>
                     <h4 className="card-title1" style={{ fontSize: 'large', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', color: 'black', whiteSpace: '', maxWidth: '200px' }}>{card.subjectName}</h4>

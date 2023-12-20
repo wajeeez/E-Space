@@ -171,7 +171,7 @@
 
 
 
-.ssidebar lis{
+.ssidebar a{
   position: relative;
   margin:8px 0;
  
@@ -179,7 +179,7 @@
   
 }
 
-.ssidebar lis img{
+.ssidebar a img{
   height: auto;
   width: 35px;
   line-height: 35px;
@@ -188,7 +188,7 @@
   margin-left: 10px;
   transition: all .5s ease;
 }
-.ssidebar.open lis img{
+.ssidebar.open a img{
   height: auto;
   width: 60px;
   line-height: 50px;
@@ -198,7 +198,7 @@
   transition: all .5s ease;
 }
 
-.ssidebar lis p{
+.ssidebar a p{
   
   font-size: 0px;
   text-align: center;
@@ -208,7 +208,7 @@
   opacity: 0;
 
 }
-.ssidebar.open lis p{
+.ssidebar.open a p{
   margin-top: 5px;
   transition: all .5s ease;
   z-index: 2;

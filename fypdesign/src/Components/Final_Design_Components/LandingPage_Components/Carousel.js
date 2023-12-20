@@ -9,7 +9,7 @@ const cardData = [
   {
     iconClass: 'fa-solid fa-chalkboard-user fa-bounce',
     // title: 'Intereactive White Board',
-    title: 'Exploring the Interactive Whiteboard',
+    title: 'Interactive Whiteboard',
     description: 'Our interactive whiteboard makes collaboration visually inspiring, efficient and easy to share.',
     link: '/card1',
     backgroundColor: '#b23ac7',
@@ -43,16 +43,16 @@ const cardData = [
   {
     iconClass: 'fas fa-bell fa-shake',
         imgSrc: analysis,
-    title: 'Students : Never Miss A Deadline',
+    title: 'Never Miss A Deadline',
     // description: 'Real-time notifications ensure you never miss a submission, providing timely reminders to enhance punctuality.',
-    description: 'Real-time notifications ensure you never miss a submission, providing timely reminders.',
+    description: 'Real-time notifications ensure students never miss a submission, providing timely reminders.',
     link: '/card5',
     backgroundColor: ' #e5abc6',
   },
   {
     iconClass: 'fas fa-users fa-flip',
     imgSrc: analysis,
-    title: 'Embarking on Group Assignments',
+    title: 'Group Assignments',
     // description: 'Streamline student submissions, provide teacher-friendly assessments for better teamwork and evaluation.',
     description: 'Simplify student submissions, offer teacher-friendly assessments, promoting ease in evaluation.',
     link: '/card6',
