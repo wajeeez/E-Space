@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import analysis from '../../../Assets/images/analysis.png';
 
@@ -62,8 +62,12 @@ const cardData = [
 ];
 
 const CardsCarousel = () => {
+  const [activeRowMobile, setActiveRowMobile] = useState(0);
   const [activeRow, setActiveRow] = useState(0);
- 
+
+  const handleRowChangeMobile = (newRow) => {
+    setActiveRowMobile(newRow);
+  };
 
   const handleRowChange = (newRow) => {
     setActiveRow(newRow);
@@ -93,13 +97,100 @@ const CardsCarousel = () => {
     ));
   };
 
- 
+  
+   
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const updateWindowSize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWindowSize);
+    return () => {
+      window.removeEventListener('resize', updateWindowSize);
+    };
+  }, []);
+
+
+  const renderCardsMobile = (start, end) => {
+    const cards = cardData.slice(start, end);
+    return cards.map((card, index) => (
+
+      <Col key={index} xs={6} >
+  
+        <div className="card custom-catousel-card" 
+          style={{
+            height: '400px',
+            borderRadius: '10px',
+            border: '1px solid black',
+            backgroundColor: '',
+          }}
+        >
+          <div style={{ backgroundColor: card.backgroundColor }} className='iconclass'>
+            <i className={`${card.iconClass}`}></i>
+          </div>
+          <div className="container-fluid car-body">
+            <h5 className="card-title car-title">{card.title}</h5>
+            <p className="card-text car-text">{card.description}</p>
+          </div>
+        </div>
+      </Col>
+
+    ));
+  };
+  
 
   return (
-    <Container className='custom-carousel'>
+    <>
+    {isMobile ? (
+      // Mobile Layout
+    <div className='container-fluid'>
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+      <div className='container-fluid'>
+          <Carousel activeIndex={activeRowMobile} indicators={false} controls={false} >
+            <Carousel.Item>
+              <Row>{renderCardsMobile(0, 2)}</Row>
+            </Carousel.Item>
+            <Carousel.Item>
+              <Row>{renderCardsMobile(2, 4)}</Row>
+            </Carousel.Item>
+            <Carousel.Item>
+              <Row>{renderCardsMobile(4, 6)}</Row>
+            </Carousel.Item>
+          </Carousel>
+      </div>
       <Row className="mt-3">
-        <Col>
+        <Col className="d-flex justify-content-center">
+          <div className="custom-buttons">
+            <Button
+              onClick={() => handleRowChangeMobile(activeRowMobile - 1)}
+              disabled={activeRowMobile === 0}
+              className="btn-transition"
+              style={{background:"white" ,border: 'none' }}
+            >
+            <i class='bx bxs-chevrons-left' style={{color: "#b23ac7", fontSize:'50px'}}></i>
+            </Button>
+            <Button
+              onClick={() => handleRowChangeMobile(activeRowMobile + 1)}
+              disabled={activeRowMobile === 2}
+              className="btn-transition"
+              style={{background:"white", border: 'none' }}
+            >
+            <i class='bx bxs-chevrons-right' style={{color: "#b23ac7", fontSize:'50px'}}></i>
+            </Button>
+          </div>
+        </Col>
+      </Row>
+    </div>
+
+    ) : (
+         // Desktop Layout
+
+    <Container className='conatiner-fluid'>
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+      <div className="container-fluid">
           <Carousel activeIndex={activeRow} indicators={false} controls={false}>
             <Carousel.Item>
               <Row>{renderCards(0, 3)}</Row>
@@ -107,12 +198,8 @@ const CardsCarousel = () => {
             <Carousel.Item>
               <Row>{renderCards(3, 6)}</Row>
             </Carousel.Item>
-            <Carousel.Item>
-              <Row>{renderCards(6, 7)}</Row>
-            </Carousel.Item>
           </Carousel>
-        </Col>
-      </Row>
+      </div>
       <Row className="mt-3">
         <Col className="d-flex justify-content-center">
           <div className="custom-buttons">
@@ -136,6 +223,9 @@ const CardsCarousel = () => {
         </Col>
       </Row>
     </Container>
+
+    )}
+    </>
   );
 };
 
