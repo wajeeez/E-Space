@@ -220,6 +220,11 @@ margin-left: 3rem;
    width: 800px;
   
   }
+
+  .image-div{
+    margin-right: 0px;
+
+  }
 }
 
 /* Responsive styles for screens with a maximum width of 500px */

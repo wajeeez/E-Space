@@ -80,14 +80,14 @@ const CardsCarousel = () => {
 
         <div className="card custom-catousel-card" 
         
-        style={{ height:'450px',borderRadius: '10px' , border: '1px solid black',  
+        style={{ height:'500px',borderRadius: '10px' , border: '1px solid black',  
         backgroundColor: '' }}
         >
           {/* <img src={card.imgSrc} alt={card.title} /> */}
          <div style={{backgroundColor:card.backgroundColor }} className='iconclass'>
          <i className={`${card.iconClass}`}></i>
          </div>
-          <div className="card-body  car-body">
+          <div className="container-fluid  car-body">
            
             <h5 className="card-title car-title">{card.title}</h5>
             <p className="card-text car-text">{card.description}</p>

@@ -79,9 +79,8 @@ html , body{
     color: rgb(0, 0, 0) !important;
     display: inline-block; 
     padding: 10px;
-    /* border-top-right-radius: 20px; 
-    border-bottom-right-radius: 20px;  */
-
+    height: 6rem;
+    margin-top: 2rem;
     text-align: center;
     font-weight: bolder;
     /* font-size: 26px; */
