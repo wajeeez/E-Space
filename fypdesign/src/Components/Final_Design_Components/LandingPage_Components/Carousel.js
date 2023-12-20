@@ -76,7 +76,7 @@ const CardsCarousel = () => {
   const renderCards = (start, end) => {
     const cards = cardData.slice(start, end);
     return cards.map((card, index) => (
-      <Col key={index} md={4} >
+      <Col key={index} md={4}  >
 
         <div className="card custom-catousel-card" 
         
@@ -88,7 +88,6 @@ const CardsCarousel = () => {
          <i className={`${card.iconClass}`}></i>
          </div>
           <div className="container-fluid  car-body">
-           
             <h5 className="card-title car-title">{card.title}</h5>
             <p className="card-text car-text">{card.description}</p>
           </div>
@@ -188,7 +187,7 @@ const CardsCarousel = () => {
     ) : (
          // Desktop Layout
 
-    <Container className='conatiner-fluid'>
+    <div className='conatiner-fluid' style={{paddingLeft:'3rem',paddingRight:'3rem' }}>
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <div className="container-fluid">
           <Carousel activeIndex={activeRow} indicators={false} controls={false}>
@@ -222,7 +221,7 @@ const CardsCarousel = () => {
           </div>
         </Col>
       </Row>
-    </Container>
+    </div>
 
     )}
     </>
