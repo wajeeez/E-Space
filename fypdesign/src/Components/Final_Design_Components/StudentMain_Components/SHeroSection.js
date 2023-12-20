@@ -21,7 +21,7 @@ import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
-
+import StdSettings from '../../../Pages/Student/User/AccSetting';
 
 import { useFormik } from "formik";
 import Papa from "papaparse";
@@ -301,7 +301,7 @@ function SHeroSection() {
 
       <p className='pss'>x</p>
       <li>
-        <Link onClick={() => handlePageChange('user')}>
+        <Link onClick={() => handlePageChange('stdsettings')}>
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
@@ -498,52 +498,17 @@ function SHeroSection() {
 
 
 
-        {currentPage === 'settings' && <div>user</div> }   
+
            
            </div>
 
         }
 
+        {currentPage === 'stdsettings' && <StdSettings></StdSettings> }   
   </div>
         
       </div>
 
-        
-        {/* <div className='thero-container'>
-      <div className='shero-heading'>
-        <th>CLASSES</th>
-      </div>
-      <center >
-        <div>
-          <p className='s-info-top'>
-            Student Name : {StudentName}     |     Student Email : {email}{" "}
-          </p>
-        </div>
-      </center>
-
-      <div className='shero-cards'>
-        {classes.map((cls) => (
-          <Link to={`/student/class/${cls._id}`} className='shero-card' key={cls._id}>
-            <div className='shero-card-content'>
-              <tc>{cls.subjectName}</tc>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      
-
-        
-        <Link onClick={handleLogout} className='shero-card2'>
-          <div className='shero-card-content'>
-            <h2>Logout</h2>
-          </div>
-        </Link>
-
-        
-      </div> */}
-    
-        
         
         </>
 

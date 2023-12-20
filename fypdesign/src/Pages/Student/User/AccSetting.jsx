@@ -394,7 +394,7 @@ const AccSetting = () => {
           <div className="col-md-6">
             <button
               onClick={handleUpdate}
-              className="btn btn-primary"
+              className="custom-button"
               style={{
                 fontSize: '20px',
                 letterSpacing: '1px',

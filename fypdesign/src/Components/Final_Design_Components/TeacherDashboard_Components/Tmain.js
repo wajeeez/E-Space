@@ -312,6 +312,9 @@ function Tmain() {
         </Link>
         <span class="tooltip">Quiz Submissions</span>
       </li>
+
+      <p className='ps'>x</p>
+
       <li>
       
       <a onClick={() => setShowDeleteModal(true)}>
@@ -321,15 +324,10 @@ function Tmain() {
       </a>
       <span class="tooltip">Delete Class</span>
 
-      <DeleteClassModal
-        show={showDeleteModal}
-        handleDeleteConfirmed={handleDeleteConfirmed}
-        handleDeleteCancelled={handleDeleteCancelled}
-      />
     </li>
 
+    <p className='ps'>x</p>
 
-      <p className='ps'>x</p>
       <li>
         
         <Link onClick={handleLeaveClass}>
@@ -340,16 +338,17 @@ function Tmain() {
         
         <span class="tooltip">Leave Class</span>
       </li>
-      {/* <p className='ps'>x</p> */}
+
       
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('account')}>
-        {/* <img src={accsetIcon} alt="Icon" className="button-icon" /> */}
+
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
         <span class="tooltip">User Setting</span>
-      </li>
+      </li> */}
+      
       <li>
         <a onClick={handleLogout}>
         {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
@@ -362,7 +361,13 @@ function Tmain() {
 
       
     </ul>
+
   </div>
+  <DeleteClassModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
   <section class="container-fluid home-section">
     
     {/* <div className="tpage" > */}

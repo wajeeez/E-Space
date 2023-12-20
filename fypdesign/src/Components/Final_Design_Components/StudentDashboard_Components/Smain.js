@@ -213,13 +213,13 @@ function Smain() {
         <span class="tooltip">Leave Class</span>
       </li>
       <p className='pss'>x</p>
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('account')}>
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
         <span class="tooltip">User Setting</span>
-      </li>
+      </li> */}
       <li>
         <a onClick={handleLogout}>
         <i class='bx bx-arrow-to-left' ></i>
