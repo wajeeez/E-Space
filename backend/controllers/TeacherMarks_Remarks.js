@@ -22,7 +22,7 @@ async  SubmitMarks(req, res, next) {
 
 
        
-        const uploadMarks = await Submission.findOneAndUpdate(
+        const uploadMarks = await quizSubmission.findOneAndUpdate(
           { Email:Email,submissionFileURL: submissionFileURL, classId: classId },
           {
             marks: marks,

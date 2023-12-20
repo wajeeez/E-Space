@@ -102,7 +102,7 @@ router.post('/getKPIS',KPIS.getAssignmentStatistics)
 
 router.post('/getTotalStudentCount/:_id',KPIS.getTotalStudentsbyclassId)
 
-
+router.get('/teacher/getName/:email',TeacherAuthController.getName)
 
 //Quiz
 

@@ -404,7 +404,7 @@ async function editTeacherAssignment(req, res, next) {
   try {
     const assignmentId = req.params._id;
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, fileName, title,time, remarks } = req.body;
+    const { classId, teacherID, fileName, title,time, remarks ,deadline,totalMarks } = req.body;
 
     const existingAssignment = await Assignment.findById(assignmentId);
 
@@ -438,6 +438,8 @@ async function editTeacherAssignment(req, res, next) {
     if (title) existingAssignment.title = title;
     if (time) existingAssignment.time = time
     if (remarks) existingAssignment.remarks = remarks;
+    if (totalMarks) existingAssignment.totalMarks = totalMarks;
+    if (deadline) existingAssignment.deadline = deadline;
 
     // Save the updated assignment
     await existingAssignment.save();
@@ -455,7 +457,7 @@ async function quizTeacherEdit(req, res, next) {
   try {
     const assignmentId = req.params._id;
     const { originalname, buffer, mimetype } = req.file;
-    const { classId, teacherID, fileName, title,time, remarks } = req.body;
+    const { classId, teacherID, fileName, title,time, remarks,totalMarks,deadline } = req.body;
 
     const existingAssignment = await Quiz.findById(assignmentId);
 
@@ -489,6 +491,8 @@ async function quizTeacherEdit(req, res, next) {
     if (title) existingAssignment.title = title;
     if (time) existingAssignment.time = time
     if (remarks) existingAssignment.remarks = remarks;
+    if (totalMarks) existingAssignment.totalMarks = totalMarks;
+    if (deadline) existingAssignment.deadline = deadline;
 
     // Save the updated assignment
     await existingAssignment.save();

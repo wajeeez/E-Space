@@ -46,6 +46,7 @@ function THeroSection() {
       const decodedToken = jwt_decode(authToken);
       setUserId(decodedToken.id);
       setEmail(decodedToken.email);
+      console.log(decodedToken.email)
       // setName(decodedToken.name);
 
       // Fetch classes for the logged-in user from the server
@@ -54,31 +55,28 @@ function THeroSection() {
         .then((response) => {
           console.log(response.data.response);
           setClasses(response.data.response);
-         
           setLoading(false)
         })
         .catch((error) => {
           console.log(error);
           setLoading(false)
         });
+
+
+
+        axios
+        .get(baseURL + `/teacher/getName/${decodedToken.email}`)
+        .then((response) => {
+          setName(response.data.teacherName);
+          console.log(response.data.teacherName)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
 
-
-  
-  const getName=(classess)=>{
-
-    for (const classObj of classess) {
-      // Assuming teacherName is the property you want to extract
-      
-      console.log(classObj.teacherName)
-      setName(classObj.teacherName)
-    
-    }
-  }
-  
-
-
+ 
 
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

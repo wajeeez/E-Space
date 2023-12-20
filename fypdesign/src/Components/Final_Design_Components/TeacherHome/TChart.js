@@ -14,17 +14,17 @@ const TChart = () => {
     const { _id } = useParams();
     const [email, setEmail] = useState('');
     useEffect(() => {
-        const authToken = localStorage.getItem("StdToken");
+        const authToken = localStorage.getItem("authToken");
         if (authToken) {
           const decodedToken = jwt_decode(authToken);
           setEmail(decodedToken.email);
-          console.log(decodedToken.email)
+          console.log("SHOW ME GRAPH ---------------",decodedToken.email)
           request(decodedToken.email)
         }
       }, []);
 
 
-
+    
       const request = (e) =>{
       
 
