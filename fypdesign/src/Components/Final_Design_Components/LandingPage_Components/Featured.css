@@ -1,3 +1,12 @@
+html , body{
+    
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+
 .img-rectangular {
     width: 100%;
     height: auto;
@@ -39,4 +48,15 @@
   }
 
 
+
+  @media (max-width: 380px) {
+    .ftitle {
+      font-size: 2rem; 
+      
+    }
+  
+    .fdescription {
+      font-size: 1rem; 
+    }
+  }
 

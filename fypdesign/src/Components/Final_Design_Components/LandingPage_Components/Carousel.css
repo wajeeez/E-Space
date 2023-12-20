@@ -1,3 +1,10 @@
+html , body{
+    
+  margin: 0;
+  padding: 0;
+  
+  
+}
 
 /* bedfore */
 .custom-carousel{
@@ -59,7 +66,7 @@
     border-radius: 20px;
 }
 
-.card-body {
+.car-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,52 +74,116 @@
     
   }
 
-  .card-title {
+  .car-title {
     /* background-color: rgb(11, 10, 14); */
     color: rgb(0, 0, 0) !important;
     display: inline-block; 
     padding: 10px;
-    /* border-top-right-radius: 20px; 
-    border-bottom-right-radius: 20px;  */
-    border-radius: 20px;
+    height: 6rem;
+    margin-top: 2rem;
     text-align: center;
     font-weight: bolder;
-    font-size: 26px;
+    /* font-size: 26px; */
+    font-size: 1.5rem;
     font-family: 'Poppins';
     /* text-shadow: 4px 4px 6px rgba(128, 128, 128, 0.8); */
   }
 
-  .card-text{
+  .car-text{
     font-weight: 400;
     font-family: 'Raleway', sans-serif;
     text-align: center;
     color: #000;
-    font-size: 19px;
-    margin-left: 5px;
+    /* font-size: 19px; */
+    /* margin-left: 5px; */
     padding: 10px;
+    font-size: 1.1rem;
   }
+
+
   .iconclass{
     background-color: rgb(0, 0, 0);
    
-   height: 200px;
+    height: 11rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .iconclass i{
     color: #faf9f9;
-    font-size: 80px;
+    font-size: 5rem;
   }
 
   .custom-icon {
-   
    
     width: 100px;
     height: auto;
     box-shadow: 0px 0px 6px 6px rgba(151, 196, 255, 0.8);
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
+.car-title{
+  font-size: 1.1rem;
+  padding: 0;
+  height: 4rem;
+}
 
-    
+.car-text{
+  font-size: 0.9rem;
+  padding:0;
+}
+   
+.iconclass i{
+  color: #faf9f9;
+  font-size: 3rem;
+}
+
+.iconclass{
+  background-color: rgb(0, 0, 0);
+ 
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.car-body {
+  margin-top: 2rem;
+
+}
+
   }
+
+
+  @media screen and (max-width: 555px) {
+    .car-title{
+      font-size: 1rem;
+      padding: 0;
+      height: 5rem;
+
+    }
+    
+    .car-text{
+      font-size: 0.8rem;
+    }
+       
+    .iconclass i{
+      color: #faf9f9;
+      font-size: 2.5rem;
+    }
+    
+    .iconclass{
+      background-color: rgb(0, 0, 0);
+     
+      height: 7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .car-body {
+  margin-top: 1.3rem;
+
+}
+    
+      }
