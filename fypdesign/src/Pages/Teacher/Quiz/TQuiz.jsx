@@ -88,7 +88,7 @@ const handleDeadlineChange_edt = (event) => {
       .catch((error) => {
         console.log(error);
       });
-  })
+  },[])
 
 
 

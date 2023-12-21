@@ -674,7 +674,7 @@ const SQuiz = () => {
                 dateTime.setHours(23,59,59)
               }
           
-              
+              console.log("SUBMISSION CHECK URL -------",assignment.submissionFileURL)
               
               return (
 

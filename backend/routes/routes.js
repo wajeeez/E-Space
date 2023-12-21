@@ -126,7 +126,7 @@ router.get('/student/quiz/getSubmitedFileURL',StudentAuth.getQuizFileURL)
 router.get('/student/quiz/isSubmission',StudentAuth.CheckQuizSubmission)
 router.get('/student/quiz/allSubmissions',StudentAuth.getAllQuizSubmission)
 
-router.post('/student/quiz/delete/submission/:fileURL',UploadAssignment.deleteSubmission)
+router.post('/student/quiz/delete/submission/:fileURL',UploadAssignment.deleteQuizSubmission)
 
 
 

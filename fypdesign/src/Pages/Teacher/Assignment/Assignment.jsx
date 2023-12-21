@@ -157,7 +157,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline ', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 1000, // Close the toast after 3 seconds
+        autoClose: 3000, // Close the toast after 3 seconds
       });
       // setMessage("Data Missing Please Select a File and Deadline")
     } else {
@@ -176,10 +176,7 @@ const handleDeadlineChange_edt = (event) => {
       const response = await TeacherAssignmentUpload(formData);
 
       if (response.status === 201 || response.status === 200) {
-        toast.success("Succesfully Uploaded!!! ", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        setMessage("Successfully Uploaded!!!")
         console.log("Successfull")
 
         // Reset Form controls
@@ -190,8 +187,8 @@ const handleDeadlineChange_edt = (event) => {
         setTotalMarks('');
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          setMessage("");
+        }, 3000);
         if (fileInputRef.current) {
           fileInputRef.current.value = '  '; // Reset the input field
         }
@@ -201,15 +198,11 @@ const handleDeadlineChange_edt = (event) => {
         console.log("BAD REQUEST")
 
         if (response.response.status === 401) {
-          // setWMessage(response.response.data.message);
-          toast.error(response.response.data.message, {
-            autoClose: 1000,
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          setWMessage(response.response.data.message);
           console.log("401")
           setTimeout(() => {
             setWMessage("");
-          }, 1000);
+          }, 3000);
         }
       }
     }
@@ -247,7 +240,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 1000, // Close the toast after 3 seconds
+        autoClose: 3000, // Close the toast after 3 seconds
       });
       return
     }
@@ -267,28 +260,16 @@ const handleDeadlineChange_edt = (event) => {
       .then(response => {
         if (response == 200) {
 
-          toast.success("SUCCESSFULLY UPDATED" , {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1000, // Close the toast after 3 seconds
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          toast.success("SUCCESSFULLY UPDATED")
 
         } else {
 
-          toast.error("ERROR UPDATED" ,{
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1000, // Close the toast after 3 seconds
-          })
+          toast.error("ERROR UPDATED")
         }
       })
       .catch(error => {
         // Handle the error
-        toast.error("ERROR UPDATED" ,{
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1000, // Close the toast after 3 seconds
-        })
+        toast.error("ERROR UPDATED")
       });
 
 
@@ -463,7 +444,6 @@ const handleDeadlineChange_edt = (event) => {
     show,
     handleClose,
     
-   
 
     
   }) => {
@@ -511,7 +491,7 @@ const handleDeadlineChange_edt = (event) => {
 
         toast.error('Assignment File is required ', {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1000, 
+          autoClose: 3000, // Close the toast after 3 seconds
         });
         return
       }
@@ -532,23 +512,15 @@ const handleDeadlineChange_edt = (event) => {
         .then(response => {
           if (response.status == 200) {
   
-            toast.success("SUCCESSFULLY UPDATED",  {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 1000, 
-            })
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
+            toast.success("SUCCESSFULLY UPDATED")
+            window.location.reload()
             handleClose()
             
           } 
         })
         .catch(error => {
           // Handle the error
-          toast.error("ERROR UPDATED", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1000, 
-          })
+          toast.error("ERROR UPDATED")
         });
   
   
@@ -801,16 +773,6 @@ const handleDeadlineChange_edt = (event) => {
     setEditAssignmentVisible(false);
   };
 
-  const formatTime = (time) => {
-    if (!time) {
-      return ''; // or any default value you want to display for undefined time
-    }
-  
-    const date = new Date();
-    const [hours, minutes] = time.split(':');
-    date.setHours(hours, minutes, 0);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-  };
 
   return (
 
@@ -819,7 +781,7 @@ const handleDeadlineChange_edt = (event) => {
       <ToastContainer />
 
       <div className="container-fluid" style={{
-        textAlign: 'center', marginTop: '0px',overflow:'auto',
+        textAlign: 'center', marginTop: '0px',
       }}>
         <center>
 
@@ -927,12 +889,12 @@ const handleDeadlineChange_edt = (event) => {
             }} >
               <tr >
                 <th style={{ ...head_color, width: '2%' }}>Sr#</th>
-                <th style={{ ...head_color, width: '5%' }}>Title</th>
+                <th style={{ ...head_color, width: '7%' }}>Title</th>
                 <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
                 {/* <th style={{ ...head_color,width: '7%', fontSize:'large'  }}>Remarks</th> */}
                 <th style={{ ...head_color, width: '5%' }}>Total Marks</th>
-                <th style={{ ...head_color, width: '7%' }}>Deadline</th>
-                <th style={{ ...head_color, width: '7%' }}>Action</th>
+                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
+                <th style={{ ...head_color, width: '10%' }}>Action</th>
               </tr>
             </thead>
             <tbody style={{ textAlign: 'center', verticalAlign: 'middle', padding: '15px', }}>
@@ -941,8 +903,8 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color }}>
                     <p style={{ fontSize: 'large', fontWeight: '' }}>{index + 1}</p>
                   </td>
-                  <td style={{ ...row_color ,fontSize: 'large'}}>
-                    {assignment.title}
+                  <td style={{ ...row_color }}>
+                    <p style={{ fontSize: 'large', fontWeight: '' }}>{assignment.title}</p>
                   </td>
                   <td style={{ ...row_color }}>
                     <>
@@ -955,25 +917,13 @@ const handleDeadlineChange_edt = (event) => {
                       </button>
                     </>
                   </td>
-                  <td style={{ ...row_color,fontSize: 'large', fontWeight: '400' }}>
-                    {assignment.totalMarks}
+                  <td style={{ ...row_color }}>
+                    <p style={{ fontSize: 'large', fontWeight: '400' }}>{assignment.totalMarks}</p>
                   </td>
-                  <td style={{ ...row_color ,fontSize: 'large', fontWeight: '500', letterSpacing: '1px', color: 'green'}}>
-                    
+                  <td style={{ ...row_color }}>
+                    <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>
                       {new Date(assignment.deadline).toLocaleDateString('en-GB')}
-                      <span> </span>
-                      {formatTime(assignment.time)}
-                    
-                    {/* <button
-                      className="btn btn-secondary"
-                      style={{fontSize: 'medium', fontWeight:'500', color:'white' ,cursor: 'default',
-                      boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.4), inset -3px -3px 10px rgba(0, 0, 0, 0.4)',
-                      background: 'grey',}}
-                    >
-                      {new Date(assignment.deadline).toLocaleDateString('en-GB')}
-                      <span> </span>
-                      {formatTime(assignment.time)}
-                    </button> */}
+                    </p>
                   </td>
                   <td style={{ ...row_color }}>
                     <button
@@ -1009,7 +959,6 @@ const handleDeadlineChange_edt = (event) => {
           <UpdateAssignmentModal
             show={showUpdateModal}
             handleClose={handleCloseUpdateModal}
-           
           />
 
 
