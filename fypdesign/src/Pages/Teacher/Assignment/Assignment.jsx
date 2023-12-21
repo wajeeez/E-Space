@@ -157,7 +157,7 @@ const handleDeadlineChange_edt = (event) => {
 
       toast.error('Data Missing Please Select a File and Deadline ', {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
+        autoClose: 1000, // Close the toast after 3 seconds
       });
       // setMessage("Data Missing Please Select a File and Deadline")
     } else {
@@ -176,9 +176,15 @@ const handleDeadlineChange_edt = (event) => {
       const response = await TeacherAssignmentUpload(formData);
 
       if (response.status === 201 || response.status === 200) {
-        setMessage("Successfully Uploaded!!!")
+        // setMessage("Successfully Uploaded!!!")
+        toast.success('Uploaded Succesfully ', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Close the toast after 3 seconds
+        });
         console.log("Successfull")
-
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         // Reset Form controls
         setTitle('');
         setSelectedFile(null);
@@ -198,7 +204,11 @@ const handleDeadlineChange_edt = (event) => {
         console.log("BAD REQUEST")
 
         if (response.response.status === 401) {
-          setWMessage(response.response.data.message);
+          // setWMessage(response.response.data.message);
+          toast.error(response.response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000, // Close the toast after 3 seconds
+          });
           console.log("401")
           setTimeout(() => {
             setWMessage("");
@@ -233,49 +243,49 @@ const handleDeadlineChange_edt = (event) => {
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  const handleUpdate = async ( title, file, deadline, totalMarks ) => {
+  // const handleUpdate = async ( title, file, deadline, totalMarks ) => {
 
-    // Validate the input fields
-    if (!file || !teacherID  || !deadline) {
+  //   // Validate the input fields
+  //   if (!file || !teacherID  || !deadline) {
 
-      toast.error('Data Missing Please Select a File and Deadline', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close the toast after 3 seconds
-      });
-      return
-    }
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('classId', _id);
-    formData.append('fileName', title);
-    formData.append('teacherID', teacherID);
-    formData.append('subjectName', subjectName);
-    formData.append('deadline', deadline); // Append the deadline value
-    formData.append('title', title);
-    formData.append('totalMarks', totalMarks);
-
-
-    console.log(assignmentID_edit)
-    axios.post(baseURL + `/teacher/editAssignment/${assignmentID_edit}`, formData)
-      .then(response => {
-        if (response == 200) {
-
-          toast.success("SUCCESSFULLY UPDATED")
-
-        } else {
-
-          toast.error("ERROR UPDATED")
-        }
-      })
-      .catch(error => {
-        // Handle the error
-        toast.error("ERROR UPDATED")
-      });
+  //     toast.error('Data Missing Please Select a File and Deadline', {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //       autoClose: 1000, // Close the toast after 3 seconds
+  //     });
+  //     return
+  //   }
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('classId', _id);
+  //   formData.append('fileName', title);
+  //   formData.append('teacherID', teacherID);
+  //   formData.append('subjectName', subjectName);
+  //   formData.append('deadline', deadline); // Append the deadline value
+  //   formData.append('title', title);
+  //   formData.append('totalMarks', totalMarks);
 
 
+  //   console.log(assignmentID_edit)
+  //   axios.post(baseURL + `/teacher/editAssignment/${assignmentID_edit}`, formData)
+  //     .then(response => {
+  //       if (response == 200) {
+
+  //         toast.success("SUCCESSFULLY UPDATED")
+
+  //       } else {
+
+  //         toast.error("ERROR UPDATED")
+  //       }
+  //     })
+  //     .catch(error => {
+  //       // Handle the error
+  //       toast.error("ERROR UPDATED")
+  //     });
 
 
-  };
+
+
+  // };
 
 
   // Add a state variable to track the selected assignment for updating
@@ -773,6 +783,18 @@ const handleDeadlineChange_edt = (event) => {
     setEditAssignmentVisible(false);
   };
 
+  
+  const formatTime = (time) => {
+    if (!time) {
+      return ''; // or any default value you want to display for undefined time
+    }
+  
+    const date = new Date();
+    const [hours, minutes] = time.split(':');
+    date.setHours(hours, minutes, 0);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  };
+
 
   return (
 
@@ -923,6 +945,8 @@ const handleDeadlineChange_edt = (event) => {
                   <td style={{ ...row_color }}>
                     <p style={{ fontSize: 'large', fontWeight: 'bold', letterSpacing: '1px', color: 'green' }}>
                       {new Date(assignment.deadline).toLocaleDateString('en-GB')}
+                      <span> </span>
+                      {formatTime(assignment.time)}
                     </p>
                   </td>
                   <td style={{ ...row_color }}>

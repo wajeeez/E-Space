@@ -477,10 +477,12 @@ const head_color ={
 
         </td>
 
-        <td style={{...row_color }}>
-      <p style={{fontSize:'large', fontWeight:''}}>
-      <Link to ={lecture.lectureLink} >{lecture.lectureLink}</Link>
-      </p>
+        <td style={{ ...row_color }}>
+          <p style={{ fontSize: 'large', fontWeight: '' }}>
+            <a href={lecture.lectureLink} target="_blank" rel="noopener noreferrer">
+              {lecture.lectureLink}
+            </a>
+          </p>
         </td>
 
         <td style={{...row_color }}>
