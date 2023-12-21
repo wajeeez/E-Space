@@ -98,20 +98,25 @@ const StdTable = () => {
 
 
   let fileURLs = {};
+ useEffect(()=>{
   axios
-    .get(baseURL + `/teacher/assignments/list/${_id}`)
-    .then((response) => {
-      if (response.data) {
-        fileURLs = response.data.reduce((accumulator, item, index) => {
-          accumulator[index] = item.fileURL;
-          return accumulator;
-        }, {});
-        // console.log(fileURLs); // Log the updated value of fileURLs
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  .get(baseURL + `/teacher/assignments/list/${_id}`)
+  .then((response) => {
+    if (response.data) {
+      fileURLs = response.data.reduce((accumulator, item, index) => {
+        accumulator[index] = item.fileURL;
+        return accumulator;
+      }, {});
+      // console.log(fileURLs); // Log the updated value of fileURLs
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+ },[])
 
 
 
@@ -497,6 +502,7 @@ const StdTable = () => {
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL);
       formData.append('deadline', currentDate);
+      formData.append('Name',StudentName)
   
       try {
         const response = await StudentSubmissions(formData);

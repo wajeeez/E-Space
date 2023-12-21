@@ -96,6 +96,12 @@ const GroupAssignment = () => {
 
     };
 
+    const [nameList, setnameList] = useState("");
+    const handleNameList = (e)=>{
+        setnameList(e)
+    }
+
+
 
 
     //SUbmission
@@ -106,7 +112,7 @@ const GroupAssignment = () => {
 
         if (selectedStudents && selectedStudents.length >= 2) {
             axios
-                .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents })
+                .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents ,nameList: nameList })
                 .then((response) => {
                     if (response.data) {
                         console.log(response.data);
@@ -802,6 +808,18 @@ const GroupAssignment = () => {
                                                 ))}
                                             </tbody>
                                         </table>
+
+
+                                        <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Specify group member names"
+                                                value={nameList}
+                                                onChange={(e)=>handleNameList(e.target.value)}
+                                                style={{ textAlign: 'center' }}
+                                            />
+                                            </Form.Group>
+                                        
 
                                         <div style={{ textAlign: "center" }}>
 

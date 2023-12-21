@@ -373,7 +373,9 @@ const formatSubmissionDate = (dateString) => {
             background:'' }} >
             <tr >
               <th style={{ ...head_color,width: '2%' }}>Sr #</th>
+              <th style={{ ...head_color,width: '5%' }}>Student Name</th>
               <th style={{ ...head_color,width: '5%' }}>Student Email</th>
+
               <th style={{ ...head_color,width: '5%' }}>Submission Date</th>
               <th style={{ ...head_color,width: '5%' }}>File</th>
               
@@ -397,6 +399,8 @@ const formatSubmissionDate = (dateString) => {
                 <tr >
                   <th style={{ ...head_color,width: '2%' }}>Sr #</th>
                   <th style={{ ...head_color,width: '5%' }}>Student Name</th>
+                  <th style={{ ...head_color,width: '5%' }}>Student Email</th>
+
                   <th style={{ ...head_color,width: '5%'  }}>Submission Date</th>
                   <th style={{ ...head_color,width: '5%'  }}>File</th>
                   
@@ -414,6 +418,7 @@ const formatSubmissionDate = (dateString) => {
     <React.Fragment key={submission._id}>
       <tr className={styles.tr}>
         <td style={{...row_color }}>{index+1}</td>
+        <td style={{...row_color }}>{submission.Name}</td>
         <td style={{...row_color }}>{submission.Email}</td>
         {/* <td style={{...row_color }}>{submission.submissionDate}</td> */}
         <td style={{ ...row_color, letterSpacing:'1px' }}>{formatSubmissionDate(submission.submissionDate)}</td>

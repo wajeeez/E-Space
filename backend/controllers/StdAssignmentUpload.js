@@ -61,7 +61,7 @@ async function StdAssignmentUpload(req, res, next) {
     }
 
     const { originalname, buffer, mimetype } = req.file;
-    const { Email ,classId,assignmentFileURL,  deadline } = req.body;
+    const { Email ,classId,assignmentFileURL,Name,  deadline } = req.body;
 
 
     const file = new stdAssignmentFile({
@@ -83,6 +83,7 @@ async function StdAssignmentUpload(req, res, next) {
      const newAssignment = new Submission({
       Email,
       classId,
+      Name,
       assignmentFileURL,
       submissionFileURL,
       deadline, // Save the deadline in the Assignment model

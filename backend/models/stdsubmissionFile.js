@@ -30,6 +30,10 @@ const submissionSchema = new mongoose.Schema({
   remarks:{
     type: String,
     default:""
+  },
+  Name:{
+    type:String,
+    default:""
   }
 
 

@@ -414,14 +414,14 @@ const StudentAuth ={
   async creatGroup(req,res,next){
 
     const {class_id} = req.params
-    const {stdIds} = req.body
+    const {stdIds,nameList} = req.body
 
       //const subResponse = await stdAssignmentFile.findOne({_id:response.submissionFileURL})
 
 
     console.log(class_id)
     console.log(stdIds)
-
+    console.log(nameList)
     const time = null
 
 
@@ -429,7 +429,7 @@ const StudentAuth ={
      
       stdIds:stdIds,
       classID:class_id,
-    
+      nameList:nameList,
       
     })
 

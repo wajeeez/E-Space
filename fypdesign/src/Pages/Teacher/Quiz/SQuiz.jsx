@@ -100,9 +100,8 @@ const SQuiz = () => {
     const authToken = localStorage.getItem("StdToken");
     if (authToken) {
       const decodedToken = jwt_decode(authToken);
-      setEmail(decodedToken.email);
-
-
+      setEmail(decodedToken.email)
+     
       // Fetch classes for the logged-in user from the server
       axios
         .get(baseURL + `/student/studentData/${decodedToken.email}`)
@@ -524,7 +523,7 @@ const SQuiz = () => {
       formData.append('classId', _id);
       formData.append('assignmentFileURL', getFileURL);
       formData.append('deadline', currentDate);
-  
+      formData.append('Name',StudentName)
       try {
         const response = await StudentQuiz(formData);
   

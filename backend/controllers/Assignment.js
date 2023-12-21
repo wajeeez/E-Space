@@ -721,7 +721,7 @@ async function deleteQuizSubmission(req, res, next) {
     // Delete the submission
     await Submissions.deleteOne({ _id: fileURL });
 
-    await SubmissionModel.deleteOne({submissionFileURL:submissionFileURL})
+    await quizSubmission.deleteOne({submissionFileURL:submissionFileURL})
 
     
 
@@ -732,6 +732,7 @@ async function deleteQuizSubmission(req, res, next) {
     return res.status(500).json({ message: 'Internal Server Error', error: err.message });
   }
 };
+
 
 module.exports = {
   UploadAssignment, UploadLecture, UploadGroupAssignment,deleteQuizSubmission
