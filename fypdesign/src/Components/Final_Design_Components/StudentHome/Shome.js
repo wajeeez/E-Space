@@ -21,8 +21,20 @@ function Shome() {
     const [classes, setClasses] = useState([]);
     const { _id } = useParams()
     const [subjectName, setSubjectName] = useState(null);
-
+    const [name, setName] = useState(null);
     const [notify,setnotify]  = useState([]);
+
+    useEffect(() => {
+      axios
+        .get(baseURL + `/teacher/class/${_id}`)
+        .then((response) => {
+          setName(response.data.response.teacherName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+
 
     const NotificationCard = ({ deadline }) => {
 
@@ -299,8 +311,9 @@ function Shome() {
       <div className="col-md-6 p-2">
       <div className="card h-100 text-white" style={{ background: bg, borderRadius: '20px', border:'1px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)' }}>
           <div className="card-body" style={{ textAlign: 'center', padding: '0px' }}>
-            <h4 className="card-title1" style={{postion:'', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', marginBottom:'2rem',color:'black' }}>Total Students</h4>
-            <h2 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', marginTop: '', marginBottom:'1.5rem' ,color:'green', fontWeight:'bold'}}>{totalStudents}</h2>
+            <h4 className="card-title1" style={{postion:'', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', marginBottom:'1.8rem',color:'black' }}>Teacher Name</h4>
+            {/* <h2 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', marginTop: '', marginBottom:'1.5rem' ,color:'green', fontWeight:'bold'}}>{totalStudents}</h2> */}
+            <h3 className="card-title1" style={{ fontFamily: 'Poppins, sans-serif', marginTop: '', marginBottom:'1.5rem' ,color:'#8539d1', fontWeight:'600', letterSpacing:'1px'}}>{name}</h3>
           </div>
         </div>
       </div>
