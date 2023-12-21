@@ -9,7 +9,7 @@ const cardData = [
   {
     iconClass: 'fa-solid fa-chalkboard-user fa-bounce',
     // title: 'Intereactive White Board',
-    title: 'Exploring the Interactive Whiteboard',
+    title: 'Interactive Whiteboard',
     description: 'Our interactive whiteboard makes collaboration visually inspiring, efficient and easy to share.',
     link: '/card1',
     backgroundColor: '#b23ac7',
@@ -43,16 +43,16 @@ const cardData = [
   {
     iconClass: 'fas fa-bell fa-shake',
         imgSrc: analysis,
-    title: 'Students : Never Miss A Deadline',
+    title: 'Never Miss A Deadline',
     // description: 'Real-time notifications ensure you never miss a submission, providing timely reminders to enhance punctuality.',
-    description: 'Real-time notifications ensure you never miss a submission, providing timely reminders.',
+    description: 'Real-time notifications ensure students never miss a submission, providing timely reminders.',
     link: '/card5',
     backgroundColor: ' #e5abc6',
   },
   {
     iconClass: 'fas fa-users fa-flip',
     imgSrc: analysis,
-    title: 'Embarking on Group Assignments',
+    title: 'Group Assignments',
     // description: 'Streamline student submissions, provide teacher-friendly assessments for better teamwork and evaluation.',
     description: 'Simplify student submissions, offer teacher-friendly assessments, promoting ease in evaluation.',
     link: '/card6',
@@ -76,7 +76,7 @@ const CardsCarousel = () => {
   const renderCards = (start, end) => {
     const cards = cardData.slice(start, end);
     return cards.map((card, index) => (
-      <Col key={index} md={4} >
+      <Col key={index} md={4}  >
 
         <div className="card custom-catousel-card" 
         
@@ -88,7 +88,6 @@ const CardsCarousel = () => {
          <i className={`${card.iconClass}`}></i>
          </div>
           <div className="container-fluid  car-body">
-           
             <h5 className="card-title car-title">{card.title}</h5>
             <p className="card-text car-text">{card.description}</p>
           </div>
@@ -188,7 +187,7 @@ const CardsCarousel = () => {
     ) : (
          // Desktop Layout
 
-    <Container className='conatiner-fluid'>
+    <div className='conatiner-fluid' style={{paddingLeft:'3rem',paddingRight:'3rem' }}>
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <div className="container-fluid">
           <Carousel activeIndex={activeRow} indicators={false} controls={false}>
@@ -222,7 +221,7 @@ const CardsCarousel = () => {
           </div>
         </Col>
       </Row>
-    </Container>
+    </div>
 
     )}
     </>

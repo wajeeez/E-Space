@@ -213,8 +213,8 @@ function Tmain() {
         
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
          <link href="https://kit.fontawesome.com/a19fe5b40c.js" crossorigin="anonymous"/>
-    <div class={sidebarClass}>
-    <div class="logo_details">
+    <div className={sidebarClass}>
+    <div className="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>
       <i class="bx bx-menu" id="btn"></i>
@@ -231,12 +231,12 @@ function Tmain() {
         
       </li> */}
     <ul class="nav-list">
-    <lis>
+    <a>
         <img src={userIcon} alt="profile image" class='user_image'/>
         
           <p style={{cursor:'default',color:'white'}}>{name}</p>
         
-      </lis> 
+      </a> 
 
       <li>
         <Link onClick={() => { handlePageChange('dashboard');}}>
@@ -280,14 +280,6 @@ function Tmain() {
         <span class="tooltip">Assignment</span>
       </li>
       <li>
-        <Link  onClick={() => handlePageChange('groupAssignment')}>
-        
-        <i class='bx bx-edit'></i>
-          <span class="link_name">Group Assignment</span>
-        </Link>
-        <span class="tooltip">Group Assignment</span>
-      </li>
-      <li>
         <Link onClick={() => handlePageChange('assignmentList')}>
         {/* <img src={subIcon} alt="Icon" className="button-icon" /> */}
         <i class='bx bx-list-check' ></i>
@@ -295,6 +287,15 @@ function Tmain() {
         </Link>
         <span class="tooltip"> Assign Submissions</span>
       </li>
+      <li>
+        <Link  onClick={() => handlePageChange('groupAssignment')}>
+        
+        <i class='bx bx-edit'></i>
+          <span class="link_name">Group Assignment</span>
+        </Link>
+        <span class="tooltip">Group Assignment</span>
+      </li>
+
       <li>
       <Link onClick={() => handlePageChange('quiz')}>
         {/* <img src={quizIcon} alt="Icon" className="button-icon" /> */}
@@ -311,6 +312,9 @@ function Tmain() {
         </Link>
         <span class="tooltip">Quiz Submissions</span>
       </li>
+
+      <p className='ps'>x</p>
+
       <li>
       
       <a onClick={() => setShowDeleteModal(true)}>
@@ -320,15 +324,10 @@ function Tmain() {
       </a>
       <span class="tooltip">Delete Class</span>
 
-      <DeleteClassModal
-        show={showDeleteModal}
-        handleDeleteConfirmed={handleDeleteConfirmed}
-        handleDeleteCancelled={handleDeleteCancelled}
-      />
     </li>
 
+    <p className='ps'>x</p>
 
-      <p className='ps'>x</p>
       <li>
         
         <Link onClick={handleLeaveClass}>
@@ -339,16 +338,17 @@ function Tmain() {
         
         <span class="tooltip">Leave Class</span>
       </li>
-      {/* <p className='ps'>x</p> */}
+
       
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('account')}>
-        {/* <img src={accsetIcon} alt="Icon" className="button-icon" /> */}
+
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
         <span class="tooltip">User Setting</span>
-      </li>
+      </li> */}
+      
       <li>
         <a onClick={handleLogout}>
         {/* <img src={logoutIcon} alt="Icon" className="button-icon" /> */}
@@ -361,7 +361,13 @@ function Tmain() {
 
       
     </ul>
+
   </div>
+  <DeleteClassModal
+        show={showDeleteModal}
+        handleDeleteConfirmed={handleDeleteConfirmed}
+        handleDeleteCancelled={handleDeleteCancelled}
+      />
   <section class="container-fluid home-section">
     
     {/* <div className="tpage" > */}

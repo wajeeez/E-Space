@@ -21,7 +21,7 @@ import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import userIcon from '../../../Assets/images/user.png';
 import logoImage from '../../../Assets/images/logo1.png';
-
+import StdSettings from '../../../Pages/Student/User/AccSetting';
 
 import { useFormik } from "formik";
 import Papa from "papaparse";
@@ -244,7 +244,7 @@ function SHeroSection() {
         <Row>
           {cards.map((card, index) => (
             <Col key={index} md={3} className="p-3">
-              <div className="card" style={{ background: '', borderRadius: '20px', border: '3px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', height: '140px' }}>
+              <div className="card" style={{ background: '', borderRadius: '20px', border: '3px solid #8539d1', boxShadow: '7px 7px 5px rgba(0, 0, 0, 0.2)', height: '140px' , alignItems:'center'}}>
                 <Link to={`/student/class/${card._id}`} style={{ textDecoration: 'none' }}>
                   <div className="card-body" style={{ textAlign: 'center', padding: '5px', margin: '5px' }}>
                     <h4 className="card-title1" style={{ fontSize: 'large', fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', marginTop: '10px', color: 'black', whiteSpace: '', maxWidth: '200px' }}>{card.subjectName}</h4>
@@ -301,7 +301,7 @@ function SHeroSection() {
 
       <p className='pss'>x</p>
       <li>
-        <Link onClick={() => handlePageChange('user')}>
+        <Link onClick={() => handlePageChange('stdsettings')}>
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
@@ -498,52 +498,17 @@ function SHeroSection() {
 
 
 
-        {currentPage === 'settings' && <div>user</div> }   
+
            
            </div>
 
         }
 
+        {currentPage === 'stdsettings' && <StdSettings></StdSettings> }   
   </div>
         
       </div>
 
-        
-        {/* <div className='thero-container'>
-      <div className='shero-heading'>
-        <th>CLASSES</th>
-      </div>
-      <center >
-        <div>
-          <p className='s-info-top'>
-            Student Name : {StudentName}     |     Student Email : {email}{" "}
-          </p>
-        </div>
-      </center>
-
-      <div className='shero-cards'>
-        {classes.map((cls) => (
-          <Link to={`/student/class/${cls._id}`} className='shero-card' key={cls._id}>
-            <div className='shero-card-content'>
-              <tc>{cls.subjectName}</tc>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      
-
-        
-        <Link onClick={handleLogout} className='shero-card2'>
-          <div className='shero-card-content'>
-            <h2>Logout</h2>
-          </div>
-        </Link>
-
-        
-      </div> */}
-    
-        
         
         </>
 

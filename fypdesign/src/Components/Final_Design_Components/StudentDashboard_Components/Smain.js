@@ -132,8 +132,8 @@ function Smain() {
       <div className="container-fluid smain">
          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         
-        <div class={sidebarClass}>
-    <div class="logo_details">
+         <div className={sidebarClass}>
+    <div className="logo_details">
       
       <img src={logoImage} alt="Logo" class="logo_image"/>
       <i class="bx bx-menu" id="btn"></i>
@@ -150,7 +150,7 @@ function Smain() {
         
       </li> */}
     <ul class="snav-list">
-    <lis>
+    <a>
         <img src={userIcon} alt="profile image" class='user_image'/>
         
         {/* {sidebarClass !== "ssidebar" && (
@@ -158,7 +158,7 @@ function Smain() {
           )} */}
         <p style={{cursor:'default',color:'white'}} >{std}</p>
 
-      </lis>
+      </a>
 
       <li>
         <Link onClick={() => { handlePageChange('dashboard');}}>
@@ -213,13 +213,13 @@ function Smain() {
         <span class="tooltip">Leave Class</span>
       </li>
       <p className='pss'>x</p>
-      <li>
+      {/* <li>
         <Link onClick={() => handlePageChange('account')}>
         <i class='bx bxs-user-detail' ></i>
           <span class="link_name">User Settings</span>
         </Link>
         <span class="tooltip">User Setting</span>
-      </li>
+      </li> */}
       <li>
         <a onClick={handleLogout}>
         <i class='bx bx-arrow-to-left' ></i>

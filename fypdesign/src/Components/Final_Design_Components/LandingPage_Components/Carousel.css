@@ -66,6 +66,8 @@ html , body{
     border-radius: 20px;
 }
 
+
+
 .car-body {
     display: flex;
     flex-direction: column;
