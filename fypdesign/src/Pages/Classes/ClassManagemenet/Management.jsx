@@ -253,15 +253,17 @@ function Management() {
             </table>
 
             {/* Modal for file upload */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Upload Students</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/* File input for selecting a file */}
-                    <input type="file" onChange={handleFileUpload} />
+                    <h6>Remember all student names in the first column in a .csv file</h6>
+                    <br/>
+                    <input type="file" onChange={handleFileUpload} accept=".csv"/>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer style={{ justifyContent:'center'}}>
                     {/* Button to trigger the file upload */}
                     <Button variant="primary" onClick={handleReg}>
                         Upload
@@ -273,18 +275,18 @@ function Management() {
 
 
              {/* Modal for remove confirmation */}
-      <Modal show={showRemoveConfirmation} onHide={() => setShowRemoveConfirmation(false)}>
+      <Modal show={showRemoveConfirmation} onHide={() => setShowRemoveConfirmation(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Remove Student</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Are you sure you want to remove this student from the class?</p>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{ justifyContent:'center'}}>
           <Button variant="secondary" onClick={() => setShowRemoveConfirmation(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={confirmRemove}>
+          <Button variant="danger" onClick={confirmRemove}>
             Remove
           </Button>
         </Modal.Footer>

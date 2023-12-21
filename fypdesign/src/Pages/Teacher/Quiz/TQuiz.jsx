@@ -752,8 +752,6 @@ const handleDeadlineChange_edt = (event) => {
                 className={styles.assignmentButton}
                 style={{ color: '' }}
               />
-
-
             </Form.Group>
 
 
@@ -822,7 +820,7 @@ const handleDeadlineChange_edt = (event) => {
                 <th style={{ ...head_color, width: '5%' }}>Title</th>
                 <th style={{ ...head_color, width: '5%' }}>Quiz File</th>
                 <th style={{ ...head_color, width: '5%' }}>Total Marks</th>
-                <th style={{ ...head_color, width: '5%' }}>Deadline</th>
+                <th style={{ ...head_color, width: '7%' }}>Deadline</th>
                 <th style={{ ...head_color, width: '7%' }}>Action</th>
               </tr>
             </thead>
@@ -851,8 +849,8 @@ const handleDeadlineChange_edt = (event) => {
                   </td>
                   <td style={{ ...row_color ,fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'green', fontFamily:'Arial'}}>
                     
-                      {/* {new Date(assignment.deadline).toLocaleDateString('en-GB')}
-                      <span> </span> */}
+                      {new Date(assignment.deadline).toLocaleDateString('en-GB')}
+                      <span> </span>
                       {formatTime(assignment.time)}
                     
                     {/* <button

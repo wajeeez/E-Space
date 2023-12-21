@@ -106,38 +106,48 @@ const GroupAssignment = () => {
 
     //SUbmission
     const [dialogMessage, setDialogMessage] = useState();
-    const handleCreate = () => {
-        // Check if the studentId is already in the selectedStudents array
-        console.log(selectedStudents);
 
-        if (selectedStudents && selectedStudents.length >= 2) {
-            axios
-                .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents ,nameList: nameList })
-                .then((response) => {
-                    if (response.data) {
-                        console.log(response.data);
-                        setDialogMessage("Success");
-                        recheck();
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            setSelectedStudents([]);
+const handleCreate = () => {
+    // Check if the studentId is already in the selectedStudents array
+    console.log(selectedStudents);
 
-            toast.success("Group Created Successfully", {
+    if (selectedStudents && selectedStudents.length >= 2 && nameList !== "") {
+        axios
+            .post(baseURL + `/students/createGroup/${_id}`, { stdIds: selectedStudents, nameList: nameList })
+            .then((response) => {
+                if (response.data) {
+                    console.log(response.data);
+                    setDialogMessage("Success");
+                    recheck();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        setSelectedStudents([]);
+
+        toast.success("Group Created Successfully", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_RIGHT,
+        });
+
+        setDialogOpen(false);
+    } else {
+        if (nameList.trim() === "") {
+            toast.error("Please specify group member names", {
                 autoClose: 1000,
                 position: toast.POSITION.TOP_RIGHT,
             });
-
-            setDialogOpen(false);
         } else {
-            toast.error("Please Select 2 or more Students", {
+            toast.error("Please select 2 or more students", {
                 autoClose: 1000,
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
-    };
+    }
+};
+
 
 
 
@@ -898,6 +908,7 @@ const GroupAssignment = () => {
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
                                         <td style={{ ...row_color, textAlign: 'center' }}>
                                             Group {index + 1}
+                                            
                                         </td>
                                         <td style={{ ...row_color, textAlign: 'center' }}>
                                             {assignment.fileURL != "" ? <button
