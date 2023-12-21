@@ -141,7 +141,7 @@ const handleDeadlineChange_edt = (event) => {
 
 
 
-    if (!selectedFile || !teacherID || !subjectName || !deadline || !time) {
+    if (!selectedFile || !teacherID || !subjectName || !deadline || !time || !totalMarks) {
 
       toast.error('Data Missing Please Select a File and Deadline ', {
         position: toast.POSITION.TOP_RIGHT,
