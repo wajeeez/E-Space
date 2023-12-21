@@ -9,7 +9,8 @@ const TChart = () => {
     const [totalGroupAssignment, settotalGroupAssignment] = useState(null);
     const [submittedGroupAssignments, setsubmittedGroupAssignments] = useState(null);
     const [totalLectures, settotalLectures] = useState(null);
-   
+    const [totalQuiz, settotalQuiz] = useState(null);
+    const [submittedQuiz, setsubmittedQuiz] = useState(null);
     const baseURL = process.env.React_App_INTERNAL_API_PATH;
     const { _id } = useParams();
     const [email, setEmail] = useState('');
@@ -44,6 +45,9 @@ const TChart = () => {
                         settotalGroupAssignment(response.data.totalGroupAssignment)
                         setsubmittedGroupAssignments(response.data.submittedGroupAssignments)
                         settotalLectures(response.data.totalLectures)
+                        settotalQuiz(response.data.totalQuiz)
+                        console.log("TOTAL QUIZ--------------",response.data.totalQuiz)
+                        setsubmittedQuiz(response.data.submittedQuiz)
                     }
                 })
                 .catch(error => {
@@ -59,10 +63,13 @@ const TChart = () => {
     console.log('totalGroupAssignment:', totalGroupAssignment);
     console.log('submittedGroupAssignments:', submittedGroupAssignments);
     console.log('totalLectures:', totalLectures);
+    console.log('totalQuiz:', totalQuiz);
+
     // Use assignmentData to set the data for the BarChart
     const data = [
         { label: 'Assignments', total: totalAssignments, submitted: submittedAssignments },
         { label: 'Group Assignments', total: totalGroupAssignment, submitted: submittedGroupAssignments },
+        { label: 'Quiz', total: totalQuiz ,submitted: submittedQuiz },
         { label: 'Lectures', total: totalLectures },
       ];
     return (
