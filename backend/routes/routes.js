@@ -111,7 +111,7 @@ router.post('/teacher/quiz/upload', UploadAssignment.UploadQuiz)
 router.post('/teacher/quizEdit/:_id', UploadAssignment.quizTeacherEdit)
 router.post('/teacher/deleteQuiz/:_id', UploadAssignment.deleteQuiz)
 router.get('/teacher/quiz/list/:class_id', getAllAssignments.getAllQuiz)
-router.post('/quiz/updateStudentMarks',TeacherMarks_Remarks.SubmitMarks)
+router.post('/quiz/updateStudentMarks',TeacherMarks_Remarks.SubmitQuizMarks)
 
 
 //Student Side Quiz

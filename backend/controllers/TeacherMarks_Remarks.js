@@ -22,7 +22,7 @@ async  SubmitMarks(req, res, next) {
 
 
        
-        const uploadMarks = await quizSubmission.findOneAndUpdate(
+        const uploadMarks = await Submission.findOneAndUpdate(
           { Email:Email,submissionFileURL: submissionFileURL, classId: classId },
           {
             marks: marks,
@@ -62,8 +62,7 @@ async  SubmitQuizMarks(req, res, next) {
       if (!uploadMarks) {
         return res.status(404).json({ message: `Failed to Update 1 ` });
       }
-      
-  
+
       return res.status(201).json({ message: 'Marks uploaded successfully' });
     } catch (err) {
       // Handle any errors that occurred during assignment upload
