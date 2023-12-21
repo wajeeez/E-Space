@@ -126,7 +126,7 @@ const handleCreate = () => {
             });
 
         setSelectedStudents([]);
-
+        setnameList("")
         toast.success("Group Created Successfully", {
             autoClose: 1000,
             position: toast.POSITION.TOP_RIGHT,
@@ -820,14 +820,15 @@ const handleCreate = () => {
                                         </table>
 
 
-                                        <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '300px' }}>
+                                        <Form.Group className="mb-3" style={{ margin: '0 5px 10px 0', width: '100%', maxWidth: '500px' }}>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Specify group member names"
+                                                placeholder="Group Member Names"
                                                 value={nameList}
                                                 onChange={(e)=>handleNameList(e.target.value)}
                                                 style={{ textAlign: 'center' }}
                                             />
+                                            <p style={{marginTop:'10px', }} >* Double Space after a Student Name *</p>
                                             </Form.Group>
                                         
 
@@ -877,8 +878,8 @@ const handleCreate = () => {
                         background: ''
                     }} >
                         <tr >
-                            <th style={{ ...head_color, width: '1%' }}>Sr#</th>
-                            <th style={{ ...head_color, width: '5%' }}>Title</th>
+                            <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                            <th style={{ ...head_color, width: '6%' }}>Group Members</th>
                             <th style={{ ...head_color, width: '5%' }}>Assignment File</th>
                             <th style={{ ...head_color, width: '5%' }}>Remarks</th>
                             <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
@@ -905,10 +906,9 @@ const handleCreate = () => {
                                 <React.Fragment key={assignment.fileURL}>
 
                                     <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
-                                        <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                        <td style={{ ...row_color, textAlign: 'center' }}>
-                                            Group {index + 1} <br></br> {assignment.nameList}
-                                            
+                                        <td style={{ ...row_color, textAlign: 'center' }}>Group {index + 1}</td>
+                                        <td style={{ ...row_color, whiteSpace: 'pre-line' ,height:'7rem'}}>
+                                            <div dangerouslySetInnerHTML={{ __html: assignment.nameList.replace(/\s{2}/g, '<br/>') }} />
                                         </td>
                                         <td style={{ ...row_color, textAlign: 'center' }}>
                                             {assignment.fileURL != "" ? <button

@@ -954,8 +954,8 @@ const GroupAssignmentTeacher = () => {
                             background: ''
                         }} >
                             <tr >
-                                <th style={{ ...head_color, width: '1%' }}>Sr#</th>
-                                <th style={{ ...head_color, width: '4%' }}>Title</th>
+                                <th style={{ ...head_color, width: '2%' }}>Sr#</th>
+                                <th style={{ ...head_color, width: '6%' }}>Group members</th>
                                 <th style={{ ...head_color, width: '4%' }}>Assignment File</th>
                                 <th style={{ ...head_color, width: '5%' }}>Remarks</th>
                                 <th style={{ ...head_color, width: '5%' }}>Marks Obtained</th>
@@ -971,9 +971,9 @@ const GroupAssignmentTeacher = () => {
                                 <React.Fragment key={index}>
 
                                     <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
-                                        <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
-                                        <td style={{ ...row_color, }}>
-                                            Group {index + 1} <br/> {student.nameList}
+                                        <td style={{ ...row_color, textAlign: 'center' }}>Group {index + 1}</td>
+                                        <td style={{ ...row_color, whiteSpace: 'pre-line' ,height:'7rem'}}>
+                                            <div dangerouslySetInnerHTML={{ __html: student.nameList.replace(/\s{2}/g, '<br/>') }} />
                                         </td>
                                         <td style={{ ...row_color, }}>
                                             {student.fileURL != "" ? <Button
