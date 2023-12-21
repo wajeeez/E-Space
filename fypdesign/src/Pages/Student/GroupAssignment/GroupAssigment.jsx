@@ -907,7 +907,7 @@ const handleCreate = () => {
                                     <tr key={assignment.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
                                         <td style={{ ...row_color, textAlign: 'center' }}>
-                                            Group {index + 1}
+                                            Group {index + 1} <br></br> {assignment.nameList}
                                             
                                         </td>
                                         <td style={{ ...row_color, textAlign: 'center' }}>

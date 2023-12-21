@@ -973,7 +973,7 @@ const GroupAssignmentTeacher = () => {
                                     <tr key={student.fileURL} style={{ color: 'black', textAlign: 'center' }}>
                                         <td style={{ ...row_color, textAlign: 'center' }}>{index + 1}</td>
                                         <td style={{ ...row_color, }}>
-                                            Group {index + 1}
+                                            Group {index + 1} <br/> {student.nameList}
                                         </td>
                                         <td style={{ ...row_color, }}>
                                             {student.fileURL != "" ? <Button
